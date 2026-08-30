@@ -1,0 +1,375 @@
+{
+  "scenario_id": "scenario_02",
+  "title": "recupero password di Lumen Market",
+  "version": "0.1",
+  "status": "bozza non congelata",
+  "frozen": false,
+  "source_files": [
+    "pilot/scenario_02_sessions.md",
+    "pilot/scenario_02_oracle.md",
+    "pilot/scenario_02_review.md"
+  ],
+  "abstention_rule": "Quando almeno un fatto obbligatorio non è accessibile, il comportamento corretto è dichiarare che le informazioni non sono sufficienti.",
+  "conditions": {
+    "C0": {
+      "label": "Nessuna memoria",
+      "accessible_sessions": []
+    },
+    "C1": {
+      "label": "Memoria locale",
+      "accessible_sessions": [
+        "SC02-S4"
+      ]
+    },
+    "C2": {
+      "label": "Memoria condivisa",
+      "accessible_sessions": [
+        "SC02-S1",
+        "SC02-S2",
+        "SC02-S3",
+        "SC02-S4"
+      ]
+    }
+  },
+  "expected_reachability_totals": {
+    "C0": 0,
+    "C1": 3,
+    "C2": 6,
+    "total_questions": 7
+  },
+  "sessions": [
+    {
+      "session_id": "SC02-S1",
+      "source_label": "Sessione 1",
+      "order": 1,
+      "title": "Apertura e decisione iniziale",
+      "messages": [
+        {
+          "message_id": "SC02-S1-U1",
+          "source_label": "S1-U1",
+          "session_id": "SC02-S1",
+          "order": 1,
+          "role": "user",
+          "content": "Sto seguendo un problema nel recupero password di Lumen Market. Tre account hanno subito un cambio di password non autorizzato tramite il portale `account-portal`. Abbiamo due obiettivi: impedire altri cambi non autorizzati e mantenere utilizzabile il recupero password nell'app mobile. La decisione iniziale è inserire un CAPTCHA dopo la prima richiesta di recupero effettuata dallo stesso account. Prima di applicarla dobbiamo controllare il registro `reset_audit`."
+        },
+        {
+          "message_id": "SC02-S1-A1",
+          "source_label": "S1-A1",
+          "session_id": "SC02-S1",
+          "order": 2,
+          "role": "assistant",
+          "content": "Registrato. Tratterò il CAPTCHA come decisione iniziale da verificare in base alle evidenze."
+        }
+      ]
+    },
+    {
+      "session_id": "SC02-S2",
+      "source_label": "Sessione 2",
+      "order": 2,
+      "title": "Evidenza e cambio di decisione",
+      "messages": [
+        {
+          "message_id": "SC02-S2-U1",
+          "source_label": "S2-U1",
+          "session_id": "SC02-S2",
+          "order": 1,
+          "role": "user",
+          "content": "Il controllo di `reset_audit` è terminato. Per ciascuno dei tre account risulta una sola richiesta di recupero, ma lo stesso link è stato utilizzato due volte. La decisione iniziale non impedirebbe quindi il problema osservato e non è più l'intervento scelto. La decisione aggiornata è usare token validi una sola volta e con scadenza dopo 15 minuti."
+        },
+        {
+          "message_id": "SC02-S2-A1",
+          "source_label": "S2-A1",
+          "session_id": "SC02-S2",
+          "order": 2,
+          "role": "assistant",
+          "content": "Decisione aggiornata: il controllo deve impedire il riutilizzo del token e limitarne la durata."
+        }
+      ]
+    },
+    {
+      "session_id": "SC02-S3",
+      "source_label": "Sessione 3",
+      "order": 3,
+      "title": "Implementazione e verifiche",
+      "messages": [
+        {
+          "message_id": "SC02-S3-U1",
+          "source_label": "S3-U1",
+          "session_id": "SC02-S3",
+          "order": 1,
+          "role": "user",
+          "content": "L'uso singolo del token è stato implementato nel componente `ResetTokenService`: dopo il primo cambio di password riuscito, il token viene segnato come consumato. I test di integrazione del portale web sono stati superati. Rimangono da eseguire due verifiche: controllare che il collegamento aperto dall'app mobile riporti correttamente alla schermata di accesso e provare un'email di recupero consegnata dopo il limite di validità stabilito nella sessione precedente."
+        },
+        {
+          "message_id": "SC02-S3-A1",
+          "source_label": "S3-A1",
+          "session_id": "SC02-S3",
+          "order": 2,
+          "role": "assistant",
+          "content": "Terrò separati il lavoro già completato e le due verifiche ancora da eseguire."
+        }
+      ]
+    },
+    {
+      "session_id": "SC02-S4",
+      "source_label": "Sessione 4",
+      "order": 4,
+      "title": "Stato locale e riunione",
+      "messages": [
+        {
+          "message_id": "SC02-S4-U1",
+          "source_label": "S4-U1",
+          "session_id": "SC02-S4",
+          "order": 1,
+          "role": "user",
+          "content": "Il test del collegamento nell'app mobile è stato completato: dopo il cambio di password l'utente viene riportato correttamente alla schermata di accesso. Rimane da completare soltanto il test dell'email consegnata in ritardo. La riunione di verifica del rilascio è fissata per martedì alle 11:30 e deve includere il risultato di questo test ancora pendente."
+        },
+        {
+          "message_id": "SC02-S4-A1",
+          "source_label": "S4-A1",
+          "session_id": "SC02-S4",
+          "order": 2,
+          "role": "assistant",
+          "content": "Stato aggiornato. Considererò completato il test mobile e ancora aperto il test dell'email ritardata."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "SC02-Q1",
+      "source_label": "Q1",
+      "category": "goal",
+      "phenomenon": "Obiettivi",
+      "text": "Quali due obiettivi sono stati fissati per l'intervento sul recupero password?",
+      "expected_answer": "Impedire altri cambi di password non autorizzati e mantenere utilizzabile il recupero password nell'app mobile.",
+      "mandatory_facts": [
+        "impedire altri cambi non autorizzati",
+        "mantenere utilizzabile il recupero password nell'app mobile"
+      ],
+      "required_evidence_ids": [
+        "SC02-S1-U1"
+      ],
+      "evidence_note": null,
+      "obsolete_information": [],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che conservino entrambi gli obiettivi."
+      ],
+      "fact_present_in_corpus": true,
+      "reachability": {
+        "C0": false,
+        "C1": false,
+        "C2": true
+      },
+      "expected_behavior_by_condition": {
+        "C0": "Astensione",
+        "C1": "Astensione",
+        "C2": "Risposta completa"
+      },
+      "expected_behavior_when_unreachable": "Quando almeno un fatto obbligatorio non è accessibile, il comportamento corretto è dichiarare che le informazioni non sono sufficienti."
+    },
+    {
+      "question_id": "SC02-Q2",
+      "source_label": "Q2",
+      "category": "update_obsolete",
+      "phenomenon": "Decisione aggiornata e decisione superata",
+      "text": "Qual è la decisione attualmente valida sui token di recupero e quale decisione iniziale è stata superata?",
+      "expected_answer": "I token devono essere utilizzabili una sola volta e scadere dopo 15 minuti; è stata superata la decisione di inserire un CAPTCHA dopo la prima richiesta.",
+      "mandatory_facts": [
+        "uso singolo",
+        "scadenza dopo 15 minuti",
+        "CAPTCHA come decisione superata"
+      ],
+      "required_evidence_ids": [
+        "SC02-S1-U1",
+        "SC02-S2-U1"
+      ],
+      "evidence_note": null,
+      "obsolete_information": [
+        "presentare il CAPTCHA come intervento ancora scelto."
+      ],
+      "accepted_equivalents": [
+        "“monouso” come equivalente di “utilizzabile una sola volta”."
+      ],
+      "fact_present_in_corpus": true,
+      "reachability": {
+        "C0": false,
+        "C1": false,
+        "C2": true
+      },
+      "expected_behavior_by_condition": {
+        "C0": "Astensione",
+        "C1": "Astensione",
+        "C2": "Risposta completa"
+      },
+      "expected_behavior_when_unreachable": "Quando almeno un fatto obbligatorio non è accessibile, il comportamento corretto è dichiarare che le informazioni non sono sufficienti."
+    },
+    {
+      "question_id": "SC02-Q3",
+      "source_label": "Q3",
+      "category": "completed_activity",
+      "phenomenon": "Verifica completata",
+      "text": "Quale verifica è stata completata nell'ultima sessione e con quale esito?",
+      "expected_answer": "È stato completato il test del collegamento nell'app mobile e, dopo il cambio di password, l'utente viene riportato correttamente alla schermata di accesso.",
+      "mandatory_facts": [
+        "test del collegamento mobile completato",
+        "ritorno corretto alla schermata di accesso"
+      ],
+      "required_evidence_ids": [
+        "SC02-S4-U1"
+      ],
+      "evidence_note": null,
+      "obsolete_information": [
+        "descrivere il test mobile come ancora da eseguire."
+      ],
+      "accepted_equivalents": [
+        "“login” come equivalente di “schermata di accesso”."
+      ],
+      "fact_present_in_corpus": true,
+      "reachability": {
+        "C0": false,
+        "C1": true,
+        "C2": true
+      },
+      "expected_behavior_by_condition": {
+        "C0": "Astensione",
+        "C1": "Risposta completa",
+        "C2": "Risposta completa"
+      },
+      "expected_behavior_when_unreachable": "Quando almeno un fatto obbligatorio non è accessibile, il comportamento corretto è dichiarare che le informazioni non sono sufficienti."
+    },
+    {
+      "question_id": "SC02-Q4",
+      "source_label": "Q4",
+      "category": "pending_activity",
+      "phenomenon": "Verifica pendente",
+      "text": "Quale verifica rimane ancora da completare?",
+      "expected_answer": "Rimane da completare il test dell'email di recupero consegnata in ritardo.",
+      "mandatory_facts": [
+        "test dell'email consegnata in ritardo"
+      ],
+      "required_evidence_ids": [
+        "SC02-S4-U1"
+      ],
+      "evidence_note": null,
+      "obsolete_information": [
+        "includere il test mobile tra le attività ancora aperte."
+      ],
+      "accepted_equivalents": [
+        "“email consegnata dopo il limite” come formulazione equivalente."
+      ],
+      "fact_present_in_corpus": true,
+      "reachability": {
+        "C0": false,
+        "C1": true,
+        "C2": true
+      },
+      "expected_behavior_by_condition": {
+        "C0": "Astensione",
+        "C1": "Risposta completa",
+        "C2": "Risposta completa"
+      },
+      "expected_behavior_when_unreachable": "Quando almeno un fatto obbligatorio non è accessibile, il comportamento corretto è dichiarare che le informazioni non sono sufficienti."
+    },
+    {
+      "question_id": "SC02-Q5",
+      "source_label": "Q5",
+      "category": "local_information",
+      "phenomenon": "Informazione locale",
+      "text": "Quando si terrà la riunione di verifica e quale risultato dovrà includere?",
+      "expected_answer": "La riunione si terrà martedì alle 11:30 e dovrà includere il risultato del test dell'email consegnata in ritardo.",
+      "mandatory_facts": [
+        "martedì",
+        "ore 11:30",
+        "risultato del test dell'email ritardata"
+      ],
+      "required_evidence_ids": [
+        "SC02-S4-U1"
+      ],
+      "evidence_note": null,
+      "obsolete_information": [],
+      "accepted_equivalents": [
+        "notazioni orarie equivalenti."
+      ],
+      "fact_present_in_corpus": true,
+      "reachability": {
+        "C0": false,
+        "C1": true,
+        "C2": true
+      },
+      "expected_behavior_by_condition": {
+        "C0": "Astensione",
+        "C1": "Risposta completa",
+        "C2": "Risposta completa"
+      },
+      "expected_behavior_when_unreachable": "Quando almeno un fatto obbligatorio non è accessibile, il comportamento corretto è dichiarare che le informazioni non sono sufficienti."
+    },
+    {
+      "question_id": "SC02-Q6",
+      "source_label": "Q6",
+      "category": "cross_session_link",
+      "phenomenon": "Collegamento tra sessioni",
+      "text": "Quale comportamento deve confermare il test ancora pendente e quale limite temporale deve controllare?",
+      "expected_answer": "Deve confermare che un link di recupero consegnato in ritardo non sia più utilizzabile dopo 15 minuti.",
+      "mandatory_facts": [
+        "rifiuto del link oltre il limite",
+        "limite di 15 minuti",
+        "collegamento con il test ancora pendente"
+      ],
+      "required_evidence_ids": [
+        "SC02-S2-U1",
+        "SC02-S4-U1"
+      ],
+      "evidence_note": null,
+      "obsolete_information": [
+        "indicare un limite temporale diverso o descrivere il test come già completato."
+      ],
+      "accepted_equivalents": [
+        "“token scaduto” o “link non valido” dopo 15 minuti."
+      ],
+      "fact_present_in_corpus": true,
+      "reachability": {
+        "C0": false,
+        "C1": false,
+        "C2": true
+      },
+      "expected_behavior_by_condition": {
+        "C0": "Astensione",
+        "C1": "Astensione",
+        "C2": "Risposta completa"
+      },
+      "expected_behavior_when_unreachable": "Quando almeno un fatto obbligatorio non è accessibile, il comportamento corretto è dichiarare che le informazioni non sono sufficienti."
+    },
+    {
+      "question_id": "SC02-Q7",
+      "source_label": "Q7",
+      "category": "absent_information",
+      "phenomenon": "Informazione assente",
+      "text": "Chi approverà il rilascio in produzione?",
+      "expected_answer": "La persona responsabile dell'approvazione non è stata indicata.",
+      "mandatory_facts": [
+        "riconoscimento dell'assenza dell'informazione"
+      ],
+      "required_evidence_ids": [],
+      "evidence_note": "nessuna evidenza positiva; controllo dell'intero scenario.",
+      "obsolete_information": [
+        "attribuire l'approvazione a una persona o a un ruolo non menzionato."
+      ],
+      "accepted_equivalents": [
+        "qualsiasi astensione esplicita senza identità o ruolo inventati."
+      ],
+      "fact_present_in_corpus": false,
+      "reachability": {
+        "C0": false,
+        "C1": false,
+        "C2": false
+      },
+      "expected_behavior_by_condition": {
+        "C0": "Astensione",
+        "C1": "Astensione",
+        "C2": "Astensione"
+      },
+      "expected_behavior_when_unreachable": "Quando almeno un fatto obbligatorio non è accessibile, il comportamento corretto è dichiarare che le informazioni non sono sufficienti."
+    }
+  ]
+}
