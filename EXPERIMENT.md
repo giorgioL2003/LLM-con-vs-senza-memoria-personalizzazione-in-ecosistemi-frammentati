@@ -1,8 +1,26 @@
 # Scheda dell'esperimento
 
-**Stato:** bozza metodologica v0.1  
-**Fasi della roadmap:** 1 — delimitazione; 2 — progettazione dei risultati  
-**Nota:** questa scheda precede la costruzione del dataset. Le scelte potranno essere corrette durante il pilot, prima del congelamento dell'esperimento.
+**Stato:** protocollo applicato al pilot; pilot eseguito e valutato, non ancora congelato
+
+**Fasi svolte:** 1–4 e 6–8 della roadmap. La fase 5, cioè il confronto
+metodologico con il relatore, è il prossimo passaggio.
+
+**Aggiornamento:** 2026-08-31
+
+Questa scheda è stata scritta **prima** della costruzione del dataset e definisce
+condizioni, annotazioni e metriche in anticipo rispetto ai risultati. Il testo
+delle sezioni 1–14 è quello concordato in fase di progettazione e non viene
+riscritto sulla base di ciò che è stato osservato: serve proprio a dimostrare
+che i criteri non sono stati scelti dopo aver visto le risposte.
+
+Da allora il pilot è stato costruito ed eseguito per intero: retrieval
+automatico, generazione delle 56 risposte, valutazione, metriche aggregate e
+analisi causale dei due fallimenti. Lo stato di avanzamento e i risultati sono
+in `pilot/pilot_summary.md`; le metriche in `pilot/metrics_pilot.md`; l'analisi
+degli errori in `pilot/error_analysis_pilot.md`.
+
+Il protocollo **non è congelato** (fase 9 della roadmap): le scelte potranno
+ancora essere corrette dopo il confronto con il relatore.
 
 ## 1. Domanda di ricerca
 
@@ -225,7 +243,10 @@ Una domanda difettosa non deve essere interpretata come errore del sistema: va c
 
 ## 12. Risultati attesi prima dell'esecuzione
 
-Queste sono previsioni qualitative, non risultati già osservati:
+Queste sono previsioni qualitative registrate **prima** dell'esecuzione e
+lasciate invariate. Non sono risultati osservati: i valori effettivamente
+misurati sul pilot si trovano in `pilot/metrics_pilot.md` e
+`results/metrics_pilot.json`.
 
 | Condizione | Raggiungibilità attesa | Comportamento atteso | Rischio caratteristico |
 |---|---|---|---|

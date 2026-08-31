@@ -1,0 +1,282 @@
+{
+  "conditions": {
+    "C0": {
+      "answer_class_counts": {
+        "complete": 0,
+        "correct_abstention": 14,
+        "incorrect": 0,
+        "partial": 0
+      },
+      "answer_class_proportions": {
+        "complete": {
+          "denominator": 14,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "correct_abstention": {
+          "denominator": 14,
+          "numerator": 14,
+          "value": 1.0
+        },
+        "incorrect": {
+          "denominator": 14,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "partial": {
+          "denominator": 14,
+          "numerator": 0,
+          "value": 0.0
+        }
+      },
+      "answer_success_rate": {
+        "denominator": 0,
+        "numerator": 0,
+        "value": null
+      },
+      "complete_answer_rate": {
+        "denominator": 14,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "correct_abstention_rate": {
+        "denominator": 14,
+        "numerator": 14,
+        "value": 1.0
+      },
+      "obsolete_information_use_rate": {
+        "denominator": 14,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "reachability_rate": {
+        "denominator": 14,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "reachable_questions": 0,
+      "retrieval_success_rate": {
+        "denominator": 0,
+        "numerator": 0,
+        "value": null
+      },
+      "total_trials": 14,
+      "unreachable_questions": 14,
+      "unsupported_claim_rate": {
+        "denominator": 14,
+        "numerator": 0,
+        "value": 0.0
+      }
+    },
+    "C1": {
+      "answer_class_counts": {
+        "complete": 5,
+        "correct_abstention": 8,
+        "incorrect": 1,
+        "partial": 0
+      },
+      "answer_class_proportions": {
+        "complete": {
+          "denominator": 14,
+          "numerator": 5,
+          "value": 0.357143
+        },
+        "correct_abstention": {
+          "denominator": 14,
+          "numerator": 8,
+          "value": 0.571429
+        },
+        "incorrect": {
+          "denominator": 14,
+          "numerator": 1,
+          "value": 0.071429
+        },
+        "partial": {
+          "denominator": 14,
+          "numerator": 0,
+          "value": 0.0
+        }
+      },
+      "answer_success_rate": {
+        "denominator": 5,
+        "numerator": 5,
+        "value": 1.0
+      },
+      "complete_answer_rate": {
+        "denominator": 14,
+        "numerator": 5,
+        "value": 0.357143
+      },
+      "correct_abstention_rate": {
+        "denominator": 9,
+        "numerator": 8,
+        "value": 0.888889
+      },
+      "obsolete_information_use_rate": {
+        "denominator": 14,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "reachability_rate": {
+        "denominator": 14,
+        "numerator": 5,
+        "value": 0.357143
+      },
+      "reachable_questions": 5,
+      "retrieval_success_rate": {
+        "denominator": 5,
+        "numerator": 5,
+        "value": 1.0
+      },
+      "total_trials": 14,
+      "unreachable_questions": 9,
+      "unsupported_claim_rate": {
+        "denominator": 14,
+        "numerator": 1,
+        "value": 0.071429
+      }
+    },
+    "C2": {
+      "answer_class_counts": {
+        "complete": 11,
+        "correct_abstention": 2,
+        "incorrect": 0,
+        "partial": 1
+      },
+      "answer_class_proportions": {
+        "complete": {
+          "denominator": 14,
+          "numerator": 11,
+          "value": 0.785714
+        },
+        "correct_abstention": {
+          "denominator": 14,
+          "numerator": 2,
+          "value": 0.142857
+        },
+        "incorrect": {
+          "denominator": 14,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "partial": {
+          "denominator": 14,
+          "numerator": 1,
+          "value": 0.071429
+        }
+      },
+      "answer_success_rate": {
+        "denominator": 11,
+        "numerator": 11,
+        "value": 1.0
+      },
+      "complete_answer_rate": {
+        "denominator": 14,
+        "numerator": 11,
+        "value": 0.785714
+      },
+      "correct_abstention_rate": {
+        "denominator": 2,
+        "numerator": 2,
+        "value": 1.0
+      },
+      "obsolete_information_use_rate": {
+        "denominator": 14,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "reachability_rate": {
+        "denominator": 14,
+        "numerator": 12,
+        "value": 0.857143
+      },
+      "reachable_questions": 12,
+      "retrieval_success_rate": {
+        "denominator": 12,
+        "numerator": 11,
+        "value": 0.916667
+      },
+      "total_trials": 14,
+      "unreachable_questions": 2,
+      "unsupported_claim_rate": {
+        "denominator": 14,
+        "numerator": 0,
+        "value": 0.0
+      }
+    }
+  },
+  "definitions_reference": "EXPERIMENT.md, sezioni 9, 10 e 13",
+  "diagnostic": {
+    "FULL_HISTORY": {
+      "answer_class_counts": {
+        "complete": 12,
+        "correct_abstention": 2,
+        "incorrect": 0,
+        "partial": 0
+      },
+      "answer_class_proportions": {
+        "complete": {
+          "denominator": 14,
+          "numerator": 12,
+          "value": 0.857143
+        },
+        "correct_abstention": {
+          "denominator": 14,
+          "numerator": 2,
+          "value": 0.142857
+        },
+        "incorrect": {
+          "denominator": 14,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "partial": {
+          "denominator": 14,
+          "numerator": 0,
+          "value": 0.0
+        }
+      },
+      "complete_answer_rate": {
+        "denominator": 14,
+        "numerator": 12,
+        "value": 0.857143
+      },
+      "correct_abstention_rate": {
+        "denominator": 2,
+        "numerator": 2,
+        "value": 1.0
+      },
+      "obsolete_information_use_rate": {
+        "denominator": 14,
+        "numerator": 0,
+        "value": 0.0
+      },
+      "reachability_rate": {
+        "denominator": 14,
+        "numerator": 12,
+        "value": 0.857143
+      },
+      "reachable_questions": 12,
+      "total_trials": 14,
+      "unreachable_questions": 2,
+      "unsupported_claim_rate": {
+        "denominator": 14,
+        "numerator": 0,
+        "value": 0.0
+      }
+    },
+    "note": "FULL_HISTORY e' un controllo diagnostico separato, non una quarta condizione sperimentale: non applica la procedura di retrieval e non ha metriche di retrieval."
+  },
+  "scope": "step 2 - metriche aggregate delle 56 annotazioni; l'analisi causale dei fallimenti (EXPERIMENT.md sezione 11) non e' inclusa",
+  "sources": {
+    "results/evaluation_pilot.jsonl": "6a06f8a7e22b4e37edcb420a91ab2af733cdc52a39603bdb060f5d059023d845",
+    "results/generation_inputs.jsonl": "b2703df19e119fb99d79dfeb73ae2684f23d6ad4cd1f70f287afc55034990f83",
+    "results/retrieval_pilot.jsonl": "957b78a703d4c57a7e2ebc89d212d978c8161934bcd9098dba93a5b9b9bebf9d"
+  },
+  "status": "risultati del pilot, non conclusioni finali",
+  "totals": {
+    "annotations": 56,
+    "questions": 14,
+    "scenarios": 2
+  }
+}

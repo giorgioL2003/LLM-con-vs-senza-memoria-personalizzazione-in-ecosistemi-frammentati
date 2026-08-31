@@ -59,11 +59,14 @@ messaggio serve a tre cose:
 
 1. l'oracle può dire esattamente quali messaggi sono l'evidenza obbligatoria di
    una domanda (`required_evidence_ids`);
-2. il futuro retriever potrà essere valutato confrontando i messaggi recuperati
-   con quelli obbligatori;
-3. un errore potrà essere attribuito alla causa giusta: evidenza fuori dal
+2. il retriever viene valutato confrontando i messaggi recuperati con quelli
+   obbligatori;
+3. un errore può essere attribuito alla causa giusta: evidenza fuori dal
    perimetro, evidenza non recuperata, oppure risposta sbagliata pur avendo
    l'evidenza.
+
+I punti 2 e 3 sono stati effettivamente usati nel pilot: si vedano
+`results/retrieval_pilot.jsonl` e `results/error_analysis_pilot.jsonl`.
 
 ## 3. Come funzionano C0, C1 e C2
 
@@ -89,8 +92,9 @@ Nei file JSON questo è scritto in `conditions[...].accessible_sessions`.
   prima di eseguire qualsiasi cosa. È il massimo teorico della condizione.
 - **Retrieval**: comportamento del sistema. Indica se il recuperatore, dato quel
   perimetro, mette davvero le evidenze obbligatorie nel contesto passato al
-  modello. Si misura solo quando la domanda è raggiungibile, e non è ancora stato
-  misurato.
+  modello. Si misura solo quando la domanda è raggiungibile. È stato misurato nel
+  pilot: i risultati per domanda sono in `results/retrieval_pilot.jsonl` e le
+  proporzioni aggregate in `pilot/metrics_pilot.md`.
 
 Un'informazione raggiungibile può non essere recuperata; un'informazione
 recuperata può comunque essere letta male dal modello. Per questo i due concetti
@@ -126,11 +130,26 @@ Validatore su un singolo file:
 python3 scripts/validate_scenarios.py data/scenarios/scenario_01.json
 ```
 
+Controllo delle metriche aggregate, senza riscrivere i file:
+
+```bash
+python3 scripts/summarize_evaluation.py --check
+```
+
+Controllo dell'analisi causale dei due fallimenti, senza riscrivere i file:
+
+```bash
+python3 scripts/build_error_analysis.py --check
+```
+
 Test:
 
 ```bash
 python3 -m unittest discover -s tests -v
 ```
+
+Una dimostrazione completa e commentata di questi comandi è in `COMANDI_DEMO.md`,
+nella radice del progetto.
 
 Il validatore controlla campi obbligatori, unicità degli identificatori, ordine
 di sessioni e messaggi, numero di sessioni e domande, esistenza delle evidenze e
@@ -145,12 +164,29 @@ intenzionali (identificatori duplicati, evidenze inesistenti, raggiungibilità
 incoerente, perimetri alterati, informazione assente trattata come evidenza),
 che devono essere segnalate.
 
-## 6. Cosa non c'è ancora
+## 6. Cosa è stato eseguito a partire da questi JSON
 
-- Non esiste il runner Turn-level RAG: nessun embedding, nessun indice, nessuna
-  chiamata a un modello.
-- Non sono stati convertiti in JSON i risultati dei dry run: quelli sono stati
-  ottenuti con contesti forniti a mano e servivano a validare il benchmark, non a
-  misurare il retrieval.
+Il runner Turn-level RAG **esiste** e il pilot è stato eseguito per intero:
+
+| Passaggio | Script | Risultato |
+|---|---|---|
+| Retrieval automatico su C0, C1, C2 | `scripts/run_retrieval_pilot.py` | `results/retrieval_pilot.jsonl` (42 righe) |
+| Costruzione dei prompt | `scripts/build_generation_inputs.py` | `results/generation_inputs.jsonl` (56 righe) |
+| Generazione delle risposte | `scripts/run_generation.py` | `results/generation_pilot.jsonl` (56 righe) |
+| Valutazione manuale assistita | — | `results/evaluation_pilot.jsonl` (56 righe) |
+| Metriche aggregate | `scripts/summarize_evaluation.py` | `results/metrics_pilot.json`, `pilot/metrics_pilot.md` |
+| Analisi causale dei fallimenti | `scripts/build_error_analysis.py` | `results/error_analysis_pilot.jsonl`, `pilot/error_analysis_pilot.md` |
+
+Le 56 righe sono 14 domande × 4 modalità: le tre condizioni sperimentali C0, C1,
+C2 più `FULL_HISTORY`, che è un controllo diagnostico e non una quarta
+condizione. Il retrieval riguarda soltanto C0, C1 e C2, da cui le 42 righe.
+
+## 7. Cosa non c'è ancora
+
+- Non sono stati convertiti in JSON i risultati dei dry run manuali: quelli sono
+  stati ottenuti con contesti forniti a mano e servivano a validare il benchmark,
+  non a misurare il retrieval.
 - Il pilot non è congelato: se un documento del pilot cambia, questi JSON vanno
-  rigenerati e rivalidati.
+  rigenerati e rivalidati, e i risultati già prodotti vanno ricalcolati.
+- L'esperimento finale non è stato eseguito: quanto c'è qui è un pilot, non un
+  risultato definitivo.
