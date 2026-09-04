@@ -1,0 +1,62 @@
+{
+  "annotation_id": "sc02-rq2-0.1",
+  "scenario_id": "scenario_02",
+  "experiment": "RQ2",
+  "scenario_file": "data/scenarios/scenario_02.json",
+  "overlay": true,
+  "status": "BOZZA DA CONTROLLARE — non approvata, non congelata",
+  "frozen": false,
+  "review_required": true,
+  "review_note": "Aggiunta separata per RQ2. Il file del pilot data/scenarios/scenario_02.json non viene modificato: testi, oracle, raggiungibilità C0/C1/C2 e risultati del pilot restano quelli originali.",
+  "purpose": "Scompone i mandatory_facts del pilot in fatti singoli con provenienza e tipo, così che l'oracle sia indipendente dall'architettura. SC02 è lo scenario del confronto diretto T/F: questa scomposizione è il denominatore della copertura dei fatti obbligatori. Materiale di sola valutazione.",
+  "questions": [
+    {
+      "question_id": "SC02-Q1",
+      "required_facts": [
+        {"fact_key": "obiettivo-impedire-cambi", "text": "impedire altri cambi di password non autorizzati", "source_message_ids": ["SC02-S1-U1"], "kind": "decisione", "negated": false},
+        {"fact_key": "obiettivo-recupero-mobile", "text": "mantenere utilizzabile il recupero password nell'app mobile", "source_message_ids": ["SC02-S1-U1"], "kind": "decisione", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC02-Q2",
+      "required_facts": [
+        {"fact_key": "decisione-iniziale-captcha", "text": "la decisione iniziale era inserire un CAPTCHA dopo la prima richiesta di recupero", "source_message_ids": ["SC02-S1-U1"], "kind": "decisione", "negated": false},
+        {"fact_key": "captcha-superato", "text": "la decisione del CAPTCHA non è più l'intervento scelto", "source_message_ids": ["SC02-S2-U1"], "kind": "decisione", "negated": true},
+        {"fact_key": "token-uso-singolo", "text": "i token di recupero devono essere utilizzabili una sola volta", "source_message_ids": ["SC02-S2-U1"], "kind": "decisione", "negated": false},
+        {"fact_key": "token-scadenza-15-minuti", "text": "i token di recupero devono scadere dopo 15 minuti", "source_message_ids": ["SC02-S2-U1"], "kind": "decisione", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC02-Q3",
+      "required_facts": [
+        {"fact_key": "test-mobile-completato", "text": "il test del collegamento nell'app mobile è stato completato", "source_message_ids": ["SC02-S4-U1"], "kind": "stato", "negated": false},
+        {"fact_key": "esito-test-mobile", "text": "dopo il cambio di password l'utente viene riportato correttamente alla schermata di accesso", "source_message_ids": ["SC02-S4-U1"], "kind": "conferma", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC02-Q4",
+      "required_facts": [
+        {"fact_key": "test-email-ritardata-aperto", "text": "resta da completare soltanto il test dell'email di recupero consegnata in ritardo", "source_message_ids": ["SC02-S4-U1"], "kind": "stato", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC02-Q5",
+      "required_facts": [
+        {"fact_key": "riunione-data-ora", "text": "la riunione di verifica del rilascio è fissata per martedì alle 11:30", "source_message_ids": ["SC02-S4-U1"], "kind": "decisione", "negated": false},
+        {"fact_key": "riunione-contenuto", "text": "la riunione deve includere il risultato del test dell'email consegnata in ritardo", "source_message_ids": ["SC02-S4-U1"], "kind": "decisione", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC02-Q6",
+      "required_facts": [
+        {"fact_key": "token-scadenza-15-minuti", "text": "il limite di validità stabilito per i token di recupero è di 15 minuti", "source_message_ids": ["SC02-S2-U1"], "kind": "decisione", "negated": false},
+        {"fact_key": "test-email-ritardata-aperto", "text": "il test ancora pendente è quello dell'email di recupero consegnata in ritardo", "source_message_ids": ["SC02-S4-U1"], "kind": "stato", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC02-Q7",
+      "required_facts": [],
+      "evidence_note": "Nessuna evidenza positiva: il responsabile dell'approvazione del rilascio non compare in nessuna sessione."
+    }
+  ]
+}

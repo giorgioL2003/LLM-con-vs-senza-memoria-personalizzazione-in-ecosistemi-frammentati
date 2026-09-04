@@ -1,0 +1,157 @@
+{
+  "scenario_id": "scenario_03",
+  "title": "diagnosi progressiva di un'infezione sull'host WS-114",
+  "experiment": "RQ2",
+  "version": "0.1",
+  "status": "bozza da controllare, non approvata e non congelata",
+  "frozen": false,
+  "phenomenon": "Distinguere sintomi, ipotesi iniziale, diagnosi confermata e stato delle attività. Contiene un aggiornamento dell'ipotesi, un'evidenza ritirata, una conferma ripetuta e un punto dichiarato non determinato.",
+  "note": "Questo file contiene soltanto le conversazioni: è l'unico input ammesso per la costruzione della memoria (T, F, U, G). Domande, oracle e annotazioni di valutazione stanno in data/rq2/annotations/scenario_03_rq2.json e non devono mai entrare nell'estrazione, nel retrieval o nel prompt di risposta.",
+  "indexed_role": "user",
+  "memory_scope": {
+    "label": "perimetro condiviso (equivalente a C2 del pilot)",
+    "accessible_sessions": ["SC03-S1", "SC03-S2", "SC03-S3", "SC03-S4"]
+  },
+  "sessions": [
+    {
+      "session_id": "SC03-S1",
+      "order": 1,
+      "title": "Segnalazione dei sintomi e ipotesi iniziale",
+      "messages": [
+        {
+          "message_id": "SC03-S1-U1",
+          "session_id": "SC03-S1",
+          "order": 1,
+          "role": "user",
+          "content": "Apro un caso sull'host `WS-114` di Vesper Logistics. L'utente segnala tre sintomi comparsi ieri: un rallentamento improvviso della macchina, un processo `svhostw.exe` che non riconosciamo e un file `LEGGIMI-PAGAMENTO.txt` comparso sul desktop. L'ipotesi iniziale del caso è un ransomware. L'obiettivo del caso è stabilire la classificazione del malware sulla base delle evidenze raccolte e riportare l'host in servizio senza perdita di dati. Il campione di `svhostw.exe` è stato inviato al laboratorio interno."
+        },
+        {
+          "message_id": "SC03-S1-A1",
+          "session_id": "SC03-S1",
+          "order": 2,
+          "role": "assistant",
+          "content": "Registrato. Tratto il ransomware come ipotesi iniziale, da confermare o superare in base alle evidenze."
+        },
+        {
+          "message_id": "SC03-S1-U2",
+          "session_id": "SC03-S1",
+          "order": 3,
+          "role": "user",
+          "content": "Metto agli atti un dettaglio: i file dell'utente si aprono ancora regolarmente e nessuna estensione risulta modificata. Da sola questa osservazione non basta a escludere o identificare una famiglia di malware, quindi per adesso non cambio l'ipotesi del caso."
+        },
+        {
+          "message_id": "SC03-S1-A2",
+          "session_id": "SC03-S1",
+          "order": 4,
+          "role": "assistant",
+          "content": "Annotato come osservazione, senza modificare l'ipotesi iniziale."
+        }
+      ]
+    },
+    {
+      "session_id": "SC03-S2",
+      "order": 2,
+      "title": "Evidenza ritirata e revisione dell'ipotesi",
+      "messages": [
+        {
+          "message_id": "SC03-S2-U1",
+          "session_id": "SC03-S2",
+          "order": 1,
+          "role": "user",
+          "content": "Il file `LEGGIMI-PAGAMENTO.txt` esce dalle evidenze del caso: è il residuo dell'esercitazione interna di phishing simulato di maggio e non ha alcuna relazione con questo incidente. Non viene sostituito da nessun'altra evidenza."
+        },
+        {
+          "message_id": "SC03-S2-A1",
+          "session_id": "SC03-S2",
+          "order": 2,
+          "role": "assistant",
+          "content": "Evidenza ritirata dal caso, senza sostituzione."
+        },
+        {
+          "message_id": "SC03-S2-U2",
+          "session_id": "SC03-S2",
+          "order": 3,
+          "role": "user",
+          "content": "Nuove evidenze dall'analisi dell'host: `svhostw.exe` ha letto il database delle credenziali del browser dell'utente e ha aperto tre connessioni verso `cdn-updates.example.net`, con un caricamento complessivo di 240 MB. Non è stata osservata alcuna cifratura dei file. L'ipotesi aggiornata del caso è un infostealer e non più un ransomware."
+        },
+        {
+          "message_id": "SC03-S2-A2",
+          "session_id": "SC03-S2",
+          "order": 4,
+          "role": "assistant",
+          "content": "Ipotesi del caso aggiornata a infostealer."
+        }
+      ]
+    },
+    {
+      "session_id": "SC03-S3",
+      "order": 3,
+      "title": "Esito del laboratorio e contenimento",
+      "messages": [
+        {
+          "message_id": "SC03-S3-U1",
+          "session_id": "SC03-S3",
+          "order": 1,
+          "role": "user",
+          "content": "Il laboratorio interno ha chiuso l'analisi del campione: corrisponde alla famiglia `Kelpie` e la classificazione come infostealer risulta confermata. Da questo momento non è più un'ipotesi ma la classificazione del caso."
+        },
+        {
+          "message_id": "SC03-S3-A1",
+          "session_id": "SC03-S3",
+          "order": 2,
+          "role": "assistant",
+          "content": "Registrata la classificazione confermata al posto dell'ipotesi."
+        },
+        {
+          "message_id": "SC03-S3-U2",
+          "session_id": "SC03-S3",
+          "order": 3,
+          "role": "user",
+          "content": "Contenimento completato: `WS-114` è stato isolato dalla rete alle 09:40, il dominio `cdn-updates.example.net` è stato bloccato sul proxy e le credenziali dei tre servizi usati dall'utente sono state revocate e riemesse. Restano da eseguire due verifiche: il controllo degli accessi ai servizi cloud dell'utente nelle 48 ore precedenti l'isolamento e la reinstallazione dell'host."
+        },
+        {
+          "message_id": "SC03-S3-A2",
+          "session_id": "SC03-S3",
+          "order": 4,
+          "role": "assistant",
+          "content": "Tengo distinte le azioni già completate dalle due verifiche ancora aperte."
+        }
+      ]
+    },
+    {
+      "session_id": "SC03-S4",
+      "order": 4,
+      "title": "Conferma ripetuta, stato delle verifiche e vincoli",
+      "messages": [
+        {
+          "message_id": "SC03-S4-U1",
+          "session_id": "SC03-S4",
+          "order": 1,
+          "role": "user",
+          "content": "Il laboratorio ha ripetuto la verifica sul campione e ha ottenuto lo stesso esito già comunicato: la classificazione del caso non cambia."
+        },
+        {
+          "message_id": "SC03-S4-A1",
+          "session_id": "SC03-S4",
+          "order": 2,
+          "role": "assistant",
+          "content": "Nessuna modifica alla classificazione del caso."
+        },
+        {
+          "message_id": "SC03-S4-U2",
+          "session_id": "SC03-S4",
+          "order": 3,
+          "role": "user",
+          "content": "Il controllo degli accessi ai servizi cloud è stato completato e non ha trovato accessi anomali nelle 48 ore precedenti l'isolamento. Resta aperta la sola reinstallazione dell'host. Il vettore iniziale dell'infezione non è stato determinato. Il rapporto del caso deve restare interno e non può essere diffuso fuori dal gruppo di risposta prima della chiusura."
+        },
+        {
+          "message_id": "SC03-S4-A2",
+          "session_id": "SC03-S4",
+          "order": 4,
+          "role": "assistant",
+          "content": "Aggiornato lo stato delle verifiche, registrati il punto non determinato e il vincolo sul rapporto."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "applied_count": 23,
+  "config_id": "rq2-dev-0.1",
+  "dry_run": false,
+  "effort": "medium",
+  "facts_source": "tests/fixtures/rq2/scenario_04_facts_fixture.jsonl",
+  "fixture_answers": "tests/fixtures/rq2/scenario_04_update_answers_fixture.json",
+  "label": "fixture",
+  "model": "claude-sonnet-5",
+  "operation_count": 23,
+  "rejected_count": 0,
+  "scenario_id": "scenario_04",
+  "sessions": [
+    {
+      "archive_before": [],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC04-F001",
+        "SC04-F002",
+        "SC04-F003",
+        "SC04-F004",
+        "SC04-F005",
+        "SC04-F006",
+        "SC04-F007",
+        "SC04-F008"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC04-F001\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"caso-acquisti\",\n  \"value\": \"È stato aperto un caso per l'ufficio acquisti di Corvara Servizi.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC04-F002\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"segnalazione-sms\",\n  \"value\": \"L'operatore UT-207 ha segnalato un SMS ricevuto il 12 marzo alle 06:58 dal numero +39 351 000 4477.\",\n  \"target_entry_id\": null,\n  \"reason\": \"segnalazione nuova\"\n },\n {\n  \"fact_id\": \"SC04-F003\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"contenuto-sms\",\n  \"value\": \"SMS-01 imita il servizio di consegna RapidoPost e annuncia un pacco in giacenza.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC04-F004\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"identificatore-sms\",\n  \"value\": \"Il messaggio segnalato è registrato come SMS-01.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC04-F005\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"obiettivo-minaccia\",\n  \"value\": \"Stabilire se si tratta di una minaccia reale.\",\n  \"target_entry_id\": null,\n  \"reason\": \"obiettivo nuovo\"\n },\n {\n  \"fact_id\": \"SC04-F006\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"obiettivo-esposizione\",\n  \"value\": \"Limitare l'esposizione degli account coinvolti.\",\n  \"target_entry_id\": null,\n  \"reason\": \"obiettivo nuovo\"\n },\n {\n  \"fact_id\": \"SC04-F007\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"classificazione\",\n  \"value\": \"Valutazione iniziale: spam generico.\",\n  \"target_entry_id\": null,\n  \"reason\": \"prima valutazione del caso\"\n },\n {\n  \"fact_id\": \"SC04-F008\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"contatto-collegamento\",\n  \"value\": \"Valutazione iniziale: l'operatore non ha avuto alcun contatto con il collegamento.\",\n  \"target_entry_id\": null,\n  \"reason\": \"prima valutazione, negativa\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC04-OP001",
+        "SC04-OP002",
+        "SC04-OP003",
+        "SC04-OP004",
+        "SC04-OP005",
+        "SC04-OP006",
+        "SC04-OP007",
+        "SC04-OP008"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n(memoria vuota: nessun fatto attivo)\n\nArchivio dei fatti superati o ritirati:\n(archivio vuoto: nessun fatto superato o ritirato)\n\nFatti nuovi da valutare:\n[SC04-F001] È stato aperto un caso per l'ufficio acquisti di Corvara Servizi. (tipo: osservazione, negato: no, da: SC04-S1-U1)\n[SC04-F002] L'operatore UT-207 ha segnalato un SMS ricevuto il 12 marzo alle 06:58 dal numero +39 351 000 4477. (tipo: osservazione, negato: no, da: SC04-S1-U1)\n[SC04-F003] Il messaggio segnalato imita il servizio di consegna RapidoPost e annuncia un pacco in giacenza. (tipo: osservazione, negato: no, da: SC04-S1-U1)\n[SC04-F004] Il messaggio segnalato è registrato come SMS-01. (tipo: osservazione, negato: no, da: SC04-S1-U1)\n[SC04-F005] L'obiettivo del caso è stabilire se si tratta di una minaccia reale. (tipo: decisione, negato: no, da: SC04-S1-U1)\n[SC04-F006] L'obiettivo del caso è limitare l'esposizione degli account coinvolti. (tipo: decisione, negato: no, da: SC04-S1-U1)\n[SC04-F007] La valutazione iniziale è che si tratti di spam generico. (tipo: ipotesi, negato: no, da: SC04-S1-U1)\n[SC04-F008] La valutazione iniziale è che l'operatore non abbia avuto alcun contatto con il collegamento. (tipo: ipotesi, negato: si, da: SC04-S1-U1)",
+      "scenario_id": "scenario_04",
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "state_before": []
+    },
+    {
+      "archive_before": [],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC04-F009",
+        "SC04-F010",
+        "SC04-F011",
+        "SC04-F012",
+        "SC04-F013"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC04-F009\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"sms-collegamento\",\n  \"value\": \"SMS-01 contiene il collegamento hxxps://rapidopost-ritiro[.]example/track, registrato come URL-01.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC04-F010\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"pagina-falsa\",\n  \"value\": \"La pagina raggiunta da URL-01 riproduce il modulo di accesso di accessi.corvara.example ed è falsa.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC04-F011\",\n  \"operation\": \"UPDATE\",\n  \"claim_key\": \"classificazione\",\n  \"value\": \"Il caso è classificato come smishing.\",\n  \"target_entry_id\": \"SC04-M007\",\n  \"reason\": \"la classificazione sostituisce la valutazione iniziale di spam generico\"\n },\n {\n  \"fact_id\": \"SC04-F012\",\n  \"operation\": \"UPDATE\",\n  \"claim_key\": \"contatto-collegamento\",\n  \"value\": \"UT-207 ha aperto URL-01 alle 07:03 e ha inviato il modulo di accesso.\",\n  \"target_entry_id\": \"SC04-M008\",\n  \"reason\": \"il registro del proxy sostituisce la valutazione iniziale\"\n },\n {\n  \"fact_id\": \"SC04-F013\",\n  \"operation\": \"NOOP\",\n  \"claim_key\": \"contatto-collegamento\",\n  \"value\": \"La valutazione iniziale sul mancato contatto non è più valida.\",\n  \"target_entry_id\": null,\n  \"reason\": \"conferma dell'aggiornamento appena registrato\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC04-OP009",
+        "SC04-OP010",
+        "SC04-OP011",
+        "SC04-OP012",
+        "SC04-OP013"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC04-M001] (caso-acquisti) È stato aperto un caso per l'ufficio acquisti di Corvara Servizi.\n[SC04-M002] (segnalazione-sms) L'operatore UT-207 ha segnalato un SMS ricevuto il 12 marzo alle 06:58 dal numero +39 351 000 4477.\n[SC04-M003] (contenuto-sms) SMS-01 imita il servizio di consegna RapidoPost e annuncia un pacco in giacenza.\n[SC04-M004] (identificatore-sms) Il messaggio segnalato è registrato come SMS-01.\n[SC04-M005] (obiettivo-minaccia) Stabilire se si tratta di una minaccia reale.\n[SC04-M006] (obiettivo-esposizione) Limitare l'esposizione degli account coinvolti.\n[SC04-M007] (classificazione) Valutazione iniziale: spam generico.\n[SC04-M008] (contatto-collegamento) Valutazione iniziale: l'operatore non ha avuto alcun contatto con il collegamento.\n\nArchivio dei fatti superati o ritirati:\n(archivio vuoto: nessun fatto superato o ritirato)\n\nFatti nuovi da valutare:\n[SC04-F009] SMS-01 contiene un solo collegamento, hxxps://rapidopost-ritiro[.]example/track, registrato come URL-01. (tipo: osservazione, negato: no, da: SC04-S2-U1)\n[SC04-F010] La pagina raggiunta da URL-01 riproduce il modulo di accesso di accessi.corvara.example ed è una pagina falsa. (tipo: osservazione, negato: no, da: SC04-S2-U1)\n[SC04-F011] Il caso è classificato come smishing. (tipo: conferma, negato: no, da: SC04-S2-U1)\n[SC04-F012] Il registro del proxy mostra che UT-207 ha aperto URL-01 alle 07:03 e ha inviato il modulo di accesso. (tipo: conferma, negato: no, da: SC04-S2-U2)\n[SC04-F013] L'ipotesi che non ci fosse stato alcun contatto con il collegamento non è più valida. (tipo: conferma, negato: si, da: SC04-S2-U2)",
+      "scenario_id": "scenario_04",
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "state_before": [
+        "SC04-M001",
+        "SC04-M002",
+        "SC04-M003",
+        "SC04-M004",
+        "SC04-M005",
+        "SC04-M006",
+        "SC04-M007",
+        "SC04-M008"
+      ]
+    },
+    {
+      "archive_before": [
+        "SC04-M007",
+        "SC04-M008"
+      ],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC04-F014",
+        "SC04-F015",
+        "SC04-F016",
+        "SC04-F017"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC04-F014\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"account-operatore\",\n  \"value\": \"L'account aziendale usato da UT-207 è acquisti-207@corvara.example, indicato come ACC-207.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC04-F015\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"accesso-anomalo\",\n  \"value\": \"Su ACC-207 risulta l'accesso anomalo LOGIN-07 del 12 marzo alle 07:12 dall'indirizzo 203.0.113.44.\",\n  \"target_entry_id\": null,\n  \"reason\": \"evento nuovo\"\n },\n {\n  \"fact_id\": \"SC04-F016\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"regola-inoltro\",\n  \"value\": \"Dalla stessa sessione di LOGIN-07, alle 07:20, su ACC-207 è stata creata la regola di inoltro RULE-01.\",\n  \"target_entry_id\": null,\n  \"reason\": \"evento nuovo\"\n },\n {\n  \"fact_id\": \"SC04-F017\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"destinazione-inoltro\",\n  \"value\": \"RULE-01 invia a archivio.backup@mailbox.example i messaggi contenenti la parola fattura.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC04-OP014",
+        "SC04-OP015",
+        "SC04-OP016",
+        "SC04-OP017"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC04-M001] (caso-acquisti) È stato aperto un caso per l'ufficio acquisti di Corvara Servizi.\n[SC04-M002] (segnalazione-sms) L'operatore UT-207 ha segnalato un SMS ricevuto il 12 marzo alle 06:58 dal numero +39 351 000 4477.\n[SC04-M003] (contenuto-sms) SMS-01 imita il servizio di consegna RapidoPost e annuncia un pacco in giacenza.\n[SC04-M004] (identificatore-sms) Il messaggio segnalato è registrato come SMS-01.\n[SC04-M005] (obiettivo-minaccia) Stabilire se si tratta di una minaccia reale.\n[SC04-M006] (obiettivo-esposizione) Limitare l'esposizione degli account coinvolti.\n[SC04-M009] (sms-collegamento) SMS-01 contiene il collegamento hxxps://rapidopost-ritiro[.]example/track, registrato come URL-01.\n[SC04-M010] (pagina-falsa) La pagina raggiunta da URL-01 riproduce il modulo di accesso di accessi.corvara.example ed è falsa.\n[SC04-M011] (classificazione) Il caso è classificato come smishing.\n[SC04-M012] (contatto-collegamento) UT-207 ha aperto URL-01 alle 07:03 e ha inviato il modulo di accesso.\n\nArchivio dei fatti superati o ritirati:\n[SC04-M007] (classificazione) Valutazione iniziale: spam generico. — superato\n[SC04-M008] (contatto-collegamento) Valutazione iniziale: l'operatore non ha avuto alcun contatto con il collegamento. — superato\n\nFatti nuovi da valutare:\n[SC04-F014] L'account aziendale usato da UT-207 è acquisti-207@corvara.example, indicato come ACC-207. (tipo: osservazione, negato: no, da: SC04-S3-U1)\n[SC04-F015] Su ACC-207 risulta un accesso anomalo il 12 marzo alle 07:12 dall'indirizzo 203.0.113.44, registrato come LOGIN-07. (tipo: osservazione, negato: no, da: SC04-S3-U1)\n[SC04-F016] Dalla stessa sessione di LOGIN-07, alle 07:20, su ACC-207 è stata creata una regola di inoltro registrata come RULE-01. (tipo: osservazione, negato: no, da: SC04-S3-U2)\n[SC04-F017] RULE-01 invia a archivio.backup@mailbox.example tutti i messaggi contenenti la parola fattura. (tipo: osservazione, negato: no, da: SC04-S3-U2)",
+      "scenario_id": "scenario_04",
+      "session_id": "SC04-S3",
+      "session_order": 3,
+      "state_before": [
+        "SC04-M001",
+        "SC04-M002",
+        "SC04-M003",
+        "SC04-M004",
+        "SC04-M005",
+        "SC04-M006",
+        "SC04-M009",
+        "SC04-M010",
+        "SC04-M011",
+        "SC04-M012"
+      ]
+    },
+    {
+      "archive_before": [
+        "SC04-M007",
+        "SC04-M008"
+      ],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC04-F018",
+        "SC04-F019",
+        "SC04-F020",
+        "SC04-F021",
+        "SC04-F022",
+        "SC04-F023"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC04-F018\",\n  \"operation\": \"UPDATE\",\n  \"claim_key\": \"regola-inoltro\",\n  \"value\": \"RULE-01, creata alle 07:20 su ACC-207 dalla stessa sessione di LOGIN-07, è stata rimossa.\",\n  \"target_entry_id\": \"SC04-M016\",\n  \"reason\": \"lo stato della regola cambia: la voce precedente viene sostituita\"\n },\n {\n  \"fact_id\": \"SC04-F019\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"password-reimpostata\",\n  \"value\": \"La password di ACC-207 è stata reimpostata alle 08:05.\",\n  \"target_entry_id\": null,\n  \"reason\": \"azione nuova\"\n },\n {\n  \"fact_id\": \"SC04-F020\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"numero-bloccato\",\n  \"value\": \"Il numero mittente è stato bloccato sul gateway aziendale.\",\n  \"target_entry_id\": null,\n  \"reason\": \"azione nuova\"\n },\n {\n  \"fact_id\": \"SC04-F021\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"revisione-messaggi\",\n  \"value\": \"Resta da completare la revisione dei messaggi inoltrati fra le 07:20 e la rimozione della regola.\",\n  \"target_entry_id\": null,\n  \"reason\": \"attività nuova\"\n },\n {\n  \"fact_id\": \"SC04-F022\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"contenuto-riepilogo\",\n  \"value\": \"Il riepilogo per il responsabile deve indicare la segnalazione che ha originato il caso e gli eventi sull'account che ne sono seguiti.\",\n  \"target_entry_id\": null,\n  \"reason\": \"vincolo nuovo\"\n },\n {\n  \"fact_id\": \"SC04-F023\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"origine-numero\",\n  \"value\": \"La verifica su come sia stato ottenuto il numero di telefono dell'operatore è chiusa senza esito: il punto resta non determinato.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova, negativa\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC04-OP018",
+        "SC04-OP019",
+        "SC04-OP020",
+        "SC04-OP021",
+        "SC04-OP022",
+        "SC04-OP023"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC04-M001] (caso-acquisti) È stato aperto un caso per l'ufficio acquisti di Corvara Servizi.\n[SC04-M002] (segnalazione-sms) L'operatore UT-207 ha segnalato un SMS ricevuto il 12 marzo alle 06:58 dal numero +39 351 000 4477.\n[SC04-M003] (contenuto-sms) SMS-01 imita il servizio di consegna RapidoPost e annuncia un pacco in giacenza.\n[SC04-M004] (identificatore-sms) Il messaggio segnalato è registrato come SMS-01.\n[SC04-M005] (obiettivo-minaccia) Stabilire se si tratta di una minaccia reale.\n[SC04-M006] (obiettivo-esposizione) Limitare l'esposizione degli account coinvolti.\n[SC04-M009] (sms-collegamento) SMS-01 contiene il collegamento hxxps://rapidopost-ritiro[.]example/track, registrato come URL-01.\n[SC04-M010] (pagina-falsa) La pagina raggiunta da URL-01 riproduce il modulo di accesso di accessi.corvara.example ed è falsa.\n[SC04-M011] (classificazione) Il caso è classificato come smishing.\n[SC04-M012] (contatto-collegamento) UT-207 ha aperto URL-01 alle 07:03 e ha inviato il modulo di accesso.\n[SC04-M014] (account-operatore) L'account aziendale usato da UT-207 è acquisti-207@corvara.example, indicato come ACC-207.\n[SC04-M015] (accesso-anomalo) Su ACC-207 risulta l'accesso anomalo LOGIN-07 del 12 marzo alle 07:12 dall'indirizzo 203.0.113.44.\n[SC04-M016] (regola-inoltro) Dalla stessa sessione di LOGIN-07, alle 07:20, su ACC-207 è stata creata la regola di inoltro RULE-01.\n[SC04-M017] (destinazione-inoltro) RULE-01 invia a archivio.backup@mailbox.example i messaggi contenenti la parola fattura.\n\nArchivio dei fatti superati o ritirati:\n[SC04-M007] (classificazione) Valutazione iniziale: spam generico. — superato\n[SC04-M008] (contatto-collegamento) Valutazione iniziale: l'operatore non ha avuto alcun contatto con il collegamento. — superato\n\nFatti nuovi da valutare:\n[SC04-F018] RULE-01 è stata rimossa. (tipo: stato, negato: no, da: SC04-S4-U1)\n[SC04-F019] La password di ACC-207 è stata reimpostata alle 08:05. (tipo: stato, negato: no, da: SC04-S4-U1)\n[SC04-F020] Il numero mittente è stato bloccato sul gateway aziendale. (tipo: stato, negato: no, da: SC04-S4-U1)\n[SC04-F021] Resta da completare la revisione dei messaggi inoltrati fra le 07:20 e la rimozione della regola. (tipo: stato, negato: no, da: SC04-S4-U1)\n[SC04-F022] Il riepilogo per il responsabile deve indicare quale segnalazione ha originato il caso e quali eventi sull'account ne sono seguiti. (tipo: decisione, negato: no, da: SC04-S4-U1)\n[SC04-F023] La verifica su come sia stato ottenuto il numero di telefono dell'operatore è chiusa senza esito e il punto resta non determinato. (tipo: stato, negato: si, da: SC04-S4-U2)",
+      "scenario_id": "scenario_04",
+      "session_id": "SC04-S4",
+      "session_order": 4,
+      "state_before": [
+        "SC04-M001",
+        "SC04-M002",
+        "SC04-M003",
+        "SC04-M004",
+        "SC04-M005",
+        "SC04-M006",
+        "SC04-M009",
+        "SC04-M010",
+        "SC04-M011",
+        "SC04-M012",
+        "SC04-M014",
+        "SC04-M015",
+        "SC04-M016",
+        "SC04-M017"
+      ]
+    }
+  ],
+  "source_file": "data/rq2/scenarios/scenario_04.json",
+  "update_instructions": "Sei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n"
+}

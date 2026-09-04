@@ -1,0 +1,200 @@
+{
+  "applied_count": 30,
+  "config_id": "rq2-dev-0.1",
+  "dry_run": false,
+  "effort": "medium",
+  "facts_source": "tests/fixtures/rq2/scenario_03_facts_fixture.jsonl",
+  "fixture_answers": "tests/fixtures/rq2/scenario_03_update_answers_fixture.json",
+  "label": "fixture",
+  "model": "claude-sonnet-5",
+  "operation_count": 30,
+  "rejected_count": 0,
+  "scenario_id": "scenario_03",
+  "sessions": [
+    {
+      "archive_before": [],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC03-F001",
+        "SC03-F002",
+        "SC03-F003",
+        "SC03-F004",
+        "SC03-F005",
+        "SC03-F006",
+        "SC03-F007",
+        "SC03-F008",
+        "SC03-F009",
+        "SC03-F010"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC03-F001\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"caso-ws114\",\n  \"value\": \"È stato aperto un caso sull'host WS-114 di Vesper Logistics.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC03-F002\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"sintomo-rallentamento\",\n  \"value\": \"WS-114 ha avuto un rallentamento improvviso.\",\n  \"target_entry_id\": null,\n  \"reason\": \"sintomo nuovo\"\n },\n {\n  \"fact_id\": \"SC03-F003\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"sintomo-processo\",\n  \"value\": \"Su WS-114 è presente il processo svhostw.exe non riconosciuto.\",\n  \"target_entry_id\": null,\n  \"reason\": \"sintomo nuovo\"\n },\n {\n  \"fact_id\": \"SC03-F004\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"evidenza-file-riscatto\",\n  \"value\": \"Sul desktop di WS-114 è comparso il file LEGGIMI-PAGAMENTO.txt.\",\n  \"target_entry_id\": null,\n  \"reason\": \"evidenza nuova\"\n },\n {\n  \"fact_id\": \"SC03-F005\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"classificazione\",\n  \"value\": \"Ipotesi iniziale: ransomware.\",\n  \"target_entry_id\": null,\n  \"reason\": \"prima ipotesi del caso\"\n },\n {\n  \"fact_id\": \"SC03-F006\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"obiettivo-classificazione\",\n  \"value\": \"Stabilire la classificazione del malware sulla base delle evidenze raccolte.\",\n  \"target_entry_id\": null,\n  \"reason\": \"obiettivo nuovo\"\n },\n {\n  \"fact_id\": \"SC03-F007\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"obiettivo-ripristino\",\n  \"value\": \"Riportare WS-114 in servizio senza perdita di dati.\",\n  \"target_entry_id\": null,\n  \"reason\": \"obiettivo nuovo\"\n },\n {\n  \"fact_id\": \"SC03-F008\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"campione-laboratorio\",\n  \"value\": \"Il campione di svhostw.exe è stato inviato al laboratorio interno.\",\n  \"target_entry_id\": null,\n  \"reason\": \"attività nuova\"\n },\n {\n  \"fact_id\": \"SC03-F009\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"stato-cifratura\",\n  \"value\": \"I file dell'utente si aprono regolarmente e nessuna estensione risulta modificata.\",\n  \"target_entry_id\": null,\n  \"reason\": \"osservazione nuova\"\n },\n {\n  \"fact_id\": \"SC03-F010\",\n  \"operation\": \"NOOP\",\n  \"claim_key\": \"classificazione\",\n  \"value\": \"L'osservazione sull'assenza di cifratura non basta a cambiare l'ipotesi.\",\n  \"target_entry_id\": null,\n  \"reason\": \"conferma esplicita che l'ipotesi non cambia: la memoria resta invariata\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC03-OP001",
+        "SC03-OP002",
+        "SC03-OP003",
+        "SC03-OP004",
+        "SC03-OP005",
+        "SC03-OP006",
+        "SC03-OP007",
+        "SC03-OP008",
+        "SC03-OP009",
+        "SC03-OP010"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n(memoria vuota: nessun fatto attivo)\n\nArchivio dei fatti superati o ritirati:\n(archivio vuoto: nessun fatto superato o ritirato)\n\nFatti nuovi da valutare:\n[SC03-F001] È stato aperto un caso sull'host WS-114 di Vesper Logistics. (tipo: osservazione, negato: no, da: SC03-S1-U1)\n[SC03-F002] L'utente di WS-114 ha segnalato un rallentamento improvviso della macchina. (tipo: osservazione, negato: no, da: SC03-S1-U1)\n[SC03-F003] Su WS-114 è presente un processo svhostw.exe che non viene riconosciuto. (tipo: osservazione, negato: no, da: SC03-S1-U1)\n[SC03-F004] Sul desktop di WS-114 è comparso un file LEGGIMI-PAGAMENTO.txt. (tipo: osservazione, negato: no, da: SC03-S1-U1)\n[SC03-F005] L'ipotesi iniziale del caso è un ransomware. (tipo: ipotesi, negato: no, da: SC03-S1-U1)\n[SC03-F006] L'obiettivo del caso è stabilire la classificazione del malware sulla base delle evidenze raccolte. (tipo: decisione, negato: no, da: SC03-S1-U1)\n[SC03-F007] L'obiettivo del caso è riportare WS-114 in servizio senza perdita di dati. (tipo: decisione, negato: no, da: SC03-S1-U1)\n[SC03-F008] Il campione di svhostw.exe è stato inviato al laboratorio interno. (tipo: stato, negato: no, da: SC03-S1-U1)\n[SC03-F009] I file dell'utente si aprono ancora regolarmente e nessuna estensione risulta modificata. (tipo: osservazione, negato: si, da: SC03-S1-U2)\n[SC03-F010] L'osservazione sull'assenza di cifratura non basta da sola a escludere o identificare una famiglia di malware. (tipo: osservazione, negato: no, da: SC03-S1-U2)",
+      "scenario_id": "scenario_03",
+      "session_id": "SC03-S1",
+      "session_order": 1,
+      "state_before": []
+    },
+    {
+      "archive_before": [],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC03-F011",
+        "SC03-F012",
+        "SC03-F013",
+        "SC03-F014",
+        "SC03-F015",
+        "SC03-F016",
+        "SC03-F017"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC03-F011\",\n  \"operation\": \"DELETE\",\n  \"claim_key\": \"evidenza-file-riscatto\",\n  \"value\": \"Il file LEGGIMI-PAGAMENTO.txt non fa più parte delle evidenze del caso.\",\n  \"target_entry_id\": \"SC03-M004\",\n  \"reason\": \"l'evidenza viene ritirata e non sostituita\"\n },\n {\n  \"fact_id\": \"SC03-F012\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"motivo-ritiro-file\",\n  \"value\": \"Il file LEGGIMI-PAGAMENTO.txt era il residuo dell'esercitazione interna di phishing simulato di maggio.\",\n  \"target_entry_id\": null,\n  \"reason\": \"motivo del ritiro, informazione nuova\"\n },\n {\n  \"fact_id\": \"SC03-F013\",\n  \"operation\": \"NOOP\",\n  \"claim_key\": \"evidenza-file-riscatto\",\n  \"value\": \"Il ritiro non è stato sostituito da altra evidenza.\",\n  \"target_entry_id\": null,\n  \"reason\": \"conferma del ritiro già registrato\"\n },\n {\n  \"fact_id\": \"SC03-F014\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"evidenza-lettura-credenziali\",\n  \"value\": \"svhostw.exe ha letto il database delle credenziali del browser dell'utente.\",\n  \"target_entry_id\": null,\n  \"reason\": \"evidenza nuova\"\n },\n {\n  \"fact_id\": \"SC03-F015\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"evidenza-esfiltrazione\",\n  \"value\": \"svhostw.exe ha aperto tre connessioni verso cdn-updates.example.net con un caricamento di 240 MB.\",\n  \"target_entry_id\": null,\n  \"reason\": \"evidenza nuova\"\n },\n {\n  \"fact_id\": \"SC03-F016\",\n  \"operation\": \"NOOP\",\n  \"claim_key\": \"stato-cifratura\",\n  \"value\": \"Nessuna cifratura dei file osservata.\",\n  \"target_entry_id\": null,\n  \"reason\": \"conferma equivalente di quanto già in memoria\"\n },\n {\n  \"fact_id\": \"SC03-F017\",\n  \"operation\": \"UPDATE\",\n  \"claim_key\": \"classificazione\",\n  \"value\": \"Ipotesi aggiornata: infostealer, non più ransomware.\",\n  \"target_entry_id\": \"SC03-M005\",\n  \"reason\": \"la nuova ipotesi sostituisce quella iniziale sullo stesso oggetto\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC03-OP011",
+        "SC03-OP012",
+        "SC03-OP013",
+        "SC03-OP014",
+        "SC03-OP015",
+        "SC03-OP016",
+        "SC03-OP017"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC03-M001] (caso-ws114) È stato aperto un caso sull'host WS-114 di Vesper Logistics.\n[SC03-M002] (sintomo-rallentamento) WS-114 ha avuto un rallentamento improvviso.\n[SC03-M003] (sintomo-processo) Su WS-114 è presente il processo svhostw.exe non riconosciuto.\n[SC03-M004] (evidenza-file-riscatto) Sul desktop di WS-114 è comparso il file LEGGIMI-PAGAMENTO.txt.\n[SC03-M005] (classificazione) Ipotesi iniziale: ransomware.\n[SC03-M006] (obiettivo-classificazione) Stabilire la classificazione del malware sulla base delle evidenze raccolte.\n[SC03-M007] (obiettivo-ripristino) Riportare WS-114 in servizio senza perdita di dati.\n[SC03-M008] (campione-laboratorio) Il campione di svhostw.exe è stato inviato al laboratorio interno.\n[SC03-M009] (stato-cifratura) I file dell'utente si aprono regolarmente e nessuna estensione risulta modificata.\n\nArchivio dei fatti superati o ritirati:\n(archivio vuoto: nessun fatto superato o ritirato)\n\nFatti nuovi da valutare:\n[SC03-F011] Il file LEGGIMI-PAGAMENTO.txt esce dalle evidenze del caso. (tipo: ritiro, negato: si, da: SC03-S2-U1)\n[SC03-F012] Il file LEGGIMI-PAGAMENTO.txt era il residuo dell'esercitazione interna di phishing simulato di maggio e non ha relazione con l'incidente. (tipo: conferma, negato: no, da: SC03-S2-U1)\n[SC03-F013] L'evidenza ritirata non viene sostituita da nessun'altra evidenza. (tipo: ritiro, negato: si, da: SC03-S2-U1)\n[SC03-F014] svhostw.exe ha letto il database delle credenziali del browser dell'utente. (tipo: osservazione, negato: no, da: SC03-S2-U2)\n[SC03-F015] svhostw.exe ha aperto tre connessioni verso cdn-updates.example.net con un caricamento complessivo di 240 MB. (tipo: osservazione, negato: no, da: SC03-S2-U2)\n[SC03-F016] Non è stata osservata alcuna cifratura dei file. (tipo: osservazione, negato: si, da: SC03-S2-U2)\n[SC03-F017] L'ipotesi aggiornata del caso è un infostealer e non più un ransomware. (tipo: ipotesi, negato: no, da: SC03-S2-U2)",
+      "scenario_id": "scenario_03",
+      "session_id": "SC03-S2",
+      "session_order": 2,
+      "state_before": [
+        "SC03-M001",
+        "SC03-M002",
+        "SC03-M003",
+        "SC03-M004",
+        "SC03-M005",
+        "SC03-M006",
+        "SC03-M007",
+        "SC03-M008",
+        "SC03-M009"
+      ]
+    },
+    {
+      "archive_before": [
+        "SC03-M004",
+        "SC03-M005"
+      ],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC03-F018",
+        "SC03-F019",
+        "SC03-F020",
+        "SC03-F021",
+        "SC03-F022",
+        "SC03-F023",
+        "SC03-F024"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC03-F018\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"famiglia-malware\",\n  \"value\": \"Il campione corrisponde alla famiglia Kelpie.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC03-F019\",\n  \"operation\": \"UPDATE\",\n  \"claim_key\": \"classificazione\",\n  \"value\": \"Classificazione confermata: infostealer, famiglia Kelpie; non è più un'ipotesi.\",\n  \"target_entry_id\": \"SC03-M017\",\n  \"reason\": \"la conferma del laboratorio sostituisce l'ipotesi\"\n },\n {\n  \"fact_id\": \"SC03-F020\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"contenimento-isolamento\",\n  \"value\": \"WS-114 è stato isolato dalla rete alle 09:40.\",\n  \"target_entry_id\": null,\n  \"reason\": \"azione nuova\"\n },\n {\n  \"fact_id\": \"SC03-F021\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"contenimento-blocco-dominio\",\n  \"value\": \"Il dominio cdn-updates.example.net è stato bloccato sul proxy.\",\n  \"target_entry_id\": null,\n  \"reason\": \"azione nuova\"\n },\n {\n  \"fact_id\": \"SC03-F022\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"contenimento-credenziali\",\n  \"value\": \"Le credenziali dei tre servizi usati dall'utente sono state revocate e riemesse.\",\n  \"target_entry_id\": null,\n  \"reason\": \"azione nuova\"\n },\n {\n  \"fact_id\": \"SC03-F023\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"verifica-accessi-cloud\",\n  \"value\": \"Da eseguire: controllo degli accessi ai servizi cloud nelle 48 ore precedenti l'isolamento.\",\n  \"target_entry_id\": null,\n  \"reason\": \"verifica nuova\"\n },\n {\n  \"fact_id\": \"SC03-F024\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"verifica-reinstallazione\",\n  \"value\": \"Da eseguire: reinstallazione dell'host.\",\n  \"target_entry_id\": null,\n  \"reason\": \"verifica nuova\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC03-OP018",
+        "SC03-OP019",
+        "SC03-OP020",
+        "SC03-OP021",
+        "SC03-OP022",
+        "SC03-OP023",
+        "SC03-OP024"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC03-M001] (caso-ws114) È stato aperto un caso sull'host WS-114 di Vesper Logistics.\n[SC03-M002] (sintomo-rallentamento) WS-114 ha avuto un rallentamento improvviso.\n[SC03-M003] (sintomo-processo) Su WS-114 è presente il processo svhostw.exe non riconosciuto.\n[SC03-M006] (obiettivo-classificazione) Stabilire la classificazione del malware sulla base delle evidenze raccolte.\n[SC03-M007] (obiettivo-ripristino) Riportare WS-114 in servizio senza perdita di dati.\n[SC03-M008] (campione-laboratorio) Il campione di svhostw.exe è stato inviato al laboratorio interno.\n[SC03-M009] (stato-cifratura) I file dell'utente si aprono regolarmente e nessuna estensione risulta modificata.\n[SC03-M012] (motivo-ritiro-file) Il file LEGGIMI-PAGAMENTO.txt era il residuo dell'esercitazione interna di phishing simulato di maggio.\n[SC03-M014] (evidenza-lettura-credenziali) svhostw.exe ha letto il database delle credenziali del browser dell'utente.\n[SC03-M015] (evidenza-esfiltrazione) svhostw.exe ha aperto tre connessioni verso cdn-updates.example.net con un caricamento di 240 MB.\n[SC03-M017] (classificazione) Ipotesi aggiornata: infostealer, non più ransomware.\n\nArchivio dei fatti superati o ritirati:\n[SC03-M004] (evidenza-file-riscatto) Sul desktop di WS-114 è comparso il file LEGGIMI-PAGAMENTO.txt. — ritirato\n[SC03-M005] (classificazione) Ipotesi iniziale: ransomware. — superato\n\nFatti nuovi da valutare:\n[SC03-F018] Il laboratorio interno ha chiuso l'analisi: il campione corrisponde alla famiglia Kelpie. (tipo: conferma, negato: no, da: SC03-S3-U1)\n[SC03-F019] La classificazione del caso come infostealer è confermata e non è più un'ipotesi. (tipo: conferma, negato: no, da: SC03-S3-U1)\n[SC03-F020] WS-114 è stato isolato dalla rete alle 09:40. (tipo: stato, negato: no, da: SC03-S3-U2)\n[SC03-F021] Il dominio cdn-updates.example.net è stato bloccato sul proxy. (tipo: stato, negato: no, da: SC03-S3-U2)\n[SC03-F022] Le credenziali dei tre servizi usati dall'utente sono state revocate e riemesse. (tipo: stato, negato: no, da: SC03-S3-U2)\n[SC03-F023] Resta da eseguire il controllo degli accessi ai servizi cloud nelle 48 ore precedenti l'isolamento. (tipo: stato, negato: no, da: SC03-S3-U2)\n[SC03-F024] Resta da eseguire la reinstallazione dell'host. (tipo: stato, negato: no, da: SC03-S3-U2)",
+      "scenario_id": "scenario_03",
+      "session_id": "SC03-S3",
+      "session_order": 3,
+      "state_before": [
+        "SC03-M001",
+        "SC03-M002",
+        "SC03-M003",
+        "SC03-M006",
+        "SC03-M007",
+        "SC03-M008",
+        "SC03-M009",
+        "SC03-M012",
+        "SC03-M014",
+        "SC03-M015",
+        "SC03-M017"
+      ]
+    },
+    {
+      "archive_before": [
+        "SC03-M004",
+        "SC03-M005",
+        "SC03-M017"
+      ],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC03-F025",
+        "SC03-F026",
+        "SC03-F027",
+        "SC03-F028",
+        "SC03-F029",
+        "SC03-F030"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC03-F025\",\n  \"operation\": \"NOOP\",\n  \"claim_key\": \"classificazione\",\n  \"value\": \"Il laboratorio ha ripetuto la verifica con lo stesso esito.\",\n  \"target_entry_id\": null,\n  \"reason\": \"conferma equivalente: la memoria non cambia\"\n },\n {\n  \"fact_id\": \"SC03-F026\",\n  \"operation\": \"NOOP\",\n  \"claim_key\": \"classificazione\",\n  \"value\": \"La classificazione del caso non cambia.\",\n  \"target_entry_id\": null,\n  \"reason\": \"conferma equivalente: la memoria non cambia\"\n },\n {\n  \"fact_id\": \"SC03-F027\",\n  \"operation\": \"UPDATE\",\n  \"claim_key\": \"verifica-accessi-cloud\",\n  \"value\": \"Controllo degli accessi ai servizi cloud completato: nessun accesso anomalo nelle 48 ore precedenti l'isolamento.\",\n  \"target_entry_id\": \"SC03-M023\",\n  \"reason\": \"la verifica passa da da eseguire a completata\"\n },\n {\n  \"fact_id\": \"SC03-F028\",\n  \"operation\": \"NOOP\",\n  \"claim_key\": \"verifica-reinstallazione\",\n  \"value\": \"Resta aperta la sola reinstallazione dell'host.\",\n  \"target_entry_id\": null,\n  \"reason\": \"conferma dello stato già registrato\"\n },\n {\n  \"fact_id\": \"SC03-F029\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"vettore-iniziale\",\n  \"value\": \"Il vettore iniziale dell'infezione non è stato determinato.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova, negativa\"\n },\n {\n  \"fact_id\": \"SC03-F030\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"vincolo-rapporto\",\n  \"value\": \"Il rapporto del caso deve restare interno fino alla chiusura.\",\n  \"target_entry_id\": null,\n  \"reason\": \"vincolo nuovo\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC03-OP025",
+        "SC03-OP026",
+        "SC03-OP027",
+        "SC03-OP028",
+        "SC03-OP029",
+        "SC03-OP030"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC03-M001] (caso-ws114) È stato aperto un caso sull'host WS-114 di Vesper Logistics.\n[SC03-M002] (sintomo-rallentamento) WS-114 ha avuto un rallentamento improvviso.\n[SC03-M003] (sintomo-processo) Su WS-114 è presente il processo svhostw.exe non riconosciuto.\n[SC03-M006] (obiettivo-classificazione) Stabilire la classificazione del malware sulla base delle evidenze raccolte.\n[SC03-M007] (obiettivo-ripristino) Riportare WS-114 in servizio senza perdita di dati.\n[SC03-M008] (campione-laboratorio) Il campione di svhostw.exe è stato inviato al laboratorio interno.\n[SC03-M009] (stato-cifratura) I file dell'utente si aprono regolarmente e nessuna estensione risulta modificata.\n[SC03-M012] (motivo-ritiro-file) Il file LEGGIMI-PAGAMENTO.txt era il residuo dell'esercitazione interna di phishing simulato di maggio.\n[SC03-M014] (evidenza-lettura-credenziali) svhostw.exe ha letto il database delle credenziali del browser dell'utente.\n[SC03-M015] (evidenza-esfiltrazione) svhostw.exe ha aperto tre connessioni verso cdn-updates.example.net con un caricamento di 240 MB.\n[SC03-M018] (famiglia-malware) Il campione corrisponde alla famiglia Kelpie.\n[SC03-M019] (classificazione) Classificazione confermata: infostealer, famiglia Kelpie; non è più un'ipotesi.\n[SC03-M020] (contenimento-isolamento) WS-114 è stato isolato dalla rete alle 09:40.\n[SC03-M021] (contenimento-blocco-dominio) Il dominio cdn-updates.example.net è stato bloccato sul proxy.\n[SC03-M022] (contenimento-credenziali) Le credenziali dei tre servizi usati dall'utente sono state revocate e riemesse.\n[SC03-M023] (verifica-accessi-cloud) Da eseguire: controllo degli accessi ai servizi cloud nelle 48 ore precedenti l'isolamento.\n[SC03-M024] (verifica-reinstallazione) Da eseguire: reinstallazione dell'host.\n\nArchivio dei fatti superati o ritirati:\n[SC03-M004] (evidenza-file-riscatto) Sul desktop di WS-114 è comparso il file LEGGIMI-PAGAMENTO.txt. — ritirato\n[SC03-M005] (classificazione) Ipotesi iniziale: ransomware. — superato\n[SC03-M017] (classificazione) Ipotesi aggiornata: infostealer, non più ransomware. — superato\n\nFatti nuovi da valutare:\n[SC03-F025] Il laboratorio ha ripetuto la verifica sul campione e ha ottenuto lo stesso esito già comunicato. (tipo: conferma, negato: no, da: SC03-S4-U1)\n[SC03-F026] La classificazione del caso non cambia. (tipo: conferma, negato: no, da: SC03-S4-U1)\n[SC03-F027] Il controllo degli accessi ai servizi cloud è stato completato e non ha trovato accessi anomali nelle 48 ore precedenti l'isolamento. (tipo: stato, negato: no, da: SC03-S4-U2)\n[SC03-F028] Resta aperta la sola reinstallazione dell'host. (tipo: stato, negato: no, da: SC03-S4-U2)\n[SC03-F029] Il vettore iniziale dell'infezione non è stato determinato. (tipo: stato, negato: si, da: SC03-S4-U2)\n[SC03-F030] Il rapporto del caso deve restare interno e non può essere diffuso fuori dal gruppo di risposta prima della chiusura. (tipo: decisione, negato: no, da: SC03-S4-U2)",
+      "scenario_id": "scenario_03",
+      "session_id": "SC03-S4",
+      "session_order": 4,
+      "state_before": [
+        "SC03-M001",
+        "SC03-M002",
+        "SC03-M003",
+        "SC03-M006",
+        "SC03-M007",
+        "SC03-M008",
+        "SC03-M009",
+        "SC03-M012",
+        "SC03-M014",
+        "SC03-M015",
+        "SC03-M018",
+        "SC03-M019",
+        "SC03-M020",
+        "SC03-M021",
+        "SC03-M022",
+        "SC03-M023",
+        "SC03-M024"
+      ]
+    }
+  ],
+  "source_file": "data/rq2/scenarios/scenario_03.json",
+  "update_instructions": "Sei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n"
+}

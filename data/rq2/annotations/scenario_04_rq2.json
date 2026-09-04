@@ -1,0 +1,605 @@
+{
+  "annotation_id": "sc04-rq2-0.1",
+  "scenario_id": "scenario_04",
+  "experiment": "RQ2",
+  "scenario_file": "data/rq2/scenarios/scenario_04.json",
+  "status": "BOZZA DA CONTROLLARE — non approvata, non congelata",
+  "frozen": false,
+  "review_required": true,
+  "review_note": "Domande, oracle, entità e relazioni attese sono una proposta generata durante la costruzione del dataset. Vanno letti e corretti dallo studente prima di qualsiasi esecuzione finale. Ultima modifica: SC04-Q3 ora richiede anche SC04-R09 (RULE-01 creata nella sessione di LOGIN-07) e dichiara la catena esplicativa in `required_relation_chain`, distinta dal percorso minimo del retriever.",
+  "purpose": "Materiale di sola valutazione. Non entra nell'estrazione dei fatti, nel retrieval, nella costruzione del grafo o nel prompt di risposta.",
+  "abstention_rule": "Quando almeno un fatto obbligatorio non è accessibile nelle sorgenti ammesse, il comportamento corretto è dichiarare che le informazioni disponibili non sono sufficienti.",
+  "questions": [
+    {
+      "question_id": "SC04-Q1",
+      "category": "goal",
+      "phenomenon": "Obiettivo del caso",
+      "text": "Qual è l'obiettivo dichiarato del caso aperto per l'ufficio acquisti?",
+      "expected_answer": "Stabilire se il messaggio segnalato è una minaccia reale e limitare l'esposizione degli account coinvolti.",
+      "mandatory_facts": [
+        "stabilire se si tratta di una minaccia reale",
+        "limitare l'esposizione degli account coinvolti"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "obiettivo-minaccia-reale",
+          "text": "l'obiettivo del caso è stabilire se si tratta di una minaccia reale",
+          "source_message_ids": [
+            "SC04-S1-U1"
+          ],
+          "kind": "decisione",
+          "negated": false
+        },
+        {
+          "fact_key": "obiettivo-esposizione-account",
+          "text": "l'obiettivo del caso è limitare l'esposizione degli account coinvolti",
+          "source_message_ids": [
+            "SC04-S1-U1"
+          ],
+          "kind": "decisione",
+          "negated": false
+        }
+      ],
+      "obsolete_information": [],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che conservino entrambi gli obiettivi"
+      ],
+      "required_relations": [],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa"
+    },
+    {
+      "question_id": "SC04-Q2",
+      "category": "update_obsolete",
+      "phenomenon": "Classificazione confermata e valutazioni iniziali superate",
+      "text": "Come è classificato attualmente il caso e quali valutazioni iniziali sono state superate?",
+      "expected_answer": "Il caso è classificato come smishing, perché il collegamento URL-01 contenuto in SMS-01 porta a una pagina falsa che riproduce il modulo di accesso di accessi.corvara.example. Sono state superate due valutazioni iniziali: che si trattasse di spam generico e che l'operatore non avesse avuto contatto con il collegamento; il registro del proxy mostra invece che UT-207 ha aperto URL-01 alle 07:03 e ha inviato il modulo.",
+      "mandatory_facts": [
+        "classificazione attuale: smishing",
+        "motivo: la pagina raggiunta dal collegamento è una pagina falsa che riproduce il modulo di accesso aziendale",
+        "valutazione superata: spam generico",
+        "valutazione superata: nessun contatto con il collegamento; risulta invece l'apertura alle 07:03 e l'invio del modulo"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "valutazione-iniziale-spam",
+          "text": "la valutazione iniziale era che si trattasse di spam generico",
+          "source_message_ids": [
+            "SC04-S1-U1"
+          ],
+          "kind": "ipotesi",
+          "negated": false
+        },
+        {
+          "fact_key": "valutazione-iniziale-nessun-contatto",
+          "text": "la valutazione iniziale era che l'operatore non avesse avuto alcun contatto con il collegamento",
+          "source_message_ids": [
+            "SC04-S1-U1"
+          ],
+          "kind": "ipotesi",
+          "negated": true
+        },
+        {
+          "fact_key": "classificazione-smishing",
+          "text": "il caso è classificato come smishing perché la pagina raggiunta da URL-01 riproduce il modulo di accesso di accessi.corvara.example ed è falsa",
+          "source_message_ids": [
+            "SC04-S2-U1"
+          ],
+          "kind": "conferma",
+          "negated": false
+        },
+        {
+          "fact_key": "contatto-avvenuto",
+          "text": "il registro del proxy mostra che UT-207 ha aperto URL-01 alle 07:03 e ha inviato il modulo di accesso",
+          "source_message_ids": [
+            "SC04-S2-U2"
+          ],
+          "kind": "conferma",
+          "negated": false
+        }
+      ],
+      "obsolete_information": [
+        "presentare il caso come spam generico",
+        "affermare che l'operatore non ha avuto contatto con il collegamento"
+      ],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che indichino lo smishing come classificazione attuale e riportino entrambe le valutazioni superate",
+        "risposte che descrivano la pagina come clone del portale di accesso aziendale senza citarne il dominio"
+      ],
+      "required_relations": [
+        "SC04-R02",
+        "SC04-R03",
+        "SC04-R05"
+      ],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa"
+    },
+    {
+      "question_id": "SC04-Q3",
+      "category": "cross_session_link",
+      "phenomenon": "Catena di relazioni distribuita su tre sessioni",
+      "text": "Quali passaggi collegano il messaggio segnalato dall'operatore alla regola di inoltro creata sull'account aziendale?",
+      "expected_answer": "UT-207 ha segnalato SMS-01; SMS-01 contiene il collegamento URL-01; UT-207 ha aperto URL-01 alle 07:03 e ha inviato il modulo di accesso, che è la riproduzione falsa del modulo aziendale; UT-207 usa l'account ACC-207; su ACC-207 risulta l'accesso anomalo LOGIN-07 delle 07:12 dall'indirizzo 203.0.113.44; dalla stessa sessione di LOGIN-07, alle 07:20, è stata creata su ACC-207 la regola di inoltro RULE-01 verso archivio.backup@mailbox.example.",
+      "mandatory_facts": [
+        "UT-207 ha segnalato SMS-01",
+        "SMS-01 contiene URL-01",
+        "UT-207 ha aperto URL-01 e ha inviato il modulo",
+        "UT-207 usa l'account ACC-207",
+        "su ACC-207 risulta l'accesso anomalo LOGIN-07",
+        "RULE-01 è stata creata su ACC-207 dalla stessa sessione di LOGIN-07"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "segnalazione-sms",
+          "text": "l'operatore UT-207 ha segnalato l'SMS registrato come SMS-01",
+          "source_message_ids": [
+            "SC04-S1-U1"
+          ],
+          "kind": "osservazione",
+          "negated": false
+        },
+        {
+          "fact_key": "sms-contiene-url",
+          "text": "SMS-01 contiene un solo collegamento, registrato come URL-01",
+          "source_message_ids": [
+            "SC04-S2-U1"
+          ],
+          "kind": "osservazione",
+          "negated": false
+        },
+        {
+          "fact_key": "contatto-avvenuto",
+          "text": "UT-207 ha aperto URL-01 alle 07:03 e ha inviato il modulo di accesso",
+          "source_message_ids": [
+            "SC04-S2-U2"
+          ],
+          "kind": "conferma",
+          "negated": false
+        },
+        {
+          "fact_key": "operatore-usa-account",
+          "text": "l'account aziendale usato da UT-207 è ACC-207 (acquisti-207@corvara.example)",
+          "source_message_ids": [
+            "SC04-S3-U1"
+          ],
+          "kind": "osservazione",
+          "negated": false
+        },
+        {
+          "fact_key": "accesso-anomalo",
+          "text": "su ACC-207 risulta l'accesso anomalo LOGIN-07 del 12 marzo alle 07:12 dall'indirizzo 203.0.113.44",
+          "source_message_ids": [
+            "SC04-S3-U1"
+          ],
+          "kind": "osservazione",
+          "negated": false
+        },
+        {
+          "fact_key": "regola-inoltro-creata",
+          "text": "dalla stessa sessione di LOGIN-07, alle 07:20, è stata creata su ACC-207 la regola di inoltro RULE-01 verso archivio.backup@mailbox.example",
+          "source_message_ids": [
+            "SC04-S3-U2"
+          ],
+          "kind": "osservazione",
+          "negated": false
+        }
+      ],
+      "obsolete_information": [
+        "presentare l'apertura del collegamento come non avvenuta"
+      ],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che ricostruiscano la stessa catena con altri termini, purché conservino tutti i passaggi",
+        "risposte che usino i nomi estesi (numero mittente, indirizzo dell'account) al posto degli identificatori"
+      ],
+      "required_relations": [
+        "SC04-R01",
+        "SC04-R02",
+        "SC04-R04",
+        "SC04-R06",
+        "SC04-R07",
+        "SC04-R08",
+        "SC04-R09"
+      ],
+      "required_relation_chain": [
+        "SC04-R01",
+        "SC04-R02",
+        "SC04-R04",
+        "SC04-R06",
+        "SC04-R07",
+        "SC04-R09",
+        "SC04-R08"
+      ],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa",
+      "relation_chain_note": "Catena esplicativa, non percorso minimo: e' la sequenza di relazioni che una risposta deve ricostruire. Attraversa due volte UT-207 (R02 -> R04 -> R06) perche' il racconto torna sull'operatore dopo il collegamento. Non va confusa con lo shortest path fra due nodi, che puo' essere una scorciatoia corretta ma insufficiente a spiegare il caso."
+    },
+    {
+      "question_id": "SC04-Q4",
+      "category": "completed_activity",
+      "phenomenon": "Attività completate",
+      "text": "Quali azioni risultano completate sull'account e sul numero mittente?",
+      "expected_answer": "La regola di inoltro RULE-01 è stata rimossa, la password di ACC-207 è stata reimpostata alle 08:05 e il numero mittente è stato bloccato sul gateway aziendale.",
+      "mandatory_facts": [
+        "RULE-01 rimossa",
+        "password di ACC-207 reimpostata alle 08:05",
+        "numero mittente bloccato sul gateway aziendale"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "regola-rimossa",
+          "text": "la regola di inoltro RULE-01 è stata rimossa",
+          "source_message_ids": [
+            "SC04-S4-U1"
+          ],
+          "kind": "stato",
+          "negated": false
+        },
+        {
+          "fact_key": "password-reimpostata",
+          "text": "la password di ACC-207 è stata reimpostata alle 08:05",
+          "source_message_ids": [
+            "SC04-S4-U1"
+          ],
+          "kind": "stato",
+          "negated": false
+        },
+        {
+          "fact_key": "numero-bloccato",
+          "text": "il numero mittente è stato bloccato sul gateway aziendale",
+          "source_message_ids": [
+            "SC04-S4-U1"
+          ],
+          "kind": "stato",
+          "negated": false
+        }
+      ],
+      "obsolete_information": [
+        "presentare la regola di inoltro come ancora attiva"
+      ],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che elenchino le tre azioni, anche senza ripetere l'orario"
+      ],
+      "required_relations": [
+        "SC04-R08"
+      ],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa"
+    },
+    {
+      "question_id": "SC04-Q5",
+      "category": "pending_activity",
+      "phenomenon": "Attività aperta e vincolo locale sul riepilogo",
+      "text": "Che cosa resta da completare e che cosa deve indicare il riepilogo per il responsabile?",
+      "expected_answer": "Resta aperta la revisione dei messaggi inoltrati nella finestra fra le 07:20 e la rimozione di RULE-01. Nel riepilogo per il responsabile vanno indicate la segnalazione che ha originato il caso e gli eventi registrati sull'account.",
+      "mandatory_facts": [
+        "revisione dei messaggi inoltrati fra le 07:20 e la rimozione della regola",
+        "il riepilogo deve indicare la segnalazione che ha originato il caso e gli eventi sull'account che ne sono seguiti"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "revisione-messaggi-inoltrati",
+          "text": "resta da completare la revisione dei messaggi inoltrati fra le 07:20 e la rimozione della regola",
+          "source_message_ids": [
+            "SC04-S4-U1"
+          ],
+          "kind": "stato",
+          "negated": false
+        },
+        {
+          "fact_key": "contenuto-riepilogo",
+          "text": "il riepilogo per il responsabile deve indicare quale segnalazione ha originato il caso e quali eventi sull'account ne sono seguiti",
+          "source_message_ids": [
+            "SC04-S4-U1"
+          ],
+          "kind": "decisione",
+          "negated": false
+        }
+      ],
+      "obsolete_information": [],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che indichino la revisione dei messaggi inoltrati come unica attività aperta e il contenuto richiesto per il riepilogo"
+      ],
+      "required_relations": [],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa"
+    },
+    {
+      "question_id": "SC04-Q6",
+      "category": "declared_unknown",
+      "phenomenon": "Punto dichiarato non determinato",
+      "text": "Che cosa è stato stabilito su come è stato ottenuto il numero di telefono dell'operatore?",
+      "expected_answer": "Nulla: la verifica su come sia stato ottenuto il numero di telefono è stata chiusa senza esito e il punto resta non determinato.",
+      "mandatory_facts": [
+        "la verifica è chiusa senza esito",
+        "il punto resta non determinato"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "origine-numero-non-determinata",
+          "text": "la verifica su come sia stato ottenuto il numero di telefono dell'operatore è chiusa senza esito e il punto resta non determinato",
+          "source_message_ids": [
+            "SC04-S4-U2"
+          ],
+          "kind": "stato",
+          "negated": true
+        }
+      ],
+      "obsolete_information": [
+        "attribuire l'origine del numero a una fonte non menzionata, per esempio una fuga di dati o un elenco pubblico"
+      ],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che riportino la chiusura senza esito della verifica",
+        "risposte che dichiarino il punto non determinato senza citare la chiusura della verifica"
+      ],
+      "required_relations": [],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa",
+      "annotation_note": "Questa domanda non è un'astensione: l'assenza di risultato è dichiarata esplicitamente nello scenario e ha un'evidenza. Va tenuta distinta da SC04-Q7."
+    },
+    {
+      "question_id": "SC04-Q7",
+      "category": "absent_information",
+      "phenomenon": "Informazione mai fornita",
+      "text": "Quale fornitore gestisce il gateway SMS aziendale di Corvara Servizi?",
+      "expected_answer": "Il fornitore del gateway SMS aziendale non è mai stato indicato: l'informazione non è disponibile nelle conversazioni del caso.",
+      "mandatory_facts": [
+        "riconoscimento dell'assenza dell'informazione"
+      ],
+      "required_facts": [],
+      "evidence_note": "Nessuna evidenza positiva. Il gateway aziendale viene citato una sola volta, come luogo in cui è stato bloccato il numero mittente; nessun fornitore viene mai nominato.",
+      "obsolete_information": [
+        "attribuire la gestione del gateway a RapidoPost o a un altro nome comparso nello scenario",
+        "indicare un fornitore mai menzionato"
+      ],
+      "accepted_equivalents": [
+        "qualsiasi astensione esplicita che non introduca fornitori non menzionati"
+      ],
+      "required_relations": [],
+      "fact_present_in_corpus": false,
+      "expected_behavior": "Astensione"
+    }
+  ],
+  "graph_annotation": {
+    "note": "Entità e relazioni attese per SC04. Servono a valutare G (copertura delle relazioni e delle catene richieste) e non vengono passate all'estrattore, al costruttore del grafo, alla selezione dei nodi, alla ricerca dei percorsi o al modello di risposta. Ogni relazione conserva le evidenze sorgente. `required_relation_chain` è una sequenza esplicativa connessa: può ripassare da un'entità già incontrata e non coincide con lo shortest path fra due nodi.",
+    "entities": [
+      {
+        "entity_id": "UT-207",
+        "type": "persona",
+        "label": "operatore dell'ufficio acquisti",
+        "source_message_ids": [
+          "SC04-S1-U1"
+        ]
+      },
+      {
+        "entity_id": "SMS-01",
+        "type": "messaggio",
+        "label": "SMS ricevuto il 12 marzo alle 06:58 dal numero +39 351 000 4477",
+        "source_message_ids": [
+          "SC04-S1-U1"
+        ]
+      },
+      {
+        "entity_id": "URL-01",
+        "type": "collegamento",
+        "label": "hxxps://rapidopost-ritiro[.]example/track",
+        "source_message_ids": [
+          "SC04-S2-U1"
+        ]
+      },
+      {
+        "entity_id": "PAGINA-ACCESSI",
+        "type": "risorsa",
+        "label": "modulo di accesso di accessi.corvara.example",
+        "source_message_ids": [
+          "SC04-S2-U1"
+        ]
+      },
+      {
+        "entity_id": "ACC-207",
+        "type": "account",
+        "label": "acquisti-207@corvara.example",
+        "source_message_ids": [
+          "SC04-S3-U1"
+        ]
+      },
+      {
+        "entity_id": "LOGIN-07",
+        "type": "evento",
+        "label": "accesso anomalo del 12 marzo alle 07:12 da 203.0.113.44",
+        "source_message_ids": [
+          "SC04-S3-U1"
+        ]
+      },
+      {
+        "entity_id": "RULE-01",
+        "type": "evento",
+        "label": "regola di inoltro creata alle 07:20",
+        "source_message_ids": [
+          "SC04-S3-U2"
+        ]
+      },
+      {
+        "entity_id": "MAILBOX-ESTERNA",
+        "type": "destinazione",
+        "label": "archivio.backup@mailbox.example",
+        "source_message_ids": [
+          "SC04-S3-U2"
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "relation_id": "SC04-R01",
+        "subject": "UT-207",
+        "predicate": "ha segnalato",
+        "object": "SMS-01",
+        "source_message_ids": [
+          "SC04-S1-U1"
+        ]
+      },
+      {
+        "relation_id": "SC04-R02",
+        "subject": "SMS-01",
+        "predicate": "contiene",
+        "object": "URL-01",
+        "source_message_ids": [
+          "SC04-S2-U1"
+        ]
+      },
+      {
+        "relation_id": "SC04-R03",
+        "subject": "URL-01",
+        "predicate": "imita",
+        "object": "PAGINA-ACCESSI",
+        "source_message_ids": [
+          "SC04-S2-U1"
+        ]
+      },
+      {
+        "relation_id": "SC04-R04",
+        "subject": "UT-207",
+        "predicate": "ha aperto",
+        "object": "URL-01",
+        "source_message_ids": [
+          "SC04-S2-U2"
+        ]
+      },
+      {
+        "relation_id": "SC04-R05",
+        "subject": "UT-207",
+        "predicate": "ha inviato il modulo a",
+        "object": "URL-01",
+        "source_message_ids": [
+          "SC04-S2-U2"
+        ]
+      },
+      {
+        "relation_id": "SC04-R06",
+        "subject": "UT-207",
+        "predicate": "usa",
+        "object": "ACC-207",
+        "source_message_ids": [
+          "SC04-S3-U1"
+        ]
+      },
+      {
+        "relation_id": "SC04-R07",
+        "subject": "ACC-207",
+        "predicate": "coinvolto in",
+        "object": "LOGIN-07",
+        "source_message_ids": [
+          "SC04-S3-U1"
+        ]
+      },
+      {
+        "relation_id": "SC04-R08",
+        "subject": "ACC-207",
+        "predicate": "presenta",
+        "object": "RULE-01",
+        "source_message_ids": [
+          "SC04-S3-U2"
+        ]
+      },
+      {
+        "relation_id": "SC04-R09",
+        "subject": "RULE-01",
+        "predicate": "creata dalla stessa sessione di",
+        "object": "LOGIN-07",
+        "source_message_ids": [
+          "SC04-S3-U2"
+        ]
+      },
+      {
+        "relation_id": "SC04-R10",
+        "subject": "RULE-01",
+        "predicate": "inoltra a",
+        "object": "MAILBOX-ESTERNA",
+        "source_message_ids": [
+          "SC04-S3-U2"
+        ]
+      }
+    ]
+  },
+  "expected_operations": {
+    "note": "SC04 usa U come architettura di partenza: qui sono annotati soltanto gli aggiornamenti riconoscibili, non l'elenco completo delle operazioni. L'elenco esteso va completato insieme all'implementazione di U.",
+    "operations": [
+      {
+        "op_id": "SC04-OP01",
+        "session_id": "SC04-S1",
+        "claim_key": "classificazione",
+        "expected_operation": "ADD",
+        "value": "valutazione iniziale: spam generico",
+        "source_message_ids": [
+          "SC04-S1-U1"
+        ],
+        "supersedes": null
+      },
+      {
+        "op_id": "SC04-OP02",
+        "session_id": "SC04-S1",
+        "claim_key": "contatto-collegamento",
+        "expected_operation": "ADD",
+        "value": "valutazione iniziale: nessun contatto con il collegamento",
+        "source_message_ids": [
+          "SC04-S1-U1"
+        ],
+        "supersedes": null
+      },
+      {
+        "op_id": "SC04-OP03",
+        "session_id": "SC04-S2",
+        "claim_key": "classificazione",
+        "expected_operation": "UPDATE",
+        "value": "confermata: smishing",
+        "source_message_ids": [
+          "SC04-S2-U1"
+        ],
+        "supersedes": "SC04-OP01"
+      },
+      {
+        "op_id": "SC04-OP04",
+        "session_id": "SC04-S2",
+        "claim_key": "contatto-collegamento",
+        "expected_operation": "UPDATE",
+        "value": "UT-207 ha aperto URL-01 alle 07:03 e ha inviato il modulo",
+        "source_message_ids": [
+          "SC04-S2-U2"
+        ],
+        "supersedes": "SC04-OP02"
+      },
+      {
+        "op_id": "SC04-OP05",
+        "session_id": "SC04-S3",
+        "claim_key": "regola-inoltro",
+        "expected_operation": "ADD",
+        "value": "RULE-01 creata alle 07:20 su ACC-207",
+        "source_message_ids": [
+          "SC04-S3-U2"
+        ],
+        "supersedes": null
+      },
+      {
+        "op_id": "SC04-OP06",
+        "session_id": "SC04-S4",
+        "claim_key": "regola-inoltro",
+        "expected_operation": "UPDATE",
+        "value": "RULE-01 rimossa",
+        "source_message_ids": [
+          "SC04-S4-U1"
+        ],
+        "supersedes": "SC04-OP05"
+      },
+      {
+        "op_id": "SC04-OP07",
+        "session_id": "SC04-S4",
+        "claim_key": "origine-numero",
+        "expected_operation": "ADD",
+        "value": "non determinata, verifica chiusa senza esito",
+        "source_message_ids": [
+          "SC04-S4-U2"
+        ],
+        "supersedes": null
+      }
+    ]
+  }
+}

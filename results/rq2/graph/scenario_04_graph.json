@@ -1,0 +1,603 @@
+{
+  "config_id": "rq2-dev-0.1",
+  "edges": [
+    {
+      "edge_id": "SC04-E001",
+      "object": "UT-207",
+      "order": 1,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "riguarda",
+      "source_fact_ids": [
+        "SC04-F001",
+        "SC04-F002"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "CASE-01"
+    },
+    {
+      "edge_id": "SC04-E002",
+      "object": "SMS-01",
+      "order": 2,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "ha_segnalato",
+      "source_fact_ids": [
+        "SC04-F002",
+        "SC04-F007"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "UT-207"
+    },
+    {
+      "edge_id": "SC04-E003",
+      "object": "TEL-4477",
+      "order": 3,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "inviato_da",
+      "source_fact_ids": [
+        "SC04-F004"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "SMS-01"
+    },
+    {
+      "edge_id": "SC04-E004",
+      "object": "spam-generico",
+      "order": 4,
+      "provenance_problem": "object non e' un nodo dichiarato: spam-generico",
+      "provenance_valid": false,
+      "relation": "classificato_come",
+      "source_fact_ids": [
+        "SC04-F010"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "state": "superato",
+      "state_valid": true,
+      "subject": "SMS-01"
+    },
+    {
+      "edge_id": "SC04-E005",
+      "object": "smishing",
+      "order": 5,
+      "provenance_problem": "object non e' un nodo dichiarato: smishing",
+      "provenance_valid": false,
+      "relation": "classificato_come",
+      "source_fact_ids": [
+        "SC04-F017",
+        "SC04-F018"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1",
+        "SC04-S2-U2"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "SMS-01"
+    },
+    {
+      "edge_id": "SC04-E006",
+      "object": "URL-01",
+      "order": 6,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "contiene",
+      "source_fact_ids": [
+        "SC04-F012",
+        "SC04-F013",
+        "SC04-F014"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "SMS-01"
+    },
+    {
+      "edge_id": "SC04-E007",
+      "object": "URL-01",
+      "order": 7,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "non_ha_avuto_contatto_con",
+      "source_fact_ids": [
+        "SC04-F011"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "state": "superato",
+      "state_valid": true,
+      "subject": "UT-207"
+    },
+    {
+      "edge_id": "SC04-E008",
+      "object": "URL-01",
+      "order": 8,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "ha_aperto",
+      "source_fact_ids": [
+        "SC04-F019"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U2"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "UT-207"
+    },
+    {
+      "edge_id": "SC04-E009",
+      "object": "URL-01",
+      "order": 9,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "ha_inviato_modulo_su",
+      "source_fact_ids": [
+        "SC04-F020",
+        "SC04-F021"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U2"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "UT-207"
+    },
+    {
+      "edge_id": "SC04-E010",
+      "object": "accessi.corvara.example",
+      "order": 10,
+      "provenance_problem": "object non e' un nodo dichiarato: accessi.corvara.example",
+      "provenance_valid": false,
+      "relation": "imita_pagina_di",
+      "source_fact_ids": [
+        "SC04-F015",
+        "SC04-F016"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "URL-01"
+    },
+    {
+      "edge_id": "SC04-E011",
+      "object": "ACC-207",
+      "order": 11,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "usa_account",
+      "source_fact_ids": [
+        "SC04-F022",
+        "SC04-F023"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "UT-207"
+    },
+    {
+      "edge_id": "SC04-E012",
+      "object": "LOGIN-07",
+      "order": 12,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "ha_subito",
+      "source_fact_ids": [
+        "SC04-F024",
+        "SC04-F027"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "ACC-207"
+    },
+    {
+      "edge_id": "SC04-E013",
+      "object": "IP-203.0.113.44",
+      "order": 13,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "proviene_da",
+      "source_fact_ids": [
+        "SC04-F025",
+        "SC04-F026"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "LOGIN-07"
+    },
+    {
+      "edge_id": "SC04-E014",
+      "object": "RULE-01",
+      "order": 14,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "ha_originato",
+      "source_fact_ids": [
+        "SC04-F028",
+        "SC04-F030"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "LOGIN-07"
+    },
+    {
+      "edge_id": "SC04-E015",
+      "object": "DEST-BACKUP",
+      "order": 15,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "inoltra_a",
+      "source_fact_ids": [
+        "SC04-F029"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "RULE-01"
+    },
+    {
+      "edge_id": "SC04-E016",
+      "object": "rimossa",
+      "order": 16,
+      "provenance_problem": "object non e' un nodo dichiarato: rimossa",
+      "provenance_valid": false,
+      "relation": "è_stata",
+      "source_fact_ids": [
+        "SC04-F031"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "RULE-01"
+    },
+    {
+      "edge_id": "SC04-E017",
+      "object": "EVT-RESET",
+      "order": 17,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "ha_subito",
+      "source_fact_ids": [
+        "SC04-F032"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "ACC-207"
+    },
+    {
+      "edge_id": "SC04-E018",
+      "object": "bloccato_sul_gateway",
+      "order": 18,
+      "provenance_problem": "object non e' un nodo dichiarato: bloccato_sul_gateway",
+      "provenance_valid": false,
+      "relation": "è_stato",
+      "source_fact_ids": [
+        "SC04-F033"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "TEL-4477"
+    },
+    {
+      "edge_id": "SC04-E019",
+      "object": "RULE-01",
+      "order": 19,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "riguarda",
+      "source_fact_ids": [
+        "SC04-F034"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "EVT-REVISIONE"
+    },
+    {
+      "edge_id": "SC04-E020",
+      "object": "CASE-01",
+      "order": 20,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "riguarda",
+      "source_fact_ids": [
+        "SC04-F035",
+        "SC04-F036"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "RIEPILOGO-01"
+    },
+    {
+      "edge_id": "SC04-E021",
+      "object": "UT-207",
+      "order": 21,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "riguarda",
+      "source_fact_ids": [
+        "SC04-F037",
+        "SC04-F038"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U2"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "EVT-VERIFICA-NUMERO"
+    }
+  ],
+  "facts_source": "results/rq2/facts/scenario_04_facts.jsonl",
+  "label": "esecuzione",
+  "nodes": [
+    {
+      "aliases": [],
+      "label": "Caso ufficio acquisti Corvara Servizi",
+      "node_id": "CASE-01",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F001",
+        "SC04-F008",
+        "SC04-F009"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "type": "caso"
+    },
+    {
+      "aliases": [],
+      "label": "Operatore UT-207",
+      "node_id": "UT-207",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F002"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "type": "persona"
+    },
+    {
+      "aliases": [],
+      "label": "SMS di phishing ricevuto il 12 marzo alle 06:58",
+      "node_id": "SMS-01",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F003",
+        "SC04-F004",
+        "SC04-F005",
+        "SC04-F006",
+        "SC04-F007"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "type": "messaggio"
+    },
+    {
+      "aliases": [],
+      "label": "Numero mittente +39 351 000 4477",
+      "node_id": "TEL-4477",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F004",
+        "SC04-F033"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1",
+        "SC04-S4-U1"
+      ],
+      "type": "account"
+    },
+    {
+      "aliases": [],
+      "label": "hxxps://rapidopost-ritiro[.]example/track",
+      "node_id": "URL-01",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F013",
+        "SC04-F014",
+        "SC04-F015",
+        "SC04-F016"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "type": "collegamento"
+    },
+    {
+      "aliases": [],
+      "label": "acquisti-207@corvara.example",
+      "node_id": "ACC-207",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F022",
+        "SC04-F023"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "type": "account"
+    },
+    {
+      "aliases": [],
+      "label": "Accesso anomalo su ACC-207 del 12 marzo alle 07:12",
+      "node_id": "LOGIN-07",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F024",
+        "SC04-F027"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "type": "evento"
+    },
+    {
+      "aliases": [],
+      "label": "Indirizzo IP 203.0.113.44",
+      "node_id": "IP-203.0.113.44",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F025",
+        "SC04-F026"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "type": "account"
+    },
+    {
+      "aliases": [],
+      "label": "Regola di inoltro su ACC-207",
+      "node_id": "RULE-01",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F028",
+        "SC04-F029",
+        "SC04-F030",
+        "SC04-F031"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2",
+        "SC04-S4-U1"
+      ],
+      "type": "evento"
+    },
+    {
+      "aliases": [],
+      "label": "archivio.backup@mailbox.example",
+      "node_id": "DEST-BACKUP",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F029"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "type": "account"
+    },
+    {
+      "aliases": [],
+      "label": "Reimpostazione password ACC-207 alle 08:05",
+      "node_id": "EVT-RESET",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F032"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "type": "evento"
+    },
+    {
+      "aliases": [],
+      "label": "Revisione messaggi inoltrati fra 07:20 e rimozione RULE-01",
+      "node_id": "EVT-REVISIONE",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F034"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "type": "evento"
+    },
+    {
+      "aliases": [],
+      "label": "Riepilogo per il responsabile",
+      "node_id": "RIEPILOGO-01",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F035",
+        "SC04-F036"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "type": "evento"
+    },
+    {
+      "aliases": [],
+      "label": "Verifica origine numero telefono operatore",
+      "node_id": "EVT-VERIFICA-NUMERO",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F037",
+        "SC04-F038"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U2"
+      ],
+      "type": "evento"
+    }
+  ],
+  "retrieval": {
+    "max_hops": 3,
+    "max_seed_items": 3,
+    "max_seed_nodes": 3
+  },
+  "scenario_id": "scenario_04",
+  "state_source": "results/rq2/memory/scenario_04_state.json"
+}

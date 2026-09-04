@@ -1,0 +1,63 @@
+{
+  "annotation_id": "sc01-rq2-0.1",
+  "scenario_id": "scenario_01",
+  "experiment": "RQ2",
+  "scenario_file": "data/scenarios/scenario_01.json",
+  "overlay": true,
+  "status": "BOZZA DA CONTROLLARE — non approvata, non congelata",
+  "frozen": false,
+  "review_required": true,
+  "review_note": "Aggiunta separata per RQ2. Il file del pilot data/scenarios/scenario_01.json non viene modificato: testi, oracle, raggiungibilità C0/C1/C2 e risultati del pilot restano quelli originali.",
+  "purpose": "Scompone i mandatory_facts del pilot in fatti singoli con provenienza e tipo, così che l'oracle sia indipendente dall'architettura (un messaggio, un fatto estratto o un insieme di archi possono esprimere la stessa evidenza). Materiale di sola valutazione.",
+  "questions": [
+    {
+      "question_id": "SC01-Q1",
+      "required_facts": [
+        {"fact_key": "obiettivo-uso-account", "text": "capire come è stato usato l'account di servizio svc-reporting", "source_message_ids": ["SC01-S1-U1"], "kind": "decisione", "negated": false},
+        {"fact_key": "obiettivo-sicurezza-report", "text": "mettere in sicurezza la generazione automatica dei report mensili", "source_message_ids": ["SC01-S1-U1"], "kind": "decisione", "negated": false},
+        {"fact_key": "obiettivo-continuita-consultazione", "text": "non interrompere la consultazione dei report da parte degli utenti", "source_message_ids": ["SC01-S1-U1"], "kind": "decisione", "negated": true}
+      ]
+    },
+    {
+      "question_id": "SC01-Q2",
+      "required_facts": [
+        {"fact_key": "ipotesi-iniziale-password", "text": "la prima ipotesi era la compromissione della password dell'account", "source_message_ids": ["SC01-S1-U1"], "kind": "ipotesi", "negated": false},
+        {"fact_key": "ipotesi-aggiornata-token", "text": "l'ipotesi aggiornata è l'esposizione del vecchio token API reporting-v1", "source_message_ids": ["SC01-S2-U1"], "kind": "ipotesi", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC01-Q3",
+      "required_facts": [
+        {"fact_key": "revoca-token-v1", "text": "il token reporting-v1 è stato revocato alle 11:40", "source_message_ids": ["SC01-S3-U1"], "kind": "stato", "negated": false},
+        {"fact_key": "attivazione-token-v2", "text": "reporting-v2 è attivo al posto di reporting-v1", "source_message_ids": ["SC01-S3-U1"], "kind": "stato", "negated": false},
+        {"fact_key": "ambito-token-v2", "text": "reporting-v2 è autorizzato soltanto a leggere la cartella monthly-reports", "source_message_ids": ["SC01-S3-U1"], "kind": "decisione", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC01-Q4",
+      "required_facts": [
+        {"fact_key": "verifica-origine-esposizione", "text": "resta aperta la verifica sull'origine dell'esposizione del vecchio token", "source_message_ids": ["SC01-S4-U1"], "kind": "stato", "negated": false},
+        {"fact_key": "verifica-consultazione-documenti", "text": "resta aperta la verifica sull'eventuale consultazione di documenti", "source_message_ids": ["SC01-S4-U1"], "kind": "stato", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC01-Q5",
+      "required_facts": [
+        {"fact_key": "scadenza-rapporto-preliminare", "text": "il rapporto preliminare deve essere consegnato venerdì alle 17:00", "source_message_ids": ["SC01-S4-U1"], "kind": "decisione", "negated": false},
+        {"fact_key": "verifica-rinviabile", "text": "la verifica sull'eventuale consultazione di documenti può essere completata per il rapporto finale", "source_message_ids": ["SC01-S4-U1"], "kind": "decisione", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC01-Q6",
+      "required_facts": [
+        {"fact_key": "controlli-origine-esposizione", "text": "per individuare l'origine dell'esposizione del vecchio token vanno esaminate la cronologia del repository e la configurazione della pipeline CI", "source_message_ids": ["SC01-S3-U1"], "kind": "decisione", "negated": false},
+        {"fact_key": "verifica-richiesta-nel-preliminare", "text": "il rapporto preliminare deve includere il risultato della verifica sull'origine dell'esposizione del token", "source_message_ids": ["SC01-S4-U1"], "kind": "decisione", "negated": false}
+      ]
+    },
+    {
+      "question_id": "SC01-Q7",
+      "required_facts": [],
+      "evidence_note": "Nessuna evidenza positiva: l'identità dell'autore dell'accesso anomalo non compare in nessuna sessione."
+    }
+  ]
+}

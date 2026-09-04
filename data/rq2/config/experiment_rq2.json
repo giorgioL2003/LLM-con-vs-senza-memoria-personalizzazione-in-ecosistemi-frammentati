@@ -1,0 +1,251 @@
+{
+  "config_id": "rq2-dev-0.1",
+  "experiment": "RQ2",
+  "status": "CONFIGURAZIONE DI SVILUPPO — non è il protocollo congelato (fase 9 della roadmap)",
+  "frozen": false,
+  "updated": "2026-09-04",
+  "note": "Valori scelti per rendere eseguibile la matrice T / F / U / G / FULL_HISTORY. Vanno rivisti dopo le prove di sviluppo e prima delle 77 generazioni finali.",
+  "modes": {
+    "T": {
+      "label": "Turn-level RAG",
+      "unit": "messaggio originale",
+      "implemented": true
+    },
+    "F": {
+      "label": "Fact-based RAG",
+      "unit": "fatto estratto con provenienza",
+      "implemented": true
+    },
+    "U": {
+      "label": "Fact-based con aggiornamenti",
+      "unit": "fatto con stato dopo ADD/UPDATE/DELETE/NOOP",
+      "implemented": true
+    },
+    "G": {
+      "label": "Graph memory",
+      "unit": "entità e relazioni",
+      "implemented": true
+    },
+    "FULL_HISTORY": {
+      "label": "controllo diagnostico",
+      "unit": "tutti i messaggi originali ammessi",
+      "implemented": true
+    }
+  },
+  "matrix": {
+    "note": "Matrice scenario x modalità della roadmap, sezione 3. `planned` è la riga completa dell'esperimento principale; `runnable_now` è il sottoinsieme eseguibile in questo blocco.",
+    "scenario_01": {
+      "planned": [
+        "T",
+        "FULL_HISTORY"
+      ],
+      "runnable_now": [
+        "T",
+        "FULL_HISTORY"
+      ]
+    },
+    "scenario_02": {
+      "planned": [
+        "T",
+        "F",
+        "FULL_HISTORY"
+      ],
+      "runnable_now": [
+        "T",
+        "F",
+        "FULL_HISTORY"
+      ]
+    },
+    "scenario_03": {
+      "planned": [
+        "F",
+        "U",
+        "FULL_HISTORY"
+      ],
+      "runnable_now": [
+        "F",
+        "U",
+        "FULL_HISTORY"
+      ]
+    },
+    "scenario_04": {
+      "planned": [
+        "U",
+        "G",
+        "FULL_HISTORY"
+      ],
+      "runnable_now": [
+        "U",
+        "G",
+        "FULL_HISTORY"
+      ]
+    }
+  },
+  "expected_generations_when_complete": {
+    "scenario_01": 14,
+    "scenario_02": 21,
+    "scenario_03": 21,
+    "scenario_04": 21,
+    "total": 77,
+    "note": "Totale previsto dalla roadmap a matrice completa. Non è il numero di prove di questo blocco e non include le 56 risposte del pilot."
+  },
+  "memory_scope": {
+    "label": "perimetro condiviso per tutte le architetture",
+    "rule": "tutte le sessioni dello scenario, equivalente a C2 del pilot",
+    "indexed_role": "user",
+    "indexed_role_rationale": "Come nel pilot, i messaggi dell'assistente non introducono fatti autorevoli e non vengono indicizzati né estratti."
+  },
+  "context_budget": {
+    "max_tokens": 200,
+    "applies_to": [
+      "T",
+      "F",
+      "U",
+      "G"
+    ],
+    "excluded": [
+      "FULL_HISTORY"
+    ],
+    "excluded_rationale": "FULL_HISTORY deve fornire l'intera cronologia ammessa: è un controllo diagnostico, non una modalità confrontata a parità di budget.",
+    "rationale": "I messaggi utente dei quattro scenari misurano 24-117 token di solo contenuto (mediana 70) e una riga di T aggiunge 7 token di identificatore: con 200 token il contesto tiene circa due messaggi tipici e mai un intero scenario (SC01 360, SC02 291, SC03 481, SC04 480 token di contenuto), quindi il retrieval deve ancora scegliere. Lo stesso budget lascia entrare piu' elementi brevi che messaggi interi, ma l'overhead strutturale li rende meno numerosi di quanto sembri: un fatto di F costa circa 13 token di identificatore e provenienza oltre al testo, una voce di U circa 15, un arco di G circa 20. E' la differenza che i confronti T/F, F/U e U/G devono misurare, e il motivo per cui non si usa un numero fisso di elementi.",
+    "token_counting": {
+      "method": "conteggio deterministico locale con espressione regolare",
+      "regex": "[0-9A-Za-zÀ-ɏ_]+|[^\\s0-9A-Za-zÀ-ɏ_]",
+      "description": "Ogni parola, numero o sequenza alfanumerica conta 1; ogni segno di punteggiatura conta 1; gli spazi non contano.",
+      "scope": "Si contano i token del blocco di contesto come viene scritto nel prompt: il testo degli elementi piu' identificatori, provenienza, stato temporale e relazioni. Restano fuori le istruzioni comuni e il testo della domanda, che sono identici in tutte le modalita'. Gli a capo fra una riga e l'altra non contano, quindi i token del blocco coincidono con la somma dei token delle righe.",
+      "limits": "Non e' il tokenizzatore del modello: e' un'unita' di conteggio del progetto, riproducibile senza dipendenze e senza chiamate di rete. Serve a rendere il budget uguale fra le modalita' e a confrontare contenuto e overhead, non a stimare il costo reale in token dell'API. Un identificatore come SC02-S1-U1 vale 5 token con questo metodo e potrebbe valerne di piu' o di meno con il tokenizzatore reale."
+    },
+    "selection_rule": {
+      "id": "prefisso-del-ranking-entro-budget",
+      "steps": [
+        "1. Ranking: TF-IDF con similarità del coseno fra il testo della domanda e il testo di ogni elemento della memoria; punteggio decrescente.",
+        "2. Parità: a punteggio uguale vince l'elemento che compare prima nello scenario (ordine di sessione, poi ordine dell'elemento).",
+        "3. Soglia: gli elementi con punteggio nullo, cioè senza alcun termine in comune con la domanda, non vengono selezionati.",
+        "4. Riempimento: si scorre il ranking dall'alto e si aggiunge un elemento se il totale dei token della sua riga formattata (contenuto piu' overhead) resta entro il budget.",
+        "5. Arresto: ci si ferma al primo elemento che non entra nel budget. La selezione è quindi sempre un prefisso del ranking e non dipende dall'ordine in cui si esaminano gli scarti.",
+        "6. Garanzia minima: se il primo elemento del ranking supera da solo il budget, viene incluso ugualmente, marcato `budget_exceeded_by_first_item`, e la selezione si ferma lì.",
+        "7. Nessun elemento viene troncato o riassunto: entra intero o non entra."
+      ],
+      "recorded_per_run": [
+        "elementi selezionati con il loro identificatore",
+        "provenienza (message_id di origine per i fatti)",
+        "punteggio di ogni elemento del ranking",
+        "token di ogni elemento e token totali del contesto",
+        "elemento che ha causato l'arresto"
+      ],
+      "open_points": [
+        "La soglia sul punteggio nullo e la regola di prefisso sono scelte di sviluppo: vanno confermate dopo le prove su SC02, SC03 e SC04.",
+        "Il budget di 200 token e' stato definito prima di includere l'overhead strutturale nel conteggio: ora che l'overhead conta, va verificato che resti adeguato per F, U e G."
+      ]
+    },
+    "applies_to_block": "blocco di contesto realmente inserito nel prompt: testo, identificatori, provenienza, stato temporale e relazioni",
+    "recorded_per_run": [
+      "elementi selezionati con il loro identificatore",
+      "riga di contesto di ogni elemento, cosi' come finisce nel prompt",
+      "provenienza (message_id di origine) e stato temporale, dove previsto",
+      "punteggio di ogni elemento del ranking",
+      "token del contenuto, token dell'overhead strutturale e token totali del contesto",
+      "elemento che ha causato l'arresto",
+      "eventuale superamento dovuto al primo elemento"
+    ]
+  },
+  "retrieval": {
+    "method": "TF-IDF / coseno",
+    "shared_by": [
+      "T",
+      "F",
+      "U"
+    ],
+    "rationale": "Stesso metodo di ranking per isolare rappresentazione e gestione della memoria; G aggiungerà il recupero relazionale.",
+    "tokenizer": "quello del pilot (scripts/run_retrieval_pilot.py): minuscolo, parole, numeri, trattini e underscore"
+  },
+  "models": {
+    "answer": {
+      "model": "claude-sonnet-5",
+      "effort": "medium",
+      "role": "risposta alle domande in tutte le modalità"
+    },
+    "extraction": {
+      "model": "claude-sonnet-5",
+      "effort": "medium",
+      "role": "costruzione della memoria (fatti di F)"
+    },
+    "separation": "Le chiamate di scrittura della memoria sono distinte dalle chiamate di risposta e usano prompt diversi. La valutazione non usa il modello come giudice."
+  },
+  "isolation": {
+    "extractor_input": "soltanto i messaggi utente delle sessioni già lette, in ordine cronologico, più i fatti già estratti dalle sessioni precedenti",
+    "extractor_forbidden_input": [
+      "domande di valutazione",
+      "oracle",
+      "risposte attese",
+      "fatti obbligatori",
+      "sessioni future"
+    ],
+    "answer_side_effects": "Le risposte alle domande non aggiornano la memoria: ogni prova parte dallo stesso stato salvato."
+  },
+  "paths": {
+    "pilot_scenarios": "data/scenarios/",
+    "rq2_scenarios": "data/rq2/scenarios/",
+    "rq2_annotations": "data/rq2/annotations/",
+    "rq2_results": "results/rq2/",
+    "pilot_results_readonly": "results/",
+    "rq2_memory_results": "results/rq2/memory/",
+    "rq2_graph_results": "results/rq2/graph/"
+  },
+  "memory": {
+    "U": {
+      "input": "gli stessi fatti candidati prodotti dall'estrattore di F, in ordine cronologico",
+      "operations": [
+        "ADD",
+        "UPDATE",
+        "DELETE",
+        "NOOP"
+      ],
+      "applied_by": "il codice, non il modello: il modello propone, lo script applica o rifiuta",
+      "archive": "i fatti superati e ritirati restano con stato esplicito e collegamento alla versione successiva",
+      "reading_policy": {
+        "current": "soltanto i fatti attivi",
+        "history": "fatti attivi, superati e ritirati, ognuno con lo stato scritto nel contesto",
+        "decided_by": "regola deterministica sul solo testo della domanda (question_scope in scripts/rq2/build_memory_updates.py)",
+        "note": "l'oracle non entra nella scelta"
+      },
+      "rejection_policy": {
+        "rule": "UPDATE e DELETE devono indicare un target_entry_id esistente, ancora attivo e con lo stesso claim_key; altrimenti l'operazione è rifiutata",
+        "atomic": "il rifiuto non tocca stato e archivio: le impronte prima e dopo coincidono",
+        "no_fallback": "non si cerca un target sostitutivo e non si converte UPDATE o DELETE in ADD",
+        "recorded": [
+          "proposed_operation",
+          "applied_operation",
+          "applied",
+          "rejection_reason",
+          "target_entry_id",
+          "state_before_fingerprint",
+          "state_after_fingerprint",
+          "raw_proposal",
+          "provenance_valid"
+        ],
+        "counts_as": "errore di gestione della memoria, da conteggiare nella valutazione di U"
+      }
+    },
+    "G": {
+      "input": "gli stessi fatti candidati e lo stesso stato aggiornato prodotto da U",
+      "storage": "un file JSON con nodi e archi; nessun database",
+      "retrieval": {
+        "max_hops": 3,
+        "max_seed_items": 3,
+        "max_seed_nodes": 3,
+        "anchors": "nodi citati nella domanda (identificatore, alias o etichetta come sequenza contigua di parole) più nodi ricavati dalle voci di memoria meglio classificate",
+        "paths": "percorsi minimi fra tutte le coppie di nodi iniziali, visita in ampiezza deterministica, vicini in ordine di identificatore dell'arco",
+        "order": "archi dei percorsi, voci di memoria iniziali, altri archi pertinenti, restanti voci",
+        "budget": "lo stesso budget effettivo delle altre modalità",
+        "incomplete_paths": "un percorso che non entra per intero resta registrato come incompleto: non viene troncato né dato per riuscito"
+      },
+      "limits": [
+        "una domanda che non nomina entità e le cui voci di memoria non ne citano produce zero nodi iniziali: G si comporta come U",
+        "i nodi iniziali dipendono dalla qualità di identificatori, alias ed etichette prodotti dal costruttore del grafo",
+        "i percorsi collegano i nodi iniziali fra loro: un arco pertinente alla domanda ma fuori da ogni percorso entra solo se avanza budget"
+      ],
+      "temporal_policy": "gli archi seguono la stessa politica corrente/storia delle voci di U: domanda corrente = soli archi attivi; domanda storica = archi attivi, superati e ritirati, con lo stato scritto nel contesto"
+    }
+  }
+}

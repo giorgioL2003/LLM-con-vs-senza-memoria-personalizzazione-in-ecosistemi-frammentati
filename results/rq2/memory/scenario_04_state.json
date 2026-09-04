@@ -1,0 +1,681 @@
+{
+  "archive": [
+    {
+      "claim_key": "ipotesi-natura-messaggio",
+      "created_by_op": "SC04-OP010",
+      "entry_id": "SC04-M010",
+      "order": 10,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F010"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "superato",
+      "superseded_by_entry": "SC04-M018",
+      "superseded_by_op": "SC04-OP018",
+      "value": "La valutazione iniziale è che si tratti di spam generico."
+    },
+    {
+      "claim_key": "contatto-link-operatore",
+      "created_by_op": "SC04-OP011",
+      "entry_id": "SC04-M011",
+      "order": 11,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F011"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "superato",
+      "superseded_by_entry": "SC04-M021",
+      "superseded_by_op": "SC04-OP021",
+      "value": "L'operatore non ha avuto alcun contatto con il collegamento contenuto nel messaggio."
+    }
+  ],
+  "config_id": "rq2-dev-0.1",
+  "current": [
+    {
+      "claim_key": "caso-oggetto",
+      "created_by_op": "SC04-OP001",
+      "entry_id": "SC04-M001",
+      "order": 1,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F001"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il caso riguarda l'ufficio acquisti di Corvara Servizi."
+    },
+    {
+      "claim_key": "segnalazione-operatore",
+      "created_by_op": "SC04-OP002",
+      "entry_id": "SC04-M002",
+      "order": 2,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F002"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'operatore UT-207 ha segnalato un SMS."
+    },
+    {
+      "claim_key": "sms-data-ricezione",
+      "created_by_op": "SC04-OP003",
+      "entry_id": "SC04-M003",
+      "order": 3,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F003"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'SMS è stato ricevuto il 12 marzo alle 06:58."
+    },
+    {
+      "claim_key": "sms-numero-mittente",
+      "created_by_op": "SC04-OP004",
+      "entry_id": "SC04-M004",
+      "order": 4,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F004"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'SMS è stato inviato dal numero +39 351 000 4477."
+    },
+    {
+      "claim_key": "sms-contenuto-mittente-fittizio",
+      "created_by_op": "SC04-OP005",
+      "entry_id": "SC04-M005",
+      "order": 5,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F005"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il messaggio imita il servizio di consegna RapidoPost."
+    },
+    {
+      "claim_key": "sms-contenuto-annuncio",
+      "created_by_op": "SC04-OP006",
+      "entry_id": "SC04-M006",
+      "order": 6,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F006"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il messaggio annuncia un pacco in giacenza."
+    },
+    {
+      "claim_key": "sms-identificativo",
+      "created_by_op": "SC04-OP007",
+      "entry_id": "SC04-M007",
+      "order": 7,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F007"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il messaggio è stato registrato con l'identificativo SMS-01."
+    },
+    {
+      "claim_key": "obiettivo-caso-minaccia",
+      "created_by_op": "SC04-OP008",
+      "entry_id": "SC04-M008",
+      "order": 8,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F008"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'obiettivo del caso è stabilire se si tratta di una minaccia reale."
+    },
+    {
+      "claim_key": "obiettivo-caso-esposizione",
+      "created_by_op": "SC04-OP009",
+      "entry_id": "SC04-M009",
+      "order": 9,
+      "session_id": "SC04-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC04-F009"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'obiettivo del caso è limitare l'esposizione degli account coinvolti."
+    },
+    {
+      "claim_key": "sms-collegamento-numero",
+      "created_by_op": "SC04-OP012",
+      "entry_id": "SC04-M012",
+      "order": 12,
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC04-F012"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "SMS-01 contiene un solo collegamento."
+    },
+    {
+      "claim_key": "url-collegamento-indirizzo",
+      "created_by_op": "SC04-OP013",
+      "entry_id": "SC04-M013",
+      "order": 13,
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC04-F013"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il collegamento contenuto in SMS-01 è hxxps://rapidopost-ritiro[.]example/track."
+    },
+    {
+      "claim_key": "url-identificativo",
+      "created_by_op": "SC04-OP014",
+      "entry_id": "SC04-M014",
+      "order": 14,
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC04-F014"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il collegamento è stato registrato con l'identificativo URL-01."
+    },
+    {
+      "claim_key": "url-pagina-contenuto",
+      "created_by_op": "SC04-OP015",
+      "entry_id": "SC04-M015",
+      "order": 15,
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC04-F015"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La pagina raggiunta da URL-01 riproduce il modulo di accesso di accessi.corvara.example."
+    },
+    {
+      "claim_key": "url-pagina-falsa",
+      "created_by_op": "SC04-OP016",
+      "entry_id": "SC04-M016",
+      "order": 16,
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC04-F016"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La pagina raggiunta da URL-01 è confermata essere falsa."
+    },
+    {
+      "claim_key": "classificazione-caso",
+      "created_by_op": "SC04-OP017",
+      "entry_id": "SC04-M017",
+      "order": 17,
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC04-F017"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il caso è classificato come smishing."
+    },
+    {
+      "claim_key": "ipotesi-natura-messaggio",
+      "created_by_op": "SC04-OP018",
+      "entry_id": "SC04-M018",
+      "order": 18,
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC04-F018"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La valutazione iniziale che si trattasse di spam generico è stata corretta; non è più considerata valida."
+    },
+    {
+      "claim_key": "operatore-apertura-link",
+      "created_by_op": "SC04-OP019",
+      "entry_id": "SC04-M019",
+      "order": 19,
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC04-F019"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il registro del proxy mostra che UT-207 ha aperto URL-01 alle 07:03."
+    },
+    {
+      "claim_key": "operatore-invio-modulo",
+      "created_by_op": "SC04-OP020",
+      "entry_id": "SC04-M020",
+      "order": 20,
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC04-F020"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "UT-207 ha inviato il modulo di accesso sulla pagina raggiunta da URL-01."
+    },
+    {
+      "claim_key": "contatto-link-operatore",
+      "created_by_op": "SC04-OP021",
+      "entry_id": "SC04-M021",
+      "order": 21,
+      "session_id": "SC04-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC04-F021"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'ipotesi che l'operatore non avesse avuto alcun contatto con il collegamento non è più valida: UT-207 ha aperto il link e inviato il modulo."
+    },
+    {
+      "claim_key": "operatore-account-aziendale",
+      "created_by_op": "SC04-OP022",
+      "entry_id": "SC04-M022",
+      "order": 22,
+      "session_id": "SC04-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC04-F022"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'account aziendale usato da UT-207 è acquisti-207@corvara.example."
+    },
+    {
+      "claim_key": "account-identificativo",
+      "created_by_op": "SC04-OP023",
+      "entry_id": "SC04-M023",
+      "order": 23,
+      "session_id": "SC04-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC04-F023"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'account acquisti-207@corvara.example è identificato come ACC-207."
+    },
+    {
+      "claim_key": "acc207-accesso-anomalo",
+      "created_by_op": "SC04-OP024",
+      "entry_id": "SC04-M024",
+      "order": 24,
+      "session_id": "SC04-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC04-F024"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Su ACC-207 risulta un accesso anomalo il 12 marzo alle 07:12."
+    },
+    {
+      "claim_key": "acc207-accesso-anomalo-ip",
+      "created_by_op": "SC04-OP025",
+      "entry_id": "SC04-M025",
+      "order": 25,
+      "session_id": "SC04-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC04-F025"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'accesso anomalo del 12 marzo alle 07:12 su ACC-207 proviene dall'indirizzo 203.0.113.44."
+    },
+    {
+      "claim_key": "ip-accesso-anomalo-ubicazione",
+      "created_by_op": "SC04-OP026",
+      "entry_id": "SC04-M026",
+      "order": 26,
+      "session_id": "SC04-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC04-F026"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'indirizzo 203.0.113.44 è fuori dalle sedi aziendali."
+    },
+    {
+      "claim_key": "acc207-accesso-anomalo-id",
+      "created_by_op": "SC04-OP027",
+      "entry_id": "SC04-M027",
+      "order": 27,
+      "session_id": "SC04-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC04-F027"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'accesso anomalo su ACC-207 del 12 marzo alle 07:12 è registrato con l'identificativo LOGIN-07."
+    },
+    {
+      "claim_key": "acc207-regola-inoltro-creazione",
+      "created_by_op": "SC04-OP028",
+      "entry_id": "SC04-M028",
+      "order": 28,
+      "session_id": "SC04-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC04-F028"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Dalla stessa sessione di LOGIN-07, alle 07:20, su ACC-207 è stata creata una regola di inoltro."
+    },
+    {
+      "claim_key": "acc207-regola-inoltro-contenuto",
+      "created_by_op": "SC04-OP029",
+      "entry_id": "SC04-M029",
+      "order": 29,
+      "session_id": "SC04-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC04-F029"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La regola di inoltro creata su ACC-207 invia a archivio.backup@mailbox.example tutti i messaggi contenenti la parola fattura."
+    },
+    {
+      "claim_key": "acc207-regola-inoltro-id",
+      "created_by_op": "SC04-OP030",
+      "entry_id": "SC04-M030",
+      "order": 30,
+      "session_id": "SC04-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC04-F030"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La regola di inoltro creata su ACC-207 è registrata con l'identificativo RULE-01."
+    },
+    {
+      "claim_key": "rule01-rimozione",
+      "created_by_op": "SC04-OP031",
+      "entry_id": "SC04-M031",
+      "order": 31,
+      "session_id": "SC04-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC04-F031"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "RULE-01 è stata rimossa."
+    },
+    {
+      "claim_key": "acc207-reset-password",
+      "created_by_op": "SC04-OP032",
+      "entry_id": "SC04-M032",
+      "order": 32,
+      "session_id": "SC04-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC04-F032"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La password di ACC-207 è stata reimpostata alle 08:05."
+    },
+    {
+      "claim_key": "sms-numero-mittente-blocco",
+      "created_by_op": "SC04-OP033",
+      "entry_id": "SC04-M033",
+      "order": 33,
+      "session_id": "SC04-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC04-F033"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il numero mittente dell'SMS è stato bloccato sul gateway aziendale."
+    },
+    {
+      "claim_key": "revisione-messaggi-inoltrati",
+      "created_by_op": "SC04-OP034",
+      "entry_id": "SC04-M034",
+      "order": 34,
+      "session_id": "SC04-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC04-F034"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La revisione dei messaggi inoltrati fra le 07:20 e la rimozione della regola non è ancora completata."
+    },
+    {
+      "claim_key": "riepilogo-responsabile-requisiti",
+      "created_by_op": "SC04-OP035",
+      "entry_id": "SC04-M035",
+      "order": 35,
+      "session_id": "SC04-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC04-F035"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il riepilogo per il responsabile deve indicare quale segnalazione ha originato il caso e quali eventi sull'account sono seguiti alla segnalazione."
+    },
+    {
+      "claim_key": "verifica-origine-numero-operatore",
+      "created_by_op": "SC04-OP037",
+      "entry_id": "SC04-M037",
+      "order": 37,
+      "session_id": "SC04-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC04-F037"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La verifica su come sia stato ottenuto il numero di telefono dell'operatore è chiusa senza esito: non è stato determinato come sia stato ottenuto il numero."
+    }
+  ],
+  "label": "esecuzione",
+  "reading_policy": {
+    "current": "soltanto i fatti attivi",
+    "history": "fatti attivi, superati e ritirati, ognuno con lo stato scritto nel contesto",
+    "markers": [
+      "superat",
+      "precedent",
+      "inizial",
+      "in origine",
+      "in passato",
+      "storic",
+      "cambia",
+      "modifica",
+      "sostitu",
+      "ritirat",
+      "non e' piu'",
+      "non è più",
+      "e' ancora",
+      "è ancora",
+      "ancora un",
+      "prima ipotesi",
+      "prima decisione"
+    ],
+    "note": "La scelta dipende soltanto dal testo della domanda: l'oracle non entra nella regola."
+  },
+  "scenario_id": "scenario_04"
+}

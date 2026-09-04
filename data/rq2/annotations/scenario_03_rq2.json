@@ -1,0 +1,375 @@
+{
+  "annotation_id": "sc03-rq2-0.1",
+  "scenario_id": "scenario_03",
+  "experiment": "RQ2",
+  "scenario_file": "data/rq2/scenarios/scenario_03.json",
+  "status": "BOZZA DA CONTROLLARE — non approvata, non congelata",
+  "frozen": false,
+  "review_required": true,
+  "review_note": "Domande, oracle, operazioni attese e stato atteso sono una proposta generata durante la costruzione del dataset. Vanno letti e corretti dallo studente prima di qualsiasi esecuzione finale.",
+  "purpose": "Materiale di sola valutazione. Non entra nell'estrazione dei fatti, nel retrieval, nella costruzione del grafo o nel prompt di risposta.",
+  "abstention_rule": "Quando almeno un fatto obbligatorio non è accessibile nelle sorgenti ammesse, il comportamento corretto è dichiarare che le informazioni disponibili non sono sufficienti.",
+  "questions": [
+    {
+      "question_id": "SC03-Q1",
+      "category": "goal",
+      "phenomenon": "Obiettivo del caso",
+      "text": "Qual è l'obiettivo dichiarato del caso aperto sull'host WS-114?",
+      "expected_answer": "Stabilire la classificazione del malware sulla base delle evidenze raccolte e riportare WS-114 in servizio senza perdita di dati.",
+      "mandatory_facts": [
+        "stabilire la classificazione del malware sulla base delle evidenze",
+        "riportare l'host in servizio senza perdita di dati"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "obiettivo-classificazione",
+          "text": "l'obiettivo del caso è stabilire la classificazione del malware sulla base delle evidenze raccolte",
+          "source_message_ids": ["SC03-S1-U1"],
+          "kind": "decisione",
+          "negated": false
+        },
+        {
+          "fact_key": "obiettivo-ripristino",
+          "text": "l'obiettivo del caso è riportare WS-114 in servizio senza perdita di dati",
+          "source_message_ids": ["SC03-S1-U1"],
+          "kind": "decisione",
+          "negated": false
+        }
+      ],
+      "obsolete_information": [],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che conservino entrambi gli obiettivi"
+      ],
+      "required_state_keys": ["obiettivo-caso"],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa"
+    },
+    {
+      "question_id": "SC03-Q2",
+      "category": "update_obsolete",
+      "phenomenon": "Ipotesi superata e classificazione confermata",
+      "text": "Qual è la classificazione attualmente valida del malware su WS-114 e quale ipotesi iniziale è stata superata?",
+      "expected_answer": "La classificazione valida è infostealer, famiglia Kelpie, confermata dall'analisi del laboratorio interno. L'ipotesi iniziale di ransomware è stata superata.",
+      "mandatory_facts": [
+        "classificazione valida: infostealer (famiglia Kelpie), confermata dal laboratorio",
+        "ipotesi iniziale superata: ransomware"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "ipotesi-iniziale-ransomware",
+          "text": "l'ipotesi iniziale del caso era un ransomware",
+          "source_message_ids": ["SC03-S1-U1"],
+          "kind": "ipotesi",
+          "negated": false
+        },
+        {
+          "fact_key": "ipotesi-aggiornata-infostealer",
+          "text": "l'ipotesi aggiornata è un infostealer e non più un ransomware",
+          "source_message_ids": ["SC03-S2-U2"],
+          "kind": "ipotesi",
+          "negated": false
+        },
+        {
+          "fact_key": "classificazione-confermata-kelpie",
+          "text": "il laboratorio interno ha confermato la classificazione come infostealer, famiglia Kelpie",
+          "source_message_ids": ["SC03-S3-U1"],
+          "kind": "conferma",
+          "negated": false
+        }
+      ],
+      "obsolete_information": [
+        "presentare il ransomware come classificazione valida del caso",
+        "presentare l'infostealer come semplice ipotesi dopo l'esito del laboratorio"
+      ],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che indichino l'infostealer (famiglia Kelpie) come classificazione confermata e il ransomware come ipotesi superata",
+        "risposte che omettano il nome della famiglia ma indichino infostealer confermato dal laboratorio, purché indichino anche il ransomware come superato"
+      ],
+      "required_state_keys": ["classificazione"],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa"
+    },
+    {
+      "question_id": "SC03-Q3",
+      "category": "retracted_information",
+      "phenomenon": "Evidenza ritirata senza sostituzione",
+      "text": "Il file con la richiesta di pagamento trovato sul desktop di WS-114 è ancora un'evidenza del caso? Per quale motivo?",
+      "expected_answer": "No. Il file LEGGIMI-PAGAMENTO.txt è uscito dalle evidenze del caso perché era il residuo dell'esercitazione interna di phishing simulato di maggio, senza relazione con l'incidente, e non è stato sostituito da nessun'altra evidenza.",
+      "mandatory_facts": [
+        "il file non è più un'evidenza del caso",
+        "motivo: residuo dell'esercitazione interna di phishing simulato di maggio",
+        "il ritiro non è stato sostituito da altra evidenza"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "sintomo-file-riscatto",
+          "text": "sul desktop di WS-114 era comparso il file LEGGIMI-PAGAMENTO.txt",
+          "source_message_ids": ["SC03-S1-U1"],
+          "kind": "osservazione",
+          "negated": false
+        },
+        {
+          "fact_key": "evidenza-file-riscatto-ritirata",
+          "text": "il file LEGGIMI-PAGAMENTO.txt non fa più parte delle evidenze del caso",
+          "source_message_ids": ["SC03-S2-U1"],
+          "kind": "ritiro",
+          "negated": true
+        },
+        {
+          "fact_key": "evidenza-file-riscatto-motivo",
+          "text": "il file era il residuo dell'esercitazione interna di phishing simulato di maggio e non ha relazione con l'incidente",
+          "source_message_ids": ["SC03-S2-U1"],
+          "kind": "conferma",
+          "negated": false
+        },
+        {
+          "fact_key": "evidenza-file-riscatto-senza-sostituzione",
+          "text": "l'evidenza ritirata non è stata sostituita da nessun'altra evidenza",
+          "source_message_ids": ["SC03-S2-U1"],
+          "kind": "stato",
+          "negated": true
+        }
+      ],
+      "obsolete_information": [
+        "usare il file LEGGIMI-PAGAMENTO.txt come evidenza a sostegno di una classificazione",
+        "presentare il file come ancora agli atti del caso"
+      ],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che neghino il valore probatorio del file e ne indichino l'origine nell'esercitazione interna"
+      ],
+      "required_state_keys": ["evidenza-file-riscatto"],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa"
+    },
+    {
+      "question_id": "SC03-Q4",
+      "category": "completed_activity",
+      "phenomenon": "Attività completate distribuite fra due sessioni",
+      "text": "Quali azioni di contenimento e quali verifiche del caso risultano completate?",
+      "expected_answer": "Contenimento completato: isolamento di WS-114 dalla rete alle 09:40, blocco del dominio cdn-updates.example.net sul proxy, revoca e riemissione delle credenziali dei tre servizi usati dall'utente. Verifiche completate: il controllo degli accessi ai servizi cloud, che non ha trovato accessi anomali nelle 48 ore precedenti l'isolamento.",
+      "mandatory_facts": [
+        "isolamento di WS-114 alle 09:40",
+        "blocco del dominio cdn-updates.example.net sul proxy",
+        "revoca e riemissione delle credenziali dei tre servizi dell'utente",
+        "controllo degli accessi ai servizi cloud completato senza accessi anomali"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "contenimento-isolamento",
+          "text": "WS-114 è stato isolato dalla rete alle 09:40",
+          "source_message_ids": ["SC03-S3-U2"],
+          "kind": "stato",
+          "negated": false
+        },
+        {
+          "fact_key": "contenimento-blocco-dominio",
+          "text": "il dominio cdn-updates.example.net è stato bloccato sul proxy",
+          "source_message_ids": ["SC03-S3-U2"],
+          "kind": "stato",
+          "negated": false
+        },
+        {
+          "fact_key": "contenimento-credenziali",
+          "text": "le credenziali dei tre servizi usati dall'utente sono state revocate e riemesse",
+          "source_message_ids": ["SC03-S3-U2"],
+          "kind": "stato",
+          "negated": false
+        },
+        {
+          "fact_key": "verifica-accessi-cloud-completata",
+          "text": "il controllo degli accessi ai servizi cloud è stato completato e non ha trovato accessi anomali nelle 48 ore precedenti l'isolamento",
+          "source_message_ids": ["SC03-S4-U2"],
+          "kind": "stato",
+          "negated": false
+        }
+      ],
+      "obsolete_information": [
+        "indicare il controllo degli accessi ai servizi cloud come ancora da eseguire"
+      ],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che elenchino le tre azioni di contenimento e la verifica cloud completata, anche senza ripetere l'orario"
+      ],
+      "required_state_keys": [
+        "contenimento-isolamento",
+        "contenimento-blocco-dominio",
+        "contenimento-credenziali",
+        "verifica-accessi-cloud"
+      ],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa"
+    },
+    {
+      "question_id": "SC03-Q5",
+      "category": "pending_activity",
+      "phenomenon": "Stato aggiornato, punto non determinato e vincolo locale",
+      "text": "Quali punti del caso restano aperti e quale vincolo si applica al rapporto?",
+      "expected_answer": "Resta aperta soltanto la reinstallazione dell'host. Il vettore iniziale dell'infezione non è stato determinato. Il rapporto del caso deve restare interno e non può essere diffuso fuori dal gruppo di risposta prima della chiusura.",
+      "mandatory_facts": [
+        "resta aperta la reinstallazione dell'host",
+        "il vettore iniziale dell'infezione non è stato determinato",
+        "il rapporto deve restare interno fino alla chiusura del caso"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "verifica-reinstallazione-aperta",
+          "text": "resta aperta la sola reinstallazione dell'host",
+          "source_message_ids": ["SC03-S4-U2"],
+          "kind": "stato",
+          "negated": false
+        },
+        {
+          "fact_key": "vettore-iniziale-non-determinato",
+          "text": "il vettore iniziale dell'infezione non è stato determinato",
+          "source_message_ids": ["SC03-S4-U2"],
+          "kind": "stato",
+          "negated": true
+        },
+        {
+          "fact_key": "vincolo-rapporto-interno",
+          "text": "il rapporto del caso deve restare interno e non può essere diffuso fuori dal gruppo di risposta prima della chiusura",
+          "source_message_ids": ["SC03-S4-U2"],
+          "kind": "decisione",
+          "negated": false
+        }
+      ],
+      "obsolete_information": [
+        "indicare il controllo degli accessi ai servizi cloud fra le attività ancora da eseguire"
+      ],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che indichino la reinstallazione come unica attività aperta, il vettore iniziale come non determinato e il vincolo di riservatezza del rapporto"
+      ],
+      "required_state_keys": [
+        "verifica-reinstallazione",
+        "vettore-iniziale",
+        "vincolo-rapporto"
+      ],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa"
+    },
+    {
+      "question_id": "SC03-Q6",
+      "category": "cross_session_link",
+      "phenomenon": "Collegamento fra evidenze osservate ed esito che conferma",
+      "text": "Quali evidenze osservate sull'host hanno portato a cambiare la classificazione, e quale esito l'ha poi confermata?",
+      "expected_answer": "Il cambio di classificazione si basa sulle evidenze osservate sull'host: svhostw.exe ha letto il database delle credenziali del browser dell'utente e ha aperto tre connessioni verso cdn-updates.example.net con un caricamento complessivo di 240 MB, senza alcuna cifratura dei file osservata. La conferma è arrivata dall'analisi del laboratorio interno, che ha ricondotto il campione alla famiglia Kelpie confermando la classificazione come infostealer.",
+      "mandatory_facts": [
+        "lettura del database delle credenziali del browser",
+        "tre connessioni verso cdn-updates.example.net con caricamento di 240 MB",
+        "nessuna cifratura dei file osservata",
+        "esito del laboratorio interno: famiglia Kelpie, infostealer confermato"
+      ],
+      "required_facts": [
+        {
+          "fact_key": "evidenza-lettura-credenziali",
+          "text": "svhostw.exe ha letto il database delle credenziali del browser dell'utente",
+          "source_message_ids": ["SC03-S2-U2"],
+          "kind": "osservazione",
+          "negated": false
+        },
+        {
+          "fact_key": "evidenza-esfiltrazione",
+          "text": "svhostw.exe ha aperto tre connessioni verso cdn-updates.example.net con un caricamento complessivo di 240 MB",
+          "source_message_ids": ["SC03-S2-U2"],
+          "kind": "osservazione",
+          "negated": false
+        },
+        {
+          "fact_key": "evidenza-nessuna-cifratura",
+          "text": "non è stata osservata alcuna cifratura dei file",
+          "source_message_ids": ["SC03-S2-U2"],
+          "kind": "osservazione",
+          "negated": true
+        },
+        {
+          "fact_key": "classificazione-confermata-kelpie",
+          "text": "il laboratorio interno ha ricondotto il campione alla famiglia Kelpie e ha confermato la classificazione come infostealer",
+          "source_message_ids": ["SC03-S3-U1"],
+          "kind": "conferma",
+          "negated": false
+        }
+      ],
+      "obsolete_information": [
+        "attribuire il cambio di classificazione alla sola assenza di cifratura",
+        "usare il file LEGGIMI-PAGAMENTO.txt come evidenza"
+      ],
+      "accepted_equivalents": [
+        "formulazioni equivalenti che riportino le evidenze di furto ed esfiltrazione delle credenziali e l'esito del laboratorio come conferma"
+      ],
+      "required_state_keys": ["classificazione"],
+      "fact_present_in_corpus": true,
+      "expected_behavior": "Risposta completa"
+    },
+    {
+      "question_id": "SC03-Q7",
+      "category": "absent_information",
+      "phenomenon": "Informazione mai fornita",
+      "text": "Quale fornitore esterno eseguirà l'analisi forense del disco di WS-114?",
+      "expected_answer": "Non è stato indicato alcun fornitore esterno per l'analisi forense del disco: l'informazione non è disponibile nelle conversazioni del caso.",
+      "mandatory_facts": [
+        "riconoscimento dell'assenza dell'informazione"
+      ],
+      "required_facts": [],
+      "evidence_note": "Nessuna evidenza positiva. Nelle quattro sessioni si parla soltanto del laboratorio interno; nessun fornitore esterno e nessuna analisi forense del disco vengono mai menzionati.",
+      "obsolete_information": [
+        "attribuire l'analisi forense al laboratorio interno, che nello scenario analizza il campione e non il disco",
+        "indicare un fornitore o un ruolo mai menzionato"
+      ],
+      "accepted_equivalents": [
+        "qualsiasi astensione esplicita che non introduca fornitori o ruoli non menzionati"
+      ],
+      "required_state_keys": [],
+      "fact_present_in_corpus": false,
+      "expected_behavior": "Astensione"
+    }
+  ],
+  "expected_operations": {
+    "note": "Operazioni attese sui fatti candidati, in ordine cronologico. Servono a valutare U (ADD / UPDATE / DELETE / NOOP) e non vengono passate all'estrattore né al modello di risposta. Il campo claim_key identifica l'oggetto e l'ambito a cui l'operazione si riferisce.",
+    "operations": [
+      {"op_id": "SC03-OP01", "session_id": "SC03-S1", "claim_key": "obiettivo-caso", "expected_operation": "ADD", "value": "stabilire la classificazione sulla base delle evidenze e riportare WS-114 in servizio senza perdita di dati", "source_message_ids": ["SC03-S1-U1"], "supersedes": null},
+      {"op_id": "SC03-OP02", "session_id": "SC03-S1", "claim_key": "sintomo-rallentamento", "expected_operation": "ADD", "value": "rallentamento improvviso di WS-114", "source_message_ids": ["SC03-S1-U1"], "supersedes": null},
+      {"op_id": "SC03-OP03", "session_id": "SC03-S1", "claim_key": "sintomo-processo", "expected_operation": "ADD", "value": "processo svhostw.exe non riconosciuto", "source_message_ids": ["SC03-S1-U1"], "supersedes": null},
+      {"op_id": "SC03-OP04", "session_id": "SC03-S1", "claim_key": "evidenza-file-riscatto", "expected_operation": "ADD", "value": "file LEGGIMI-PAGAMENTO.txt comparso sul desktop", "source_message_ids": ["SC03-S1-U1"], "supersedes": null},
+      {"op_id": "SC03-OP05", "session_id": "SC03-S1", "claim_key": "classificazione", "expected_operation": "ADD", "value": "ipotesi: ransomware", "source_message_ids": ["SC03-S1-U1"], "supersedes": null},
+      {"op_id": "SC03-OP06", "session_id": "SC03-S1", "claim_key": "campione-laboratorio", "expected_operation": "ADD", "value": "campione di svhostw.exe inviato al laboratorio interno", "source_message_ids": ["SC03-S1-U1"], "supersedes": null},
+      {"op_id": "SC03-OP07", "session_id": "SC03-S1", "claim_key": "stato-cifratura", "expected_operation": "ADD", "value": "i file si aprono regolarmente e nessuna estensione risulta modificata; osservazione non sufficiente a cambiare l'ipotesi", "source_message_ids": ["SC03-S1-U2"], "supersedes": null},
+      {"op_id": "SC03-OP08", "session_id": "SC03-S2", "claim_key": "evidenza-file-riscatto", "expected_operation": "DELETE", "value": "evidenza ritirata: residuo dell'esercitazione interna di phishing simulato di maggio, senza sostituzione", "source_message_ids": ["SC03-S2-U1"], "supersedes": "SC03-OP04"},
+      {"op_id": "SC03-OP09", "session_id": "SC03-S2", "claim_key": "evidenza-lettura-credenziali", "expected_operation": "ADD", "value": "svhostw.exe ha letto il database delle credenziali del browser", "source_message_ids": ["SC03-S2-U2"], "supersedes": null},
+      {"op_id": "SC03-OP10", "session_id": "SC03-S2", "claim_key": "evidenza-esfiltrazione", "expected_operation": "ADD", "value": "tre connessioni verso cdn-updates.example.net, caricamento di 240 MB", "source_message_ids": ["SC03-S2-U2"], "supersedes": null},
+      {"op_id": "SC03-OP11", "session_id": "SC03-S2", "claim_key": "classificazione", "expected_operation": "UPDATE", "value": "ipotesi: infostealer (non più ransomware)", "source_message_ids": ["SC03-S2-U2"], "supersedes": "SC03-OP05"},
+      {"op_id": "SC03-OP12", "session_id": "SC03-S3", "claim_key": "classificazione", "expected_operation": "UPDATE", "value": "confermata: infostealer, famiglia Kelpie", "source_message_ids": ["SC03-S3-U1"], "supersedes": "SC03-OP11"},
+      {"op_id": "SC03-OP13", "session_id": "SC03-S3", "claim_key": "contenimento-isolamento", "expected_operation": "ADD", "value": "WS-114 isolato dalla rete alle 09:40", "source_message_ids": ["SC03-S3-U2"], "supersedes": null},
+      {"op_id": "SC03-OP14", "session_id": "SC03-S3", "claim_key": "contenimento-blocco-dominio", "expected_operation": "ADD", "value": "cdn-updates.example.net bloccato sul proxy", "source_message_ids": ["SC03-S3-U2"], "supersedes": null},
+      {"op_id": "SC03-OP15", "session_id": "SC03-S3", "claim_key": "contenimento-credenziali", "expected_operation": "ADD", "value": "credenziali dei tre servizi revocate e riemesse", "source_message_ids": ["SC03-S3-U2"], "supersedes": null},
+      {"op_id": "SC03-OP16", "session_id": "SC03-S3", "claim_key": "verifica-accessi-cloud", "expected_operation": "ADD", "value": "da eseguire: controllo degli accessi ai servizi cloud nelle 48 ore precedenti l'isolamento", "source_message_ids": ["SC03-S3-U2"], "supersedes": null},
+      {"op_id": "SC03-OP17", "session_id": "SC03-S3", "claim_key": "verifica-reinstallazione", "expected_operation": "ADD", "value": "da eseguire: reinstallazione dell'host", "source_message_ids": ["SC03-S3-U2"], "supersedes": null},
+      {"op_id": "SC03-OP18", "session_id": "SC03-S4", "claim_key": "classificazione", "expected_operation": "NOOP", "value": "verifica ripetuta dal laboratorio con lo stesso esito: la classificazione non cambia", "source_message_ids": ["SC03-S4-U1"], "supersedes": null},
+      {"op_id": "SC03-OP19", "session_id": "SC03-S4", "claim_key": "verifica-accessi-cloud", "expected_operation": "UPDATE", "value": "completata: nessun accesso anomalo nelle 48 ore precedenti l'isolamento", "source_message_ids": ["SC03-S4-U2"], "supersedes": "SC03-OP16"},
+      {"op_id": "SC03-OP20", "session_id": "SC03-S4", "claim_key": "vettore-iniziale", "expected_operation": "ADD", "value": "non determinato", "source_message_ids": ["SC03-S4-U2"], "supersedes": null},
+      {"op_id": "SC03-OP21", "session_id": "SC03-S4", "claim_key": "vincolo-rapporto", "expected_operation": "ADD", "value": "il rapporto resta interno fino alla chiusura del caso", "source_message_ids": ["SC03-S4-U2"], "supersedes": null}
+    ]
+  },
+  "expected_state": {
+    "note": "Stato atteso della memoria dopo l'ultima sessione. `attivo` è ciò che una domanda sullo stato corrente deve poter recuperare; `superato` e `ritirato` restano nell'archivio con lo stato esplicito e servono alle domande storiche.",
+    "entries": [
+      {"claim_key": "obiettivo-caso", "status": "attivo", "value": "stabilire la classificazione sulla base delle evidenze e riportare WS-114 in servizio senza perdita di dati", "superseded_by": null},
+      {"claim_key": "sintomo-rallentamento", "status": "attivo", "value": "rallentamento improvviso di WS-114", "superseded_by": null},
+      {"claim_key": "sintomo-processo", "status": "attivo", "value": "processo svhostw.exe non riconosciuto", "superseded_by": null},
+      {"claim_key": "evidenza-file-riscatto", "status": "ritirato", "value": "file LEGGIMI-PAGAMENTO.txt: fuori dalle evidenze del caso, senza sostituzione", "superseded_by": "SC03-OP08"},
+      {"claim_key": "classificazione", "status": "attivo", "value": "confermata: infostealer, famiglia Kelpie", "superseded_by": null},
+      {"claim_key": "classificazione", "status": "superato", "value": "ipotesi: infostealer", "superseded_by": "SC03-OP12"},
+      {"claim_key": "classificazione", "status": "superato", "value": "ipotesi: ransomware", "superseded_by": "SC03-OP11"},
+      {"claim_key": "campione-laboratorio", "status": "attivo", "value": "campione analizzato dal laboratorio interno, esito confermato una seconda volta", "superseded_by": null},
+      {"claim_key": "stato-cifratura", "status": "attivo", "value": "nessuna cifratura osservata; da sola non è prova sufficiente", "superseded_by": null},
+      {"claim_key": "evidenza-lettura-credenziali", "status": "attivo", "value": "svhostw.exe ha letto il database delle credenziali del browser", "superseded_by": null},
+      {"claim_key": "evidenza-esfiltrazione", "status": "attivo", "value": "tre connessioni verso cdn-updates.example.net, caricamento di 240 MB", "superseded_by": null},
+      {"claim_key": "contenimento-isolamento", "status": "attivo", "value": "completato alle 09:40", "superseded_by": null},
+      {"claim_key": "contenimento-blocco-dominio", "status": "attivo", "value": "completato sul proxy", "superseded_by": null},
+      {"claim_key": "contenimento-credenziali", "status": "attivo", "value": "completato: revoca e riemissione", "superseded_by": null},
+      {"claim_key": "verifica-accessi-cloud", "status": "attivo", "value": "completata: nessun accesso anomalo nelle 48 ore precedenti l'isolamento", "superseded_by": null},
+      {"claim_key": "verifica-accessi-cloud", "status": "superato", "value": "da eseguire", "superseded_by": "SC03-OP19"},
+      {"claim_key": "verifica-reinstallazione", "status": "attivo", "value": "ancora da eseguire", "superseded_by": null},
+      {"claim_key": "vettore-iniziale", "status": "attivo", "value": "non determinato", "superseded_by": null},
+      {"claim_key": "vincolo-rapporto", "status": "attivo", "value": "il rapporto resta interno fino alla chiusura del caso", "superseded_by": null}
+    ]
+  }
+}

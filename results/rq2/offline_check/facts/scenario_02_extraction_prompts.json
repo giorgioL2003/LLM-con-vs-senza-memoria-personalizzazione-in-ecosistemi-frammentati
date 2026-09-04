@@ -1,0 +1,84 @@
+{
+  "config_id": "rq2-dev-0.1",
+  "dry_run": true,
+  "effort": "medium",
+  "extraction_instructions": "Sei il componente di memoria di un sistema che segue un caso distribuito su piu' conversazioni.\nIl tuo unico compito e' estrarre fatti brevi dai messaggi che ti vengono mostrati.\n\nRegole:\n1. Estrai soltanto informazioni contenute nei messaggi nuovi. Non aggiungere conoscenze esterne\n   e non trarre conclusioni che non siano scritte.\n2. Un fatto per informazione: frasi brevi e autonome, comprensibili senza rileggere il messaggio.\n3. Conserva le negazioni: se il messaggio dice che qualcosa non e' avvenuto, non e' stato osservato\n   o non e' stato determinato, il fatto deve dirlo esplicitamente.\n4. Distingui le ipotesi dalle conferme: usa il campo \"kind\" con uno di questi valori:\n   osservazione, ipotesi, conferma, decisione, stato, ritiro.\n5. Non unire in un solo fatto informazioni provenienti da messaggi diversi.\n6. Non modificare, non aggiornare e non cancellare i fatti gia' estratti: aggiungi soltanto i fatti\n   ricavati dai messaggi nuovi, anche quando contraddicono un fatto precedente.\n7. Per ogni fatto indica i messaggi da cui proviene, usando esattamente gli identificatori mostrati\n   fra parentesi quadre.\n\nRispondi soltanto con un array JSON, senza testo prima o dopo. Ogni elemento ha questa forma:\n{\"text\": \"...\", \"source_message_ids\": [\"...\"], \"kind\": \"...\", \"negated\": true}\n",
+  "fact_count": 0,
+  "model": "claude-sonnet-5",
+  "scenario_id": "scenario_02",
+  "sessions": [
+    {
+      "effort": "medium",
+      "error": null,
+      "executed": false,
+      "facts_extracted": [],
+      "facts_in_context": [],
+      "input_message_ids": [
+        "SC02-S1-U1"
+      ],
+      "model_answer": null,
+      "model_requested": "claude-sonnet-5",
+      "model_used": null,
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente di memoria di un sistema che segue un caso distribuito su piu' conversazioni.\nIl tuo unico compito e' estrarre fatti brevi dai messaggi che ti vengono mostrati.\n\nRegole:\n1. Estrai soltanto informazioni contenute nei messaggi nuovi. Non aggiungere conoscenze esterne\n   e non trarre conclusioni che non siano scritte.\n2. Un fatto per informazione: frasi brevi e autonome, comprensibili senza rileggere il messaggio.\n3. Conserva le negazioni: se il messaggio dice che qualcosa non e' avvenuto, non e' stato osservato\n   o non e' stato determinato, il fatto deve dirlo esplicitamente.\n4. Distingui le ipotesi dalle conferme: usa il campo \"kind\" con uno di questi valori:\n   osservazione, ipotesi, conferma, decisione, stato, ritiro.\n5. Non unire in un solo fatto informazioni provenienti da messaggi diversi.\n6. Non modificare, non aggiornare e non cancellare i fatti gia' estratti: aggiungi soltanto i fatti\n   ricavati dai messaggi nuovi, anche quando contraddicono un fatto precedente.\n7. Per ogni fatto indica i messaggi da cui proviene, usando esattamente gli identificatori mostrati\n   fra parentesi quadre.\n\nRispondi soltanto con un array JSON, senza testo prima o dopo. Ogni elemento ha questa forma:\n{\"text\": \"...\", \"source_message_ids\": [\"...\"], \"kind\": \"...\", \"negated\": true}\n\n\nFatti gia' estratti nelle conversazioni precedenti (solo per contesto, non vanno ripetuti):\n(nessun fatto estratto in precedenza: questa e' la prima sessione)\n\nMessaggi nuovi da elaborare:\n[SC02-S1-U1] Sto seguendo un problema nel recupero password di Lumen Market. Tre account hanno subito un cambio di password non autorizzato tramite il portale `account-portal`. Abbiamo due obiettivi: impedire altri cambi non autorizzati e mantenere utilizzabile il recupero password nell'app mobile. La decisione iniziale è inserire un CAPTCHA dopo la prima richiesta di recupero effettuata dallo stesso account. Prima di applicarla dobbiamo controllare il registro `reset_audit`.",
+      "scenario_id": "scenario_02",
+      "session_id": "SC02-S1",
+      "session_order": 1
+    },
+    {
+      "effort": "medium",
+      "error": null,
+      "executed": false,
+      "facts_extracted": [],
+      "facts_in_context": [],
+      "input_message_ids": [
+        "SC02-S2-U1"
+      ],
+      "model_answer": null,
+      "model_requested": "claude-sonnet-5",
+      "model_used": null,
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente di memoria di un sistema che segue un caso distribuito su piu' conversazioni.\nIl tuo unico compito e' estrarre fatti brevi dai messaggi che ti vengono mostrati.\n\nRegole:\n1. Estrai soltanto informazioni contenute nei messaggi nuovi. Non aggiungere conoscenze esterne\n   e non trarre conclusioni che non siano scritte.\n2. Un fatto per informazione: frasi brevi e autonome, comprensibili senza rileggere il messaggio.\n3. Conserva le negazioni: se il messaggio dice che qualcosa non e' avvenuto, non e' stato osservato\n   o non e' stato determinato, il fatto deve dirlo esplicitamente.\n4. Distingui le ipotesi dalle conferme: usa il campo \"kind\" con uno di questi valori:\n   osservazione, ipotesi, conferma, decisione, stato, ritiro.\n5. Non unire in un solo fatto informazioni provenienti da messaggi diversi.\n6. Non modificare, non aggiornare e non cancellare i fatti gia' estratti: aggiungi soltanto i fatti\n   ricavati dai messaggi nuovi, anche quando contraddicono un fatto precedente.\n7. Per ogni fatto indica i messaggi da cui proviene, usando esattamente gli identificatori mostrati\n   fra parentesi quadre.\n\nRispondi soltanto con un array JSON, senza testo prima o dopo. Ogni elemento ha questa forma:\n{\"text\": \"...\", \"source_message_ids\": [\"...\"], \"kind\": \"...\", \"negated\": true}\n\n\nFatti gia' estratti nelle conversazioni precedenti (solo per contesto, non vanno ripetuti):\n(nessun fatto estratto in precedenza: questa e' la prima sessione)\n\nMessaggi nuovi da elaborare:\n[SC02-S2-U1] Il controllo di `reset_audit` è terminato. Per ciascuno dei tre account risulta una sola richiesta di recupero, ma lo stesso link è stato utilizzato due volte. La decisione iniziale non impedirebbe quindi il problema osservato e non è più l'intervento scelto. La decisione aggiornata è usare token validi una sola volta e con scadenza dopo 15 minuti.",
+      "scenario_id": "scenario_02",
+      "session_id": "SC02-S2",
+      "session_order": 2
+    },
+    {
+      "effort": "medium",
+      "error": null,
+      "executed": false,
+      "facts_extracted": [],
+      "facts_in_context": [],
+      "input_message_ids": [
+        "SC02-S3-U1"
+      ],
+      "model_answer": null,
+      "model_requested": "claude-sonnet-5",
+      "model_used": null,
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente di memoria di un sistema che segue un caso distribuito su piu' conversazioni.\nIl tuo unico compito e' estrarre fatti brevi dai messaggi che ti vengono mostrati.\n\nRegole:\n1. Estrai soltanto informazioni contenute nei messaggi nuovi. Non aggiungere conoscenze esterne\n   e non trarre conclusioni che non siano scritte.\n2. Un fatto per informazione: frasi brevi e autonome, comprensibili senza rileggere il messaggio.\n3. Conserva le negazioni: se il messaggio dice che qualcosa non e' avvenuto, non e' stato osservato\n   o non e' stato determinato, il fatto deve dirlo esplicitamente.\n4. Distingui le ipotesi dalle conferme: usa il campo \"kind\" con uno di questi valori:\n   osservazione, ipotesi, conferma, decisione, stato, ritiro.\n5. Non unire in un solo fatto informazioni provenienti da messaggi diversi.\n6. Non modificare, non aggiornare e non cancellare i fatti gia' estratti: aggiungi soltanto i fatti\n   ricavati dai messaggi nuovi, anche quando contraddicono un fatto precedente.\n7. Per ogni fatto indica i messaggi da cui proviene, usando esattamente gli identificatori mostrati\n   fra parentesi quadre.\n\nRispondi soltanto con un array JSON, senza testo prima o dopo. Ogni elemento ha questa forma:\n{\"text\": \"...\", \"source_message_ids\": [\"...\"], \"kind\": \"...\", \"negated\": true}\n\n\nFatti gia' estratti nelle conversazioni precedenti (solo per contesto, non vanno ripetuti):\n(nessun fatto estratto in precedenza: questa e' la prima sessione)\n\nMessaggi nuovi da elaborare:\n[SC02-S3-U1] L'uso singolo del token è stato implementato nel componente `ResetTokenService`: dopo il primo cambio di password riuscito, il token viene segnato come consumato. I test di integrazione del portale web sono stati superati. Rimangono da eseguire due verifiche: controllare che il collegamento aperto dall'app mobile riporti correttamente alla schermata di accesso e provare un'email di recupero consegnata dopo il limite di validità stabilito nella sessione precedente.",
+      "scenario_id": "scenario_02",
+      "session_id": "SC02-S3",
+      "session_order": 3
+    },
+    {
+      "effort": "medium",
+      "error": null,
+      "executed": false,
+      "facts_extracted": [],
+      "facts_in_context": [],
+      "input_message_ids": [
+        "SC02-S4-U1"
+      ],
+      "model_answer": null,
+      "model_requested": "claude-sonnet-5",
+      "model_used": null,
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente di memoria di un sistema che segue un caso distribuito su piu' conversazioni.\nIl tuo unico compito e' estrarre fatti brevi dai messaggi che ti vengono mostrati.\n\nRegole:\n1. Estrai soltanto informazioni contenute nei messaggi nuovi. Non aggiungere conoscenze esterne\n   e non trarre conclusioni che non siano scritte.\n2. Un fatto per informazione: frasi brevi e autonome, comprensibili senza rileggere il messaggio.\n3. Conserva le negazioni: se il messaggio dice che qualcosa non e' avvenuto, non e' stato osservato\n   o non e' stato determinato, il fatto deve dirlo esplicitamente.\n4. Distingui le ipotesi dalle conferme: usa il campo \"kind\" con uno di questi valori:\n   osservazione, ipotesi, conferma, decisione, stato, ritiro.\n5. Non unire in un solo fatto informazioni provenienti da messaggi diversi.\n6. Non modificare, non aggiornare e non cancellare i fatti gia' estratti: aggiungi soltanto i fatti\n   ricavati dai messaggi nuovi, anche quando contraddicono un fatto precedente.\n7. Per ogni fatto indica i messaggi da cui proviene, usando esattamente gli identificatori mostrati\n   fra parentesi quadre.\n\nRispondi soltanto con un array JSON, senza testo prima o dopo. Ogni elemento ha questa forma:\n{\"text\": \"...\", \"source_message_ids\": [\"...\"], \"kind\": \"...\", \"negated\": true}\n\n\nFatti gia' estratti nelle conversazioni precedenti (solo per contesto, non vanno ripetuti):\n(nessun fatto estratto in precedenza: questa e' la prima sessione)\n\nMessaggi nuovi da elaborare:\n[SC02-S4-U1] Il test del collegamento nell'app mobile è stato completato: dopo il cambio di password l'utente viene riportato correttamente alla schermata di accesso. Rimane da completare soltanto il test dell'email consegnata in ritardo. La riunione di verifica del rilascio è fissata per martedì alle 11:30 e deve includere il risultato di questo test ancora pendente.",
+      "scenario_id": "scenario_02",
+      "session_id": "SC02-S4",
+      "session_order": 4
+    }
+  ],
+  "source_file": "data/scenarios/scenario_02.json"
+}

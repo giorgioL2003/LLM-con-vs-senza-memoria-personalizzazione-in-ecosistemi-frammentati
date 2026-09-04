@@ -1,0 +1,375 @@
+{
+  "archive": [
+    {
+      "claim_key": "evidenza-file-riscatto",
+      "created_by_op": "SC03-OP004",
+      "entry_id": "SC03-M004",
+      "order": 4,
+      "session_id": "SC03-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC03-F004"
+      ],
+      "source_message_ids": [
+        "SC03-S1-U1"
+      ],
+      "status": "ritirato",
+      "superseded_by_entry": null,
+      "superseded_by_op": "SC03-OP011",
+      "value": "Sul desktop di WS-114 è comparso il file LEGGIMI-PAGAMENTO.txt."
+    }
+  ],
+  "config_id": "rq2-dev-0.1",
+  "current": [
+    {
+      "claim_key": "caso-ws114",
+      "created_by_op": "SC03-OP001",
+      "entry_id": "SC03-M001",
+      "order": 1,
+      "session_id": "SC03-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC03-F001"
+      ],
+      "source_message_ids": [
+        "SC03-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "È stato aperto un caso sull'host WS-114 di Vesper Logistics."
+    },
+    {
+      "claim_key": "sintomo-rallentamento",
+      "created_by_op": "SC03-OP002",
+      "entry_id": "SC03-M002",
+      "order": 2,
+      "session_id": "SC03-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC03-F002"
+      ],
+      "source_message_ids": [
+        "SC03-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "WS-114 ha avuto un rallentamento improvviso."
+    },
+    {
+      "claim_key": "sintomo-processo",
+      "created_by_op": "SC03-OP003",
+      "entry_id": "SC03-M003",
+      "order": 3,
+      "session_id": "SC03-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC03-F003"
+      ],
+      "source_message_ids": [
+        "SC03-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Su WS-114 è presente il processo svhostw.exe non riconosciuto."
+    },
+    {
+      "claim_key": "classificazione",
+      "created_by_op": "SC03-OP005",
+      "entry_id": "SC03-M005",
+      "order": 5,
+      "session_id": "SC03-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC03-F005"
+      ],
+      "source_message_ids": [
+        "SC03-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Ipotesi iniziale: ransomware."
+    },
+    {
+      "claim_key": "obiettivo-classificazione",
+      "created_by_op": "SC03-OP006",
+      "entry_id": "SC03-M006",
+      "order": 6,
+      "session_id": "SC03-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC03-F006"
+      ],
+      "source_message_ids": [
+        "SC03-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Stabilire la classificazione del malware sulla base delle evidenze raccolte."
+    },
+    {
+      "claim_key": "obiettivo-ripristino",
+      "created_by_op": "SC03-OP007",
+      "entry_id": "SC03-M007",
+      "order": 7,
+      "session_id": "SC03-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC03-F007"
+      ],
+      "source_message_ids": [
+        "SC03-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Riportare WS-114 in servizio senza perdita di dati."
+    },
+    {
+      "claim_key": "stato-cifratura",
+      "created_by_op": "SC03-OP009",
+      "entry_id": "SC03-M009",
+      "order": 9,
+      "session_id": "SC03-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC03-F009"
+      ],
+      "source_message_ids": [
+        "SC03-S1-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "I file dell'utente si aprono regolarmente e nessuna estensione risulta modificata."
+    },
+    {
+      "claim_key": "motivo-ritiro-file",
+      "created_by_op": "SC03-OP012",
+      "entry_id": "SC03-M012",
+      "order": 12,
+      "session_id": "SC03-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC03-F012"
+      ],
+      "source_message_ids": [
+        "SC03-S2-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il file LEGGIMI-PAGAMENTO.txt era il residuo dell'esercitazione interna di phishing simulato di maggio."
+    },
+    {
+      "claim_key": "evidenza-lettura-credenziali",
+      "created_by_op": "SC03-OP014",
+      "entry_id": "SC03-M014",
+      "order": 14,
+      "session_id": "SC03-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC03-F014"
+      ],
+      "source_message_ids": [
+        "SC03-S2-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "svhostw.exe ha letto il database delle credenziali del browser dell'utente."
+    },
+    {
+      "claim_key": "evidenza-esfiltrazione",
+      "created_by_op": "SC03-OP015",
+      "entry_id": "SC03-M015",
+      "order": 15,
+      "session_id": "SC03-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC03-F015"
+      ],
+      "source_message_ids": [
+        "SC03-S2-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "svhostw.exe ha aperto tre connessioni verso cdn-updates.example.net con un caricamento di 240 MB."
+    },
+    {
+      "claim_key": "famiglia-malware",
+      "created_by_op": "SC03-OP018",
+      "entry_id": "SC03-M018",
+      "order": 18,
+      "session_id": "SC03-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC03-F018"
+      ],
+      "source_message_ids": [
+        "SC03-S3-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il campione corrisponde alla famiglia Kelpie."
+    },
+    {
+      "claim_key": "contenimento-isolamento",
+      "created_by_op": "SC03-OP020",
+      "entry_id": "SC03-M020",
+      "order": 20,
+      "session_id": "SC03-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC03-F020"
+      ],
+      "source_message_ids": [
+        "SC03-S3-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "WS-114 è stato isolato dalla rete alle 09:40."
+    },
+    {
+      "claim_key": "contenimento-blocco-dominio",
+      "created_by_op": "SC03-OP021",
+      "entry_id": "SC03-M021",
+      "order": 21,
+      "session_id": "SC03-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC03-F021"
+      ],
+      "source_message_ids": [
+        "SC03-S3-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il dominio cdn-updates.example.net è stato bloccato sul proxy."
+    },
+    {
+      "claim_key": "contenimento-credenziali",
+      "created_by_op": "SC03-OP022",
+      "entry_id": "SC03-M022",
+      "order": 22,
+      "session_id": "SC03-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC03-F022"
+      ],
+      "source_message_ids": [
+        "SC03-S3-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Le credenziali dei tre servizi usati dall'utente sono state revocate e riemesse."
+    },
+    {
+      "claim_key": "verifica-accessi-cloud",
+      "created_by_op": "SC03-OP023",
+      "entry_id": "SC03-M023",
+      "order": 23,
+      "session_id": "SC03-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC03-F023"
+      ],
+      "source_message_ids": [
+        "SC03-S3-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Da eseguire: controllo degli accessi ai servizi cloud nelle 48 ore precedenti l'isolamento."
+    },
+    {
+      "claim_key": "verifica-reinstallazione",
+      "created_by_op": "SC03-OP024",
+      "entry_id": "SC03-M024",
+      "order": 24,
+      "session_id": "SC03-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC03-F024"
+      ],
+      "source_message_ids": [
+        "SC03-S3-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Da eseguire: reinstallazione dell'host."
+    },
+    {
+      "claim_key": "vettore-iniziale",
+      "created_by_op": "SC03-OP030",
+      "entry_id": "SC03-M030",
+      "order": 30,
+      "session_id": "SC03-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC03-F029"
+      ],
+      "source_message_ids": [
+        "SC03-S4-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il vettore iniziale dell'infezione non è stato determinato."
+    },
+    {
+      "claim_key": "vincolo-rapporto",
+      "created_by_op": "SC03-OP031",
+      "entry_id": "SC03-M031",
+      "order": 31,
+      "session_id": "SC03-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC03-F030"
+      ],
+      "source_message_ids": [
+        "SC03-S4-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il rapporto del caso deve restare interno fino alla chiusura."
+    }
+  ],
+  "label": "fixture artificiale",
+  "reading_policy": {
+    "current": "soltanto i fatti attivi",
+    "history": "fatti attivi, superati e ritirati, ognuno con lo stato scritto nel contesto",
+    "markers": [
+      "superat",
+      "precedent",
+      "inizial",
+      "in origine",
+      "in passato",
+      "storic",
+      "cambia",
+      "modifica",
+      "sostitu",
+      "ritirat",
+      "non e' piu'",
+      "non è più",
+      "e' ancora",
+      "è ancora",
+      "ancora un",
+      "prima ipotesi",
+      "prima decisione"
+    ],
+    "note": "La scelta dipende soltanto dal testo della domanda: l'oracle non entra nella regola."
+  },
+  "scenario_id": "scenario_03"
+}

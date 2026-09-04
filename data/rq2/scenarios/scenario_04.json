@@ -1,0 +1,143 @@
+{
+  "scenario_id": "scenario_04",
+  "title": "campagna di smishing sull'ufficio acquisti di Corvara Servizi",
+  "experiment": "RQ2",
+  "version": "0.1",
+  "status": "bozza da controllare, non approvata e non congelata",
+  "frozen": false,
+  "phenomenon": "Ricostruire relazioni distribuite fra messaggio, persona, collegamento, account ed eventi. Contiene una valutazione iniziale superata e una catena di collegamenti che nessuna sessione riassume per intero.",
+  "note": "Questo file contiene soltanto le conversazioni: è l'unico input ammesso per la costruzione della memoria (T, F, U, G). Domande, oracle, relazioni attese e annotazioni di valutazione stanno in data/rq2/annotations/scenario_04_rq2.json e non devono mai entrare nell'estrazione, nel retrieval o nel prompt di risposta.",
+  "indexed_role": "user",
+  "memory_scope": {
+    "label": "perimetro condiviso (equivalente a C2 del pilot)",
+    "accessible_sessions": ["SC04-S1", "SC04-S2", "SC04-S3", "SC04-S4"]
+  },
+  "sessions": [
+    {
+      "session_id": "SC04-S1",
+      "order": 1,
+      "title": "Segnalazione dell'SMS",
+      "messages": [
+        {
+          "message_id": "SC04-S1-U1",
+          "session_id": "SC04-S1",
+          "order": 1,
+          "role": "user",
+          "content": "Apro un caso per l'ufficio acquisti di Corvara Servizi. L'operatore `UT-207` ha segnalato un SMS ricevuto il 12 marzo alle 06:58 dal numero `+39 351 000 4477`: il messaggio imita il servizio di consegna RapidoPost e annuncia un pacco in giacenza. Registro il messaggio come `SMS-01`. L'obiettivo del caso è stabilire se si tratta di una minaccia reale e limitare l'esposizione degli account coinvolti. La valutazione iniziale è che si tratti di spam generico e che l'operatore non abbia avuto alcun contatto con il collegamento contenuto nel messaggio."
+        },
+        {
+          "message_id": "SC04-S1-A1",
+          "session_id": "SC04-S1",
+          "order": 2,
+          "role": "assistant",
+          "content": "Registrata la segnalazione e la valutazione iniziale, da confermare con le verifiche tecniche."
+        }
+      ]
+    },
+    {
+      "session_id": "SC04-S2",
+      "order": 2,
+      "title": "Verifiche tecniche e classificazione",
+      "messages": [
+        {
+          "message_id": "SC04-S2-U1",
+          "session_id": "SC04-S2",
+          "order": 1,
+          "role": "user",
+          "content": "`SMS-01` contiene un solo collegamento, `hxxps://rapidopost-ritiro[.]example/track`, che registro come `URL-01`. La pagina raggiunta da `URL-01` riproduce il modulo di accesso di `accessi.corvara.example`: è una pagina falsa. Il caso è classificato come smishing."
+        },
+        {
+          "message_id": "SC04-S2-A1",
+          "session_id": "SC04-S2",
+          "order": 2,
+          "role": "assistant",
+          "content": "Registrata la classificazione del caso come smishing, con il collegamento alla pagina falsa."
+        },
+        {
+          "message_id": "SC04-S2-U2",
+          "session_id": "SC04-S2",
+          "order": 3,
+          "role": "user",
+          "content": "Correzione della valutazione iniziale: il registro del proxy mostra che `UT-207` ha aperto `URL-01` alle 07:03 e ha inviato il modulo di accesso. L'ipotesi che non ci fosse stato alcun contatto con il collegamento non è più valida."
+        },
+        {
+          "message_id": "SC04-S2-A2",
+          "session_id": "SC04-S2",
+          "order": 4,
+          "role": "assistant",
+          "content": "Valutazione iniziale superata: il contatto con il collegamento risulta avvenuto."
+        }
+      ]
+    },
+    {
+      "session_id": "SC04-S3",
+      "order": 3,
+      "title": "Account ed eventi registrati",
+      "messages": [
+        {
+          "message_id": "SC04-S3-U1",
+          "session_id": "SC04-S3",
+          "order": 1,
+          "role": "user",
+          "content": "L'account aziendale usato da `UT-207` è `acquisti-207@corvara.example`, che indico come `ACC-207`. Su `ACC-207` risulta un accesso anomalo il 12 marzo alle 07:12 dall'indirizzo `203.0.113.44`, fuori dalle sedi aziendali: lo registro come `LOGIN-07`."
+        },
+        {
+          "message_id": "SC04-S3-A1",
+          "session_id": "SC04-S3",
+          "order": 2,
+          "role": "assistant",
+          "content": "Registrati l'account e l'accesso anomalo."
+        },
+        {
+          "message_id": "SC04-S3-U2",
+          "session_id": "SC04-S3",
+          "order": 3,
+          "role": "user",
+          "content": "Dalla stessa sessione di `LOGIN-07`, alle 07:20, su `ACC-207` è stata creata una regola di inoltro che invia a `archivio.backup@mailbox.example` tutti i messaggi contenenti la parola `fattura`. La registro come `RULE-01`."
+        },
+        {
+          "message_id": "SC04-S3-A2",
+          "session_id": "SC04-S3",
+          "order": 4,
+          "role": "assistant",
+          "content": "Registrata la regola di inoltro creata sull'account."
+        }
+      ]
+    },
+    {
+      "session_id": "SC04-S4",
+      "order": 4,
+      "title": "Stato delle azioni e punto non determinato",
+      "messages": [
+        {
+          "message_id": "SC04-S4-U1",
+          "session_id": "SC04-S4",
+          "order": 1,
+          "role": "user",
+          "content": "Aggiornamento di oggi: `RULE-01` è stata rimossa e la password di `ACC-207` è stata reimpostata alle 08:05; il numero mittente è stato bloccato sul gateway aziendale. Resta da completare la revisione dei messaggi inoltrati fra le 07:20 e la rimozione della regola. Il riepilogo per il responsabile deve indicare quale segnalazione ha originato il caso e quali eventi sull'account ne sono seguiti."
+        },
+        {
+          "message_id": "SC04-S4-A1",
+          "session_id": "SC04-S4",
+          "order": 2,
+          "role": "assistant",
+          "content": "Aggiornato lo stato delle azioni e registrato il contenuto richiesto per il riepilogo."
+        },
+        {
+          "message_id": "SC04-S4-U2",
+          "session_id": "SC04-S4",
+          "order": 3,
+          "role": "user",
+          "content": "La verifica su come sia stato ottenuto il numero di telefono dell'operatore è chiusa senza esito: il punto resta non determinato."
+        },
+        {
+          "message_id": "SC04-S4-A2",
+          "session_id": "SC04-S4",
+          "order": 4,
+          "role": "assistant",
+          "content": "Registrato il punto rimasto non determinato."
+        }
+      ]
+    }
+  ]
+}
