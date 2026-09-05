@@ -2,8 +2,13 @@
 
 **Stato:** dataset e pipeline **T / F / U / G / FULL_HISTORY** costruiti ed
 eseguibili offline sull'intera matrice (77 celle). Protocollo **non congelato**,
-annotazioni **non approvate**, nessuna generazione finale eseguita, nessuna
-chiamata reale a Claude ancora effettuata per estrazione, aggiornamenti o grafo.
+annotazioni **non approvate**, nessuna generazione finale eseguita.
+
+**Primo giro di prove reali completato su SC02, SC03 e SC04** (63 risposte su
+77). Estrazione, aggiornamenti, grafo, retrieval e generazione sono stati
+prodotti con chiamate vere a Claude Sonnet 5. Sono **risultati di sviluppo: una
+sola esecuzione per scenario, senza repliche**, non risultati dell'esperimento.
+**Manca SC01** (T e FULL_HISTORY, 14 generazioni). Il dettaglio è nella sezione 9.
 
 **Domanda:** a parità di informazioni accessibili, come cambia la capacità del
 modello di continuare l'attività quando la memoria viene *organizzata* in modo
@@ -174,8 +179,36 @@ Se una sola di queste condizioni manca, l'operazione è rifiutata in blocco:
 Ogni operazione registra `proposed_operation`, `applied_operation` (`null` se
 rifiutata), `applied`, `rejection_reason`, `target_entry_id`, le impronte dello
 stato prima e dopo, il numero di fatti attivi prima e dopo, `raw_proposal` (la
-proposta grezza del modello), `provenance_valid` e il riferimento alla risposta
-grezza nel registro.
+proposta grezza del modello), `provenance_valid`, `attempt`, `retry_of`,
+`instructions_version` e il riferimento alla risposta grezza nel registro.
+
+### Riferimenti e passata di riparazione (istruzioni `u-instructions-0.3`)
+
+La prima prova reale su SC03 aveva prodotto tre rifiuti con una perdita di
+contenuto (sezione 9.2). Due cause distinte, entrambe affrontate:
+
+- **riferimenti confusi.** Il prompt chiedeva in `target_entry_id` «il fatto in
+  memoria», e la parola «fatto» designava sia i candidati `F…` sia le voci `M…`.
+  Ora le istruzioni dichiarano i due elenchi come spazi separati: gli
+  identificatori sotto «Fatti nuovi da valutare» valgono solo per `fact_id`,
+  quelli sotto «Stato corrente della memoria» e «Archivio» solo per
+  `target_entry_id`, e un fatto senza voce in memoria non può essere bersaglio di
+  un UPDATE.
+- **stato che evolve dentro la sessione.** Il prompt mostra lo stato all'inizio
+  della sessione, ma le operazioni vengono applicate una alla volta: una voce
+  appena superata non è più un bersaglio valido. Le istruzioni ora lo dicono, e
+  in più `--repair-attempts` (predefinito 1) rimanda al modello **le sole
+  proposte rifiutate**, con lo stato aggiornato, cioè quello su cui verrebbero
+  davvero applicate.
+
+La riparazione **non è una correzione automatica**: il modello ridecide, e la
+riproposta viene applicata o rifiutata con le stesse regole. La proposta
+rifiutata resta negli artefatti con il proprio esito, collegata alla riproposta
+da `retried_by` e `retry_of`. Il rifiuto atomico, il divieto di cercare un target
+sostitutivo e il divieto di convertire UPDATE in ADD restano invariati.
+
+Costo: **una chiamata in più per sessione, solo quando ci sono rifiuti**. Su SC03
+le chiamate passano da 4 a 5.
 
 Le operazioni rifiutate **restano negli artefatti** e vanno contate come errori
 di gestione della memoria, non come guasti dello script. Un rifiuto può
@@ -386,8 +419,8 @@ python3 -m unittest discover -s tests -v
 
 ### Prime prove reali di sviluppo (consumano utilizzo)
 
-Nessuna di queste è stata eseguita. Ogni scenario scrive su file propri, così una
-prova non sovrascrive l'altra: `retrieval_scNN`, `generation_inputs_scNN`,
+**Eseguite SC02, SC03 e SC04** (sezione 9); **manca SC01**. Ogni scenario scrive
+su file propri, così una prova non sovrascrive l'altra: `retrieval_scNN`, `generation_inputs_scNN`,
 `generation_dev_scNN`, `annotation_template_scNN`.
 
 **SC01 — T e FULL_HISTORY** (nessuna costruzione di memoria; 14 generazioni):
@@ -420,31 +453,466 @@ In tutto sono 77 generazioni più 17 chiamate di costruzione della memoria.
 uscita salta le prove già completate. Ogni costruttore accetta `--dry-run` per
 salvare soltanto il prompt senza chiamare il modello.
 
-## 9. Cosa manca prima di congelare il protocollo
+## 9. Prove reali di sviluppo eseguite
 
-- **Prove reali:** estrazione, aggiornamenti e grafo non sono mai stati eseguiti
-  con Claude. Finora esistono solo dry run e fixture. Le uscite vere possono
-  essere peggiori delle fixture: fatti mal formati, `claim_key` incoerenti,
-  UPDATE mancati, nodi inventati.
+| Scenario | Modalità | Chiamate di costruzione | Generazioni | Errori |
+|---|---|---:|---:|:-:|
+| SC01 | T, FULL_HISTORY | 0 | **non eseguito** | – |
+| SC02 | T, F, FULL_HISTORY | 4 estrazione | 21 | 0 |
+| SC03 | F, U, FULL_HISTORY | 4 estrazione + 4 aggiornamento | 21 | 0 |
+| SC04 | U, G, FULL_HISTORY | 4 + 4 + 1 grafo | 21 | 0 |
+
+Tutte con `claude-sonnet-5`, effort `medium`, configurazione `rq2-dev-0.1`,
+budget 200 token. **Nessun errore di esecuzione, nessun errore di parsing,
+nessuna correzione di codice necessaria.** Su tutti e tre gli scenari è stato
+verificato che nei prompt di estrazione e aggiornamento non compaiano domande,
+risposte attese, chiavi dell'oracle né messaggi dell'assistente.
+
+### 9.1 SC02 — T / F / FULL_HISTORY
+
+23 fatti, tutti con provenienza e tipo validi. Contesto medio: T 2,0 elementi
+(145,6 token di contenuto, 14 di sovraccarico); F 6,4 elementi (102,4 + 83,6).
+
+**F conserva l'obsoleto, e su una domanda sbaglia dove T è corretto.** Su
+SC02-Q4 («quale verifica rimane da completare?») F recupera `SC02-F017`
+(«rimane da verificare che il collegamento dell'app mobile riporti alla
+schermata di accesso», sessione 3) e risponde che restano **due** verifiche
+aperte. Quella verifica è stata completata nella sessione 4 (`SC02-F019`,
+`SC02-F020`), che il retrieval non ha selezionato. T, lavorando sul messaggio
+intero della sessione 4, risponde correttamente. È esattamente il fenomeno per
+cui SC02 è stato costruito: **F non applica UPDATE e il fatto superato resta
+accanto a quello nuovo.**
+
+Su SC02-Q6 né T né F recuperano il limite dei «15 minuti»; FULL_HISTORY sì.
+
+### 9.2 SC03 — F / U / FULL_HISTORY
+
+41 fatti, tutti con provenienza e tipo validi. **Verificato che F e U usano gli
+stessi fatti:** identici e nello stesso ordine, e le operazioni citano
+esattamente quei `fact_id`. Contesto medio: F 7,6 elementi (91,1 + 98,4); U 6,6
+(84,4 + 98,6).
+
+41 operazioni proposte: 28 ADD, 8 UPDATE, 5 NOOP, **0 DELETE**. Applicate 38,
+**rifiutate 3**. Stato finale: 28 attivi, 5 superati, 0 ritirati.
+
+**Aggiornamento riuscito:** `SC03-OP022` supera l'ipotesi ransomware
+(`SC03-M005`) con «l'ipotesi è stata aggiornata da ransomware a infostealer», e
+`SC03-OP025` la supera a sua volta con la conferma. La catena
+`M005 → M022 → M025` è tracciabile nell'archivio.
+
+**Conferma senza modifica:** cinque NOOP, fra cui `SC03-OP034` («la ripetizione
+della verifica conferma lo stesso esito, famiglia Kelpie») con motivazione
+«conferma equivalente di un fatto già presente in memoria».
+
+**Ritiro senza sostituzione: non esercitato come DELETE.** Il file
+`LEGGIMI-PAGAMENTO.txt`, che lo scenario ritira come residuo di un'esercitazione
+interna, è stato trattato con un **UPDATE** (`SC03-M004 → SC03-M014`): finisce in
+archivio come `superato`, non come `ritirato`. Lo stato corrente risultante è
+corretto — dice che il file è stato escluso dalle evidenze — ma il fenomeno che
+SC03 doveva esercitare non è stato esercitato, e `DELETE` resta senza copertura
+sperimentale.
+
+**Tre operazioni rifiutate, con una perdita dimostrata.** Due (`SC03-OP013`,
+`SC03-OP020`) indicano in `target_entry_id` un **identificatore di fatto**
+(`SC03-F005`, `SC03-F019`) invece di una voce di memoria; una (`SC03-OP026`)
+punta a `SC03-M022`, già superata poche operazioni prima nella stessa sessione.
+In tutti e tre i casi le impronte dello stato prima e dopo coincidono: il rifiuto
+è stato atomico come previsto. Ma il rifiuto di `SC03-OP020` ha **cancellato da U
+il volume dell'esfiltrazione**: «caricamento complessivo di 240 MB» esiste in F
+(`SC03-F020`) e **non compare da nessuna parte** nello stato di U, né fra gli
+attivi né in archivio. È la prima differenza di contenuto F/U osservata, ed è un
+errore di gestione, non un guasto dello script.
+
+#### Seconda prova di U su SC03, dopo la chiarificazione delle istruzioni
+
+Rieseguita **sugli stessi fatti candidati**, senza rigenerare le 21 risposte.
+Artefatti in `results/rq2/memory_repair_v3/` (e `memory_repair_v2/`, che conserva
+un difetto intermedio); la prima prova resta immutata in `results/rq2/memory/`.
+
+| | prima prova | seconda prova |
+|---|---|---|
+| istruzioni | `u-instructions-0.1` | `u-instructions-0.3` |
+| chiamate al modello | 4 | 5 |
+| operazioni | 41 | 42 |
+| rifiutate | **3** | **1**, poi riproposta e applicata |
+| target che non sono voci di memoria | 2 (`SC03-F005`, `SC03-F019`) | **nessuno** |
+| informazione «240 MB» | **assente dallo stato** | **presente** (`SC03-M023`) |
+| fatti candidati senza alcuna operazione applicata | 3 | **nessuno** |
+| stato finale | 28 attivi, 5 superati | 29 attivi, 6 superati |
+
+Le catene di supersessione sono integre in entrambe: nessuna voce superata senza
+successore, nessun `superseded_by_entry` che punti fuori dallo stato. `DELETE`
+resta a zero anche nella seconda prova: non è stato forzato.
+
+**Difetto intermedio, registrato e corretto.** Con le istruzioni `0.2` la
+riparazione della sessione 4 ha ricevuto un oggetto JSON singolo invece di un
+array, che il parser scarta: un fatto è andato perso. La causa era
+un'ambiguità del prompt di riparazione quando il fatto da rivalutare è uno solo.
+`0.3` lo dice esplicitamente e la perdita non si ripresenta.
+
+**Rifiuto residuo.** `SC03-OP020` propone ancora un UPDATE senza
+`target_entry_id`: la riparazione lo recupera indicando `SC03-M019`. La
+chiarificazione non ha eliminato l'errore alla prima passata, l'ha reso
+recuperabile.
+
+#### Il retrieval sulla memoria riparata (nessuna chiamata al modello)
+
+Retrieval delle 7 domande di SC03 in modalità U sul nuovo stato, con `--state`
+(parametro già esistente: **nessuna modifica al retrieval**), stessi fatti,
+stesso budget, stesso ranking. Prompt costruiti e **non inviati**. Artefatti in
+`results/rq2/retrieval_repair_v3/`. Verificato che senza `--state` il
+comportamento predefinito resta identico alla prima prova.
+
+**Attenzione al confronto:** gli `entry_id` sono posizionali e cambiano fra una
+prova e l'altra — lo stesso `SC03-M023` indica voci diverse nelle due
+esecuzioni. Il confronto va fatto sul testo.
+
+Che cosa cambia nei contesti:
+
+- **Q5 migliora davvero.** Il vincolo sul rapporto ora è una voce sola e
+  completa («deve restare interno **e non può essere diffuso fuori dal gruppo di
+  risposta prima della chiusura**») e viene recuperata: la copertura testuale del
+  fatto obbligatorio passa da un terzo a intera.
+- **Q6 non cambia.** L'informazione sui 240 MB, che prima mancava dalla memoria,
+  ora c'è ma **non entra nel contesto proprio dove servirebbe**: sulla domanda
+  che chiede quali evidenze hanno portato al cambio di classificazione è al rango
+  18 con punteggio 0,054, molto oltre l'arresto per budget. Non è la soglia sul
+  punteggio nullo: è il ranking, che mette davanti voci generiche su
+  «classificazione» e «caso».
+- **Q3 peggiora.** La stessa voce sui 240 MB entra invece dove non serve (rango
+  6 sulla domanda sull'evidenza ritirata) e spinge fuori dal budget «il file non
+  ha alcuna relazione con l'incidente», che era parte della risposta attesa.
+- Nessuna perdita rispetto ai vecchi contesti è dovuta alla memoria: ogni testo
+  che prima entrava e ora no è ancora nello stato, spostato solo dal ranking.
+
+Un rischio nuovo, introdotto proprio dal recupero: il fatto «l'ipotesi del caso
+non è stata cambiata per adesso», della prima sessione, ora esiste come voce
+**attiva** con un `claim_key` diverso dalla catena delle ipotesi, quindi la
+supersessione `ransomware → infostealer → confermata` non lo tocca. Entra in 5
+contesti su 7, compreso quello sulla classificazione superata. Prima era assente
+perché l'operazione era stata rifiutata: ora è presente e leggibile come
+attuale, benché sia vero solo fino alla sessione 2. È di nuovo la questione
+aperta «eventi o stati» (sezione 10), non un difetto della riparazione.
+
+**Quarta conferma del falso positivo di provenienza:** su Q3, Q4 e Q6
+`evidence_provenance_complete` vale `true` mentre la copertura testuale dei fatti
+obbligatori sta fra 0% e 25%.
+
+Budget rispettato in tutte e 7 le domande (170–200 token, nessun superamento
+per primo elemento) e provenienza tracciata su ogni elemento selezionato.
+
+#### Le 7 risposte U sulla memoria riparata
+
+Generate dai prompt già pronti, stessi parametri della prima prova SC03
+(`claude-sonnet-5`, effort `medium`), 7 chiamate, 0 errori. Artefatti in
+`results/rq2/retrieval_repair_v3/generation_dev_sc03_u.jsonl`; le risposte
+precedenti restano immutate. **Una sola esecuzione: le differenze sono
+osservazioni, non prove che ogni cambiamento dipenda dalla modifica a U.**
+
+Quattro domande invariate (Q1, Q2, Q4, Q7), Q6 invariata con astensione in
+entrambe le prove, Q3 lievemente peggiorata, Q5 divisa in due:
+
+- **il miglioramento** è su Q5: il vincolo sul rapporto ora è completo, dove
+  prima la risposta si fermava a «deve restare interno». È l'effetto diretto
+  della voce di memoria più completa prodotta dalla riparazione;
+- **il peggioramento** è sulla stessa Q5: prima il modello si asteneva sui punti
+  aperti, ora ne elenca quattro e nessuno lo è. Fra questi compare «l'ipotesi del
+  caso non è stata cambiata per adesso», la voce recuperata dalla riparazione,
+  vera solo fino alla sessione 2 e rimasta `attivo` fuori dalla catena di
+  supersessione: **è informazione obsoleta finita in una risposta**, e nella prima
+  prova non poteva accadere perché la voce non esisteva. La stessa risposta
+  aggiunge «(in attesa di risultati)», che il contesto non dice;
+- **Q3** perde metà del motivo: «non ha alcuna relazione con l'incidente» esce dal
+  contesto, spinto fuori dai 240 MB che con quella domanda non c'entrano.
+
+**Esito della verifica di U.** La modifica fa quello per cui è stata fatta —
+nessuna operazione perde più contenuto — ma su queste 7 domande **non migliora
+le risposte**. Il collo di bottiglia si è spostato dalla memoria al ranking, e la
+questione «eventi o stati» è passata da difetto silenzioso a difetto visibile:
+recuperare un enunciato legato al tempo, senza un modo per dichiararlo scaduto,
+lo rende leggibile come attuale. Nessun problema tecnico bloccante.
+
+### 9.6 SC04 ricostruito con le istruzioni aggiornate
+
+U ricostruito sui fatti già estratti, G costruito **sullo stesso nuovo stato di
+U**, retrieval e 14 risposte U/G. FULL_HISTORY non rigenerata: resta come
+riferimento diagnostico. Artefatti in `results/rq2/sc04_repair_v3/`, con input,
+versione delle istruzioni, impronta del codice e configurazione registrati nel
+README. **21 chiamate**: 6 per U (4 sessioni + 2 riparazioni), 1 per G, 14 per le
+risposte. Nessun errore, nessuna risposta vuota.
+
+**Operazioni:** 41 proposte, 38 applicate, **3 rifiutate e tutte recuperate**
+dalla riparazione; nessun rifiuto per `fact_id` usato come voce; nessun fatto
+candidato resta senza operazione. In un caso il modello ha ridecidiso davvero,
+non solo corretto il riferimento: un UPDATE invalido è tornato come NOOP.
+
+**Il caso RULE-01 non cambia:** la rimozione resta un ADD separato accanto alla
+creazione ancora attiva, senza collegamento. Le istruzioni nuove non toccano
+questo comportamento — conferma che è la questione aperta «eventi o stati», non
+un difetto delle istruzioni.
+
+**Grafo:** 10 nodi e 16 archi; compare l'arco `RULE-01 configurata_su ACC-207`,
+cioè la relazione `SC04-R08` che nel grafo precedente **mancava**. Restano 4
+archi con provenienza non valida per oggetto letterale, **gli alias sono ancora
+vuoti su tutti i nodi**, e l'ancoraggio peggiora: ora **nessuna** delle 7 domande
+trova nodi dal proprio testo (prima una). Nuovo difetto: l'arco che registra la
+rimozione di RULE-01 porta stato `superato`, che dice che è superato l'arco, non
+che la regola è stata rimossa.
+
+**Risposte** (una sola esecuzione: differenze osservate, non cause dimostrate):
+Q2 in G migliora e stavolta **è sostenuta dal contesto** — l'arco «valutato
+inizialmente come spam generico», stato `superato`, entra perché Q2 è storica;
+Q3 in U perde il ponte inventato «da questa segnalazione risulta LOGIN-07»; Q5 in
+U non afferma più che l'attività aperta sia il riepilogo. In cambio Q3 in G
+smette di dichiarare la propria insufficienza pur restando incompleta. Q1, Q4,
+Q6 e Q7 invariati. FULL_HISTORY resta molto sopra su Q3, Q4 e Q5.
+
+**Riferimento di sviluppo.** Senza problemi bloccanti, questa è la versione di
+riferimento da cui partire per una futura estensione gerarchica, con i limiti
+dichiarati: ancoraggio ai nodi a zero, alias vuoti, archi con oggetti letterali,
+«eventi o stati» aperta, ranking come collo di bottiglia principale. **Non è una
+validazione del sistema e il protocollo resta non congelato.**
+
+### 9.3 SC04 — U / G / FULL_HISTORY
+
+Eseguita con `claude-sonnet-5`, effort `medium`, configurazione `rq2-dev-0.1`.
+Comprende 4 chiamate di estrazione, 4 di aggiornamento, 1 per il grafo e 21
+generazioni. Nessun errore di esecuzione, nessun errore di parsing.
+
+Sono **risultati di sviluppo**: un solo scenario, 7 domande per modalità, una
+sola esecuzione, nessuna replica, oracle non approvato, protocollo non
+congelato. Non sono risultati dell'esperimento e non vanno riportati come tali.
+
+**Valutazione assistita da rivedere:** `results/rq2/evaluation_dev_sc04.md`
+(revisione 2, criteri consolidati). I giudizi lì dentro sono proposte; i campi
+manuali di `results/rq2/annotation_template_sc04.jsonl` restano `null` e vanno
+compilati a mano. Dove un giudizio dipende da una scelta metodologica ancora
+aperta, la valutazione è data due volte: secondo l'oracle attualmente salvato e
+secondo il criterio alternativo proposto.
+
+### Che cosa è stato prodotto
+
+| Fase | Esito |
+|---|---|
+| Estrazione | 38 fatti, tutti con provenienza valida, 4 sessioni tutte eseguite |
+| Aggiornamenti | 38 operazioni, 38 applicate, **0 rifiutate**; stato finale 34 voci attive + 2 in archivio |
+| Grafo | 14 nodi, 21 archi; **5 archi con `provenance_valid: false`** (oggetto non dichiarato come nodo) |
+| Retrieval | 14 righe (7 domande × U e G), tutte entro il budget di 200 token |
+| Generazione | 21 risposte (7 × U, G, FULL_HISTORY), nessun errore |
+
+Isolamento verificato per ispezione: nei prompt di estrazione, aggiornamento e
+grafo non compaiono domande, oracle o relazioni attese, e i messaggi
+dell'assistente non entrano nell'estrazione. G parte davvero dagli stessi fatti
+e dallo stesso stato di U (`facts_source` e `state_source` lo dichiarano).
+
+### Esito delle risposte (valutazione assistita, non approvata)
+
+| | completa | parziale | astensione corretta | uso di informazione obsoleta | affermazioni non supportate |
+|---|:-:|:-:|:-:|:-:|:-:|
+| U | 2 | 4 | 1 | 0 | 2 |
+| G | 2 | 4 | 1 | 0 | 0 |
+| FULL_HISTORY | 5 | 1 | 1 | 0 | 1 (lieve) |
+
+**Nessuna delle 21 risposte ha usato informazione obsoleta.**
+
+I conteggi sono quelli dell'**oracle attualmente salvato**. Con il criterio
+alternativo proposto per SC04-Q2 (l'oracle si contraddice: `mandatory_facts`
+pretende anche il motivo della classificazione, `accepted_equivalents` dichiara
+sufficiente la risposta senza) cambia una sola cella: FULL_HISTORY passa a 6
+complete. U e G restano invariate, quindi il confronto fra le architetture in
+esame non dipende da questa scelta.
+
+Il risultato più netto non è U contro G, che pareggiano nel conteggio: è che
+**FULL_HISTORY sta molto sopra entrambe** a parità di modello e di istruzioni.
+Con 529 token di cronologia integrale il modello risponde quasi sempre; con 200
+token selezionati no. Su SC04 il collo di bottiglia non è la disponibilità
+dell'informazione, è la selezione.
+
+U e G pareggiano nel punteggio ma **falliscono in modo diverso**: U colma i vuoti
+(due affermazioni non supportate, su Q3 e Q5), G li dichiara e non inventa mai.
+Su 7 domande e una sola esecuzione è un'ipotesi, non un risultato.
+
+### Guasti osservati, con la prima causa
+
+- **Retrieval, causa dominante.** La soglia sul punteggio nullo ha escluso quattro
+  voci decisive in tre domande: `SC04-M010` e `SC04-M018` (la valutazione «spam
+  generico» e il suo superamento) su Q2, `SC04-M031` e `SC04-M032` (RULE-01
+  rimossa, password reimpostata) su Q4. Le informazioni erano in memoria: non
+  sono entrate nel contesto.
+- **Provenienza completa su evidenza assente.** Su Q4 il retrieval dichiara
+  `evidence_provenance_complete: true` perché due voci condividono il messaggio
+  sorgente `SC04-S4-U1` con i fatti richiesti **senza esprimerli**. È la conferma
+  su dati reali di quanto la sezione 7 già avvertiva: i campi `*_by_provenance`
+  non misurano il contenuto.
+- **Due falsi positivi di relazione.** Su Q2 le relazioni `SC04-R02` e `SC04-R03`
+  risultano presenti grazie a `SC04-M017` («il caso è classificato come
+  smishing»), che non le esprime. Su Q3 in G la relazione `SC04-R08` risulta
+  presente grazie all'arco `SC04-E014` (`LOGIN-07 ha_originato RULE-01`), mentre
+  il grafo **non contiene** alcun arco fra `ACC-207` e `RULE-01`.
+- **Ancoraggio ai nodi di G guasto.** `graph_question_node_ids` è **vuoto in 6
+  domande su 7**: le domande sono in lingua naturale e **tutti i nodi hanno
+  `aliases: []`**. I nodi iniziali sono venuti solo dalle voci di U.
+- **Percorso topologico ≠ catena esplicativa, osservato davvero.** Su SC04-Q3 il
+  retriever dichiara `topological_paths_complete_in_context: true`, ma il percorso
+  è `RIEPILOGO-01 →riguarda→ CASE-01 →riguarda→ UT-207 →usa_account→ ACC-207`:
+  due archi su tre sono una relazione generica verso nodi contenitore che l'oracle
+  non prevede. `SMS-01` e `URL-01`, i due nodi di cui la domanda parla, non sono
+  mai stati nodi iniziali. Livelli 1 e 2 soddisfatti, livello 3 no.
+- **Meccanismo del consumo di budget in G.** Gli archi di percorso ricevono un
+  punteggio di priorità `1 + 1/posizione` (2.0, 1.5, 1.33…), sempre superiore a
+  qualunque coseno TF-IDF. Entrano prima di ogni voce di contenuto. Misurato: U
+  spende 75–90 token di sovraccarico e 84–111 di contenuto, G spende 98–127 di
+  sovraccarico e **59–96 di contenuto**. A 200 token G riceve sistematicamente
+  meno contenuto di U.
+- **Eventi contro stati: un'ambiguità del modello di memoria, non un errore.**
+  L'oracle prevede che «RULE-01 rimossa» superi «RULE-01 creata»; il modello ha
+  usato un ADD con `claim_key` nuovo. Il riesame **non conferma** che sia un
+  UPDATE mancato: `SC04-M028` («è stata creata») e `SC04-M031` («è stata
+  rimossa») sono due enunciati al passato su eventi distinti, entrambi veri e
+  compatibili, e `status: attivo` qualifica la **voce**, non il fatto del mondo.
+  Le istruzioni del costruttore definiscono UPDATE come sostituzione «dello
+  stesso oggetto e ambito» senza dire se un evento e la sua cessazione lo siano.
+  Resta un difetto reale di **tracciabilità**: fra le due voci non c'è alcun
+  collegamento, e ricostruire che la regola non è più in vigore richiede di
+  recuperarle entrambe. Il rischio corrispondente — presentare la regola come in
+  essere — **non si è realizzato in nessuna delle 21 risposte**.
+- **L'archivio si popola solo sui ritiri espliciti.** 34 ADD, 2 UPDATE, 2 NOOP,
+  0 DELETE; i due soli UPDATE cadono dove il messaggio dell'utente ritratta a
+  parole («Correzione della valutazione iniziale…», «non è più valida»). Con
+  `claim_key` per evento la politica corrente/storia non discrimina nulla, perché
+  gli eventi restano tutti `attivo`: su tutto il resto U si comporta come F con
+  etichette in più. È l'osservazione più rilevante sulla gestione, e riguarda U
+  in generale, non SC04. **0 operazioni rifiutate su 38 non significa gestione
+  corretta:** significa che il controllo di validità non aveva nulla da
+  segnalare.
+
+### 9.4 Osservazioni comuni ai tre scenari
+
+**Il falso positivo di provenienza è sistematico.** Si ripresenta identico in
+SC04-Q4 (U e G) e in SC03-Q6 (F e U): `evidence_provenance_complete` vale `true`
+mentre nessuna delle evidenze richieste è nel contesto, perché una voce che
+condivide il `message_id` sorgente «copre» fatti che non esprime. Su SC03-Q6
+tutte e tre le evidenze del cambio di classificazione risultano coperte da
+`SC03-F022`/`SC03-M022` («l'ipotesi è stata aggiornata da ransomware a
+infostealer»), e sia F sia U si astengono. **L'indicatore automatico dichiara
+completa un'evidenza assente, su scenari e modalità diversi.**
+
+**La soglia sul punteggio nullo continua a escludere evidenze decisive.** Su
+SC03-Q6 «famiglia Kelpie» (`SC03-F024`/`SC03-M024`) ha punteggio 0,0 perché la
+domanda non contiene quel termine, come già `SC04-M031` e `SC04-M032` su SC04-Q4.
+
+**Tre ambiguità delle istruzioni, ora documentate da uscite reali.** (i) Il
+prompt di aggiornamento chiede in `target_entry_id` «il fatto in memoria», e la
+parola «fatto» designa sia i candidati `F…` sia le voci `M…`: due rifiuti su tre
+nascono da qui. (ii) Il prompt mostra lo stato **all'inizio** della sessione e
+chiede in un colpo solo le operazioni di tutta la sessione, quindi una catena di
+aggiornamenti interna alla sessione si rompe: è il caso di `SC03-OP026`.
+(iii) Resta aperto il significato di `negated`, che in `SC03-F013` e `SC02-F021`
+marca la presenza di una negazione nella frase, non il ritiro dell'affermazione.
+
+### 9.5 Che cosa il confronto U/G sostiene e che cosa no
+
+Il budget è **uguale** per U e per G. Che G spenda più token in identificatori,
+stati e relazioni **è un costo dell'architettura**, non un confondente: è
+esattamente ciò che un confronto a parità di budget deve far emergere, come già
+diceva la sezione 3. Vanno però tenute distinte due affermazioni.
+
+**Sostenuta dagli artefatti:** su SC04, con questo budget e questa
+implementazione, G non ha fatto meglio di U e ha fallito in modo diverso. Stessi
+fatti, stesso stato, stesso budget, stesso modello, stesse istruzioni,
+isolamento verificato.
+
+**Non sostenuta:** che la rappresentazione a grafo *in quanto tale* renda meno
+della memoria a fatti aggiornati. «G come implementato» comprende tre contributi
+non separati: l'unità di rappresentazione, la qualità del grafo costruito (alias
+vuoti, nodi hub, archi mancanti) e la politica di recupero relazionale (priorità
+`1 + 1/posizione`, semi dalle prime 3 voci, `max_hops` 3). Alias vuoti e
+ancoraggio debole sono **risultati di G**, non scuse — il costruttore fa parte
+dell'architettura in esame — ma attribuire l'esito alla sola rappresentazione
+richiederebbe un'ablazione che non è stata eseguita.
+
+Il limite vero resta la potenza: 7 domande, uno scenario, una esecuzione,
+nessuna replica. Il confronto sostiene diagnosi, non conclusioni.
+
+## 10. Cosa manca prima di congelare il protocollo
+
+- **Prove reali:** manca **SC01** (T e FULL_HISTORY, 14 generazioni). SC02, SC03
+  e SC04 sono stati eseguiti (sezione 9) e hanno mostrato che le uscite vere sono
+  peggiori delle fixture: archi con oggetti non dichiarati come nodi, alias
+  vuoti, tre operazioni rifiutate con una perdita di contenuto, `DELETE` mai
+  usato, nodi contenitore non previsti dall'oracle.
+- **Indicatore di evidenza da correggere prima di annotare:** in SC02, SC03 e
+  SC04 `evidence_provenance_complete` e i campi `*_by_provenance` hanno
+  dichiarato presente un'evidenza assente dal contesto. Riguardano il **metro**,
+  non il sistema in esame, e finché restano così ogni diagnosi delle 63 risposte
+  è inaffidabile.
+- ~~**Istruzioni di U da disambiguare**~~: fatto. Istruzioni `u-instructions-0.3`
+  e passata di riparazione (sezione 5). **SC03 andrà rieseguito per intero** con
+  le nuove istruzioni prima di qualunque conteggio, e va deciso se rieseguire
+  anche SC04: la prova attuale di SC04 usa le istruzioni vecchie, quindi oggi U
+  non è costruito allo stesso modo nei due scenari.
+- **`DELETE` senza copertura:** l'unico ritiro senza sostituzione del dataset è
+  stato trattato come UPDATE. Va deciso se il fenomeno va riformulato nello
+  scenario, nelle istruzioni, o accettato come esito.
 - **Controllo umano delle annotazioni:** oracle, operazioni attese, stato atteso,
   entità e relazioni di SC03 e SC04 sono ancora bozze non approvate.
 - **Taratura del budget:** 200 token era stato scelto prima di contare
   l'overhead strutturale. Con l'overhead, F, U e G entrano con 6 elementi circa:
-  va deciso se il valore resta adeguato.
+  va deciso se il valore resta adeguato. La prova reale su SC04 dà la misura: G
+  scende a 59–96 token di contenuto contro gli 84–111 di U.
+- **Soglia sul punteggio nullo:** su SC04 ha escluso quattro voci decisive in tre
+  domande diverse (sezione 9). È la singola regola che ha prodotto più
+  fallimenti: va riesaminata.
 - **Politica di lettura:** l'elenco dei marcatori di `question_scope()` è una
   prima proposta e va rivisto sulle 28 domande definitive.
 - **Parametri di G:** `max_hops` (3), `max_seed_items` e `max_seed_nodes` (3) sono
   valori di sviluppo, tarati su grafi di una decina di archi.
 - **Copertura relazionale:** i percorsi collegano fra loro i nodi iniziali. Un
   arco che la domanda richiede ma che sta fuori da ogni percorso minimo entra
-  solo se avanza budget. Con le fixture attuali su SC04-Q3 restano fuori
+  solo se avanza budget. Sulla **prova reale** di SC04-Q3 restano fuori
   `SMS-01 contiene URL-01` e `UT-207 ha aperto URL-01`: G copre 5 relazioni su 7
-  per provenienza, U ne copre 3, e `evidence_complete` è `false` per entrambe.
-  È un **risultato diagnostico della fixture**, non un guasto: va deciso se
-  serve una nozione di pertinenza più larga, ma la decisione non deve essere
-  presa guardando questo caso per farlo passare.
+  per provenienza — in realtà 4, perché `SC04-R08` è un falso positivo — U ne
+  copre 5, e `evidence_complete` è `false` per entrambe. È un **risultato
+  diagnostico**, non un guasto: va deciso se serve una nozione di pertinenza più
+  larga, ma la decisione non deve essere presa guardando questo caso per farlo
+  passare.
 - **Ancoraggio ai nodi:** dipende da identificatori, alias ed etichette prodotti
-  dal costruttore del grafo. Con alias poveri, G trova meno nodi iniziali.
+  dal costruttore del grafo. Con alias poveri, G trova meno nodi iniziali. Sulla
+  prova reale di SC04 il costruttore ha prodotto **alias vuoti su tutti e 14 i
+  nodi** e l'ancoraggio alla domanda ha fallito in 6 casi su 7: va affrontato
+  prima di qualunque misura su G.
+- **Controllo dell'oracle di SC04:** su **Q2** l'incoerenza è interna
+  all'annotazione, non solo fra domanda e oracle: `mandatory_facts` chiede quattro
+  elementi compreso il motivo della classificazione, mentre
+  `accepted_equivalents` ne dichiara sufficienti tre senza il motivo. Vanno
+  allineati, e la scelta va messa a verbale prima di annotare. Su **Q3** restano
+  `R05` fra i fatti obbligatori ma non fra le relazioni richieste, e `R03` nella
+  risposta attesa ma in nessuno dei due elenchi; l'ordine `R09`/`R08` nella
+  catena è invece **ammissibile** per la definizione dichiarata. Su **Q4** la
+  relazione `R08` è difendibile — la risposta attesa nomina RULE-01 come regola
+  sull'account — ma resta che `evidence_complete` è `false` per la sua assenza,
+  mentre la lacuna reale, il contenuto di `SC04-M031` e `SC04-M032`, è invisibile
+  all'indicatore: esito giusto per la ragione sbagliata. Vedi
+  `results/rq2/evaluation_dev_sc04.md`.
+- **Operazioni attese di SC04:** `expected_operations` è annotato su `claim_key`
+  che il modello non ha usato, e l'annotazione dichiara già di essere parziale.
+  **Non va adattato alle chiavi generate dal modello:** sarebbe adattare il metro
+  al risultato. Va invece espresso come **requisiti di significato** —
+  conservazione degli eventi, correttezza dello stato corrente, ritiro delle
+  affermazioni non più valide, tracciabilità della sostituzione — verificabili
+  sulla lettura che lo stato consente, quali che siano `claim_key` ed
+  `entry_id`. Equivalenza semantica e coincidenza di identificatori sono cose
+  diverse. Con questi criteri, sulle 7 operazioni attese di SC04 cinque
+  risultano soddisfatte, una parziale (la catena di supersessione della
+  classificazione porta al ritiro dell'ipotesi iniziale, non alla nuova
+  classificazione) e una divergente ma non erronea (RULE-01). Il campo
+  `required_state_keys` del modello di annotazione esiste già ed è vuoto in tutte
+  e 21 le righe: è il posto naturale per questi requisiti, se lo si decide.
+- **Voci di U: eventi o stati?** È la decisione a monte di tutte le altre su U.
+  Da come si definisce `claim_key`, da che cosa significa `status` e dal fatto
+  che il modello dati non preveda collegamenti fra eventi correlati dipendono il
+  popolamento dell'archivio, l'utilità della politica corrente/storia e il senso
+  stesso del confronto F/U.
 - **Metriche aggregate e analisi degli errori di RQ2**, cioè l'equivalente di
   `summarize_evaluation.py` e `build_error_analysis.py` per le nuove modalità,
   compresi i livelli scrittura, aggiornamento, grafo e retrieval.

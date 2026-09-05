@@ -1,0 +1,151 @@
+{
+  "config_id": "rq2-dev-0.1",
+  "dry_run": false,
+  "effort": "medium",
+  "extraction_instructions": "Sei il componente di memoria di un sistema che segue un caso distribuito su piu' conversazioni.\nIl tuo unico compito e' estrarre fatti brevi dai messaggi che ti vengono mostrati.\n\nRegole:\n1. Estrai soltanto informazioni contenute nei messaggi nuovi. Non aggiungere conoscenze esterne\n   e non trarre conclusioni che non siano scritte.\n2. Un fatto per informazione: frasi brevi e autonome, comprensibili senza rileggere il messaggio.\n3. Conserva le negazioni: se il messaggio dice che qualcosa non e' avvenuto, non e' stato osservato\n   o non e' stato determinato, il fatto deve dirlo esplicitamente.\n4. Distingui le ipotesi dalle conferme: usa il campo \"kind\" con uno di questi valori:\n   osservazione, ipotesi, conferma, decisione, stato, ritiro.\n5. Non unire in un solo fatto informazioni provenienti da messaggi diversi.\n6. Non modificare, non aggiornare e non cancellare i fatti gia' estratti: aggiungi soltanto i fatti\n   ricavati dai messaggi nuovi, anche quando contraddicono un fatto precedente.\n7. Per ogni fatto indica i messaggi da cui proviene, usando esattamente gli identificatori mostrati\n   fra parentesi quadre.\n\nRispondi soltanto con un array JSON, senza testo prima o dopo. Ogni elemento ha questa forma:\n{\"text\": \"...\", \"source_message_ids\": [\"...\"], \"kind\": \"...\", \"negated\": true}\n",
+  "fact_count": 23,
+  "model": "claude-sonnet-5",
+  "scenario_id": "scenario_02",
+  "sessions": [
+    {
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "facts_extracted": [
+        "SC02-F001",
+        "SC02-F002",
+        "SC02-F003",
+        "SC02-F004",
+        "SC02-F005",
+        "SC02-F006"
+      ],
+      "facts_in_context": [],
+      "input_message_ids": [
+        "SC02-S1-U1"
+      ],
+      "model_answer": "```json\n[\n  {\"text\": \"L'utente sta seguendo un problema nel recupero password di Lumen Market.\", \"source_message_ids\": [\"SC02-S1-U1\"], \"kind\": \"stato\", \"negated\": false},\n  {\"text\": \"Tre account hanno subito un cambio di password non autorizzato tramite il portale account-portal.\", \"source_message_ids\": [\"SC02-S1-U1\"], \"kind\": \"osservazione\", \"negated\": false},\n  {\"text\": \"L'obiettivo è impedire altri cambi di password non autorizzati.\", \"source_message_ids\": [\"SC02-S1-U1\"], \"kind\": \"decisione\", \"negated\": false},\n  {\"text\": \"L'obiettivo è mantenere utilizzabile il recupero password nell'app mobile.\", \"source_message_ids\": [\"SC02-S1-U1\"], \"kind\": \"decisione\", \"negated\": false},\n  {\"text\": \"La decisione iniziale è inserire un CAPTCHA dopo la prima richiesta di recupero effettuata dallo stesso account.\", \"source_message_ids\": [\"SC02-S1-U1\"], \"kind\": \"decisione\", \"negated\": false},\n  {\"text\": \"Prima di applicare la decisione sul CAPTCHA bisogna controllare il registro reset_audit.\", \"source_message_ids\": [\"SC02-S1-U1\"], \"kind\": \"stato\", \"negated\": false}\n]\n```",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "claude-sonnet-5",
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente di memoria di un sistema che segue un caso distribuito su piu' conversazioni.\nIl tuo unico compito e' estrarre fatti brevi dai messaggi che ti vengono mostrati.\n\nRegole:\n1. Estrai soltanto informazioni contenute nei messaggi nuovi. Non aggiungere conoscenze esterne\n   e non trarre conclusioni che non siano scritte.\n2. Un fatto per informazione: frasi brevi e autonome, comprensibili senza rileggere il messaggio.\n3. Conserva le negazioni: se il messaggio dice che qualcosa non e' avvenuto, non e' stato osservato\n   o non e' stato determinato, il fatto deve dirlo esplicitamente.\n4. Distingui le ipotesi dalle conferme: usa il campo \"kind\" con uno di questi valori:\n   osservazione, ipotesi, conferma, decisione, stato, ritiro.\n5. Non unire in un solo fatto informazioni provenienti da messaggi diversi.\n6. Non modificare, non aggiornare e non cancellare i fatti gia' estratti: aggiungi soltanto i fatti\n   ricavati dai messaggi nuovi, anche quando contraddicono un fatto precedente.\n7. Per ogni fatto indica i messaggi da cui proviene, usando esattamente gli identificatori mostrati\n   fra parentesi quadre.\n\nRispondi soltanto con un array JSON, senza testo prima o dopo. Ogni elemento ha questa forma:\n{\"text\": \"...\", \"source_message_ids\": [\"...\"], \"kind\": \"...\", \"negated\": true}\n\n\nFatti gia' estratti nelle conversazioni precedenti (solo per contesto, non vanno ripetuti):\n(nessun fatto estratto in precedenza: questa e' la prima sessione)\n\nMessaggi nuovi da elaborare:\n[SC02-S1-U1] Sto seguendo un problema nel recupero password di Lumen Market. Tre account hanno subito un cambio di password non autorizzato tramite il portale `account-portal`. Abbiamo due obiettivi: impedire altri cambi non autorizzati e mantenere utilizzabile il recupero password nell'app mobile. La decisione iniziale è inserire un CAPTCHA dopo la prima richiesta di recupero effettuata dallo stesso account. Prima di applicarla dobbiamo controllare il registro `reset_audit`.",
+      "scenario_id": "scenario_02",
+      "session_id": "SC02-S1",
+      "session_order": 1
+    },
+    {
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "facts_extracted": [
+        "SC02-F007",
+        "SC02-F008",
+        "SC02-F009",
+        "SC02-F010",
+        "SC02-F011",
+        "SC02-F012",
+        "SC02-F013"
+      ],
+      "facts_in_context": [
+        "SC02-F001",
+        "SC02-F002",
+        "SC02-F003",
+        "SC02-F004",
+        "SC02-F005",
+        "SC02-F006"
+      ],
+      "input_message_ids": [
+        "SC02-S2-U1"
+      ],
+      "model_answer": "```json\n[\n  {\"text\": \"Il controllo del registro reset_audit è terminato.\", \"source_message_ids\": [\"SC02-S2-U1\"], \"kind\": \"stato\"},\n  {\"text\": \"Per ciascuno dei tre account risulta una sola richiesta di recupero nel registro reset_audit.\", \"source_message_ids\": [\"SC02-S2-U1\"], \"kind\": \"osservazione\"},\n  {\"text\": \"Lo stesso link di recupero è stato utilizzato due volte per ciascuno dei tre account.\", \"source_message_ids\": [\"SC02-S2-U1\"], \"kind\": \"osservazione\"},\n  {\"text\": \"La decisione iniziale di inserire un CAPTCHA dopo la prima richiesta di recupero non impedirebbe il problema osservato.\", \"source_message_ids\": [\"SC02-S2-U1\"], \"kind\": \"ritiro\", \"negated\": true},\n  {\"text\": \"La decisione sul CAPTCHA non è più l'intervento scelto.\", \"source_message_ids\": [\"SC02-S2-U1\"], \"kind\": \"ritiro\", \"negated\": true},\n  {\"text\": \"La decisione aggiornata è usare token di recupero validi una sola volta.\", \"source_message_ids\": [\"SC02-S2-U1\"], \"kind\": \"decisione\"},\n  {\"text\": \"I token di recupero devono scadere dopo 15 minuti.\", \"source_message_ids\": [\"SC02-S2-U1\"], \"kind\": \"decisione\"}\n]\n```",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "claude-sonnet-5",
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente di memoria di un sistema che segue un caso distribuito su piu' conversazioni.\nIl tuo unico compito e' estrarre fatti brevi dai messaggi che ti vengono mostrati.\n\nRegole:\n1. Estrai soltanto informazioni contenute nei messaggi nuovi. Non aggiungere conoscenze esterne\n   e non trarre conclusioni che non siano scritte.\n2. Un fatto per informazione: frasi brevi e autonome, comprensibili senza rileggere il messaggio.\n3. Conserva le negazioni: se il messaggio dice che qualcosa non e' avvenuto, non e' stato osservato\n   o non e' stato determinato, il fatto deve dirlo esplicitamente.\n4. Distingui le ipotesi dalle conferme: usa il campo \"kind\" con uno di questi valori:\n   osservazione, ipotesi, conferma, decisione, stato, ritiro.\n5. Non unire in un solo fatto informazioni provenienti da messaggi diversi.\n6. Non modificare, non aggiornare e non cancellare i fatti gia' estratti: aggiungi soltanto i fatti\n   ricavati dai messaggi nuovi, anche quando contraddicono un fatto precedente.\n7. Per ogni fatto indica i messaggi da cui proviene, usando esattamente gli identificatori mostrati\n   fra parentesi quadre.\n\nRispondi soltanto con un array JSON, senza testo prima o dopo. Ogni elemento ha questa forma:\n{\"text\": \"...\", \"source_message_ids\": [\"...\"], \"kind\": \"...\", \"negated\": true}\n\n\nFatti gia' estratti nelle conversazioni precedenti (solo per contesto, non vanno ripetuti):\n[SC02-F001] L'utente sta seguendo un problema nel recupero password di Lumen Market. (da: SC02-S1-U1)\n[SC02-F002] Tre account hanno subito un cambio di password non autorizzato tramite il portale account-portal. (da: SC02-S1-U1)\n[SC02-F003] L'obiettivo è impedire altri cambi di password non autorizzati. (da: SC02-S1-U1)\n[SC02-F004] L'obiettivo è mantenere utilizzabile il recupero password nell'app mobile. (da: SC02-S1-U1)\n[SC02-F005] La decisione iniziale è inserire un CAPTCHA dopo la prima richiesta di recupero effettuata dallo stesso account. (da: SC02-S1-U1)\n[SC02-F006] Prima di applicare la decisione sul CAPTCHA bisogna controllare il registro reset_audit. (da: SC02-S1-U1)\n\nMessaggi nuovi da elaborare:\n[SC02-S2-U1] Il controllo di `reset_audit` è terminato. Per ciascuno dei tre account risulta una sola richiesta di recupero, ma lo stesso link è stato utilizzato due volte. La decisione iniziale non impedirebbe quindi il problema osservato e non è più l'intervento scelto. La decisione aggiornata è usare token validi una sola volta e con scadenza dopo 15 minuti.",
+      "scenario_id": "scenario_02",
+      "session_id": "SC02-S2",
+      "session_order": 2
+    },
+    {
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "facts_extracted": [
+        "SC02-F014",
+        "SC02-F015",
+        "SC02-F016",
+        "SC02-F017",
+        "SC02-F018"
+      ],
+      "facts_in_context": [
+        "SC02-F001",
+        "SC02-F002",
+        "SC02-F003",
+        "SC02-F004",
+        "SC02-F005",
+        "SC02-F006",
+        "SC02-F007",
+        "SC02-F008",
+        "SC02-F009",
+        "SC02-F010",
+        "SC02-F011",
+        "SC02-F012",
+        "SC02-F013"
+      ],
+      "input_message_ids": [
+        "SC02-S3-U1"
+      ],
+      "model_answer": "[\n  {\"text\": \"L'uso singolo del token è stato implementato nel componente ResetTokenService.\", \"source_message_ids\": [\"SC02-S3-U1\"], \"kind\": \"stato\", \"negated\": false},\n  {\"text\": \"Dopo il primo cambio di password riuscito, il token viene segnato come consumato.\", \"source_message_ids\": [\"SC02-S3-U1\"], \"kind\": \"osservazione\", \"negated\": false},\n  {\"text\": \"I test di integrazione del portale web sono stati superati.\", \"source_message_ids\": [\"SC02-S3-U1\"], \"kind\": \"conferma\", \"negated\": false},\n  {\"text\": \"Rimane da verificare che il collegamento aperto dall'app mobile riporti correttamente alla schermata di accesso.\", \"source_message_ids\": [\"SC02-S3-U1\"], \"kind\": \"stato\", \"negated\": true},\n  {\"text\": \"Rimane da provare un'email di recupero consegnata dopo il limite di validità stabilito nella sessione precedente.\", \"source_message_ids\": [\"SC02-S3-U1\"], \"kind\": \"stato\", \"negated\": true}\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "claude-sonnet-5",
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente di memoria di un sistema che segue un caso distribuito su piu' conversazioni.\nIl tuo unico compito e' estrarre fatti brevi dai messaggi che ti vengono mostrati.\n\nRegole:\n1. Estrai soltanto informazioni contenute nei messaggi nuovi. Non aggiungere conoscenze esterne\n   e non trarre conclusioni che non siano scritte.\n2. Un fatto per informazione: frasi brevi e autonome, comprensibili senza rileggere il messaggio.\n3. Conserva le negazioni: se il messaggio dice che qualcosa non e' avvenuto, non e' stato osservato\n   o non e' stato determinato, il fatto deve dirlo esplicitamente.\n4. Distingui le ipotesi dalle conferme: usa il campo \"kind\" con uno di questi valori:\n   osservazione, ipotesi, conferma, decisione, stato, ritiro.\n5. Non unire in un solo fatto informazioni provenienti da messaggi diversi.\n6. Non modificare, non aggiornare e non cancellare i fatti gia' estratti: aggiungi soltanto i fatti\n   ricavati dai messaggi nuovi, anche quando contraddicono un fatto precedente.\n7. Per ogni fatto indica i messaggi da cui proviene, usando esattamente gli identificatori mostrati\n   fra parentesi quadre.\n\nRispondi soltanto con un array JSON, senza testo prima o dopo. Ogni elemento ha questa forma:\n{\"text\": \"...\", \"source_message_ids\": [\"...\"], \"kind\": \"...\", \"negated\": true}\n\n\nFatti gia' estratti nelle conversazioni precedenti (solo per contesto, non vanno ripetuti):\n[SC02-F001] L'utente sta seguendo un problema nel recupero password di Lumen Market. (da: SC02-S1-U1)\n[SC02-F002] Tre account hanno subito un cambio di password non autorizzato tramite il portale account-portal. (da: SC02-S1-U1)\n[SC02-F003] L'obiettivo è impedire altri cambi di password non autorizzati. (da: SC02-S1-U1)\n[SC02-F004] L'obiettivo è mantenere utilizzabile il recupero password nell'app mobile. (da: SC02-S1-U1)\n[SC02-F005] La decisione iniziale è inserire un CAPTCHA dopo la prima richiesta di recupero effettuata dallo stesso account. (da: SC02-S1-U1)\n[SC02-F006] Prima di applicare la decisione sul CAPTCHA bisogna controllare il registro reset_audit. (da: SC02-S1-U1)\n[SC02-F007] Il controllo del registro reset_audit è terminato. (da: SC02-S2-U1)\n[SC02-F008] Per ciascuno dei tre account risulta una sola richiesta di recupero nel registro reset_audit. (da: SC02-S2-U1)\n[SC02-F009] Lo stesso link di recupero è stato utilizzato due volte per ciascuno dei tre account. (da: SC02-S2-U1)\n[SC02-F010] La decisione iniziale di inserire un CAPTCHA dopo la prima richiesta di recupero non impedirebbe il problema osservato. (da: SC02-S2-U1)\n[SC02-F011] La decisione sul CAPTCHA non è più l'intervento scelto. (da: SC02-S2-U1)\n[SC02-F012] La decisione aggiornata è usare token di recupero validi una sola volta. (da: SC02-S2-U1)\n[SC02-F013] I token di recupero devono scadere dopo 15 minuti. (da: SC02-S2-U1)\n\nMessaggi nuovi da elaborare:\n[SC02-S3-U1] L'uso singolo del token è stato implementato nel componente `ResetTokenService`: dopo il primo cambio di password riuscito, il token viene segnato come consumato. I test di integrazione del portale web sono stati superati. Rimangono da eseguire due verifiche: controllare che il collegamento aperto dall'app mobile riporti correttamente alla schermata di accesso e provare un'email di recupero consegnata dopo il limite di validità stabilito nella sessione precedente.",
+      "scenario_id": "scenario_02",
+      "session_id": "SC02-S3",
+      "session_order": 3
+    },
+    {
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "facts_extracted": [
+        "SC02-F019",
+        "SC02-F020",
+        "SC02-F021",
+        "SC02-F022",
+        "SC02-F023"
+      ],
+      "facts_in_context": [
+        "SC02-F001",
+        "SC02-F002",
+        "SC02-F003",
+        "SC02-F004",
+        "SC02-F005",
+        "SC02-F006",
+        "SC02-F007",
+        "SC02-F008",
+        "SC02-F009",
+        "SC02-F010",
+        "SC02-F011",
+        "SC02-F012",
+        "SC02-F013",
+        "SC02-F014",
+        "SC02-F015",
+        "SC02-F016",
+        "SC02-F017",
+        "SC02-F018"
+      ],
+      "input_message_ids": [
+        "SC02-S4-U1"
+      ],
+      "model_answer": "```json\n[\n  {\"text\": \"Il test del collegamento nell'app mobile è stato completato.\", \"source_message_ids\": [\"SC02-S4-U1\"], \"kind\": \"conferma\", \"negated\": false},\n  {\"text\": \"Dopo il cambio di password l'utente viene riportato correttamente alla schermata di accesso nell'app mobile.\", \"source_message_ids\": [\"SC02-S4-U1\"], \"kind\": \"conferma\", \"negated\": false},\n  {\"text\": \"Il test dell'email di recupero consegnata in ritardo non è ancora stato completato.\", \"source_message_ids\": [\"SC02-S4-U1\"], \"kind\": \"stato\", \"negated\": true},\n  {\"text\": \"La riunione di verifica del rilascio è fissata per martedì 2026-09-08 alle 11:30.\", \"source_message_ids\": [\"SC02-S4-U1\"], \"kind\": \"decisione\", \"negated\": false},\n  {\"text\": \"La riunione di verifica del rilascio deve includere il risultato del test dell'email di recupero consegnata in ritardo.\", \"source_message_ids\": [\"SC02-S4-U1\"], \"kind\": \"decisione\", \"negated\": false}\n]\n```",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "claude-sonnet-5",
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente di memoria di un sistema che segue un caso distribuito su piu' conversazioni.\nIl tuo unico compito e' estrarre fatti brevi dai messaggi che ti vengono mostrati.\n\nRegole:\n1. Estrai soltanto informazioni contenute nei messaggi nuovi. Non aggiungere conoscenze esterne\n   e non trarre conclusioni che non siano scritte.\n2. Un fatto per informazione: frasi brevi e autonome, comprensibili senza rileggere il messaggio.\n3. Conserva le negazioni: se il messaggio dice che qualcosa non e' avvenuto, non e' stato osservato\n   o non e' stato determinato, il fatto deve dirlo esplicitamente.\n4. Distingui le ipotesi dalle conferme: usa il campo \"kind\" con uno di questi valori:\n   osservazione, ipotesi, conferma, decisione, stato, ritiro.\n5. Non unire in un solo fatto informazioni provenienti da messaggi diversi.\n6. Non modificare, non aggiornare e non cancellare i fatti gia' estratti: aggiungi soltanto i fatti\n   ricavati dai messaggi nuovi, anche quando contraddicono un fatto precedente.\n7. Per ogni fatto indica i messaggi da cui proviene, usando esattamente gli identificatori mostrati\n   fra parentesi quadre.\n\nRispondi soltanto con un array JSON, senza testo prima o dopo. Ogni elemento ha questa forma:\n{\"text\": \"...\", \"source_message_ids\": [\"...\"], \"kind\": \"...\", \"negated\": true}\n\n\nFatti gia' estratti nelle conversazioni precedenti (solo per contesto, non vanno ripetuti):\n[SC02-F001] L'utente sta seguendo un problema nel recupero password di Lumen Market. (da: SC02-S1-U1)\n[SC02-F002] Tre account hanno subito un cambio di password non autorizzato tramite il portale account-portal. (da: SC02-S1-U1)\n[SC02-F003] L'obiettivo è impedire altri cambi di password non autorizzati. (da: SC02-S1-U1)\n[SC02-F004] L'obiettivo è mantenere utilizzabile il recupero password nell'app mobile. (da: SC02-S1-U1)\n[SC02-F005] La decisione iniziale è inserire un CAPTCHA dopo la prima richiesta di recupero effettuata dallo stesso account. (da: SC02-S1-U1)\n[SC02-F006] Prima di applicare la decisione sul CAPTCHA bisogna controllare il registro reset_audit. (da: SC02-S1-U1)\n[SC02-F007] Il controllo del registro reset_audit è terminato. (da: SC02-S2-U1)\n[SC02-F008] Per ciascuno dei tre account risulta una sola richiesta di recupero nel registro reset_audit. (da: SC02-S2-U1)\n[SC02-F009] Lo stesso link di recupero è stato utilizzato due volte per ciascuno dei tre account. (da: SC02-S2-U1)\n[SC02-F010] La decisione iniziale di inserire un CAPTCHA dopo la prima richiesta di recupero non impedirebbe il problema osservato. (da: SC02-S2-U1)\n[SC02-F011] La decisione sul CAPTCHA non è più l'intervento scelto. (da: SC02-S2-U1)\n[SC02-F012] La decisione aggiornata è usare token di recupero validi una sola volta. (da: SC02-S2-U1)\n[SC02-F013] I token di recupero devono scadere dopo 15 minuti. (da: SC02-S2-U1)\n[SC02-F014] L'uso singolo del token è stato implementato nel componente ResetTokenService. (da: SC02-S3-U1)\n[SC02-F015] Dopo il primo cambio di password riuscito, il token viene segnato come consumato. (da: SC02-S3-U1)\n[SC02-F016] I test di integrazione del portale web sono stati superati. (da: SC02-S3-U1)\n[SC02-F017] Rimane da verificare che il collegamento aperto dall'app mobile riporti correttamente alla schermata di accesso. (da: SC02-S3-U1)\n[SC02-F018] Rimane da provare un'email di recupero consegnata dopo il limite di validità stabilito nella sessione precedente. (da: SC02-S3-U1)\n\nMessaggi nuovi da elaborare:\n[SC02-S4-U1] Il test del collegamento nell'app mobile è stato completato: dopo il cambio di password l'utente viene riportato correttamente alla schermata di accesso. Rimane da completare soltanto il test dell'email consegnata in ritardo. La riunione di verifica del rilascio è fissata per martedì alle 11:30 e deve includere il risultato di questo test ancora pendente.",
+      "scenario_id": "scenario_02",
+      "session_id": "SC02-S4",
+      "session_order": 4
+    }
+  ],
+  "source_file": "data/scenarios/scenario_02.json"
+}

@@ -7,6 +7,7 @@ contiene risposte finte e non uscite di Claude.
 """
 
 import copy
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -51,7 +52,11 @@ class TestStessiFattiCandidati(unittest.TestCase):
         f_context, f_sources, f_problem = retrieval_rq2.prepare(scenario, "F", paths)
         self.assertIsNone(f_problem)
         with self.subTest("U necessita anche dello stato"):
-            _u, _s, u_problem = retrieval_rq2.prepare(scenario, "U", paths)
+            # Il percorso e' indicato esplicitamente e non esiste: il controllo
+            # deve dipendere dalla regola, non da quali prove reali sono gia'
+            # state eseguite nel repository.
+            senza_stato = dict(paths, state=str(FIXTURES / "stato_inesistente.json"))
+            _u, _s, u_problem = retrieval_rq2.prepare(scenario, "U", senza_stato)
             self.assertIn("stato di U mancante", u_problem)
         facts_from_f = {item["item_id"] for item in f_context["items"]}
         self.assertEqual(facts_from_f, {fact["fact_id"] for fact in facts_fixture("scenario_03")})
@@ -466,6 +471,274 @@ class TestArtefattiU(unittest.TestCase):
         for path in (memory.MEMORY_DIR, memory.operations_path("scenario_03"),
                      memory.state_path("scenario_03")):
             self.assertIn("results/rq2", str(path))
+
+
+class TestRiferimentiEIdentificatori(unittest.TestCase):
+    """I due spazi di identificatori non vanno confusi.
+
+    `fact_id` nomina un fatto candidato, `target_entry_id` una voce di memoria.
+    Una proposta che li scambia viene rifiutata, non rimappata.
+    """
+
+    def setUp(self):
+        self.fact = {"fact_id": "SC03-F002", "session_id": "SC03-S1", "session_order": 1,
+                     "source_message_ids": ["SC03-S1-U1"]}
+        self.origine = {"fact_id": "SC03-F001", "session_id": "SC03-S1", "session_order": 1,
+                        "source_message_ids": ["SC03-S1-U1"]}
+
+    def _memoria_con_una_voce(self):
+        operation = {"op_id": "SC03-OP001", "proposed_operation": "ADD",
+                     "claim_key": "ipotesi", "value": "ipotesi iniziale", "target_entry_id": None}
+        entries = []
+        memory.apply_operation(operation, self.origine, entries, 1)
+        return entries
+
+    def test_update_che_indica_un_fact_id_e_rifiutato(self):
+        """Il caso osservato su SC03: target_entry_id contiene `SC03-F001`."""
+        entries = self._memoria_con_una_voce()
+        self.assertEqual(entries[0]["entry_id"], "SC03-M001")
+        self.assertEqual(entries[0]["source_fact_ids"], ["SC03-F001"])
+        prima = copy.deepcopy(entries)
+        impronta = memory.state_fingerprint(entries)
+        operation = {"op_id": "SC03-OP002", "proposed_operation": "UPDATE", "claim_key": "ipotesi",
+                     "value": "valore nuovo", "target_entry_id": "SC03-F001"}
+        rifiuto = memory.apply_operation(operation, self.fact, entries, 2)
+        self.assertIsNotNone(rifiuto)
+        self.assertIn("inesistente", rifiuto)
+        self.assertFalse(operation["applied"])
+        self.assertIsNone(operation["applied_operation"])
+        with self.subTest("nessuna rimappatura sull'omonima voce di memoria"):
+            self.assertIsNone(operation["supersedes_entry_id"])
+            self.assertEqual(entries[0]["status"], rq2.STATE_ACTIVE)
+        with self.subTest("stato invariato"):
+            self.assertEqual(entries, prima)
+            self.assertEqual(memory.state_fingerprint(entries), impronta)
+
+    def test_delete_che_indica_un_fact_id_e_rifiutato(self):
+        entries = self._memoria_con_una_voce()
+        impronta = memory.state_fingerprint(entries)
+        operation = {"op_id": "SC03-OP002", "proposed_operation": "DELETE", "claim_key": "ipotesi",
+                     "value": "ritirato", "target_entry_id": "SC03-F001"}
+        rifiuto = memory.apply_operation(operation, self.fact, entries, 2)
+        self.assertIn("inesistente", rifiuto)
+        self.assertEqual(entries[0]["status"], rq2.STATE_ACTIVE)
+        self.assertEqual(memory.state_fingerprint(entries), impronta)
+
+    def test_le_istruzioni_distinguono_i_due_campi(self):
+        testo = memory.UPDATE_INSTRUCTIONS
+        self.assertIn("Fatti nuovi da valutare", testo)
+        self.assertIn("Stato corrente della memoria", testo)
+        self.assertIn("`fact_id`", testo)
+        self.assertIn("`target_entry_id`", testo)
+        self.assertIn("Non usare mai un identificatore di fatto nuovo come `target_entry_id`", testo)
+
+    def test_nessun_identificatore_di_scenario_nelle_istruzioni(self):
+        """Le istruzioni restano generiche: nessun caso di SC03 o SC04 dentro."""
+        for testo in (memory.UPDATE_INSTRUCTIONS, memory.REPAIR_INSTRUCTIONS):
+            self.assertNotRegex(testo, r"SC0\d")
+            for parola in ("ransomware", "infostealer", "Kelpie", "RULE-01", "240"):
+                self.assertNotIn(parola, testo)
+
+
+class TestAggiornamentiSuccessiviNellaStessaSessione(unittest.TestCase):
+    """Due aggiornamenti di fila sullo stesso oggetto, dentro una sola sessione."""
+
+    def _fatto(self, numero):
+        return {"fact_id": "SC03-F%03d" % numero, "session_id": "SC03-S1", "session_order": 1,
+                "source_message_ids": ["SC03-S1-U1"]}
+
+    def test_il_secondo_update_sulla_stessa_voce_e_rifiutato(self):
+        entries = []
+        memory.apply_operation({"op_id": "SC03-OP001", "proposed_operation": "ADD",
+                                "claim_key": "ipotesi", "value": "prima", "target_entry_id": None},
+                               self._fatto(1), entries, 1)
+        primo = {"op_id": "SC03-OP002", "proposed_operation": "UPDATE", "claim_key": "ipotesi",
+                 "value": "seconda", "target_entry_id": "SC03-M001"}
+        self.assertIsNone(memory.apply_operation(primo, self._fatto(2), entries, 2))
+        self.assertEqual(primo["resulting_entry_id"], "SC03-M002")
+
+        secondo = {"op_id": "SC03-OP003", "proposed_operation": "UPDATE", "claim_key": "ipotesi",
+                   "value": "terza", "target_entry_id": "SC03-M001"}
+        impronta = memory.state_fingerprint(entries)
+        rifiuto = memory.apply_operation(secondo, self._fatto(3), entries, 3)
+        self.assertIn("gia' superato", rifiuto)
+        self.assertEqual(memory.state_fingerprint(entries), impronta)
+
+    def test_indicando_la_voce_nuova_il_secondo_update_passa(self):
+        """La catena resta coerente se il target e' la voce prodotta dal primo."""
+        entries = []
+        memory.apply_operation({"op_id": "SC03-OP001", "proposed_operation": "ADD",
+                                "claim_key": "ipotesi", "value": "prima", "target_entry_id": None},
+                               self._fatto(1), entries, 1)
+        memory.apply_operation({"op_id": "SC03-OP002", "proposed_operation": "UPDATE",
+                                "claim_key": "ipotesi", "value": "seconda",
+                                "target_entry_id": "SC03-M001"}, self._fatto(2), entries, 2)
+        secondo = {"op_id": "SC03-OP003", "proposed_operation": "UPDATE", "claim_key": "ipotesi",
+                   "value": "terza", "target_entry_id": "SC03-M002"}
+        self.assertIsNone(memory.apply_operation(secondo, self._fatto(3), entries, 3))
+        stati = {e["entry_id"]: e["status"] for e in entries}
+        self.assertEqual(stati["SC03-M001"], rq2.STATE_SUPERSEDED)
+        self.assertEqual(stati["SC03-M002"], rq2.STATE_SUPERSEDED)
+        self.assertEqual(stati["SC03-M003"], rq2.STATE_ACTIVE)
+        catena = {e["entry_id"]: e["superseded_by_entry"] for e in entries}
+        self.assertEqual(catena["SC03-M001"], "SC03-M002")
+        self.assertEqual(catena["SC03-M002"], "SC03-M003")
+
+
+class TestPassataDiRiparazione(unittest.TestCase):
+    """Le proposte rifiutate tornano al modello con lo stato aggiornato.
+
+    Le risposte usate qui sono finte e scritte nel test: nessuna chiamata al
+    modello, nessuna correzione automatica delle uscite.
+    """
+
+    def _scenario_e_fatti(self):
+        scenario = rq2.load_scenario("scenario_03")
+        facts = [f for f in facts_fixture("scenario_03") if f["session_order"] == 1][:2]
+        return scenario, facts
+
+    def _runner(self, risposte):
+        coda = list(risposte)
+        registro = []
+
+        def runner(prompt):
+            registro.append(prompt)
+            if not coda:
+                return None, None, "nessuna risposta prevista"
+            return coda.pop(0), "finto (nessuna chiamata al modello)", None
+
+        runner.prompts = registro
+        return runner
+
+    def test_la_riproposta_vede_lo_stato_aggiornato_e_viene_applicata(self):
+        scenario, facts = self._scenario_e_fatti()
+        primo, secondo = facts[0]["fact_id"], facts[1]["fact_id"]
+        prima_passata = json.dumps([
+            {"fact_id": primo, "operation": "ADD", "claim_key": "oggetto",
+             "value": "prima versione", "target_entry_id": None, "reason": "nuovo"},
+            {"fact_id": secondo, "operation": "UPDATE", "claim_key": "oggetto",
+             "value": "seconda versione", "target_entry_id": primo, "reason": "supera il precedente"},
+        ])
+        riparazione = json.dumps([
+            {"fact_id": secondo, "operation": "UPDATE", "claim_key": "oggetto",
+             "value": "seconda versione", "target_entry_id": "SC03-M001",
+             "reason": "supera la voce di memoria"},
+        ])
+        runner = self._runner([prima_passata, riparazione])
+        operations, entries, log = memory.run(scenario, facts, rq2.load_config(),
+                                              runner=runner, repair_attempts=1)
+
+        with self.subTest("la prima proposta resta rifiutata"):
+            rifiutata = operations[1]
+            self.assertFalse(rifiutata["applied"])
+            self.assertIn("inesistente", rifiutata["rejection_reason"])
+            self.assertEqual(rifiutata["attempt"], 1)
+            self.assertEqual(rifiutata["target_entry_id"], primo)
+        with self.subTest("la riproposta e' un'operazione nuova e tracciata"):
+            riproposta = operations[2]
+            self.assertEqual(riproposta["attempt"], 2)
+            self.assertEqual(riproposta["retry_of"], operations[1]["op_id"])
+            self.assertEqual(operations[1]["retried_by"], riproposta["op_id"])
+            self.assertTrue(riproposta["applied"])
+            self.assertEqual(riproposta["applied_operation"], "UPDATE")
+        with self.subTest("lo stato e' coerente"):
+            stati = {e["entry_id"]: e["status"] for e in entries}
+            self.assertEqual(stati["SC03-M001"], rq2.STATE_SUPERSEDED)
+            self.assertEqual(stati["SC03-M003"], rq2.STATE_ACTIVE)
+        with self.subTest("il prompt di riparazione mostra lo stato, non l'oracle"):
+            secondo_prompt = runner.prompts[1]
+            self.assertIn("SC03-M001", secondo_prompt)
+            self.assertIn("Proposte non applicate", secondo_prompt)
+            self.assertNotIn("expected_answer", secondo_prompt)
+        with self.subTest("chiamate contate"):
+            self.assertEqual(log["repair_round_count"], 1)
+            self.assertEqual(log["model_calls"], 2)
+
+    def test_una_riproposta_ancora_invalida_resta_rifiutata(self):
+        scenario, facts = self._scenario_e_fatti()
+        primo, secondo = facts[0]["fact_id"], facts[1]["fact_id"]
+        prima_passata = json.dumps([
+            {"fact_id": primo, "operation": "ADD", "claim_key": "oggetto",
+             "value": "prima versione", "target_entry_id": None, "reason": "nuovo"},
+            {"fact_id": secondo, "operation": "UPDATE", "claim_key": "oggetto",
+             "value": "seconda", "target_entry_id": primo, "reason": "supera"},
+        ])
+        riparazione = json.dumps([
+            {"fact_id": secondo, "operation": "UPDATE", "claim_key": "oggetto",
+             "value": "seconda", "target_entry_id": "SC03-M999", "reason": "ancora sbagliato"},
+        ])
+        runner = self._runner([prima_passata, riparazione])
+        operations, entries, _log = memory.run(scenario, facts, rq2.load_config(),
+                                               runner=runner, repair_attempts=1)
+        riproposta = operations[2]
+        self.assertFalse(riproposta["applied"])
+        self.assertIn("inesistente", riproposta["rejection_reason"])
+        with self.subTest("nessuna conversione in ADD"):
+            self.assertIsNone(riproposta["applied_operation"])
+            self.assertEqual(len(entries), 1)
+        with self.subTest("una sola riparazione, non un ciclo"):
+            self.assertEqual(len([o for o in operations if o["attempt"] > 1]), 1)
+
+    def test_senza_rifiuti_non_si_spende_una_chiamata_in_piu(self):
+        scenario, facts = self._scenario_e_fatti()
+        risposta = json.dumps([
+            {"fact_id": f["fact_id"], "operation": "ADD", "claim_key": "oggetto-%d" % i,
+             "value": "valore", "target_entry_id": None, "reason": "nuovo"}
+            for i, f in enumerate(facts)
+        ])
+        runner = self._runner([risposta])
+        operations, _entries, log = memory.run(scenario, facts, rq2.load_config(),
+                                               runner=runner, repair_attempts=1)
+        self.assertTrue(all(o["applied"] for o in operations))
+        self.assertEqual(log["repair_round_count"], 0)
+        self.assertEqual(log["model_calls"], 1)
+        self.assertEqual(len(runner.prompts), 1)
+
+    def test_la_riparazione_chiede_un_array_anche_per_un_solo_fatto(self):
+        """Con un fatto solo il modello aveva risposto con un oggetto singolo,
+        che il parser scarta: l'istruzione ora lo dice esplicitamente."""
+        self.assertIn("array JSON anche quando il fatto da rivalutare e' uno solo",
+                      memory.REPAIR_INSTRUCTIONS)
+
+    def test_una_riposta_non_in_array_non_produce_operazioni_e_non_muta_lo_stato(self):
+        scenario, facts = self._scenario_e_fatti()
+        primo, secondo = facts[0]["fact_id"], facts[1]["fact_id"]
+        prima_passata = json.dumps([
+            {"fact_id": primo, "operation": "ADD", "claim_key": "oggetto",
+             "value": "prima", "target_entry_id": None, "reason": "nuovo"},
+            {"fact_id": secondo, "operation": "UPDATE", "claim_key": "oggetto",
+             "value": "seconda", "target_entry_id": None, "reason": "supera"},
+        ])
+        oggetto_singolo = json.dumps(
+            {"fact_id": secondo, "operation": "UPDATE", "claim_key": "oggetto",
+             "value": "seconda", "target_entry_id": "SC03-M001", "reason": "supera"})
+        runner = self._runner([prima_passata, oggetto_singolo])
+        operations, entries, log = memory.run(scenario, facts, rq2.load_config(),
+                                              runner=runner, repair_attempts=1)
+        self.assertEqual(len(operations), 2)
+        self.assertFalse(operations[1]["applied"])
+        self.assertEqual(len(entries), 1)
+        self.assertIsNotNone(log["sessions"][0]["repair_rounds"][0]["parse_error"])
+
+    def test_la_riparazione_e_attiva_per_impostazione_predefinita_da_riga_di_comando(self):
+        self.assertEqual(memory.DEFAULT_REPAIR_ATTEMPTS, 1)
+        self.assertEqual(memory.parse_args([]).repair_attempts, 1)
+
+    def test_senza_riparazione_il_comportamento_e_quello_della_prima_prova(self):
+        scenario, facts = self._scenario_e_fatti()
+        primo, secondo = facts[0]["fact_id"], facts[1]["fact_id"]
+        risposta = json.dumps([
+            {"fact_id": primo, "operation": "ADD", "claim_key": "oggetto",
+             "value": "prima", "target_entry_id": None, "reason": "nuovo"},
+            {"fact_id": secondo, "operation": "UPDATE", "claim_key": "oggetto",
+             "value": "seconda", "target_entry_id": primo, "reason": "supera"},
+        ])
+        runner = self._runner([risposta])
+        operations, _entries, log = memory.run(scenario, facts, rq2.load_config(),
+                                               runner=runner, repair_attempts=0)
+        self.assertEqual(len(operations), 2)
+        self.assertFalse(operations[1]["applied"])
+        self.assertEqual(log["model_calls"], 1)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,457 @@
+{
+  "config_id": "rq2-dev-0.1",
+  "edges": [
+    {
+      "edge_id": "SC04-E001",
+      "object": "UT-207",
+      "order": 1,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "coinvolge",
+      "source_fact_ids": [
+        "SC04-F002"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "CASO-SC04"
+    },
+    {
+      "edge_id": "SC04-E002",
+      "object": "SMS-01",
+      "order": 2,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "segnala",
+      "source_fact_ids": [
+        "SC04-F002",
+        "SC04-F007"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "UT-207"
+    },
+    {
+      "edge_id": "SC04-E003",
+      "object": "URL-01",
+      "order": 3,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "contiene",
+      "source_fact_ids": [
+        "SC04-F012",
+        "SC04-F013",
+        "SC04-F014"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "SMS-01"
+    },
+    {
+      "edge_id": "SC04-E004",
+      "object": "smishing",
+      "order": 4,
+      "provenance_problem": "object non e' un nodo dichiarato: smishing",
+      "provenance_valid": false,
+      "relation": "classificato_come",
+      "source_fact_ids": [
+        "SC04-F017"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "CASO-SC04"
+    },
+    {
+      "edge_id": "SC04-E005",
+      "object": "spam generico",
+      "order": 5,
+      "provenance_problem": "object non e' un nodo dichiarato: spam generico",
+      "provenance_valid": false,
+      "relation": "valutato_inizialmente_come",
+      "source_fact_ids": [
+        "SC04-F010",
+        "SC04-F018"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1",
+        "SC04-S2-U2"
+      ],
+      "state": "superato",
+      "state_valid": true,
+      "subject": "CASO-SC04"
+    },
+    {
+      "edge_id": "SC04-E006",
+      "object": "URL-01",
+      "order": 6,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "non_ha_contatto_con",
+      "source_fact_ids": [
+        "SC04-F011",
+        "SC04-F021"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1",
+        "SC04-S2-U2"
+      ],
+      "state": "superato",
+      "state_valid": true,
+      "subject": "UT-207"
+    },
+    {
+      "edge_id": "SC04-E007",
+      "object": "URL-01",
+      "order": 7,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "ha_aperto",
+      "source_fact_ids": [
+        "SC04-F019",
+        "SC04-F020",
+        "SC04-F021"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U2"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "UT-207"
+    },
+    {
+      "edge_id": "SC04-E008",
+      "object": "ACC-207",
+      "order": 8,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "usa_account",
+      "source_fact_ids": [
+        "SC04-F022",
+        "SC04-F023"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "UT-207"
+    },
+    {
+      "edge_id": "SC04-E009",
+      "object": "ACC-207",
+      "order": 9,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "riguarda_account",
+      "source_fact_ids": [
+        "SC04-F024",
+        "SC04-F027"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "LOGIN-07"
+    },
+    {
+      "edge_id": "SC04-E010",
+      "object": "IP-203.0.113.44",
+      "order": 10,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "proviene_da",
+      "source_fact_ids": [
+        "SC04-F025",
+        "SC04-F026"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "LOGIN-07"
+    },
+    {
+      "edge_id": "SC04-E011",
+      "object": "LOGIN-07",
+      "order": 11,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "creata_da_sessione",
+      "source_fact_ids": [
+        "SC04-F028"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "RULE-01"
+    },
+    {
+      "edge_id": "SC04-E012",
+      "object": "ACC-207",
+      "order": 12,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "configurata_su",
+      "source_fact_ids": [
+        "SC04-F028",
+        "SC04-F030"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "RULE-01"
+    },
+    {
+      "edge_id": "SC04-E013",
+      "object": "DEST-ARCHIVIO",
+      "order": 13,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "inoltra_a",
+      "source_fact_ids": [
+        "SC04-F029"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "RULE-01"
+    },
+    {
+      "edge_id": "SC04-E014",
+      "object": "ACC-207",
+      "order": 14,
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "relation": "rimossa",
+      "source_fact_ids": [
+        "SC04-F031"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "state": "superato",
+      "state_valid": true,
+      "subject": "RULE-01"
+    },
+    {
+      "edge_id": "SC04-E015",
+      "object": "08:05",
+      "order": 15,
+      "provenance_problem": "object non e' un nodo dichiarato: 08:05",
+      "provenance_valid": false,
+      "relation": "password_reimpostata",
+      "source_fact_ids": [
+        "SC04-F032"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "ACC-207"
+    },
+    {
+      "edge_id": "SC04-E016",
+      "object": "gateway aziendale",
+      "order": 16,
+      "provenance_problem": "object non e' un nodo dichiarato: gateway aziendale",
+      "provenance_valid": false,
+      "relation": "bloccato_su",
+      "source_fact_ids": [
+        "SC04-F033"
+      ],
+      "source_message_ids": [
+        "SC04-S4-U1"
+      ],
+      "state": "attivo",
+      "state_valid": true,
+      "subject": "NUMERO-MITTENTE"
+    }
+  ],
+  "facts_source": "results/rq2/facts/scenario_04_facts.jsonl",
+  "label": "prova-riparazione-u-instructions-0.3",
+  "nodes": [
+    {
+      "aliases": [],
+      "label": "Caso ufficio acquisti Corvara Servizi",
+      "node_id": "CASO-SC04",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F001"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "type": "caso"
+    },
+    {
+      "aliases": [],
+      "label": "Operatore UT-207",
+      "node_id": "UT-207",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F002"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "type": "persona"
+    },
+    {
+      "aliases": [],
+      "label": "SMS ricevuto il 12 marzo alle 06:58 da +39 351 000 4477",
+      "node_id": "SMS-01",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F003",
+        "SC04-F004",
+        "SC04-F005",
+        "SC04-F006",
+        "SC04-F007"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1"
+      ],
+      "type": "messaggio"
+    },
+    {
+      "aliases": [],
+      "label": "hxxps://rapidopost-ritiro[.]example/track",
+      "node_id": "URL-01",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F013",
+        "SC04-F014",
+        "SC04-F015",
+        "SC04-F016"
+      ],
+      "source_message_ids": [
+        "SC04-S2-U1"
+      ],
+      "type": "collegamento"
+    },
+    {
+      "aliases": [],
+      "label": "acquisti-207@corvara.example",
+      "node_id": "ACC-207",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F022",
+        "SC04-F023"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "type": "account"
+    },
+    {
+      "aliases": [],
+      "label": "Accesso anomalo su ACC-207 del 12 marzo alle 07:12 da 203.0.113.44",
+      "node_id": "LOGIN-07",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F024",
+        "SC04-F025",
+        "SC04-F026",
+        "SC04-F027"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "type": "evento"
+    },
+    {
+      "aliases": [],
+      "label": "203.0.113.44 (fuori sedi aziendali)",
+      "node_id": "IP-203.0.113.44",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F025",
+        "SC04-F026"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U1"
+      ],
+      "type": "indirizzo"
+    },
+    {
+      "aliases": [],
+      "label": "Regola di inoltro creata su ACC-207 alle 07:20",
+      "node_id": "RULE-01",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F028",
+        "SC04-F029",
+        "SC04-F030"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "type": "evento"
+    },
+    {
+      "aliases": [],
+      "label": "archivio.backup@mailbox.example",
+      "node_id": "DEST-ARCHIVIO",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F029"
+      ],
+      "source_message_ids": [
+        "SC04-S3-U2"
+      ],
+      "type": "destinazione"
+    },
+    {
+      "aliases": [],
+      "label": "+39 351 000 4477",
+      "node_id": "NUMERO-MITTENTE",
+      "provenance_problem": null,
+      "provenance_valid": true,
+      "source_fact_ids": [
+        "SC04-F004",
+        "SC04-F033"
+      ],
+      "source_message_ids": [
+        "SC04-S1-U1",
+        "SC04-S4-U1"
+      ],
+      "type": "account"
+    }
+  ],
+  "retrieval": {
+    "max_hops": 3,
+    "max_seed_items": 3,
+    "max_seed_nodes": 3
+  },
+  "scenario_id": "scenario_04",
+  "state_source": "results/rq2/sc04_repair_v3/scenario_04_state.json"
+}

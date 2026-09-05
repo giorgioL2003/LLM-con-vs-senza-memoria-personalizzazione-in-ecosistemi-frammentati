@@ -25,6 +25,11 @@ atteso, relazioni attese, sessioni future.
 Il modello propone l'operazione; **applicarla allo stato e' compito del codice**,
 non del modello, cosi' l'evoluzione della memoria e' verificabile.
 
+Se una proposta non e' applicabile, il codice non la aggiusta: puo' pero'
+chiedere al modello di **riproporla** mostrandogli lo stato aggiornato (vedi
+`repair_attempts`). Anche la riproposta viene applicata o rifiutata con le stesse
+regole, e la proposta rifiutata resta negli artefatti.
+
 Una proposta non applicabile viene **rifiutata in blocco**, non aggiustata:
   - un ADD o un NOOP devono avere `target_entry_id` nullo;
   - un UPDATE o un DELETE devono indicare un `target_entry_id` che esiste, e'
@@ -86,17 +91,53 @@ UPDATE_INSTRUCTIONS = (
     "1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n"
     "   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n"
     "   quando parli dello stesso oggetto e ambito.\n"
-    "2. UPDATE e DELETE devono indicare in `target_entry_id` il fatto in memoria che superano o\n"
-    "   ritirano. ADD e NOOP lasciano `target_entry_id` a null.\n"
-    "3. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n"
-    "4. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n"
+    "2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n"
+    "   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n"
+    "     ammessi nel campo `fact_id`;\n"
+    "   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n"
+    "     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n"
+    "   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n"
+    "   identificatore di voce di memoria come `fact_id`.\n"
+    "3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n"
+    "   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n"
+    "   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n"
+    "   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n"
+    "   l'informazione e' nuova, l'operazione e' un ADD.\n"
+    "4. ADD e NOOP lasciano `target_entry_id` a null.\n"
+    "5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n"
+    "   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n"
+    "   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n"
+    "   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n"
+    "   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n"
+    "6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n"
+    "7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n"
     "   determinato, `value` deve dirlo.\n"
-    "5. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n"
+    "8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n"
     "\n"
     "Rispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n"
     "{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n"
     " \"target_entry_id\": null, \"reason\": \"...\"}\n"
 )
+
+REPAIR_INSTRUCTIONS = (
+    "Alcune proposte precedenti non sono state applicate perche' non valide.\n"
+    "Lo stato qui sotto e' quello **attuale**, cioe' dopo le operazioni gia' applicate: e' lo\n"
+    "stato su cui verranno applicate le tue nuove proposte.\n"
+    "Riproponi una sola operazione per ciascuno dei fatti elencati, coerente con questo stato e\n"
+    "con le regole sopra. Se nessuna voce esistente e' un bersaglio valido, scegli l'operazione\n"
+    "che descrive davvero il fatto invece di forzare un UPDATE.\n"
+    "Rispondi con un array JSON anche quando il fatto da rivalutare e' uno solo: in quel caso\n"
+    "l'array ha un solo elemento.\n"
+)
+
+# Versione delle istruzioni: cambia quando cambia il testo del prompt di U, cosi'
+# ogni artefatto dice con quali istruzioni e' stato prodotto.
+INSTRUCTIONS_VERSION = "u-instructions-0.3"
+
+# Quante volte, dopo la prima passata, si puo' chiedere al modello di riproporre
+# le operazioni rifiutate mostrandogli lo stato aggiornato. 0 = comportamento
+# della prima prova reale (una sola passata per sessione).
+DEFAULT_REPAIR_ATTEMPTS = 1
 
 NO_STATE = "(memoria vuota: nessun fatto attivo)"
 NO_ARCHIVE = "(archivio vuoto: nessun fatto superato o ritirato)"
@@ -226,6 +267,44 @@ def build_session_prompt(new_facts, entries):
         "Fatti nuovi da valutare:\n"
         "%s"
     ) % (UPDATE_INSTRUCTIONS, format_state(entries), format_archive(entries), format_new_facts(new_facts))
+
+
+def format_rejected(rejected):
+    """Proposte non applicate, con il motivo del rifiuto.
+
+    Contiene soltanto quello che il modello ha gia' proposto e la ragione tecnica
+    del rifiuto: nessuna informazione dell'oracle e nessun suggerimento su quale
+    operazione scegliere.
+    """
+    return "\n".join(
+        "[%s] proposta: %s su %s (target: %s) — non applicata: %s"
+        % (operation["source_fact_ids"][0] if operation["source_fact_ids"] else "?",
+           operation["proposed_operation"] or "?",
+           operation["claim_key"] or "?",
+           operation["target_entry_id"] or "null",
+           operation["rejection_reason"])
+        for operation in rejected
+    )
+
+
+def build_repair_prompt(rejected_facts, rejected_ops, entries):
+    return (
+        "Istruzioni:\n"
+        "%s\n"
+        "%s\n"
+        "Stato corrente della memoria:\n"
+        "%s\n"
+        "\n"
+        "Archivio dei fatti superati o ritirati:\n"
+        "%s\n"
+        "\n"
+        "Proposte non applicate:\n"
+        "%s\n"
+        "\n"
+        "Fatti da rivalutare:\n"
+        "%s"
+    ) % (UPDATE_INSTRUCTIONS, REPAIR_INSTRUCTIONS, format_state(entries), format_archive(entries),
+         format_rejected(rejected_ops), format_new_facts(rejected_facts))
 
 
 # --------------------------------------------------------------------------
@@ -364,7 +443,92 @@ def facts_by_session(facts):
     return [grouped[key] for key in sorted(grouped)]
 
 
-def run(scenario, facts, config, dry_run=False, runner=None, model=None, effort=None):
+def register_proposals(proposals, context, entries, counter_box, used,
+                       attempt=1, retry_of=None):
+    """Trasforma le proposte grezze in operazioni e le applica una alla volta.
+
+    Nessuna proposta viene corretta: o e' applicabile com'e', o viene rifiutata.
+    `attempt` e `retry_of` servono soltanto a tracciare le riproposte: la seconda
+    proposta e' un'operazione nuova, e quella rifiutata resta com'e'.
+    """
+    retry_of = retry_of or {}
+    facts_by_id = context["facts_by_id"]
+    session_facts = context["session_facts"]
+    session_id = context["session_id"]
+    allowed_messages = context["allowed_messages"]
+    produced = []
+
+    for raw in proposals:
+        if not isinstance(raw, dict):
+            continue
+        counter_box["value"] += 1
+        counter = counter_box["value"]
+        fact_ref = str(raw.get("fact_id", "")).strip()
+        fact = facts_by_id.get(fact_ref)
+        kind = str(raw.get("operation", "")).strip().upper()
+        operation = {
+            "op_id": "%s-OP%03d" % (context["prefix"], counter),
+            "scenario_id": context["scenario"]["scenario_id"],
+            "session_id": session_id,
+            "session_order": session_facts[0]["session_order"],
+            "order": counter,
+            "attempt": attempt,
+            "retry_of": retry_of.get(fact_ref),
+            "proposed_operation": kind,
+            "claim_key": str(raw.get("claim_key", "")).strip(),
+            "value": str(raw.get("value", "")).strip(),
+            "source_fact_ids": [fact["fact_id"]] if fact else [fact_ref],
+            "source_message_ids": list(fact["source_message_ids"]) if fact else [],
+            "target_entry_id": raw.get("target_entry_id") or None,
+            "reason": str(raw.get("reason", "")).strip(),
+            "model_used": used,
+            "model_requested": context["model"],
+            "effort": context["effort"],
+            "config_id": context["config"]["config_id"],
+            "instructions_version": INSTRUCTIONS_VERSION,
+            "prompt_ref": "%s/%s" % (context["scenario"]["scenario_id"], session_id),
+            "raw_proposal": raw,
+            "raw_answer_ref": {
+                "session_id": session_id,
+                "field": ("sessions[].model_answer del registro dell'aggiornamento" if attempt == 1
+                          else "sessions[].repair_rounds[].model_answer del registro"),
+            },
+        }
+        problems = []
+        if fact is None:
+            problems.append("il fatto citato non appartiene a questa sessione")
+        for message_id in operation["source_message_ids"]:
+            if message_id not in allowed_messages:
+                problems.append("messaggio sorgente non ammesso: %s" % message_id)
+        operation["provenance_valid"] = not problems
+        operation["provenance_problem"] = "; ".join(problems) or None
+
+        if fact is None:
+            # Senza il fatto sorgente non si puo' nemmeno provare ad applicare:
+            # il rifiuto e' registrato come per gli altri casi.
+            fingerprint = state_fingerprint(entries)
+            active = len([e for e in entries if e["status"] == rq2.STATE_ACTIVE])
+            operation.update({
+                "applied": False,
+                "applied_operation": None,
+                "rejection_reason": "provenienza non valida: %s" % operation["provenance_problem"],
+                "resulting_entry_id": None,
+                "supersedes_entry_id": None,
+                "state_before_fingerprint": fingerprint,
+                "state_after_fingerprint": fingerprint,
+                "state_before_active": active,
+                "state_after_active": active,
+            })
+        else:
+            apply_operation(operation, fact, entries, counter)
+
+        produced.append(operation)
+
+    return produced
+
+
+def run(scenario, facts, config, dry_run=False, runner=None, model=None, effort=None,
+        repair_attempts=0):
     """Aggiornamento della memoria sessione per sessione, in ordine cronologico."""
     model = model or config["models"]["extraction"]["model"]
     effort = effort or config["models"]["extraction"]["effort"]
@@ -373,7 +537,7 @@ def run(scenario, facts, config, dry_run=False, runner=None, model=None, effort=
     entries = []
     operations = []
     log_entries = []
-    counter = 0
+    counter_box = {"value": 0}
     cwd = tempfile.mkdtemp(prefix="aggiornamento_") if not dry_run else None
     allowed_messages = {entry["message_id"] for entry in rq2.user_messages(scenario)}
 
@@ -410,67 +574,58 @@ def run(scenario, facts, config, dry_run=False, runner=None, model=None, effort=
         entry_log["parse_error"] = parse_error
 
         facts_by_id = {fact["fact_id"]: fact for fact in session_facts}
-        session_ops = []
-        for raw in proposals:
-            if not isinstance(raw, dict):
-                continue
-            counter += 1
-            fact = facts_by_id.get(str(raw.get("fact_id", "")).strip())
-            kind = str(raw.get("operation", "")).strip().upper()
-            operation = {
-                "op_id": "%s-OP%03d" % (prefix, counter),
-                "scenario_id": scenario["scenario_id"],
-                "session_id": session_id,
-                "session_order": session_facts[0]["session_order"],
-                "order": counter,
-                "proposed_operation": kind,
-                "claim_key": str(raw.get("claim_key", "")).strip(),
-                "value": str(raw.get("value", "")).strip(),
-                "source_fact_ids": [fact["fact_id"]] if fact else [str(raw.get("fact_id", ""))],
-                "source_message_ids": list(fact["source_message_ids"]) if fact else [],
-                "target_entry_id": raw.get("target_entry_id") or None,
-                "reason": str(raw.get("reason", "")).strip(),
-                "model_used": used,
-                "model_requested": model,
-                "effort": effort,
-                "config_id": config["config_id"],
-                "prompt_ref": "%s/%s" % (scenario["scenario_id"], session_id),
-                "raw_proposal": raw,
-                "raw_answer_ref": {
-                    "session_id": session_id,
-                    "field": "sessions[].model_answer del registro dell'aggiornamento",
-                },
+        context = {
+            "facts_by_id": facts_by_id, "session_facts": session_facts, "session_id": session_id,
+            "prefix": prefix, "scenario": scenario, "config": config, "model": model,
+            "effort": effort, "allowed_messages": allowed_messages,
+        }
+        session_ops = register_proposals(proposals, context, entries, counter_box, used)
+
+        # Passata di riparazione: le proposte rifiutate tornano al modello con lo
+        # stato aggiornato, cioe' quello su cui verrebbero davvero applicate. Il
+        # codice non corregge nulla: la riproposta viene applicata o rifiutata con
+        # le stesse regole, e la proposta rifiutata resta negli artefatti.
+        entry_log["repair_rounds"] = []
+        for attempt in range(2, 2 + max(0, repair_attempts)):
+            rejected = [op for op in session_ops if op["applied"] is False]
+            if not rejected:
+                break
+            rejected_facts = [facts_by_id[op["source_fact_ids"][0]] for op in rejected
+                              if op["source_fact_ids"] and op["source_fact_ids"][0] in facts_by_id]
+            if not rejected_facts:
+                break
+            retry_of = {op["source_fact_ids"][0]: op["op_id"] for op in rejected
+                        if op["source_fact_ids"]}
+            repair_prompt = build_repair_prompt(rejected_facts, rejected, entries)
+            round_log = {
+                "attempt": attempt,
+                "prompt": repair_prompt,
+                "rejected_op_ids": [op["op_id"] for op in rejected],
+                "input_fact_ids": [fact["fact_id"] for fact in rejected_facts],
             }
-            problems = []
-            if fact is None:
-                problems.append("il fatto citato non appartiene a questa sessione")
-            for message_id in operation["source_message_ids"]:
-                if message_id not in allowed_messages:
-                    problems.append("messaggio sorgente non ammesso: %s" % message_id)
-            operation["provenance_valid"] = not problems
-            operation["provenance_problem"] = "; ".join(problems) or None
+            answer, used_repair, error = call(repair_prompt)
+            round_log.update({"model_answer": answer, "model_used": used_repair, "error": error})
+            if error:
+                round_log.update({"parse_error": None, "operations": []})
+                entry_log["repair_rounds"].append(round_log)
+                break
+            repaired, repair_parse_error = extract_facts.parse_facts(answer)
+            round_log["parse_error"] = repair_parse_error
+            new_ops = register_proposals(repaired, context, entries, counter_box, used_repair,
+                                         attempt=attempt, retry_of=retry_of)
+            # La proposta rifiutata resta invariata nel suo esito: si annota
+            # soltanto quale riproposta le corrisponde, cosi' la storia e'
+            # leggibile in tutte e due le direzioni.
+            new_by_fact = {op["source_fact_ids"][0]: op["op_id"] for op in new_ops
+                           if op["source_fact_ids"]}
+            for op in rejected:
+                if op["source_fact_ids"]:
+                    op["retried_by"] = new_by_fact.get(op["source_fact_ids"][0])
+            round_log["operations"] = [op["op_id"] for op in new_ops]
+            entry_log["repair_rounds"].append(round_log)
+            session_ops = session_ops + new_ops
 
-            if fact is None:
-                # Senza il fatto sorgente non si puo' nemmeno provare ad applicare:
-                # il rifiuto e' registrato come per gli altri casi.
-                fingerprint = state_fingerprint(entries)
-                operation.update({
-                    "applied": False,
-                    "applied_operation": None,
-                    "rejection_reason": "provenienza non valida: %s" % operation["provenance_problem"],
-                    "resulting_entry_id": None,
-                    "supersedes_entry_id": None,
-                    "state_before_fingerprint": fingerprint,
-                    "state_after_fingerprint": fingerprint,
-                    "state_before_active": len([e for e in entries if e["status"] == rq2.STATE_ACTIVE]),
-                    "state_after_active": len([e for e in entries if e["status"] == rq2.STATE_ACTIVE]),
-                })
-            else:
-                apply_operation(operation, fact, entries, counter)
-
-            session_ops.append(operation)
-            operations.append(operation)
-
+        operations.extend(session_ops)
         entry_log["operations"] = [operation["op_id"] for operation in session_ops]
         log_entries.append(entry_log)
 
@@ -482,10 +637,20 @@ def run(scenario, facts, config, dry_run=False, runner=None, model=None, effort=
         "effort": effort,
         "dry_run": dry_run,
         "update_instructions": UPDATE_INSTRUCTIONS,
+        "repair_instructions": REPAIR_INSTRUCTIONS if repair_attempts else None,
+        "instructions_version": INSTRUCTIONS_VERSION,
+        "instructions_sha256": hashlib.sha256(
+            (UPDATE_INSTRUCTIONS + REPAIR_INSTRUCTIONS).encode("utf-8")).hexdigest()[:16],
+        "code_sha256": hashlib.sha256(
+            Path(__file__).read_bytes()).hexdigest()[:16],
+        "repair_attempts": repair_attempts,
         "sessions": log_entries,
         "operation_count": len(operations),
         "applied_count": len([o for o in operations if o.get("applied")]),
         "rejected_count": len([o for o in operations if o.get("applied") is False]),
+        "repair_round_count": sum(len(e.get("repair_rounds") or []) for e in log_entries),
+        "model_calls": len([e for e in log_entries if e.get("executed")])
+                       + sum(len(e.get("repair_rounds") or []) for e in log_entries),
     }
     return operations, entries, log
 
@@ -536,6 +701,9 @@ def parse_args(argv=None):
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--out-dir", default=str(MEMORY_DIR))
     parser.add_argument("--label", default="esecuzione")
+    parser.add_argument("--repair-attempts", type=int, default=DEFAULT_REPAIR_ATTEMPTS,
+                        help="quante volte richiedere al modello le proposte rifiutate, "
+                             "mostrandogli lo stato aggiornato (0 = una sola passata)")
     parser.add_argument("--model", default=None)
     parser.add_argument("--effort", default=None)
     return parser.parse_args(argv)
@@ -554,7 +722,8 @@ def main(argv=None):
     facts = rq2.read_jsonl(facts_file)
 
     operations, entries, log = run(scenario, facts, config, dry_run=args.dry_run,
-                                   model=args.model, effort=args.effort)
+                                   model=args.model, effort=args.effort,
+                                   repair_attempts=args.repair_attempts)
     log["facts_source"] = rq2.relative(facts_file)
     log["label"] = args.label
 
@@ -565,6 +734,8 @@ def main(argv=None):
     print("fatti candidati: %s" % rq2.relative(facts_file))
     print("modello: %s | effort: %s | %s"
           % (log["model"], log["effort"], "DRY RUN, nessuna chiamata" if args.dry_run else "chiamate reali"))
+    print("istruzioni: %s | riproposte per sessione: %d"
+          % (log["instructions_version"], args.repair_attempts))
     if args.label != "esecuzione":
         print("ATTENZIONE: etichetta '%s'. Non sono risultati sperimentali." % args.label)
     print("-" * 78)
@@ -594,6 +765,11 @@ def main(argv=None):
     rejected = [o for o in operations if not o["applied"]]
     print("Operazioni proposte: %s" % (", ".join("%s=%d" % item for item in sorted(counts.items())) or "nessuna"))
     print("Applicate: %d | rifiutate: %d" % (len(operations) - len(rejected), len(rejected)))
+    riproposte = [o for o in operations if o.get("attempt", 1) > 1]
+    if riproposte:
+        recuperate = [o for o in riproposte if o["applied"]]
+        print("Riproposte dopo un rifiuto: %d, di cui applicate %d (chiamate totali: %d)"
+              % (len(riproposte), len(recuperate), log["model_calls"]))
     print("Stato: %d attivi, %d superati, %d ritirati" % (active, superseded, retracted))
     for operation in rejected:
         print("  RIFIUTATA %s (%s): %s"
