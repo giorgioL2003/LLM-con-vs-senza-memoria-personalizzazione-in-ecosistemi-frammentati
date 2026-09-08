@@ -1,0 +1,301 @@
+{
+  "experiment": "RQ2 — estensione GER",
+  "frozen": false,
+  "indexed_role": "user",
+  "memory_scope": "tutte le sessioni dello scenario",
+  "note": "Questo file contiene soltanto le conversazioni: è l'unico input ammesso per la costruzione della memoria. Domande, oracle e annotazioni di valutazione stanno in data/rq2/annotations/scenario_05_rq2.json. Scenario nato per il confronto U/GER: non entra nella matrice T/F/U/G di experiment_rq2.json e non cambia i confronti già eseguiti.",
+  "phenomenon": "Attività distribuita su nove sessioni: una decisione lontana ancora valida (il vincolo sul rapporto), un'informazione corretta più avanti (il server esposto), un'evidenza ritirata senza sostituzione, una conferma ripetuta, un punto dichiarato non determinato, dettagli plausibili ma irrilevanti e attività aperte nelle ultime due sessioni. Serve a esercitare la partizione recente/archivio di GER: l'ultima sessione non riassume le precedenti.",
+  "scenario_id": "scenario_05",
+  "sessions": [
+    {
+      "messages": [
+        {
+          "content": "Apro il caso `ARD-19` sul portale fornitori di Ardesia Mobilità. L'obiettivo del caso è stabilire quali dati dei fornitori siano stati esposti e riportare il portale in servizio senza interruzioni per i fornitori attivi. Metto subito a verbale un vincolo del cliente: prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con nessun altro reparto.",
+          "message_id": "SC05-S1-U1",
+          "order": 1,
+          "role": "user",
+          "session_id": "SC05-S1"
+        },
+        {
+          "content": "Registrato l'obiettivo del caso e il vincolo sul rapporto.",
+          "message_id": "SC05-S1-A1",
+          "order": 2,
+          "role": "assistant",
+          "session_id": "SC05-S1"
+        },
+        {
+          "content": "Dettaglio organizzativo: il referente del cliente per questo caso è l'ufficio legale, non il reparto informatico.",
+          "message_id": "SC05-S1-U2",
+          "order": 3,
+          "role": "user",
+          "session_id": "SC05-S1"
+        },
+        {
+          "content": "Annotato il referente.",
+          "message_id": "SC05-S1-A2",
+          "order": 4,
+          "role": "assistant",
+          "session_id": "SC05-S1"
+        }
+      ],
+      "order": 1,
+      "session_id": "SC05-S1",
+      "title": "Apertura del caso e vincolo sul rapporto"
+    },
+    {
+      "messages": [
+        {
+          "content": "Dai primi log l'accesso anomalo risulta arrivato dal server esposto `SRV-12`, che ospita il modulo di autenticazione del portale. L'orario dell'accesso è il 4 marzo alle 02:40.",
+          "message_id": "SC05-S2-U1",
+          "order": 1,
+          "role": "user",
+          "session_id": "SC05-S2"
+        },
+        {
+          "content": "Registro il server esposto e l'orario dell'accesso.",
+          "message_id": "SC05-S2-A1",
+          "order": 2,
+          "role": "assistant",
+          "session_id": "SC05-S2"
+        },
+        {
+          "content": "Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati fuori dal portale.",
+          "message_id": "SC05-S2-U2",
+          "order": 3,
+          "role": "user",
+          "session_id": "SC05-S2"
+        },
+        {
+          "content": "Annotata la scadenza chiesta dal cliente.",
+          "message_id": "SC05-S2-A2",
+          "order": 4,
+          "role": "assistant",
+          "session_id": "SC05-S2"
+        }
+      ],
+      "order": 2,
+      "session_id": "SC05-S2",
+      "title": "Prima ricostruzione tecnica"
+    },
+    {
+      "messages": [
+        {
+          "content": "Abbiamo isolato `SRV-12` dalla rete di produzione e revocato le chiavi API del portale. Resta da verificare il registro del bilanciatore per capire quante sessioni anomale ci siano state.",
+          "message_id": "SC05-S3-U1",
+          "order": 1,
+          "role": "user",
+          "session_id": "SC05-S3"
+        },
+        {
+          "content": "Registro le due attività di contenimento e la verifica ancora aperta.",
+          "message_id": "SC05-S3-A1",
+          "order": 2,
+          "role": "assistant",
+          "session_id": "SC05-S3"
+        },
+        {
+          "content": "Nella raccolta ho trovato in `/tmp` un file `export_fornitori.csv`, che per adesso tratto come evidenza dell'esportazione dei dati.",
+          "message_id": "SC05-S3-U2",
+          "order": 3,
+          "role": "user",
+          "session_id": "SC05-S3"
+        },
+        {
+          "content": "Annotato il file come evidenza provvisoria.",
+          "message_id": "SC05-S3-A2",
+          "order": 4,
+          "role": "assistant",
+          "session_id": "SC05-S3"
+        }
+      ],
+      "order": 3,
+      "session_id": "SC05-S3",
+      "title": "Contenimento e raccolta"
+    },
+    {
+      "messages": [
+        {
+          "content": "Correzione della ricostruzione tecnica: il server esposto non è `SRV-12` ma `SRV-14`, che ospita il modulo di esportazione delle anagrafiche. `SRV-12` era stato indicato per un errore di lettura dell'inventario. L'orario del 4 marzo alle 02:40 resta confermato.",
+          "message_id": "SC05-S4-U1",
+          "order": 1,
+          "role": "user",
+          "session_id": "SC05-S4"
+        },
+        {
+          "content": "Sostituisco il server esposto e lascio invariato l'orario.",
+          "message_id": "SC05-S4-A1",
+          "order": 2,
+          "role": "assistant",
+          "session_id": "SC05-S4"
+        }
+      ],
+      "order": 4,
+      "session_id": "SC05-S4",
+      "title": "Correzione della ricostruzione"
+    },
+    {
+      "messages": [
+        {
+          "content": "Ritiro l'evidenza del file `export_fornitori.csv`: non ha alcuna relazione con l'incidente, è il residuo di una migrazione interna di gennaio. Non la sostituisco con nessun'altra evidenza.",
+          "message_id": "SC05-S5-U1",
+          "order": 1,
+          "role": "user",
+          "session_id": "SC05-S5"
+        },
+        {
+          "content": "Registro il ritiro dell'evidenza, senza sostituzione.",
+          "message_id": "SC05-S5-A1",
+          "order": 2,
+          "role": "assistant",
+          "session_id": "SC05-S5"
+        },
+        {
+          "content": "Nota di servizio: la finestra di manutenzione mensile del portale resta il primo martedì del mese.",
+          "message_id": "SC05-S5-U2",
+          "order": 3,
+          "role": "user",
+          "session_id": "SC05-S5"
+        },
+        {
+          "content": "Annotata la nota di servizio.",
+          "message_id": "SC05-S5-A2",
+          "order": 4,
+          "role": "assistant",
+          "session_id": "SC05-S5"
+        }
+      ],
+      "order": 5,
+      "session_id": "SC05-S5",
+      "title": "Ritiro di un'evidenza"
+    },
+    {
+      "messages": [
+        {
+          "content": "Confermo l'orario dell'accesso anomalo: 4 marzo alle 02:40, nessun cambiamento rispetto a quanto già agli atti.",
+          "message_id": "SC05-S6-U1",
+          "order": 1,
+          "role": "user",
+          "session_id": "SC05-S6"
+        },
+        {
+          "content": "Conferma registrata, nulla da modificare.",
+          "message_id": "SC05-S6-A1",
+          "order": 2,
+          "role": "assistant",
+          "session_id": "SC05-S6"
+        },
+        {
+          "content": "Il modo in cui le credenziali del portale sono state ottenute non è determinato: agli atti non c'è nessuna ipotesi confermata.",
+          "message_id": "SC05-S6-U2",
+          "order": 3,
+          "role": "user",
+          "session_id": "SC05-S6"
+        },
+        {
+          "content": "Registro il punto come non determinato.",
+          "message_id": "SC05-S6-A2",
+          "order": 4,
+          "role": "assistant",
+          "session_id": "SC05-S6"
+        }
+      ],
+      "order": 6,
+      "session_id": "SC05-S6",
+      "title": "Conferma e punto non determinato"
+    },
+    {
+      "messages": [
+        {
+          "content": "Il modulo di esportazione su `SRV-14` ha prodotto un file con 1.480 anagrafiche di fornitori: ragione sociale, partita IVA e indirizzo di posta elettronica. Non risultano coinvolte coordinate bancarie.",
+          "message_id": "SC05-S7-U1",
+          "order": 1,
+          "role": "user",
+          "session_id": "SC05-S7"
+        },
+        {
+          "content": "Registro il perimetro dei dati esposti.",
+          "message_id": "SC05-S7-A1",
+          "order": 2,
+          "role": "assistant",
+          "session_id": "SC05-S7"
+        }
+      ],
+      "order": 7,
+      "session_id": "SC05-S7",
+      "title": "Perimetro dei dati esposti"
+    },
+    {
+      "messages": [
+        {
+          "content": "Aggiornamento sulle verifiche: la verifica di integrità dei backup è completata e il risultato è regolare. Restano aperte la verifica del registro del bilanciatore e la revisione delle regole di esportazione su `SRV-14`.",
+          "message_id": "SC05-S8-U1",
+          "order": 1,
+          "role": "user",
+          "session_id": "SC05-S8"
+        },
+        {
+          "content": "Aggiorno lo stato delle verifiche.",
+          "message_id": "SC05-S8-A1",
+          "order": 2,
+          "role": "assistant",
+          "session_id": "SC05-S8"
+        },
+        {
+          "content": "Abbiamo reimpostato le password dei tre account amministrativi del portale.",
+          "message_id": "SC05-S8-U2",
+          "order": 3,
+          "role": "user",
+          "session_id": "SC05-S8"
+        },
+        {
+          "content": "Registro la reimpostazione delle password.",
+          "message_id": "SC05-S8-A2",
+          "order": 4,
+          "role": "assistant",
+          "session_id": "SC05-S8"
+        }
+      ],
+      "order": 8,
+      "session_id": "SC05-S8",
+      "title": "Verifiche tecniche in corso"
+    },
+    {
+      "messages": [
+        {
+          "content": "La verifica del registro del bilanciatore è completata: conferma una sola sessione anomala. Resta aperta soltanto la revisione delle regole di esportazione su `SRV-14`, prevista per la settimana prossima.",
+          "message_id": "SC05-S9-U1",
+          "order": 1,
+          "role": "user",
+          "session_id": "SC05-S9"
+        },
+        {
+          "content": "Aggiorno l'esito della verifica e l'attività ancora aperta.",
+          "message_id": "SC05-S9-A1",
+          "order": 2,
+          "role": "assistant",
+          "session_id": "SC05-S9"
+        },
+        {
+          "content": "Il portale è tornato in servizio per i fornitori attivi lunedì mattina.",
+          "message_id": "SC05-S9-U2",
+          "order": 3,
+          "role": "user",
+          "session_id": "SC05-S9"
+        },
+        {
+          "content": "Registro il ritorno in servizio.",
+          "message_id": "SC05-S9-A2",
+          "order": 4,
+          "role": "assistant",
+          "session_id": "SC05-S9"
+        }
+      ],
+      "order": 9,
+      "session_id": "SC05-S9",
+      "title": "Ultimi aggiornamenti"
+    }
+  ],
+  "status": "bozza di sviluppo da controllare, non approvata e non congelata",
+  "title": "compromissione del portale fornitori di Ardesia Mobilità",
+  "version": "0.1"
+}

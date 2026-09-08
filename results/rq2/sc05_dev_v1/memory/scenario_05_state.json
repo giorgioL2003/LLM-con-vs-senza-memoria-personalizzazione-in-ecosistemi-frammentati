@@ -1,0 +1,645 @@
+{
+  "archive": [
+    {
+      "claim_key": "caso-ard-19-obiettivo-ripristino-servizio",
+      "created_by_op": "SC05-OP003",
+      "entry_id": "SC05-M003",
+      "order": 3,
+      "session_id": "SC05-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC05-F003"
+      ],
+      "source_message_ids": [
+        "SC05-S1-U1"
+      ],
+      "status": "superato",
+      "superseded_by_entry": "SC05-M041",
+      "superseded_by_op": "SC05-OP041",
+      "value": "Obiettivo del caso: riportare il portale in servizio senza interruzioni per i fornitori attivi."
+    },
+    {
+      "claim_key": "caso-ard-19-accesso-anomalo-server",
+      "created_by_op": "SC05-OP008",
+      "entry_id": "SC05-M008",
+      "order": 8,
+      "session_id": "SC05-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC05-F008"
+      ],
+      "source_message_ids": [
+        "SC05-S2-U1"
+      ],
+      "status": "superato",
+      "superseded_by_entry": "SC05-M018",
+      "superseded_by_op": "SC05-OP018",
+      "value": "L'accesso anomalo risulta arrivato dal server esposto SRV-12."
+    },
+    {
+      "claim_key": "caso-ard-19-srv12-ruolo",
+      "created_by_op": "SC05-OP009",
+      "entry_id": "SC05-M009",
+      "order": 9,
+      "session_id": "SC05-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC05-F009"
+      ],
+      "source_message_ids": [
+        "SC05-S2-U1"
+      ],
+      "status": "superato",
+      "superseded_by_entry": "SC05-M020",
+      "superseded_by_op": "SC05-OP020",
+      "value": "Il server SRV-12 ospita il modulo di autenticazione del portale."
+    },
+    {
+      "claim_key": "caso-ard-19-registro-bilanciatore-da-verificare",
+      "created_by_op": "SC05-OP014",
+      "entry_id": "SC05-M014",
+      "order": 14,
+      "session_id": "SC05-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC05-F014"
+      ],
+      "source_message_ids": [
+        "SC05-S3-U1"
+      ],
+      "status": "superato",
+      "superseded_by_entry": "SC05-M037",
+      "superseded_by_op": "SC05-OP037",
+      "value": "Resta da verificare il registro del bilanciatore per capire quante sessioni anomale ci siano state."
+    },
+    {
+      "claim_key": "caso-ard-19-numero-sessioni-anomale-indeterminato",
+      "created_by_op": "SC05-OP015",
+      "entry_id": "SC05-M015",
+      "order": 15,
+      "session_id": "SC05-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC05-F015"
+      ],
+      "source_message_ids": [
+        "SC05-S3-U1"
+      ],
+      "status": "superato",
+      "superseded_by_entry": "SC05-M038",
+      "superseded_by_op": "SC05-OP038",
+      "value": "Il numero di sessioni anomale non è ancora stato determinato."
+    },
+    {
+      "claim_key": "caso-ard-19-ipotesi-esportazione-dati",
+      "created_by_op": "SC05-OP017",
+      "entry_id": "SC05-M017",
+      "order": 17,
+      "session_id": "SC05-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC05-F017"
+      ],
+      "source_message_ids": [
+        "SC05-S3-U2"
+      ],
+      "status": "superato",
+      "superseded_by_entry": "SC05-M022",
+      "superseded_by_op": "SC05-OP022",
+      "value": "Il file export_fornitori.csv viene trattato per adesso come evidenza dell'esportazione dei dati."
+    },
+    {
+      "claim_key": "caso-ard-19-revisione-regole-esportazione-srv14",
+      "created_by_op": "SC05-OP035",
+      "entry_id": "SC05-M035",
+      "order": 35,
+      "session_id": "SC05-S8",
+      "session_order": 8,
+      "source_fact_ids": [
+        "SC05-F035"
+      ],
+      "source_message_ids": [
+        "SC05-S8-U1"
+      ],
+      "status": "superato",
+      "superseded_by_entry": "SC05-M040",
+      "superseded_by_op": "SC05-OP040",
+      "value": "La revisione delle regole di esportazione su SRV-14 resta aperta."
+    }
+  ],
+  "config_id": "rq2-dev-0.1",
+  "current": [
+    {
+      "claim_key": "caso-ard-19-apertura",
+      "created_by_op": "SC05-OP001",
+      "entry_id": "SC05-M001",
+      "order": 1,
+      "session_id": "SC05-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC05-F001"
+      ],
+      "source_message_ids": [
+        "SC05-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Aperto il caso ARD-19 sul portale fornitori di Ardesia Mobilità."
+    },
+    {
+      "claim_key": "caso-ard-19-obiettivo-dati-esposti",
+      "created_by_op": "SC05-OP002",
+      "entry_id": "SC05-M002",
+      "order": 2,
+      "session_id": "SC05-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC05-F002"
+      ],
+      "source_message_ids": [
+        "SC05-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Obiettivo del caso: stabilire quali dati dei fornitori siano stati esposti."
+    },
+    {
+      "claim_key": "caso-ard-19-vincolo-riservatezza-rapporto",
+      "created_by_op": "SC05-OP004",
+      "entry_id": "SC05-M004",
+      "order": 4,
+      "session_id": "SC05-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC05-F004"
+      ],
+      "source_message_ids": [
+        "SC05-S1-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Vincolo del cliente: prima della chiusura formale del caso, il rapporto deve restare interno al gruppo di risposta."
+    },
+    {
+      "claim_key": "caso-ard-19-referente-cliente",
+      "created_by_op": "SC05-OP006",
+      "entry_id": "SC05-M006",
+      "order": 6,
+      "session_id": "SC05-S1",
+      "session_order": 1,
+      "source_fact_ids": [
+        "SC05-F006"
+      ],
+      "source_message_ids": [
+        "SC05-S1-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il referente del cliente per il caso ARD-19 è l'ufficio legale."
+    },
+    {
+      "claim_key": "caso-ard-19-orario-accesso-anomalo",
+      "created_by_op": "SC05-OP010",
+      "entry_id": "SC05-M010",
+      "order": 10,
+      "session_id": "SC05-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC05-F010"
+      ],
+      "source_message_ids": [
+        "SC05-S2-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'orario dell'accesso anomalo è il 4 marzo alle 02:40."
+    },
+    {
+      "claim_key": "caso-ard-19-scadenza-dati-esportati",
+      "created_by_op": "SC05-OP011",
+      "entry_id": "SC05-M011",
+      "order": 11,
+      "session_id": "SC05-S2",
+      "session_order": 2,
+      "source_fact_ids": [
+        "SC05-F011"
+      ],
+      "source_message_ids": [
+        "SC05-S2-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati fuori dal portale."
+    },
+    {
+      "claim_key": "caso-ard-19-srv12-isolato",
+      "created_by_op": "SC05-OP012",
+      "entry_id": "SC05-M012",
+      "order": 12,
+      "session_id": "SC05-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC05-F012"
+      ],
+      "source_message_ids": [
+        "SC05-S3-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "SRV-12 è stato isolato dalla rete di produzione."
+    },
+    {
+      "claim_key": "caso-ard-19-chiavi-api-revocate",
+      "created_by_op": "SC05-OP013",
+      "entry_id": "SC05-M013",
+      "order": 13,
+      "session_id": "SC05-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC05-F013"
+      ],
+      "source_message_ids": [
+        "SC05-S3-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Le chiavi API del portale sono state revocate."
+    },
+    {
+      "claim_key": "caso-ard-19-file-export-fornitori-trovato",
+      "created_by_op": "SC05-OP016",
+      "entry_id": "SC05-M016",
+      "order": 16,
+      "session_id": "SC05-S3",
+      "session_order": 3,
+      "source_fact_ids": [
+        "SC05-F016"
+      ],
+      "source_message_ids": [
+        "SC05-S3-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "È stato trovato in /tmp un file chiamato export_fornitori.csv."
+    },
+    {
+      "claim_key": "caso-ard-19-accesso-anomalo-server",
+      "created_by_op": "SC05-OP018",
+      "entry_id": "SC05-M018",
+      "order": 18,
+      "session_id": "SC05-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC05-F018"
+      ],
+      "source_message_ids": [
+        "SC05-S4-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'accesso anomalo non è arrivato da SRV-12, ma dal server esposto SRV-14."
+    },
+    {
+      "claim_key": "caso-ard-19-srv14-ruolo",
+      "created_by_op": "SC05-OP019",
+      "entry_id": "SC05-M019",
+      "order": 19,
+      "session_id": "SC05-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC05-F019"
+      ],
+      "source_message_ids": [
+        "SC05-S4-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il server SRV-14 ospita il modulo di esportazione delle anagrafiche."
+    },
+    {
+      "claim_key": "caso-ard-19-srv12-ruolo",
+      "created_by_op": "SC05-OP020",
+      "entry_id": "SC05-M020",
+      "order": 20,
+      "session_id": "SC05-S4",
+      "session_order": 4,
+      "source_fact_ids": [
+        "SC05-F020"
+      ],
+      "source_message_ids": [
+        "SC05-S4-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "L'indicazione di SRV-12 come server esposto era errata, dovuta a un errore di lettura dell'inventario; SRV-12 non è il server coinvolto nell'accesso anomalo."
+    },
+    {
+      "claim_key": "caso-ard-19-ipotesi-esportazione-dati",
+      "created_by_op": "SC05-OP022",
+      "entry_id": "SC05-M022",
+      "order": 22,
+      "session_id": "SC05-S5",
+      "session_order": 5,
+      "source_fact_ids": [
+        "SC05-F022"
+      ],
+      "source_message_ids": [
+        "SC05-S5-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il file export_fornitori.csv non ha alcuna relazione con l'incidente; non è più considerato evidenza dell'esportazione dei dati"
+    },
+    {
+      "claim_key": "caso-ard-19-file-export-fornitori-origine",
+      "created_by_op": "SC05-OP023",
+      "entry_id": "SC05-M023",
+      "order": 23,
+      "session_id": "SC05-S5",
+      "session_order": 5,
+      "source_fact_ids": [
+        "SC05-F023"
+      ],
+      "source_message_ids": [
+        "SC05-S5-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il file export_fornitori.csv è il residuo di una migrazione interna di gennaio"
+    },
+    {
+      "claim_key": "caso-ard-19-evidenza-esportazione-indeterminata",
+      "created_by_op": "SC05-OP024",
+      "entry_id": "SC05-M024",
+      "order": 24,
+      "session_id": "SC05-S5",
+      "session_order": 5,
+      "source_fact_ids": [
+        "SC05-F024"
+      ],
+      "source_message_ids": [
+        "SC05-S5-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Non è stata indicata nessun'altra evidenza in sostituzione di export_fornitori.csv per l'esportazione dei dati"
+    },
+    {
+      "claim_key": "caso-ard-19-finestra-manutenzione-mensile",
+      "created_by_op": "SC05-OP025",
+      "entry_id": "SC05-M025",
+      "order": 25,
+      "session_id": "SC05-S5",
+      "session_order": 5,
+      "source_fact_ids": [
+        "SC05-F025"
+      ],
+      "source_message_ids": [
+        "SC05-S5-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La finestra di manutenzione mensile del portale resta il primo martedì del mese"
+    },
+    {
+      "claim_key": "caso-ard-19-modalita-ottenimento-credenziali",
+      "created_by_op": "SC05-OP027",
+      "entry_id": "SC05-M027",
+      "order": 27,
+      "session_id": "SC05-S6",
+      "session_order": 6,
+      "source_fact_ids": [
+        "SC05-F027"
+      ],
+      "source_message_ids": [
+        "SC05-S6-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il modo in cui le credenziali del portale sono state ottenute non è stato determinato."
+    },
+    {
+      "claim_key": "caso-ard-19-file-esportazione-srv14-conteggio",
+      "created_by_op": "SC05-OP029",
+      "entry_id": "SC05-M029",
+      "order": 29,
+      "session_id": "SC05-S7",
+      "session_order": 7,
+      "source_fact_ids": [
+        "SC05-F029"
+      ],
+      "source_message_ids": [
+        "SC05-S7-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il modulo di esportazione su SRV-14 ha prodotto un file con 1.480 anagrafiche di fornitori."
+    },
+    {
+      "claim_key": "caso-ard-19-file-esportazione-srv14-contenuto",
+      "created_by_op": "SC05-OP030",
+      "entry_id": "SC05-M030",
+      "order": 30,
+      "session_id": "SC05-S7",
+      "session_order": 7,
+      "source_fact_ids": [
+        "SC05-F030"
+      ],
+      "source_message_ids": [
+        "SC05-S7-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il file prodotto dal modulo di esportazione su SRV-14 contiene ragione sociale, partita IVA e indirizzo di posta elettronica dei fornitori."
+    },
+    {
+      "claim_key": "caso-ard-19-file-esportazione-srv14-coordinate-bancarie",
+      "created_by_op": "SC05-OP031",
+      "entry_id": "SC05-M031",
+      "order": 31,
+      "session_id": "SC05-S7",
+      "session_order": 7,
+      "source_fact_ids": [
+        "SC05-F031"
+      ],
+      "source_message_ids": [
+        "SC05-S7-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Le coordinate bancarie dei fornitori non risultano coinvolte nel file prodotto dal modulo di esportazione su SRV-14."
+    },
+    {
+      "claim_key": "caso-ard-19-verifica-backup",
+      "created_by_op": "SC05-OP032",
+      "entry_id": "SC05-M032",
+      "order": 32,
+      "session_id": "SC05-S8",
+      "session_order": 8,
+      "source_fact_ids": [
+        "SC05-F032"
+      ],
+      "source_message_ids": [
+        "SC05-S8-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La verifica di integrità dei backup è completata."
+    },
+    {
+      "claim_key": "caso-ard-19-esito-verifica-backup",
+      "created_by_op": "SC05-OP033",
+      "entry_id": "SC05-M033",
+      "order": 33,
+      "session_id": "SC05-S8",
+      "session_order": 8,
+      "source_fact_ids": [
+        "SC05-F033"
+      ],
+      "source_message_ids": [
+        "SC05-S8-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il risultato della verifica di integrità dei backup è regolare."
+    },
+    {
+      "claim_key": "caso-ard-19-reset-password-admin",
+      "created_by_op": "SC05-OP036",
+      "entry_id": "SC05-M036",
+      "order": 36,
+      "session_id": "SC05-S8",
+      "session_order": 8,
+      "source_fact_ids": [
+        "SC05-F036"
+      ],
+      "source_message_ids": [
+        "SC05-S8-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Sono state reimpostate le password dei tre account amministrativi del portale."
+    },
+    {
+      "claim_key": "caso-ard-19-registro-bilanciatore-da-verificare",
+      "created_by_op": "SC05-OP037",
+      "entry_id": "SC05-M037",
+      "order": 37,
+      "session_id": "SC05-S9",
+      "session_order": 9,
+      "source_fact_ids": [
+        "SC05-F037"
+      ],
+      "source_message_ids": [
+        "SC05-S9-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La verifica del registro del bilanciatore è completata."
+    },
+    {
+      "claim_key": "caso-ard-19-numero-sessioni-anomale-indeterminato",
+      "created_by_op": "SC05-OP038",
+      "entry_id": "SC05-M038",
+      "order": 38,
+      "session_id": "SC05-S9",
+      "session_order": 9,
+      "source_fact_ids": [
+        "SC05-F038"
+      ],
+      "source_message_ids": [
+        "SC05-S9-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La verifica del registro del bilanciatore conferma una sola sessione anomala."
+    },
+    {
+      "claim_key": "caso-ard-19-revisione-regole-esportazione-srv14",
+      "created_by_op": "SC05-OP040",
+      "entry_id": "SC05-M040",
+      "order": 40,
+      "session_id": "SC05-S9",
+      "session_order": 9,
+      "source_fact_ids": [
+        "SC05-F040"
+      ],
+      "source_message_ids": [
+        "SC05-S9-U1"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "La revisione delle regole di esportazione su SRV-14 resta aperta ed è prevista per la settimana prossima."
+    },
+    {
+      "claim_key": "caso-ard-19-obiettivo-ripristino-servizio",
+      "created_by_op": "SC05-OP041",
+      "entry_id": "SC05-M041",
+      "order": 41,
+      "session_id": "SC05-S9",
+      "session_order": 9,
+      "source_fact_ids": [
+        "SC05-F041"
+      ],
+      "source_message_ids": [
+        "SC05-S9-U2"
+      ],
+      "status": "attivo",
+      "superseded_by_entry": null,
+      "superseded_by_op": null,
+      "value": "Il portale è tornato in servizio per i fornitori attivi lunedì mattina, soddisfacendo l'obiettivo di ripristino senza interruzioni."
+    }
+  ],
+  "label": "prova-reale-sviluppo-sc05-v1",
+  "reading_policy": {
+    "current": "soltanto i fatti attivi",
+    "history": "fatti attivi, superati e ritirati, ognuno con lo stato scritto nel contesto",
+    "markers": [
+      "superat",
+      "precedent",
+      "inizial",
+      "in origine",
+      "in passato",
+      "storic",
+      "cambia",
+      "modifica",
+      "sostitu",
+      "ritirat",
+      "non e' piu'",
+      "non è più",
+      "e' ancora",
+      "è ancora",
+      "ancora un",
+      "prima ipotesi",
+      "prima decisione"
+    ],
+    "note": "La scelta dipende soltanto dal testo della domanda: l'oracle non entra nella regola."
+  },
+  "scenario_id": "scenario_05"
+}

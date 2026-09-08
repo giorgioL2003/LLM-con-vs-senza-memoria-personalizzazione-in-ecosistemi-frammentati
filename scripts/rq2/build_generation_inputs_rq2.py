@@ -48,7 +48,7 @@ DEFAULT_OUT = rq2.RQ2_RESULTS_DIR / "generation_inputs_rq2.jsonl"
 INSTRUCTIONS = pilot_inputs.INSTRUCTIONS
 EMPTY_CONTEXT = pilot_inputs.EMPTY_CONTEXT
 
-RETRIEVAL_MODES = ("T", "F", "U", "G")
+RETRIEVAL_MODES = ("T", "F", "U", "G", "GER")
 
 
 def format_context(renders):

@@ -285,7 +285,8 @@ def log_path(scenario_id, out_dir=FACTS_DIR, dry_run=False):
 
 def parse_args(argv=None):
     parser = argparse.ArgumentParser(description="Estrae i fatti candidati di uno scenario (architettura F).")
-    parser.add_argument("--scenario", default="scenario_02", choices=list(rq2.SCENARIO_IDS))
+    parser.add_argument("--scenario", default="scenario_02",
+                        choices=list(rq2.SCENARIO_IDS) + [rq2.GER_SCENARIO_ID])
     parser.add_argument("--dry-run", action="store_true",
                         help="costruisce e salva i prompt senza chiamare il modello")
     parser.add_argument("--out-dir", default=str(FACTS_DIR))

@@ -48,6 +48,13 @@ RQ2_RESULTS_DIR = REPO_ROOT / "results" / "rq2"
 
 SCENARIO_IDS = ("scenario_01", "scenario_02", "scenario_03", "scenario_04")
 
+# SC05 e' lo scenario di sviluppo dell'estensione gerarchica (GER): nove
+# sessioni, nato per il confronto U/GER. **Non entra in SCENARIO_IDS**, quindi
+# non compare nella matrice, nel validatore, nella verifica offline ne' nei
+# conteggi delle 77 celle: i confronti gia' eseguiti restano identici. Si carica
+# soltanto chiedendolo per nome.
+GER_SCENARIO_ID = "scenario_05"
+
 # Da dove arrivano le conversazioni di ogni scenario.
 #   - SC01 e SC02 sono quelli del pilot e vengono letti in sola lettura;
 #   - SC03 e SC04 sono nuovi e vivono sotto data/rq2.
@@ -56,11 +63,12 @@ SCENARIO_SOURCES = {
     "scenario_02": ("pilot", PILOT_SCENARIO_DIR / "scenario_02.json"),
     "scenario_03": ("rq2", RQ2_SCENARIO_DIR / "scenario_03.json"),
     "scenario_04": ("rq2", RQ2_SCENARIO_DIR / "scenario_04.json"),
+    GER_SCENARIO_ID: ("rq2", RQ2_SCENARIO_DIR / "scenario_05.json"),
 }
 
 ANNOTATION_PATHS = {
     scenario_id: RQ2_ANNOTATION_DIR / ("%s_rq2.json" % scenario_id)
-    for scenario_id in SCENARIO_IDS
+    for scenario_id in tuple(SCENARIO_IDS) + (GER_SCENARIO_ID,)
 }
 
 MODES = ("T", "F", "U", "G", "FULL_HISTORY")

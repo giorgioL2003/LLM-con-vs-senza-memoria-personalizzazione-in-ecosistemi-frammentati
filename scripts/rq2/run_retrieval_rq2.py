@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Retrieval dell'esperimento principale RQ2 per T, F, U e G.
+"""Retrieval dell'esperimento principale RQ2 per T, F, U, G e GER.
 
 Esegue soltanto il *recupero*: non costruisce prompt, non chiama nessun modello
 e non genera risposte.
@@ -13,7 +13,14 @@ Che cosa cambia da una modalita' all'altra:
     `scripts/rq2/build_memory_updates.py` (stato corrente oppure storia, decisa
     dal solo testo della domanda);
   - **G**: parte dalla stessa memoria di U e aggiunge l'espansione relazionale
-    sul grafo.
+    sul grafo;
+  - **GER**: parte dallo **stesso stato salvato di U**, divide le voci leggibili
+    in memoria recente e archivio rispetto alla **sessione raggiunta**
+    (`--session-reached`) e ripartisce il budget fra i due livelli
+    (`scripts/rq2/hierarchical_memory.py`). GER non supera mai il budget.
+
+GER non compare nella matrice di `experiment_rq2.json`: gira solo quando la si
+chiede con `--modes`, quindi i confronti T/F, F/U e U/G restano invariati.
 
 Il metodo di ranking resta quello del pilot (TF-IDF / coseno) per T, F e U, cosi'
 le differenze osservate riguardano la memoria e non il retriever. G aggiunge il
@@ -46,9 +53,10 @@ import rq2_common as rq2  # noqa: E402
 import extract_facts  # noqa: E402
 import build_memory_updates as memory  # noqa: E402
 import build_graph as graph_memory  # noqa: E402
+import hierarchical_memory as ger  # noqa: E402
 
 DEFAULT_OUT = rq2.RQ2_RESULTS_DIR / "retrieval_rq2.jsonl"
-RETRIEVAL_MODES = ("T", "F", "U", "G")
+RETRIEVAL_MODES = ("T", "F", "U", "G", "GER")
 
 
 # --------------------------------------------------------------------------
@@ -103,7 +111,29 @@ def evaluate(scenario_id, question, mode, budget, sources, memory_context, label
     """Una combinazione scenario x domanda x modalita'."""
     extra = {}
 
-    if mode == "G":
+    if mode == "GER":
+        trace = ger.retrieve(question["text"], memory_context["entries"], budget,
+                             current_session=memory_context.get("session_reached"))
+        ranked, selection = trace["ranked"], trace["selection"]
+        memory_items = len(memory_context["entries"])
+        memory_unit = "fatto con stato e livello"
+        extra = {
+            "reading_scope": trace["scope"],
+            "readable_items": trace["readable_items"],
+            "ger_rules_version": selection["rules_version"],
+            "ger_recency_window_sessions": selection["recency_window_sessions"],
+            "ger_session_reached": trace["session_reached"],
+            "ger_session_reached_source": trace["session_reached_source"],
+            "ger_recency_window": trace["recency_window"],
+            "ger_excluded_over_budget": selection["excluded_over_budget"],
+            "ger_last_session_order": trace["last_session_order"],
+            "ger_level_sizes": trace["level_sizes"],
+            "ger_quota_tokens": selection["quota_tokens"],
+            "ger_levels": selection["levels"],
+            "ger_reuse": selection["reuse"],
+            "ger_decisions": selection["decisions"],
+        }
+    elif mode == "G":
         trace = graph_memory.retrieve(
             question["text"], memory_context["graph"], memory_context["entries"], budget)
         ranked, selection = trace["ranked"], trace["selection"]
@@ -210,6 +240,9 @@ def evaluate(scenario_id, question, mode, budget, sources, memory_context, label
             "conservato correttamente: content_match va annotato a mano."
         ),
     }
+    if mode == "GER":
+        for record, item in zip(row["selected"], selected):
+            record["level"] = item["level"]
     row.update(extra)
     return row
 
@@ -240,8 +273,18 @@ def prepare(scenario, mode, paths):
     entries = memory.load_state(state_file)
     sources["state"] = rq2.relative(state_file)
 
-    if mode == "U":
-        return {"entries": entries}, sources, None
+    if mode in ("U", "GER"):
+        # GER riusa lo stesso stato salvato di U: nessuna riestrazione, nessuna
+        # ricostruzione degli aggiornamenti.
+        #
+        # `session_reached` e' la sessione a cui la conversazione (o lo stato in
+        # esame) e' arrivata: la dichiara chi lancia il retrieval, perche' un
+        # stato intermedio non si riconosce dal file. Se manca, GER ripiega
+        # sull'ultima sessione con voci salvate e lo scrive nella traccia.
+        context = {"entries": entries}
+        if paths.get("session_reached") is not None:
+            context["session_reached"] = int(paths["session_reached"])
+        return context, sources, None
 
     graph_file = Path(paths.get("graph") or graph_memory.graph_path(scenario_id))
     if not graph_file.exists():
@@ -305,6 +348,9 @@ def parse_args(argv=None):
     parser.add_argument("--facts", default=None, help="fatti candidati per F, U e G")
     parser.add_argument("--state", default=None, help="stato di U per U e G")
     parser.add_argument("--graph", default=None, help="grafo per G")
+    parser.add_argument("--session-reached", type=int, default=None,
+                        help="sessione raggiunta dalla conversazione o dallo stato in esame "
+                             "(solo GER: definisce le ultime due sessioni)")
     parser.add_argument("--out", default=str(DEFAULT_OUT))
     parser.add_argument("--label", default="esecuzione")
     parser.add_argument("--modes", nargs="*", default=None)
@@ -317,12 +363,14 @@ def main(argv=None):
     scenario_ids = args.scenario or list(rq2.SCENARIO_IDS)
 
     paths_by_scenario = {}
-    if args.facts or args.state or args.graph:
+    if args.facts or args.state or args.graph or args.session_reached is not None:
         if len(scenario_ids) != 1:
-            print("--facts, --state e --graph richiedono un solo --scenario", file=sys.stderr)
+            print("--facts, --state, --graph e --session-reached richiedono un solo --scenario",
+                  file=sys.stderr)
             return 1
         paths_by_scenario[scenario_ids[0]] = {
-            "facts": args.facts, "state": args.state, "graph": args.graph}
+            "facts": args.facts, "state": args.state, "graph": args.graph,
+            "session_reached": args.session_reached}
 
     rows, skipped = run(scenario_ids, config, paths_by_scenario, args.label, args.modes)
 

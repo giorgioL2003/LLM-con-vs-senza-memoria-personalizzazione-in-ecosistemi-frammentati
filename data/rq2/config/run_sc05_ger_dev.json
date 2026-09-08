@@ -1,0 +1,186 @@
+{
+  "autorizzazione": "Chiamate autorizzate dallo studente il 6 settembre 2026 per questa sola prova di sviluppo: 39 di base, fino a 48 con una passata di riparazione per sessione. Non è approvazione del relatore e non congela il protocollo.",
+  "base": {
+    "config_id": "rq2-dev-0.1",
+    "eredita": [
+      "budget",
+      "conteggio dei token",
+      "regola di selezione",
+      "ranking",
+      "modelli",
+      "perimetro della memoria",
+      "isolamento dei prompt"
+    ],
+    "file": "data/rq2/config/experiment_rq2.json",
+    "matrice": "SC05 e GER restano fuori dalla matrice delle 77 celle: i confronti T/F, F/U e U/G non cambiano"
+  },
+  "chiamate_al_modello_previste": {
+    "atteso": "circa 39-41",
+    "costruzione_di_U": 9,
+    "estrazione_dei_fatti": 9,
+    "riparazioni": "0-9, una per sessione solo se quella sessione produce rifiuti (SC03 ne ha avuta 1, SC04 2)",
+    "risposte": 21,
+    "totale_massimo_teorico": 48,
+    "totale_minimo": 39
+  },
+  "created": "2026-09-06",
+  "esecuzione": {
+    "chiamate_effettive": {
+      "costruzione_di_U": 9,
+      "estrazione_dei_fatti": 9,
+      "riparazioni": 0,
+      "risposte": 21,
+      "sonda_di_autenticazione": 1,
+      "totale_con_la_sonda": 40,
+      "totale_esperimento": 39
+    },
+    "data": "2026-09-06",
+    "errori": {
+      "esecuzione": 0,
+      "operazioni_rifiutate": 0,
+      "parsing": 0,
+      "risposte_vuote": 0
+    },
+    "esiti": {
+      "fatti_estratti": 41,
+      "livelli_con_sessione_raggiunta_9": {
+        "archivio": 26,
+        "recente": 8
+      },
+      "operazioni": "41 proposte (27 ADD, 7 UPDATE, 7 NOOP), 41 applicate, 0 rifiutate, 0 DELETE",
+      "retrieval": "14 righe, budget rispettato (158-199 token), nessuna eccezione sul primo elemento",
+      "risposte": "21 su 21, nessun errore",
+      "stato": "34 voci: 27 attive, 7 superate, 0 ritirate"
+    },
+    "modello_verificato_nei_log": "claude-sonnet-5 in tutte le chiamate (estrazione, aggiornamenti, risposte)",
+    "nessun_modello_di_ripiego": true,
+    "valutazione": "results/rq2/sc05_dev_v1/valutazione_assistita_sc05.md — giudizi PROPOSTI, non approvati"
+  },
+  "executed": true,
+  "frozen": false,
+  "ger": {
+    "budget_rigoroso": "nessuna voce può far superare il budget; le voci troppo grandi sono escluse, mai troncate",
+    "etichette": {
+      "livelli": [
+        "recente",
+        "archivio"
+      ],
+      "nel_budget": true,
+      "riga": "[entry_id | livello | stato | da: messaggi] testo"
+    },
+    "finestra_di_recenza_sessioni": 2,
+    "ordine_di_riempimento": [
+      "fase 1: quote per livello, prefisso della classifica",
+      "fase 2: spazio avanzato offerto a entrambi i livelli, prefisso della classifica"
+    ],
+    "quote_token": {
+      "archivio": 100,
+      "recente": 100
+    },
+    "rules_version": "ger-rules-0.2",
+    "sessione_raggiunta": 9,
+    "sessione_raggiunta_origine": "dichiarata esplicitamente con --session-reached",
+    "stato_di_U": "lo stesso file prodotto dalla costruzione reale di U, senza ricostruzioni"
+  },
+  "invarianti_da_verificare_dopo_l_esecuzione": [
+    "U e GER leggono lo stesso file di stato e lo stesso numero di voci",
+    "i punteggi di GER coincidono con quelli di U voce per voce",
+    "nessuna prova GER supera i 200 token",
+    "l'eccezione sul primo elemento di U non si attiva",
+    "la sessione raggiunta risulta dichiarata, non ripiegata",
+    "nei prompt non compaiono domande diverse da quella in esame, risposte attese o campi dell'oracle",
+    "FULL_HISTORY resta fuori dal budget e contiene tutti i messaggi utente in ordine"
+  ],
+  "limiti_dichiarati": [
+    "una sola esecuzione, nessuna replica: differenze osservate, non cause dimostrate",
+    "annotazioni di SC05 ancora in bozza",
+    "i campi *_by_provenance non misurano il contenuto: i giudizi vanno letti a mano",
+    "la soglia sul punteggio nullo può escludere evidenze decise (osservato su SC03, SC04 e nelle prove offline di SC05)",
+    "finestra di due sessioni, quote 50/50 e budget di 200 token restano ipotesi non tarate"
+  ],
+  "modalita": {
+    "confrontate_a_parita_di_budget": [
+      "U",
+      "GER"
+    ],
+    "controllo_diagnostico": [
+      "FULL_HISTORY"
+    ],
+    "escluse": [
+      "T",
+      "F",
+      "G"
+    ],
+    "full_history": "tutti i messaggi utente in ordine, fuori dal budget di retrieval",
+    "motivo_esclusioni": "la domanda in esame è U contro GER; T, F e G non aggiungono nulla a questo confronto"
+  },
+  "modelli": {
+    "costruzione_memoria": {
+      "effort": "medium",
+      "model": "claude-sonnet-5"
+    },
+    "le_risposte_non_rientrano_in_memoria": true,
+    "risposte": {
+      "effort": "medium",
+      "model": "claude-sonnet-5"
+    },
+    "runner": "scripts/run_generation.py: una chiamata per prompt, senza sessione, senza strumenti, senza fallback"
+  },
+  "note": "Registra le impostazioni esatte della prova, così l'esecuzione è riproducibile e si può dire con quali versioni è stata fatta. Nessuno script legge questo file per decidere come comportarsi: le impostazioni vivono negli script e in experiment_rq2.json, qui sono trascritte e verificate da un test.",
+  "retrieval": {
+    "budget_tokens": 200,
+    "conteggio": "conteggio deterministico locale con espressione regolare",
+    "metodo": "TF-IDF / coseno",
+    "parita": "ordine di comparsa nello scenario",
+    "politica_di_lettura": "question_scope() di U, invariata, decisa dal solo testo della domanda",
+    "si_applica_a": [
+      "U",
+      "GER"
+    ],
+    "soglia_punteggio_nullo": "invariata: gli elementi con punteggio nullo non vengono selezionati",
+    "troncamento": "nessuno"
+  },
+  "run_id": "sc05-ger-dev-1",
+  "scenario": {
+    "annotazioni": "data/rq2/annotations/scenario_05_rq2.json",
+    "annotazioni_precedenti": "data/rq2/annotations/archivio/scenario_05_rq2_0.1_prima_della_revisione.json",
+    "annotazioni_versione": "sc05-rq2-ger-0.2",
+    "domande": 7,
+    "file": "data/rq2/scenarios/scenario_05.json",
+    "messaggi_utente": 16,
+    "proposte_di_revisione": "data/rq2/annotations/scenario_05_proposte_di_revisione.md",
+    "scenario_id": "scenario_05",
+    "sessioni": 9,
+    "stato_annotazioni": "CRITERI APPROVATI DALLO STUDENTE per questa prova di sviluppo (annotazione sc05-rq2-ger-0.2); non è approvazione del relatore",
+    "token_della_storia_completa": 645
+  },
+  "status": "CONFIGURAZIONE DI SVILUPPO — non è il protocollo congelato della tesi",
+  "titolo": "Prima prova reale di sviluppo U / GER / FULL_HISTORY su SC05",
+  "uscite": {
+    "cartella": "results/rq2/sc05_dev_v1",
+    "etichetta": "prova-reale-sviluppo-sc05-v1",
+    "fatti": "results/rq2/sc05_dev_v1/facts/scenario_05_facts.jsonl",
+    "memoria": "results/rq2/sc05_dev_v1/memory/scenario_05_state.json",
+    "prompt": "results/rq2/sc05_dev_v1/generation_inputs_sc05.jsonl",
+    "regola": "cartella nuova: non tocca né le fixture né nessuna prova precedente; se esiste già, si passa a v2",
+    "retrieval": "results/rq2/sc05_dev_v1/retrieval_sc05_u_ger.jsonl",
+    "risposte": "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl",
+    "scheda_di_valutazione": "results/rq2/sc05_dev_v1/annotation_template_sc05.jsonl"
+  },
+  "versioni_del_codice": {
+    "annotazioni_sha256": "454be8c6c7a7bc17",
+    "build_annotation_template_rq2_sha256": "096a294680c27b43",
+    "build_generation_inputs_rq2_sha256": "bb87ebbaecafd347",
+    "build_memory_updates_sha256": "bdc91cce460e5d6d",
+    "extract_facts_sha256": "be02ef3f5c48bd48",
+    "hierarchical_memory_sha256": "36a417cbc10780ad",
+    "impronte_aggiornate": "2026-09-06, prima dell'esecuzione",
+    "nota": "le impronte sono quelle al momento della preparazione: se il codice cambia prima dell'esecuzione, vanno riscritte",
+    "repair_attempts": 1,
+    "run_generation_sha256": "85b919abb8551449",
+    "run_retrieval_rq2_sha256": "708b07e9f35ab96b",
+    "scenario_sha256": "be57e57c4c133dda",
+    "u_instructions_sha256": "288ea8b51428c651",
+    "u_instructions_version": "u-instructions-0.3"
+  }
+}

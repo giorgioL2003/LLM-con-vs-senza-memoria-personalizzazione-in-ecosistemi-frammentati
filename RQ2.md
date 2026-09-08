@@ -920,3 +920,38 @@ nessuna replica. Il confronto sostiene diagnosi, non conclusioni.
 
 Solo dopo questi passaggi ha senso congelare dataset, oracle, matrice, prompt,
 parametri e codice ed eseguire le 77 generazioni.
+
+## 11. Estensione GER (fuori dalla matrice)
+
+`MEMORIA_GERARCHICA.md` progetta e ora implementa **GER**, la memoria gerarchica
+che parte dagli **stessi stati salvati di U** e separa memoria recente e
+archivio, ripartendo il budget fra i due livelli.
+
+GER **non entra in questa matrice**: `scenario_05` non è in `SCENARIO_IDS` e
+`GER` non compare in `experiment_rq2.json`, quindi validatore, verifica offline,
+conteggio delle 77 celle e confronti T/F, F/U e U/G restano quelli descritti
+sopra, invariati. La verifica offline dedicata è
+
+```bash
+python3 scripts/rq2/run_ger_check.py
+```
+
+e scrive in `results/rq2/ger_dev_v2/` (regole `ger-rules-0.2`; la verifica
+precedente resta in `results/rq2/ger_dev/`), senza chiamare nessun modello.
+
+**Prova di sviluppo SC05 eseguita e valutata; giudizi approvati dallo studente.
+Protocollo finale della tesi non congelato. Prossimo passo: consolidamento delle
+conoscenze e confronto con il relatore.**
+
+La prima prova reale di sviluppo U / GER / FULL_HISTORY su SC05 è stata eseguita
+il 6 settembre 2026 con `claude-sonnet-5` (39 chiamate, nessun errore, nessuna
+operazione rifiutata) e sta in `results/rq2/sc05_dev_v1/`. Vale la stessa
+avvertenza delle prove della sezione 9: una sola esecuzione, sette domande,
+nessuna replica; l'approvazione dei giudizi è dello studente e riguarda solo
+questa prova. FULL_HISTORY, che è un controllo diagnostico con 645 token di
+cronologia contro i 200 selezionati, risponde a 6 domande su 7; U a 2 e GER a 1.
+Come su SC04, il collo di bottiglia osservato è in prevalenza la selezione, non
+la disponibilità dell'informazione. **Questo non chiude RQ2**: restano aperti i
+punti della sezione 10. Anche lì i
+risultati sono di sviluppo, la memoria dello scenario nuovo viene da fixture
+dichiarate e il protocollo resta non congelato.

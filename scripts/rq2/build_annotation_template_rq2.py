@@ -67,7 +67,7 @@ DEFAULT_OUT = rq2.RQ2_RESULTS_DIR / "annotation_template_rq2.jsonl"
 ANSWER_CLASSES = ("completa", "parziale", "errata", "astensione corretta")
 ERROR_ORIGINS = ("raggiungibilita", "estrazione", "gestione", "grafo", "retrieval",
                  "risposta", "benchmark", "nessuno")
-FACT_MEMORY_MODES = ("F", "U", "G")
+FACT_MEMORY_MODES = ("F", "U", "G", "GER")
 
 
 def memory_provenance(mode, scenario_id, sources):
@@ -79,7 +79,8 @@ def memory_provenance(mode, scenario_id, sources):
 
       - T e FULL_HISTORY: i messaggi originali;
       - F: i fatti estratti;
-      - U: le voci di memoria, attive e in archivio;
+      - U e GER: le voci di memoria, attive e in archivio (GER parte dallo
+        stesso stato salvato di U: cambia la selezione, non la memoria);
       - G: i nodi e gli archi del grafo.
     """
     covered = set()
@@ -87,7 +88,7 @@ def memory_provenance(mode, scenario_id, sources):
         for fact in rq2.read_jsonl(rq2.REPO_ROOT / sources["facts"]):
             covered.update(fact["source_message_ids"])
         return covered
-    if mode == "U" and sources.get("state"):
+    if mode in ("U", "GER") and sources.get("state"):
         for entry in memory.load_state(rq2.REPO_ROOT / sources["state"]):
             covered.update(entry["source_message_ids"])
         return covered

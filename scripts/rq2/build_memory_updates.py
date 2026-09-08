@@ -696,7 +696,8 @@ def load_state(path):
 
 def parse_args(argv=None):
     parser = argparse.ArgumentParser(description="Costruisce la memoria con aggiornamenti (U).")
-    parser.add_argument("--scenario", default="scenario_03", choices=list(rq2.SCENARIO_IDS))
+    parser.add_argument("--scenario", default="scenario_03",
+                        choices=list(rq2.SCENARIO_IDS) + [rq2.GER_SCENARIO_ID])
     parser.add_argument("--facts", default=None, help="fatti candidati (default: results/rq2/facts/)")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--out-dir", default=str(MEMORY_DIR))

@@ -15,6 +15,8 @@ tracce.
 | `scenario_04_update_answers_fixture.json` | la stessa cosa su SC04 |
 | `scenario_04_graph_answer_fixture.json` | la risposta che il costruttore del grafo *potrebbe* dare su SC04 |
 | `scenario_03_update_answers_rejected_fixture.json` | **fixture artificiale**: due proposte volutamente sbagliate, per mostrare il rifiuto |
+| `scenario_05_facts_fixture.jsonl` | i fatti candidati di SC05, lo scenario di sviluppo di GER (30 fatti, 9 sessioni) |
+| `scenario_05_update_answers_fixture.json` | le risposte che il costruttore di U *potrebbe* dare su SC05, una per sessione |
 
 I file `*_answers_fixture.json` contengono **risposte finte del modello**, non
 stati o grafi già pronti: operazioni, stato, archivio e grafo vengono prodotti
@@ -49,6 +51,11 @@ roadmap chiede di non confondere:
 Su SC03 e SC04 le fixture sono invece coerenti con i messaggi: servono a
 esercitare ADD / UPDATE / DELETE / NOOP, l'archivio dei fatti superati e il
 recupero relazionale, non a simulare un errore di estrazione.
+
+Su SC05 valgono le stesse regole: le fixture sono coerenti con i messaggi e
+servono a esercitare la partizione recente/archivio di GER senza chiamare il
+modello. La memoria di SC05 usata da `scripts/rq2/run_ger_check.py` **non è un
+risultato sperimentale** e non va presentata come uscita del modello.
 
 ## La fixture artificiale del rifiuto
 
