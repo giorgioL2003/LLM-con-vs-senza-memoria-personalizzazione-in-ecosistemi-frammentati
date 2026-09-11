@@ -1,0 +1,89 @@
+{
+  "budget_tokens": 200,
+  "config_id": "rq2-dev-0.1",
+  "extension_id": "matrice-estesa-0.1",
+  "instructions_sha256": "473799a0ff4a6ab1",
+  "label": "fixture-estensione-t (nessuna chiamata al modello)",
+  "models": {
+    "answer": {
+      "effort": "medium",
+      "model": "claude-sonnet-5",
+      "role": "risposta alle domande in tutte le modalità"
+    },
+    "extraction": {
+      "effort": "medium",
+      "model": "claude-sonnet-5",
+      "role": "costruzione della memoria (fatti di F)"
+    },
+    "separation": "Le chiamate di scrittura della memoria sono distinte dalle chiamate di risposta e usano prompt diversi. La valutazione non usa il modello come giudice."
+  },
+  "new_cells": {
+    "scenario_04": {
+      "mode": "T",
+      "questions": 7
+    },
+    "scenario_05": {
+      "mode": "T",
+      "questions": 7
+    }
+  },
+  "reuse": {
+    "scenario_04": [
+      {
+        "compatible": true,
+        "modes": [
+          "G",
+          "U"
+        ],
+        "path": "results/rq2/sc04_repair_v3/generation_dev_sc04_ug.jsonl",
+        "problems": [],
+        "rows": 14,
+        "run_label": "prova-riparazione-u-instructions-0.3 (RQ2.md 9.6)",
+        "uso": "riusabile: stessa configurazione"
+      },
+      {
+        "compatible": true,
+        "modes": [
+          "FULL_HISTORY"
+        ],
+        "path": "results/rq2/generation_dev_sc04.jsonl",
+        "problems": [],
+        "rows": 7,
+        "run_label": "prova SC04 iniziale (RQ2.md 9.3)",
+        "uso": "riusabile con avvertenza: viene da un'altra esecuzione"
+      },
+      {
+        "compatible": false,
+        "modes": [
+          "U",
+          "G"
+        ],
+        "path": "results/rq2/generation_dev_sc04.jsonl",
+        "problems": [
+          "prova precedente alle istruzioni u-instructions-0.3: stato di U diverso, non va messa nella stessa tabella di sc04_repair_v3"
+        ],
+        "rows": null,
+        "run_label": "prova superata",
+        "uso": "NON riusabile nella stessa tabella"
+      }
+    ],
+    "scenario_05": [
+      {
+        "compatible": true,
+        "modes": [
+          "FULL_HISTORY",
+          "GER",
+          "U"
+        ],
+        "path": "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl",
+        "problems": [],
+        "rows": 21,
+        "run_label": "prova-reale-sviluppo-sc05-v1 (RQ2.md 11)",
+        "uso": "riusabile: stessa configurazione"
+      }
+    ]
+  },
+  "warnings": [
+    "scenario_04: FULL_HISTORY viene da prova SC04 iniziale (RQ2.md 9.3), non dalla prova prova-riparazione-u-instructions-0.3 (RQ2.md 9.6). Non e' un'incompatibilita' di configurazione (stesso prompt, stesso modello, e non dipende dallo stato di U) ma resta una prova diversa: va indicata come tale nella tabella."
+  ]
+}

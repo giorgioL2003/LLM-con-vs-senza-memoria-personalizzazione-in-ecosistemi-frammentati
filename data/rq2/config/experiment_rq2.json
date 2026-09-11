@@ -3,8 +3,12 @@
   "experiment": "RQ2",
   "status": "CONFIGURAZIONE DI SVILUPPO — non è il protocollo congelato (fase 9 della roadmap)",
   "frozen": false,
-  "updated": "2026-09-04",
+  "updated": "2026-09-08",
   "note": "Valori scelti per rendere eseguibile la matrice T / F / U / G / FULL_HISTORY. Vanno rivisti dopo le prove di sviluppo e prima delle 77 generazioni finali.",
+  "changelog": [
+    "2026-09-04: prima stesura della configurazione di sviluppo rq2-dev-0.1.",
+    "2026-09-08: aggiunti il blocco dichiarativo `matrix_extension` (T come baseline anche in SC04 e SC05) e la modalità GER fra quelle dichiarate; GER aggiunta a `context_budget.applies_to` perché è sempre stata soggetta al budget. Budget, conteggio dei token, regola di selezione, ranking, prompt, modelli ed effort NON cambiano: per questo `config_id` resta rq2-dev-0.1 e le prove già eseguite restano confrontabili."
+  ],
   "modes": {
     "T": {
       "label": "Turn-level RAG",
@@ -25,6 +29,12 @@
       "label": "Graph memory",
       "unit": "entità e relazioni",
       "implemented": true
+    },
+    "GER": {
+      "label": "Memoria gerarchica (recente + archivio) sopra lo stato di U",
+      "unit": "fatto con stato e livello",
+      "implemented": true,
+      "note": "Compare soltanto in `matrix_extension` (SC05). Resta fuori da `matrix`: le 77 celle della roadmap non cambiano."
     },
     "FULL_HISTORY": {
       "label": "controllo diagnostico",
@@ -81,6 +91,132 @@
       ]
     }
   },
+  "matrix_extension": {
+    "extension_id": "matrice-estesa-0.1",
+    "created": "2026-09-08",
+    "status": "ESTENSIONE DI SVILUPPO — `matrix` (la matrice della roadmap, 77 celle) resta invariata e continua a essere l'unica usata da validatore, verifica offline e conteggi.",
+    "frozen": false,
+    "purpose": "Rafforzare il confronto fra strategie di memoria aggiungendo Turn-level RAG (T) come baseline anche in SC04 e SC05. Serve a confrontare le strategie DENTRO lo stesso scenario, non a costruire una classifica generale delle architetture.",
+    "reads_this_file": "Nessuno script decide il proprio comportamento da qui: le modalità si chiedono esplicitamente con --modes. Questo blocco dichiara la matrice ed è verificato da validate_rq2.py e dai test.",
+    "diagnostic_control": "FULL_HISTORY",
+    "diagnostic_control_rule": "FULL_HISTORY è presente in ogni scenario come controllo diagnostico, fuori dal budget e separato dalle architetture confrontate a parità di budget. Non entra mai in `budgeted`.",
+    "rows": {
+      "scenario_01": {
+        "budgeted": [
+          "T"
+        ],
+        "diagnostic": [
+          "FULL_HISTORY"
+        ],
+        "added_vs_matrix": [],
+        "note": "Invariato rispetto alla matrice originale. Nessuna prova reale eseguita: resta il buco dichiarato in RQ2.md sezione 9."
+      },
+      "scenario_02": {
+        "budgeted": [
+          "T",
+          "F"
+        ],
+        "diagnostic": [
+          "FULL_HISTORY"
+        ],
+        "added_vs_matrix": [],
+        "note": "Invariato: confronto T/F già eseguito."
+      },
+      "scenario_03": {
+        "budgeted": [
+          "F",
+          "U"
+        ],
+        "diagnostic": [
+          "FULL_HISTORY"
+        ],
+        "added_vs_matrix": [],
+        "note": "Invariato: confronto F/U già eseguito."
+      },
+      "scenario_04": {
+        "budgeted": [
+          "T",
+          "U",
+          "G"
+        ],
+        "diagnostic": [
+          "FULL_HISTORY"
+        ],
+        "added_vs_matrix": [
+          "T"
+        ],
+        "note": "T si aggiunge come baseline al confronto U/G già eseguito: dice quanto del divario U/G dipende dalla rappresentazione della memoria e quanto era già raggiungibile recuperando i messaggi originali."
+      },
+      "scenario_05": {
+        "budgeted": [
+          "T",
+          "U",
+          "GER"
+        ],
+        "diagnostic": [
+          "FULL_HISTORY"
+        ],
+        "added_vs_matrix": [
+          "T",
+          "U",
+          "GER"
+        ],
+        "note": "SC05 è lo scenario di sviluppo dell'estensione gerarchica: nove sessioni, nato per il confronto U/GER. Non è mai stato nella matrice della roadmap e non entra nel conteggio delle 77 celle; T lo affianca come baseline dentro lo stesso scenario."
+      }
+    },
+    "added_cells": {
+      "scenario_04": {
+        "modes": [
+          "T"
+        ],
+        "questions": 7,
+        "answer_calls": 7,
+        "memory_calls": 0
+      },
+      "scenario_05": {
+        "modes": [
+          "T"
+        ],
+        "questions": 7,
+        "answer_calls": 7,
+        "memory_calls": 0
+      },
+      "total_answer_calls": 14,
+      "total_memory_calls": 0,
+      "memory_calls_rationale": "T non costruisce memoria: recupera i messaggi originali già presenti nello scenario. L'estensione non richiede nessuna nuova chiamata di estrazione, aggiornamento o costruzione del grafo."
+    },
+    "reuse": {
+      "rule": "Si riusano solo risultati prodotti con la stessa configurazione: stesso budget, stesso conteggio dei token, stessa regola di selezione, stesso prompt, stesso modello ed effort. Prove con configurazioni diverse non vengono mescolate nella stessa tabella.",
+      "scenario_04": {
+        "reusable": [
+          "results/rq2/sc04_repair_v3/generation_dev_sc04_ug.jsonl (U e G, istruzioni u-instructions-0.3)"
+        ],
+        "reusable_with_caveat": [
+          "results/rq2/generation_dev_sc04.jsonl (FULL_HISTORY): appartiene alla prova precedente, non rigenerata in sc04_repair_v3 come dichiarato in RQ2.md 9.6. FULL_HISTORY non dipende dallo stato di U, ma resta una prova diversa e va indicata come tale."
+        ],
+        "not_reusable": [
+          "results/rq2/generation_dev_sc04.jsonl (U e G): prova precedente alle istruzioni u-instructions-0.3, stato di U diverso. Non va messa nella stessa tabella di sc04_repair_v3."
+        ]
+      },
+      "scenario_05": {
+        "reusable": [
+          "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl (U, GER e FULL_HISTORY, prova reale del 6 settembre 2026)"
+        ],
+        "reusable_with_caveat": [],
+        "not_reusable": [
+          "results/rq2/ger_dev/ e results/rq2/ger_dev_v2/: verifiche offline da fixture, senza risposte del modello."
+        ]
+      },
+      "t_independence": "Le righe di T non dipendono da fatti, stato di U o grafo: dipendono solo dai messaggi dello scenario, dalla domanda, dal ranking e dal budget. Per questo la stessa esecuzione di T è confrontabile con qualunque prova che condivida budget, prompt, modello ed effort."
+    },
+    "invariants": [
+      "`matrix` non cambia: SC01-SC04 restano T/F/U/G + FULL_HISTORY, il totale resta 77 celle.",
+      "Scenari, domande, oracle e implementazioni di F, U, G e GER restano invariati.",
+      "T usa gli stessi messaggi sorgente temporalmente accessibili delle altre modalità dello scenario: tutte le sessioni, solo i messaggi con ruolo `user`.",
+      "FULL_HISTORY resta il controllo diagnostico fuori budget in ogni riga.",
+      "Le nuove uscite finiscono in cartelle distinte: gli artefatti precedenti non vengono riscritti."
+    ]
+  },
   "expected_generations_when_complete": {
     "scenario_01": 14,
     "scenario_02": 21,
@@ -101,7 +237,8 @@
       "T",
       "F",
       "U",
-      "G"
+      "G",
+      "GER"
     ],
     "excluded": [
       "FULL_HISTORY"

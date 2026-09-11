@@ -17,7 +17,12 @@ Cosa verifica:
     completo;
   - SC04: entita', relazioni e percorsi richiesti coerenti;
   - configurazione: matrice scenario x modalita' uguale a quella della roadmap,
-    budget, metodo di conteggio dei token e modalita' dichiarate eseguibili.
+    budget, metodo di conteggio dei token e modalita' dichiarate eseguibili;
+  - matrice estesa (`matrix_extension`): aggiunge T come baseline anche in SC04
+    e SC05 e dichiara SC05, che nella roadmap non c'era. Si verifica che
+    aggiunga soltanto, che non tolga nulla alla matrice originale, che
+    FULL_HISTORY resti il controllo diagnostico di ogni riga e che le chiamate
+    dichiarate tornino con le celle nuove.
 
 Uso:
     python3 scripts/rq2/validate_rq2.py
@@ -48,6 +53,24 @@ ROADMAP_MATRIX = {
     "scenario_04": ["U", "G", "FULL_HISTORY"],
 }
 ROADMAP_TOTAL_GENERATIONS = 77
+
+# Matrice estesa, dichiarata in `matrix_extension`. Aggiunge T come baseline
+# anche in SC04 e SC05 e mette per iscritto SC05, che nella roadmap non c'era.
+# Scritta qui per lo stesso motivo di ROADMAP_MATRIX: se la configurazione se ne
+# allontana, il validatore lo dice.
+#
+# `budgeted` sono le architetture confrontate a parita' di budget; FULL_HISTORY
+# non compare perche' e' il controllo diagnostico, dichiarato a parte e uguale
+# in ogni riga.
+EXTENSION_MATRIX = {
+    "scenario_01": ["T"],
+    "scenario_02": ["T", "F"],
+    "scenario_03": ["F", "U"],
+    "scenario_04": ["T", "U", "G"],
+    "scenario_05": ["T", "U", "GER"],
+}
+EXTENSION_DIAGNOSTIC = ["FULL_HISTORY"]
+EXTENSION_ADDED_ANSWER_CALLS = 14
 
 REQUIRED_CATEGORIES = (
     "goal",
@@ -471,6 +494,115 @@ def validate_config(config, errors):
         errors.append("[E-STATUS] configurazione: 'frozen' deve essere false in questa fase")
 
 
+def validate_matrix_extension(config, errors):
+    """Coerenza del blocco `matrix_extension`.
+
+    L'estensione **aggiunge** e non sostituisce: per SC01-SC04 la riga estesa
+    deve contenere tutte le modalita' della matrice della roadmap (a meno di
+    FULL_HISTORY, che nell'estensione e' dichiarato a parte come controllo
+    diagnostico) e puo' aggiungere solo T. SC05 e' l'unica riga nuova.
+    """
+    extension = config.get("matrix_extension")
+    if not extension:
+        errors.append("[E-EXT] configurazione: manca il blocco matrix_extension")
+        return
+
+    if extension.get("diagnostic_control") != rq2.FULL_HISTORY:
+        errors.append("[E-EXT] configurazione: il controllo diagnostico dichiarato deve essere %s"
+                      % rq2.FULL_HISTORY)
+    if extension.get("frozen") is not False:
+        errors.append("[E-EXT] configurazione: matrix_extension deve restare 'frozen': false")
+
+    rows = extension.get("rows", {})
+    extra = set(rows) - set(EXTENSION_MATRIX)
+    if extra:
+        errors.append("[E-EXT] configurazione: righe non previste dall'estensione: %s"
+                      % ", ".join(sorted(extra)))
+
+    for scenario_id, expected in EXTENSION_MATRIX.items():
+        row = rows.get(scenario_id)
+        if not row:
+            errors.append("[E-EXT] configurazione: manca la riga estesa di %s" % scenario_id)
+            continue
+
+        budgeted = list(row.get("budgeted", []))
+        if budgeted != expected:
+            errors.append("[E-EXT] %s: riga estesa %s, attesa %s" % (scenario_id, budgeted, expected))
+        if rq2.FULL_HISTORY in budgeted:
+            errors.append("[E-EXT] %s: FULL_HISTORY non e' un'architettura a budget" % scenario_id)
+        if list(row.get("diagnostic", [])) != EXTENSION_DIAGNOSTIC:
+            errors.append("[E-EXT] %s: il controllo diagnostico della riga deve essere %s"
+                          % (scenario_id, EXTENSION_DIAGNOSTIC))
+        for mode in budgeted:
+            if not config["modes"].get(mode, {}).get("implemented"):
+                errors.append("[E-EXT] %s: '%s' e' nella riga estesa ma non e' implementata"
+                              % (scenario_id, mode))
+
+        # L'estensione non toglie nulla alla matrice della roadmap e aggiunge
+        # solo T. SC05 non e' nella roadmap: l'intera riga e' nuova.
+        roadmap = [m for m in ROADMAP_MATRIX.get(scenario_id, []) if m != rq2.FULL_HISTORY]
+        mancanti = [m for m in roadmap if m not in budgeted]
+        if mancanti:
+            errors.append("[E-EXT] %s: la riga estesa perde modalita' gia' previste dalla roadmap: %s"
+                          % (scenario_id, ", ".join(mancanti)))
+        aggiunte = [m for m in budgeted if m not in roadmap]
+        if scenario_id in ROADMAP_MATRIX and aggiunte != [m for m in aggiunte if m == "T"]:
+            errors.append("[E-EXT] %s: l'estensione puo' aggiungere solo T, aggiunge %s"
+                          % (scenario_id, ", ".join(aggiunte)))
+        dichiarate = list(row.get("added_vs_matrix", []))
+        atteso_aggiunte = budgeted if scenario_id not in ROADMAP_MATRIX else aggiunte
+        if dichiarate != atteso_aggiunte:
+            errors.append("[E-EXT] %s: added_vs_matrix dichiara %s, dalla matrice risulta %s"
+                          % (scenario_id, dichiarate, atteso_aggiunte))
+
+    # La matrice della roadmap resta quella di prima: nessuna cella in piu',
+    # nessuna in meno, stesso totale.
+    for scenario_id in ROADMAP_MATRIX:
+        if list(config["matrix"].get(scenario_id, {}).get("planned", [])) != ROADMAP_MATRIX[scenario_id]:
+            errors.append("[E-EXT] %s: l'estensione non deve toccare la matrice originale" % scenario_id)
+    if rq2.GER_SCENARIO_ID in config["matrix"]:
+        errors.append("[E-EXT] configurazione: %s non deve entrare nella matrice originale"
+                      % rq2.GER_SCENARIO_ID)
+
+    # Le celle aggiunte e il costo in chiamate devono tornare con la matrice.
+    added = extension.get("added_cells", {})
+    atteso = 0
+    for scenario_id, expected in EXTENSION_MATRIX.items():
+        roadmap = [m for m in ROADMAP_MATRIX.get(scenario_id, []) if m != rq2.FULL_HISTORY]
+        nuove = [m for m in expected if m not in roadmap] if scenario_id in ROADMAP_MATRIX else []
+        if not nuove:
+            continue
+        blocco = added.get(scenario_id)
+        if not blocco:
+            errors.append("[E-EXT] configurazione: added_cells non descrive %s" % scenario_id)
+            continue
+        if list(blocco.get("modes", [])) != nuove:
+            errors.append("[E-EXT] %s: added_cells dichiara %s, la matrice aggiunge %s"
+                          % (scenario_id, blocco.get("modes"), nuove))
+        if blocco.get("questions") != EXPECTED_QUESTIONS:
+            errors.append("[E-EXT] %s: added_cells dichiara %s domande, ne sono previste %d"
+                          % (scenario_id, blocco.get("questions"), EXPECTED_QUESTIONS))
+        if blocco.get("answer_calls") != len(nuove) * EXPECTED_QUESTIONS:
+            errors.append("[E-EXT] %s: chiamate di risposta dichiarate %s, attese %d"
+                          % (scenario_id, blocco.get("answer_calls"), len(nuove) * EXPECTED_QUESTIONS))
+        if blocco.get("memory_calls") != 0:
+            errors.append("[E-EXT] %s: T non costruisce memoria, memory_calls deve essere 0" % scenario_id)
+        atteso += len(nuove) * EXPECTED_QUESTIONS
+
+    # SC05 non e' nella roadmap: le sue celle T sono nuove come quelle di SC04.
+    blocco_sc05 = added.get(rq2.GER_SCENARIO_ID)
+    if blocco_sc05 and list(blocco_sc05.get("modes", [])) == ["T"]:
+        atteso += EXPECTED_QUESTIONS
+    if added.get("total_answer_calls") != atteso:
+        errors.append("[E-EXT] configurazione: total_answer_calls dichiarato %s, atteso %d"
+                      % (added.get("total_answer_calls"), atteso))
+    if atteso != EXTENSION_ADDED_ANSWER_CALLS:
+        errors.append("[E-EXT] configurazione: l'estensione produce %d chiamate di risposta, ne erano previste %d"
+                      % (atteso, EXTENSION_ADDED_ANSWER_CALLS))
+    if added.get("total_memory_calls") != 0:
+        errors.append("[E-EXT] configurazione: l'estensione non richiede chiamate di costruzione della memoria")
+
+
 # --------------------------------------------------------------------------
 # main
 # --------------------------------------------------------------------------
@@ -479,6 +611,7 @@ def validate_all(scenario_ids=rq2.SCENARIO_IDS, config=None):
     errors = []
     config = config or rq2.load_config()
     validate_config(config, errors)
+    validate_matrix_extension(config, errors)
 
     all_message_ids = set()
     all_question_ids = set()
@@ -544,6 +677,21 @@ def main(argv=None):
             len(questions),
             ", ".join(rq2.planned_modes(scenario_id, config)),
         ))
+    print("-" * 78)
+
+    extension = rq2.matrix_extension(config)
+    print("Matrice estesa %s — la matrice originale qui sopra non cambia"
+          % extension["extension_id"])
+    print("%-13s %-24s %-20s %s"
+          % ("scenario", "a parita' di budget", "controllo diagnostico", "aggiunto"))
+    for scenario_id, budgeted, diagnostic, added in rq2.extension_matrix_rows(config):
+        print("%-13s %-24s %-20s %s"
+              % (scenario_id, " / ".join(budgeted), " / ".join(diagnostic),
+                 " / ".join(added) or "-"))
+    print("%s: %d chiamate di risposta in piu', %d di costruzione della memoria."
+          % ("Estensione", extension["added_cells"]["total_answer_calls"],
+             extension["added_cells"]["total_memory_calls"]))
+    print("SC05 resta fuori dalla matrice originale e dal conteggio delle 77 celle.")
     print("-" * 78)
 
     if errors:

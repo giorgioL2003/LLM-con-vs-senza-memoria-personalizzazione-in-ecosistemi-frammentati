@@ -1,0 +1,193 @@
+{
+  "autorizzazione": "Chiamate autorizzate dallo studente l'8 settembre 2026 per questa sola prova di sviluppo: 14, tutte di risposta. Non è approvazione del relatore e non congela il protocollo.",
+  "base": {
+    "config_id": "rq2-dev-0.1",
+    "eredita": [
+      "budget",
+      "conteggio dei token",
+      "regola di selezione",
+      "ranking",
+      "prompt comune",
+      "modelli",
+      "perimetro della memoria",
+      "isolamento dei prompt"
+    ],
+    "estensione": "matrice-estesa-0.1 (blocco `matrix_extension`)",
+    "file": "data/rq2/config/experiment_rq2.json",
+    "matrice": "La matrice originale di 77 celle non cambia. L'estensione aggiunge soltanto le celle T di SC04 e SC05."
+  },
+  "chiamate_al_modello_previste": {
+    "costruzione_della_memoria": 0,
+    "costruzione_della_memoria_motivo": "T recupera i messaggi originali dello scenario: non estrae fatti, non applica aggiornamenti, non costruisce grafi. Fatti, stato di U, grafo e stato di GER non vengono ricostruiti né toccati.",
+    "riesecuzioni_motivo": "Le risposte U, G, GER e FULL_HISTORY già eseguite restano valide: T non cambia né la loro memoria né il loro prompt. Vanno rigenerate solo se cambia il prompt comune, il budget, il modello o l'effort.",
+    "riesecuzioni_previste": 0,
+    "risposte_scenario_04": 7,
+    "risposte_scenario_05": 7,
+    "totale": 14
+  },
+  "created": "2026-09-08",
+  "esecuzione": {
+    "chiamate_effettive": {
+      "costruzione_della_memoria": 0,
+      "riesecuzioni": 0,
+      "risposte_scenario_04": 7,
+      "risposte_scenario_05": 7,
+      "totale": 14
+    },
+    "confronti": "results/rq2/t_ext_v1/confronti_per_scenario.md",
+    "data": "2026-09-08",
+    "errori": {
+      "esecuzione": 0,
+      "parsing": 0,
+      "risposte_vuote": 0
+    },
+    "esiti": {
+      "retrieval": "14 righe, 88-200 token, budget rispettato, nessuna eccezione sul primo elemento",
+      "risultato_opposto": "su SC04-Q4, SC04-Q5 e SC05-Q1 T è completa dove U, G e GER sono parziali: il messaggio originale non frammentato conserva contenuto e massa lessicale",
+      "risultato_principale": "primo obsolete_used: true del progetto, su SC05-Q3 e SC05-Q4: T presenta come aperta una verifica chiusa nella sessione 9, perché il messaggio che la chiude ha punteggio 0,0000 e perché T non ha stato temporale",
+      "scenario_04": "4 complete, 2 parziali, 0 errate, 1 astensione corretta; 0 informazione obsoleta, 0 affermazioni non supportate",
+      "scenario_05": "3 complete, 1 parziale, 2 errate, 1 astensione corretta; 2 usi di informazione obsoleta, 0 affermazioni non supportate"
+    },
+    "giudizi_delle_altre_modalita": "non rivisti: riportati da evaluation_dev_sc04.md, sc04_repair_v3/README.md e sc05_dev_v1/valutazione_approvata_sc05.md",
+    "modello_verificato_nei_log": "claude-sonnet-5 in tutte e 14 le risposte",
+    "nessun_modello_di_ripiego": true,
+    "valutazione": "results/rq2/t_ext_v1/valutazione_assistita_t.md — giudizi PROPOSTI, non approvati"
+  },
+  "executed": true,
+  "frozen": false,
+  "invarianti_da_verificare_dopo_l_esecuzione": [
+    "nessun file delle prove precedenti è stato riscritto",
+    "le 14 risposte sono tutte con claude-sonnet-5, effort medium, nessun errore e nessun modello di ripiego",
+    "nessuna riga di T supera i 200 token, salvo l'eventuale garanzia minima sul primo elemento, che va segnalata",
+    "nei prompt di T non compaiono domande diverse da quella in esame, risposte attese o campi dell'oracle",
+    "fatti, stato di U, grafo e stato di GER hanno le stesse impronte di prima dell'esecuzione",
+    "FULL_HISTORY resta fuori dal budget e contiene tutti i messaggi utente in ordine"
+  ],
+  "invarianti_verificate_dopo_l_esecuzione": {
+    "budget_rispettato_senza_garanzia_minima": true,
+    "fatti_stato_grafo_e_ger_non_toccati": true,
+    "nessun_artefatto_precedente_riscritto": true,
+    "nessun_oracle_nei_prompt": true,
+    "risposte_tutte_con_il_modello_dichiarato": true,
+    "verificate_da": "scripts/rq2/run_t_extension_check.py e tests/test_rq2_t_extension.py"
+  },
+  "limiti_dichiarati": [
+    "una sola esecuzione per cella, nessuna replica: differenze osservate, non cause dimostrate",
+    "sette domande per scenario: il confronto vale dentro lo scenario, non come classifica generale delle architetture",
+    "annotazioni di SC04 e SC05 ancora in bozza e non approvate dal relatore",
+    "SC01 resta senza prova reale: la sua riga estesa coincide con quella della roadmap e non viene eseguita qui",
+    "su SC04 il controllo diagnostico FULL_HISTORY viene da un'esecuzione diversa da quella di U e G",
+    "i campi *_by_provenance non misurano il contenuto: i giudizi vanno letti a mano"
+  ],
+  "matrice_di_questa_prova": {
+    "scenario_04": {
+      "a_parita_di_budget": [
+        "T",
+        "U",
+        "G"
+      ],
+      "controllo_diagnostico": [
+        "FULL_HISTORY"
+      ],
+      "nuovo_qui": [
+        "T"
+      ]
+    },
+    "scenario_05": {
+      "a_parita_di_budget": [
+        "T",
+        "U",
+        "GER"
+      ],
+      "controllo_diagnostico": [
+        "FULL_HISTORY"
+      ],
+      "nuovo_qui": [
+        "T"
+      ],
+      "ruolo": "SC05 è lo scenario di sviluppo dell'estensione gerarchica: nove sessioni, nato per il confronto U/GER. Non è mai stato nella matrice della roadmap e non entra nel conteggio delle 77 celle. T lo affianca come baseline dentro lo stesso scenario."
+    }
+  },
+  "modelli": {
+    "le_risposte_non_rientrano_in_memoria": true,
+    "risposte": {
+      "effort": "medium",
+      "model": "claude-sonnet-5"
+    },
+    "runner": "scripts/run_generation.py: una chiamata per prompt, senza sessione, senza strumenti, senza fallback"
+  },
+  "note": "Registra le impostazioni esatte della prova, così l'esecuzione è riproducibile. Nessuno script legge questo file per decidere come comportarsi: le impostazioni vivono negli script e in experiment_rq2.json, qui sono trascritte e verificate da un test.",
+  "obiettivo": "Confrontare le strategie di memoria DENTRO lo stesso scenario, con T come baseline che dice quanto era già raggiungibile recuperando i messaggi originali a parità di budget. Non è una classifica generale delle architetture.",
+  "perimetro": {
+    "messaggi_indicizzati": "solo ruolo `user`, tutte le sessioni",
+    "regola": "gli stessi messaggi sorgente temporalmente accessibili delle altre modalità dello scenario",
+    "scenario_04": {
+      "messaggi_utente": 7,
+      "sessioni": 4,
+      "ultima_sessione_nello_stato_di_U": 4
+    },
+    "scenario_05": {
+      "messaggi_utente": 16,
+      "sessioni": 9,
+      "ultima_sessione_nello_stato_di_U": 9
+    },
+    "verificato_da": "scripts/rq2/run_t_extension_check.py, passo 2"
+  },
+  "retrieval": {
+    "budget_tokens": 200,
+    "conteggio": "conteggio deterministico locale con espressione regolare",
+    "garanzia_minima": "invariata: se il primo elemento supera da solo il budget viene incluso e segnalato (come in T su SC01 e SC02)",
+    "metodo": "TF-IDF / coseno",
+    "modalita": "T",
+    "parita": "ordine di comparsa nello scenario",
+    "soglia_punteggio_nullo": "invariata: gli elementi con punteggio nullo non vengono selezionati",
+    "troncamento": "nessuno",
+    "unita": "messaggio originale dell'utente"
+  },
+  "riuso_dei_risultati_esistenti": {
+    "perche_t_e_confrontabile": "Le righe di T non dipendono da fatti, stato di U o grafo: dipendono solo dai messaggi dello scenario, dalla domanda, dal ranking e dal budget. Gli script che producono retrieval, prompt e risposte hanno le stesse impronte usate nella prova SC05 del 6 settembre 2026 (vedi `versioni_del_codice`).",
+    "regola": "si riusano solo prove con la stessa configurazione: stesso budget, stesso conteggio dei token, stessa regola di selezione, stesso prompt comune, stesso modello ed effort. Configurazioni diverse non finiscono nella stessa tabella.",
+    "scenario_04": {
+      "non_riusabile": "results/rq2/generation_dev_sc04.jsonl — U e G: prova precedente alle istruzioni u-instructions-0.3, stato di U diverso.",
+      "riusabile": "results/rq2/sc04_repair_v3/generation_dev_sc04_ug.jsonl — U e G, istruzioni u-instructions-0.3 (RQ2.md 9.6)",
+      "riusabile_con_avvertenza": "results/rq2/generation_dev_sc04.jsonl — FULL_HISTORY: non rigenerata nella riparazione, viene dalla prova SC04 iniziale (RQ2.md 9.3). Stesso prompt e stesso modello, e non dipende dallo stato di U, ma è un'altra esecuzione e va indicata come tale."
+    },
+    "scenario_05": {
+      "non_riusabile": "results/rq2/ger_dev/ e results/rq2/ger_dev_v2/: verifiche offline da fixture, senza risposte del modello.",
+      "riusabile": "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl — U, GER e FULL_HISTORY, prova reale del 6 settembre 2026",
+      "riusabile_con_avvertenza": null
+    }
+  },
+  "run_id": "t-ext-sc04-sc05-1",
+  "status": "CONFIGURAZIONE DI SVILUPPO — non è il protocollo congelato della tesi",
+  "titolo": "Estensione della matrice: Turn-level RAG (T) come baseline anche in SC04 e SC05",
+  "uscite": {
+    "cartella": "results/rq2/t_ext_v1",
+    "etichetta": "estensione-t-sviluppo-v1",
+    "prompt": "results/rq2/t_ext_v1/generation_inputs_t_sc04.jsonl e generation_inputs_t_sc05.jsonl",
+    "regola": "cartella nuova: non tocca né le fixture né nessuna prova precedente; se esiste già, si passa a v2",
+    "retrieval": "results/rq2/t_ext_v1/retrieval_t_sc04.jsonl e retrieval_t_sc05.jsonl",
+    "risposte": "results/rq2/t_ext_v1/generation_dev_t_sc04.jsonl e generation_dev_t_sc05.jsonl",
+    "scheda_di_valutazione": "results/rq2/t_ext_v1/annotation_template_t_sc04.jsonl e annotation_template_t_sc05.jsonl",
+    "verifica_offline": "results/rq2/t_ext_check/ (fixture, nessuna chiamata al modello)"
+  },
+  "versioni_del_codice": {
+    "annotazioni_scenario_04_sha256": "959d4d6446401616",
+    "annotazioni_scenario_05_sha256": "454be8c6c7a7bc17",
+    "build_annotation_template_rq2_sha256": "096a294680c27b43",
+    "build_generation_inputs_rq2_sha256": "bb87ebbaecafd347",
+    "impronte_aggiornate": "2026-09-08, prima dell'esecuzione",
+    "invariati_rispetto_alla_prova_sc05_del_6_settembre_2026": [
+      "run_retrieval_rq2",
+      "build_generation_inputs_rq2",
+      "build_annotation_template_rq2",
+      "run_generation"
+    ],
+    "nota": "le impronte sono quelle al momento della preparazione: se il codice cambia prima dell'esecuzione, vanno riscritte",
+    "run_generation_sha256": "85b919abb8551449",
+    "run_retrieval_rq2_sha256": "708b07e9f35ab96b",
+    "run_t_extension_check_sha256": "039d2871dd151653",
+    "scenario_04_sha256": "e2f29b2c9be019f6",
+    "scenario_05_sha256": "be57e57c4c133dda"
+  }
+}

@@ -341,13 +341,24 @@ nessun modello è stato chiamato.
 | `results/rq2/ger_dev/` | verifica delle regole `0.1`, conservata come riferimento |
 | `results/rq2/ger_dev_v2/` | verifica delle regole `0.2`, quella corrente |
 
-**GER sta fuori dalla matrice.** `scenario_05` non è in `SCENARIO_IDS` e `GER`
-non è in `experiment_rq2.json`: validatore, verifica offline, conteggio delle 77
-celle e confronti T/F, F/U, U/G restano identici. GER gira solo chiedendola:
+**GER sta fuori dalla matrice della roadmap.** `scenario_05` non è in
+`SCENARIO_IDS` e `GER` non è in `matrix`: validatore della roadmap, verifica
+offline della matrice, conteggio delle 77 celle e confronti T/F, F/U, U/G
+restano identici. GER gira solo chiedendola:
 
 ```bash
 python3 scripts/rq2/run_ger_check.py
 ```
+
+**Aggiornamento dell'8 settembre 2026.** GER è ora dichiarata fra le `modes` di
+`experiment_rq2.json` e SC05 compare nel blocco **`matrix_extension`**, che è la
+matrice estesa dei confronti (RQ2.md, sezione 12): la riga di SC05 diventa
+`T / U / GER` con FULL_HISTORY come controllo diagnostico. È una dichiarazione,
+non un cambio di comportamento: `matrix` resta la matrice della roadmap, le 77
+celle non cambiano, gli script continuano a ricevere le modalità con `--modes` e
+le regole, le quote e il budget di GER restano `ger-rules-0.2`. La prova
+`results/rq2/sc05_dev_v1/` resta valida così com'è: T non tocca né lo stato di U
+né la selezione di GER, e si affianca come baseline dentro lo stesso scenario.
 
 ## Che cosa mostrano le verifiche
 

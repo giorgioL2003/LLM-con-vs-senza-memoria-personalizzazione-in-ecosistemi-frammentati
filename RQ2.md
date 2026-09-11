@@ -10,6 +10,14 @@ prodotti con chiamate vere a Claude Sonnet 5. Sono **risultati di sviluppo: una
 sola esecuzione per scenario, senza repliche**, non risultati dell'esperimento.
 **Manca SC01** (T e FULL_HISTORY, 14 generazioni). Il dettaglio è nella sezione 9.
 
+**Estensione della matrice (8 settembre 2026):** T entra come baseline anche in
+SC04 e SC05, così le strategie si confrontano *dentro lo stesso scenario* — SC01
+T, SC02 T/F, SC03 F/U, SC04 T/U/G, SC05 T/U/GER, con FULL_HISTORY come controllo
+diagnostico ovunque. La matrice originale di 77 celle **non cambia**: la sezione
+12 spiega che cosa si aggiunge, che ruolo ha SC05 e quali risultati esistenti
+restano riusabili. **Le 14 chiamate sono state eseguite l'8 settembre 2026**,
+senza errori: risultati e confronti nella stessa sezione.
+
 **Domanda:** a parità di informazioni accessibili, come cambia la capacità del
 modello di continuare l'attività quando la memoria viene *organizzata* in modo
 diverso?
@@ -411,6 +419,14 @@ sperimentali**. Con le fixture attuali il controllo segnala che SC04-Q3 non
 possiede tutta l'evidenza richiesta: è un esito diagnostico atteso e non fa
 fallire la verifica.
 
+### Verifica offline dell'estensione T (SC04 e SC05), senza chiamate al modello
+
+```bash
+python3 scripts/rq2/run_t_extension_check.py
+```
+
+Riguarda solo le celle aggiunte dalla matrice estesa: sezione 12.
+
 ### Test
 
 ```bash
@@ -467,6 +483,11 @@ budget 200 token. **Nessun errore di esecuzione, nessun errore di parsing,
 nessuna correzione di codice necessaria.** Su tutti e tre gli scenari è stato
 verificato che nei prompt di estrazione e aggiornamento non compaiano domande,
 risposte attese, chiavi dell'oracle né messaggi dell'assistente.
+
+Questa tabella riguarda la **matrice della roadmap** e non cambia. Le prove
+dell'estensione — 7 generazioni di T su SC04 e 7 su SC05, l'8 settembre 2026,
+nessuna chiamata di costruzione della memoria, nessun errore — sono registrate a
+parte nella sezione 12.
 
 ### 9.1 SC02 — T / F / FULL_HISTORY
 
@@ -955,3 +976,213 @@ la disponibilità dell'informazione. **Questo non chiude RQ2**: restano aperti i
 punti della sezione 10. Anche lì i
 risultati sono di sviluppo, la memoria dello scenario nuovo viene da fixture
 dichiarate e il protocollo resta non congelato.
+
+## 12. Estensione della matrice: T come baseline anche in SC04 e SC05
+
+Le sezioni 1–11 restano valide così come sono. Questa sezione aggiunge una cosa
+sola: **Turn-level RAG (T) come baseline anche in SC04 e SC05**, per poter
+confrontare le strategie di memoria *dentro lo stesso scenario*.
+
+### La matrice estesa
+
+| Scenario | A parità di budget | Controllo diagnostico | Nuovo qui |
+|---|---|---|---|
+| SC01 | T | FULL_HISTORY | – |
+| SC02 | T / F | FULL_HISTORY | – |
+| SC03 | F / U | FULL_HISTORY | – |
+| SC04 | **T** / U / G | FULL_HISTORY | **T** |
+| SC05 | **T** / U / GER | FULL_HISTORY | **T** |
+
+`FULL_HISTORY` è il **controllo diagnostico** di ogni scenario: sta fuori dal
+budget e resta separato dalle architetture confrontate a parità di 200 token.
+Non è una delle strategie in gara.
+
+### Che cosa cambia rispetto alla matrice originale
+
+**Niente, dentro la matrice originale.** L'estensione è dichiarata nel blocco
+`matrix_extension` di `data/rq2/config/experiment_rq2.json` e vive *accanto* a
+`matrix`, non al suo posto:
+
+- `matrix` resta la matrice della roadmap (sezione 3): SC01 T, SC02 T/F, SC03
+  F/U, SC04 U/G, più FULL_HISTORY, **77 celle**. Validatore della roadmap,
+  verifica offline della matrice e conteggi non cambiano;
+- scenari, domande, oracle e implementazioni di F, U, G e GER non sono stati
+  toccati;
+- l'unica modalità che l'estensione può aggiungere è T, e solo dove mancava:
+  `validate_rq2.py` fallisce se una riga estesa perde una modalità della
+  roadmap, se aggiunge qualcosa di diverso da T, se mette FULL_HISTORY fra le
+  modalità a budget o se i conteggi delle chiamate non tornano;
+- `GER` è ora dichiarata fra le `modes` e SC05 compare nella matrice estesa: è
+  una dichiarazione, non un cambio di comportamento. SC05 resta fuori da
+  `SCENARIO_IDS`, fuori da `matrix` e fuori dalle 77 celle.
+
+`config_id` resta `rq2-dev-0.1` perché **nessun parametro sperimentale è
+cambiato**: budget, conteggio dei token, regola di selezione, ranking, prompt
+comune, modello ed effort sono quelli di sempre. Il `changelog` della
+configurazione lo mette per iscritto.
+
+### Il ruolo di SC05
+
+SC05 è lo **scenario di sviluppo dell'estensione gerarchica**: nove sessioni,
+sedici messaggi utente, 645 token di cronologia contro 200 di budget, costruito
+per il confronto U/GER (sezione 11 e `MEMORIA_GERARCHICA.md`). Non è mai stato
+nella matrice della roadmap e non entra nel conteggio delle 77 celle. T lo
+affianca come baseline: dice quanto di ciò che U e GER recuperano era già
+raggiungibile pescando i messaggi originali a parità di budget, sullo scenario
+dove la cronologia è più lunga e la distinzione recente/archivio ha senso.
+
+### Perché T non richiede nessuna nuova costruzione della memoria
+
+T recupera **i messaggi originali dello scenario**: non estrae fatti, non applica
+ADD/UPDATE/DELETE/NOOP, non costruisce grafi. Le celle nuove costano quindi solo
+le risposte: **7 per SC04 + 7 per SC05 = 14 chiamate**, zero chiamate di
+costruzione della memoria. Fatti, stato di U, grafo e stato di GER non vengono
+ricostruiti né toccati.
+
+**Stessi messaggi sorgente temporalmente accessibili.** Il confronto regge solo
+se T pesca dallo stesso bacino su cui sono state costruite le altre memorie:
+tutti i messaggi con ruolo `user`, tutte le sessioni. La verifica offline lo
+controlla (passo 2) e segnala il caso pericoloso, cioè uno stato di U fermo a una
+sessione intermedia, che darebbe a T messaggi che le altre modalità non hanno mai
+visto. Su SC04 lo stato arriva alla sessione 4 su 4, su SC05 alla 9 su 9.
+
+### Quali risultati esistenti sono riusabili
+
+Le righe di T non dipendono da fatti, stato di U o grafo: dipendono solo dai
+messaggi dello scenario, dalla domanda, dal ranking e dal budget. Per questo le
+risposte già generate restano valide e **non vanno rieseguite**. Gli script che
+producono retrieval, prompt e risposte hanno inoltre le stesse impronte usate
+nella prova SC05 del 6 settembre 2026.
+
+| Scenario | Prova | Uso |
+|---|---|---|
+| SC04 | `results/rq2/sc04_repair_v3/generation_dev_sc04_ug.jsonl` (U, G) | riusabile: stessa configurazione |
+| SC04 | `results/rq2/generation_dev_sc04.jsonl` (FULL_HISTORY) | riusabile **con avvertenza**: viene dalla prova iniziale (9.3), non dalla riparazione (9.6) |
+| SC04 | `results/rq2/generation_dev_sc04.jsonl` (U, G) | **non riusabile** nella stessa tabella: precede `u-instructions-0.3`, stato di U diverso |
+| SC05 | `results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl` (U, GER, FULL_HISTORY) | riusabile: stessa configurazione |
+| SC05 | `results/rq2/ger_dev/`, `results/rq2/ger_dev_v2/` | **non riusabili**: verifiche offline da fixture, senza risposte del modello |
+
+**Incompatibilità segnalata.** Su SC04 il controllo diagnostico FULL_HISTORY
+viene da un'esecuzione diversa da quella di U e G: nella riparazione 9.6 non è
+stato rigenerato. Non è un'incompatibilità di configurazione — stesso prompt,
+stesso modello, e FULL_HISTORY non dipende dallo stato di U — ma resta una prova
+diversa e nella tabella di SC04 va indicata come tale. La verifica offline lo
+stampa come avviso a ogni esecuzione.
+
+**SC01 resta senza prova reale** (sezione 9): la sua riga estesa coincide con
+quella della roadmap e questa estensione non la esegue.
+
+### Verifica offline dell'estensione, senza chiamate al modello
+
+```bash
+python3 scripts/rq2/run_t_extension_check.py
+```
+
+Valida dataset, configurazione e matrice estesa; controlla il perimetro dei
+messaggi; esegue il retrieval di T su SC04 e SC05; costruisce i prompt e il
+modello di annotazione delle celle nuove; stampa che cosa è riusabile accanto a T
+e che cosa no; verifica per impronta che nessun artefatto precedente sia stato
+riscritto. Gli output finiscono in `results/rq2/t_ext_check/` e **non sono
+risultati sperimentali**.
+
+### Prova reale dell'estensione — eseguita l'8 settembre 2026
+
+**14 chiamate, tutte di risposta, nessun errore.** Impostazioni ed esito
+trascritti in `data/rq2/config/run_t_ext_sc04_sc05.json`; artefatti in
+`results/rq2/t_ext_v1/`, cartella nuova: nessun artefatto precedente è stato
+riscritto. Modello `claude-sonnet-5`, effort `medium`, budget 200 token,
+configurazione `rq2-dev-0.1`. Zero chiamate di costruzione della memoria: fatti,
+stato di U, grafo e stato di GER non sono stati toccati.
+
+I comandi eseguiti sono questi.
+
+**SC04 — T** (7 generazioni):
+
+```bash
+python3 scripts/rq2/run_retrieval_rq2.py --scenario scenario_04 --modes T --label estensione-t-sviluppo-v1 --out results/rq2/t_ext_v1/retrieval_t_sc04.jsonl && python3 scripts/rq2/build_generation_inputs_rq2.py --scenario scenario_04 --modes T --retrieval results/rq2/t_ext_v1/retrieval_t_sc04.jsonl --out results/rq2/t_ext_v1/generation_inputs_t_sc04.jsonl && python3 -u scripts/run_generation.py --inputs results/rq2/t_ext_v1/generation_inputs_t_sc04.jsonl --out results/rq2/t_ext_v1/generation_dev_t_sc04.jsonl && python3 scripts/rq2/build_annotation_template_rq2.py --retrieval results/rq2/t_ext_v1/retrieval_t_sc04.jsonl --inputs results/rq2/t_ext_v1/generation_inputs_t_sc04.jsonl --out results/rq2/t_ext_v1/annotation_template_t_sc04.jsonl
+```
+
+**SC05 — T** (7 generazioni):
+
+```bash
+python3 scripts/rq2/run_retrieval_rq2.py --scenario scenario_05 --modes T --label estensione-t-sviluppo-v1 --out results/rq2/t_ext_v1/retrieval_t_sc05.jsonl && python3 scripts/rq2/build_generation_inputs_rq2.py --scenario scenario_05 --modes T --retrieval results/rq2/t_ext_v1/retrieval_t_sc05.jsonl --out results/rq2/t_ext_v1/generation_inputs_t_sc05.jsonl && python3 -u scripts/run_generation.py --inputs results/rq2/t_ext_v1/generation_inputs_t_sc05.jsonl --out results/rq2/t_ext_v1/generation_dev_t_sc05.jsonl && python3 scripts/rq2/build_annotation_template_rq2.py --retrieval results/rq2/t_ext_v1/retrieval_t_sc05.jsonl --inputs results/rq2/t_ext_v1/generation_inputs_t_sc05.jsonl --out results/rq2/t_ext_v1/annotation_template_t_sc05.jsonl
+```
+
+### Esito: i confronti dentro lo scenario
+
+Giudizi in `results/rq2/t_ext_v1/valutazione_assistita_t.md`, **proposti e non
+approvati**. I giudizi di U, G, GER e FULL_HISTORY **non sono stati rivisti**:
+sono riportati dagli artefatti esistenti e hanno stati di approvazione diversi
+(approvati su SC05, assistiti su SC04, proposti per T). Il confronto completo,
+domanda per domanda, è in `results/rq2/t_ext_v1/confronti_per_scenario.md`.
+
+**SC04 — T / U / G** (U e G da `sc04_repair_v3`; FULL_HISTORY da un'esecuzione
+diversa, §9.3):
+
+| | completa | parziale | errata | astensione corretta | obsoleta | non supportata |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|
+| **T** | **4** | 2 | 0 | 1 | 0 | 0 |
+| U | 2 | 4 | 0 | 1 | 0 | 0 |
+| G | 2 | 4 | 0 | 1 | 0 | 0 |
+| FULL_HISTORY *(diagnostico)* | 5 | 1 | 0 | 1 | 0 | 1 |
+
+**SC05 — T / U / GER** (U, GER e FULL_HISTORY da `sc05_dev_v1`, stessa
+esecuzione):
+
+| | completa | parziale | errata | astensione corretta | obsoleta | non supportata |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|
+| **T** | **3** | 1 | 2 | 1 | **2** | 0 |
+| U | 2 | 2 | 2 | 1 | 0 | 2 |
+| GER | 1 | 3 | 2 | 1 | 0 | 2 |
+| FULL_HISTORY *(diagnostico)* | 6 | 0 | 0 | 1 | 0 | 0 |
+
+#### Due osservazioni, opposte, sullo stesso fenomeno
+
+**1. T usa informazione obsoleta — primo `obsolete_used: true` del progetto.** Su
+SC05-Q3 e SC05-Q4 T presenta la verifica del registro del bilanciatore come
+ancora aperta, mentre nella sessione 9 risulta completata. Nel contesto entra
+`SC05-S8-U1` (sessione 8, rango 2, punteggio 0,2034) e resta fuori `SC05-S9-U1`
+(sessione 9, che la chiude, punteggio **0,0000**, rango 16). Sono due cause
+distinte: il ranking non trova il messaggio che corregge, e **T non ha stato
+temporale** — anche se fossero entrati entrambi, nulla nel contesto avrebbe detto
+quale dei due è superato. U e GER non commettono questo errore, e non per merito
+del ranking: la politica di lettura ammette le voci superate solo nelle domande
+storiche, e Q3 e Q4 non lo sono. È la prima prova su dati reali che la gestione
+degli aggiornamenti fa il lavoro per cui esiste.
+
+**2. Il messaggio intero porta più contenuto della memoria frammentata.** Su
+SC04-Q4 e SC04-Q5, T è completa dove U e G sono parziali: entrambe le risposte
+stanno dentro il solo `SC04-S4-U1`, che T recupera intero, mentre in U e G quel
+messaggio è spezzato in voci con punteggio TF-IDF **0,0** — il caso già
+documentato in §5.3 di `evaluation_dev_sc04.md`. Su SC05-Q1 lo stesso: nel
+messaggio originale il secondo obiettivo è dichiarato come obiettivo, in memoria
+era stato sostituito dall'enunciato del suo compimento.
+
+**Il confronto non stabilisce un vincitore.** Mostra un compromesso: a 200 token
+il messaggio originale porta più contenuto e più massa lessicale, ma non porta il
+tempo; le architetture con stato pagano in massa lessicale quello che guadagnano
+in gestione dell'informazione superata. Con sette domande per cella e una sola
+esecuzione è un compromesso **osservato**, non misurato.
+
+**Nota su T e la provenienza.** In T provenienza e contenuto coincidono per
+costruzione, perché l'unità recuperata è il messaggio sorgente stesso: T non può
+produrre il falso positivo di provenienza osservato in F, U, G e GER. **I numeri
+di provenienza di T non sono confrontabili con quelli delle altre modalità** e
+vanno letti con questa avvertenza ogni volta che finiscono nella stessa tabella.
+
+### Limiti di questo confronto
+
+Valgono gli stessi limiti delle prove della sezione 9, più quelli propri
+dell'estensione:
+
+- una sola esecuzione per cella, nessuna replica: differenze **osservate**, non
+  cause dimostrate;
+- sette domande per scenario: il confronto vale **dentro lo scenario**, non come
+  classifica generale delle architetture. T in SC04 e T in SC05 non vanno sommate
+  o mediate fra loro;
+- annotazioni di SC04 e SC05 ancora in bozza, non approvate dal relatore;
+- su SC04 il controllo diagnostico viene da un'altra esecuzione (sopra);
+- i campi `*_by_provenance` non misurano il contenuto: i giudizi vanno letti a
+  mano.
+
+Il protocollo resta **non congelato** e questa estensione non lo congela.

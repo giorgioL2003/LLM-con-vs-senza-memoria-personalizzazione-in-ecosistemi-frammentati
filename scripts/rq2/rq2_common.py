@@ -75,6 +75,13 @@ MODES = ("T", "F", "U", "G", "FULL_HISTORY")
 BUDGETED_MODES = ("T", "F", "U", "G")
 FULL_HISTORY = "FULL_HISTORY"
 
+# Matrice estesa (blocco `matrix_extension` della configurazione): la matrice
+# della roadmap piu' T come baseline anche in SC04 e SC05. Vive accanto a
+# `matrix`, non al suo posto: le 77 celle, il validatore della roadmap e i
+# confronti gia' eseguiti restano quelli di prima.
+EXTENSION_SCENARIO_IDS = tuple(SCENARIO_IDS) + (GER_SCENARIO_ID,)
+EXTENSION_MODES = ("T", "F", "U", "G", "GER", "FULL_HISTORY")
+
 INDEXED_ROLE = "user"
 
 # Categorie ammesse per le domande di RQ2: le sette del pilot piu' due
@@ -336,6 +343,58 @@ def matrix_rows(config=None):
         entry = config["matrix"][scenario_id]
         rows.append((scenario_id, list(entry["planned"]), list(entry["runnable_now"])))
     return rows
+
+
+# --------------------------------------------------------------------------
+# Matrice estesa: T come baseline anche in SC04 e SC05
+# --------------------------------------------------------------------------
+#
+# Queste funzioni leggono `matrix_extension` e non toccano `matrix`. Nessuno
+# script cambia comportamento da solo per il fatto che il blocco esista: le
+# modalita' si chiedono sempre esplicitamente con `--modes`. Servono a
+# dichiarare la matrice una volta sola e a farla verificare dal validatore e
+# dai test.
+
+
+def matrix_extension(config=None):
+    config = config or load_config()
+    return config["matrix_extension"]
+
+
+def extension_row(scenario_id, config=None):
+    return matrix_extension(config)["rows"][scenario_id]
+
+
+def extension_budgeted_modes(scenario_id, config=None):
+    """Architetture confrontate a parita' di budget in quello scenario."""
+    return list(extension_row(scenario_id, config)["budgeted"])
+
+
+def extension_diagnostic_modes(scenario_id, config=None):
+    """Controllo diagnostico dello scenario: FULL_HISTORY, fuori dal budget."""
+    return list(extension_row(scenario_id, config)["diagnostic"])
+
+
+def extension_modes(scenario_id, config=None):
+    """Riga intera: architetture a budget piu' controllo diagnostico."""
+    return (extension_budgeted_modes(scenario_id, config)
+            + extension_diagnostic_modes(scenario_id, config))
+
+
+def extension_added_modes(scenario_id, config=None):
+    """Che cosa aggiunge la riga estesa rispetto alla matrice originale."""
+    return list(extension_row(scenario_id, config)["added_vs_matrix"])
+
+
+def extension_matrix_rows(config=None):
+    config = config or load_config()
+    return [
+        (scenario_id,
+         extension_budgeted_modes(scenario_id, config),
+         extension_diagnostic_modes(scenario_id, config),
+         extension_added_modes(scenario_id, config))
+        for scenario_id in EXTENSION_SCENARIO_IDS
+    ]
 
 
 # --------------------------------------------------------------------------
