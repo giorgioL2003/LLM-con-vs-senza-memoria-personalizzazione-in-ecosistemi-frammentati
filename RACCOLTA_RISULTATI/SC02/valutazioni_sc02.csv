@@ -1,0 +1,22 @@
+question_id,question_category,mode,reachable,evidence_retrieved_content_verified,answer_class,answer_class_suspended,rq2_fact_coverage_in_context,rq2_fact_coverage_in_answer,pilot_mandatory_coverage_in_answer,supported_by_original_conversation,faithful_to_received_context,counts_as_complete_and_supported,obsolete_used,unsupported_claim,wrong_abstention,error_origin,retrieval_performed,context_items,context_tokens
+SC02-Q1,goal,T,True,True,completa,False,2/2,2/2,2/2,True,True,True,False,False,False,nessuno,True,2,173
+SC02-Q1,goal,F,True,True,completa,False,2/2,2/2,2/2,True,True,True,False,False,False,nessuno,True,7,185
+SC02-Q1,goal,FULL_HISTORY,True,True,completa,False,2/2,2/2,2/2,True,True,True,False,False,False,nessuno,False,4,319
+SC02-Q2,update_obsolete,T,True,True,completa,False,4/4,4/4,3/3,True,True,True,False,False,False,nessuno,True,2,159
+SC02-Q2,update_obsolete,F,True,True,completa,False,4/4,4/4,3/3,True,True,True,False,False,False,nessuno,True,7,197
+SC02-Q2,update_obsolete,FULL_HISTORY,True,True,completa,False,4/4,4/4,3/3,True,True,True,False,False,False,nessuno,False,4,319
+SC02-Q3,completed_activity,T,True,True,completa,False,2/2,2/2,2/2,True,True,True,False,False,False,nessuno,True,2,146
+SC02-Q3,completed_activity,F,True,True,errata,False,2/2,2/2,2/2,False,False,False,False,True,False,risposta,True,6,184
+SC02-Q3,completed_activity,FULL_HISTORY,True,True,completa,False,2/2,2/2,2/2,True,True,True,False,False,False,nessuno,False,4,319
+SC02-Q4,pending_activity,T,True,True,completa,False,1/1,1/1,1/1,True,True,True,False,False,False,nessuno,True,2,160
+SC02-Q4,pending_activity,F,True,False,errata,False,0/1,0/1,1/1,False,True,False,True,False,False,retrieval,True,5,159
+SC02-Q4,pending_activity,FULL_HISTORY,True,True,completa,False,1/1,1/1,1/1,True,True,True,False,False,False,nessuno,False,4,319
+SC02-Q5,local_information,T,True,True,completa,False,2/2,2/2,3/3,True,True,True,False,False,False,nessuno,True,2,159
+SC02-Q5,local_information,F,True,True,completa,False,2/2,2/2,3/3,False,True,False,False,True,False,estrazione,True,6,182
+SC02-Q5,local_information,FULL_HISTORY,True,True,completa,False,2/2,2/2,3/3,True,True,True,False,False,False,nessuno,False,4,319
+SC02-Q6,cross_session_link,T,True,False,parziale,False,1/2,1/2,1/3,True,True,False,False,False,False,retrieval,True,2,160
+SC02-Q6,cross_session_link,F,True,False,parziale,False,1/2,1/2,1/3,True,True,False,False,False,False,retrieval,True,7,198
+SC02-Q6,cross_session_link,FULL_HISTORY,True,True,completa,False,2/2,2/2,3/3,True,True,True,False,False,False,nessuno,False,4,319
+SC02-Q7,absent_information,T,False,,astensione corretta,False,,,1/1,True,True,False,False,False,False,nessuno,True,2,160
+SC02-Q7,absent_information,F,False,,astensione corretta,False,,,1/1,True,True,False,False,False,False,nessuno,True,7,197
+SC02-Q7,absent_information,FULL_HISTORY,False,,astensione corretta,False,,,1/1,True,True,False,False,False,False,nessuno,False,4,319

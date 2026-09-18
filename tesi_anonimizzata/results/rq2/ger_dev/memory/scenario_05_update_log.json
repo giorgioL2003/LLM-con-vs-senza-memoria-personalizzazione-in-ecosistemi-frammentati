@@ -1,0 +1,394 @@
+{
+  "applied_count": 30,
+  "code_sha256": "01489de9e6d1a0d5",
+  "config_id": "rq2-dev-0.1",
+  "dry_run": false,
+  "effort": "medium",
+  "fixture_sources": {
+    "facts": "tests/fixtures/rq2/scenario_05_facts_fixture.jsonl",
+    "updates": "tests/fixtures/rq2/scenario_05_update_answers_fixture.json"
+  },
+  "instructions_sha256": "288ea8b51428c651",
+  "instructions_version": "u-instructions-0.3",
+  "label": "fixture-ger (nessuna chiamata al modello)",
+  "model": "claude-sonnet-5",
+  "model_calls": 9,
+  "operation_count": 30,
+  "rejected_count": 0,
+  "repair_attempts": 0,
+  "repair_instructions": null,
+  "repair_round_count": 0,
+  "scenario_id": "scenario_05",
+  "sessions": [
+    {
+      "archive_before": [],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC05-F001",
+        "SC05-F002",
+        "SC05-F003",
+        "SC05-F004",
+        "SC05-F005"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC05-F001\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"obiettivo-dati-esposti\",\n  \"value\": \"L'obiettivo del caso ARD-19 è stabilire quali dati dei fornitori siano stati esposti.\",\n  \"target_entry_id\": null,\n  \"reason\": \"obiettivo nuovo\"\n },\n {\n  \"fact_id\": \"SC05-F002\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"obiettivo-ritorno-servizio\",\n  \"value\": \"L'obiettivo del caso ARD-19 è riportare il portale in servizio senza interruzioni per i fornitori attivi.\",\n  \"target_entry_id\": null,\n  \"reason\": \"secondo obiettivo, distinto dal primo\"\n },\n {\n  \"fact_id\": \"SC05-F003\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"caso-portale\",\n  \"value\": \"È stato aperto il caso ARD-19 sul portale fornitori della società di mobilità.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC05-F004\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"vincolo-rapporto\",\n  \"value\": \"Prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con altri reparti.\",\n  \"target_entry_id\": null,\n  \"reason\": \"vincolo nuovo del cliente\"\n },\n {\n  \"fact_id\": \"SC05-F005\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"referente-cliente\",\n  \"value\": \"Il referente del cliente per il caso è l'ufficio legale e non il reparto informatico.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC05-OP001",
+        "SC05-OP002",
+        "SC05-OP003",
+        "SC05-OP004",
+        "SC05-OP005"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n     ammessi nel campo `fact_id`;\n   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n   identificatore di voce di memoria come `fact_id`.\n3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n   l'informazione e' nuova, l'operazione e' un ADD.\n4. ADD e NOOP lasciano `target_entry_id` a null.\n5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n(memoria vuota: nessun fatto attivo)\n\nArchivio dei fatti superati o ritirati:\n(archivio vuoto: nessun fatto superato o ritirato)\n\nFatti nuovi da valutare:\n[SC05-F001] L'obiettivo del caso ARD-19 è stabilire quali dati dei fornitori siano stati esposti. (tipo: decisione, negato: no, da: SC05-S1-U1)\n[SC05-F002] L'obiettivo del caso ARD-19 è riportare il portale in servizio senza interruzioni per i fornitori attivi. (tipo: decisione, negato: no, da: SC05-S1-U1)\n[SC05-F003] È stato aperto il caso ARD-19 sul portale fornitori della società di mobilità. (tipo: osservazione, negato: no, da: SC05-S1-U1)\n[SC05-F004] Prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con nessun altro reparto. (tipo: decisione, negato: no, da: SC05-S1-U1)\n[SC05-F005] Il referente del cliente per il caso è l'ufficio legale e non il reparto informatico. (tipo: osservazione, negato: no, da: SC05-S1-U2)",
+      "repair_rounds": [],
+      "scenario_id": "scenario_05",
+      "session_id": "SC05-S1",
+      "session_order": 1,
+      "state_before": []
+    },
+    {
+      "archive_before": [],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC05-F006",
+        "SC05-F007",
+        "SC05-F008"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC05-F006\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"server-esposto\",\n  \"value\": \"Il server esposto è SRV-12, che ospita il modulo di autenticazione del portale.\",\n  \"target_entry_id\": null,\n  \"reason\": \"prima ricostruzione tecnica\"\n },\n {\n  \"fact_id\": \"SC05-F007\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"orario-accesso\",\n  \"value\": \"L'orario dell'accesso anomalo è il 4 marzo alle 02:40.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC05-F008\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"scadenza-cliente\",\n  \"value\": \"Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati.\",\n  \"target_entry_id\": null,\n  \"reason\": \"richiesta nuova del cliente\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC05-OP006",
+        "SC05-OP007",
+        "SC05-OP008"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n     ammessi nel campo `fact_id`;\n   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n   identificatore di voce di memoria come `fact_id`.\n3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n   l'informazione e' nuova, l'operazione e' un ADD.\n4. ADD e NOOP lasciano `target_entry_id` a null.\n5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC05-M001] (obiettivo-dati-esposti) L'obiettivo del caso ARD-19 è stabilire quali dati dei fornitori siano stati esposti.\n[SC05-M002] (obiettivo-ritorno-servizio) L'obiettivo del caso ARD-19 è riportare il portale in servizio senza interruzioni per i fornitori attivi.\n[SC05-M003] (caso-portale) È stato aperto il caso ARD-19 sul portale fornitori della società di mobilità.\n[SC05-M004] (vincolo-rapporto) Prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con altri reparti.\n[SC05-M005] (referente-cliente) Il referente del cliente per il caso è l'ufficio legale e non il reparto informatico.\n\nArchivio dei fatti superati o ritirati:\n(archivio vuoto: nessun fatto superato o ritirato)\n\nFatti nuovi da valutare:\n[SC05-F006] L'accesso anomalo risulta arrivato dal server esposto SRV-12, che ospita il modulo di autenticazione del portale. (tipo: osservazione, negato: no, da: SC05-S2-U1)\n[SC05-F007] L'orario dell'accesso anomalo è il 4 marzo alle 02:40. (tipo: osservazione, negato: no, da: SC05-S2-U1)\n[SC05-F008] Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati fuori dal portale. (tipo: stato, negato: no, da: SC05-S2-U2)",
+      "repair_rounds": [],
+      "scenario_id": "scenario_05",
+      "session_id": "SC05-S2",
+      "session_order": 2,
+      "state_before": [
+        "SC05-M001",
+        "SC05-M002",
+        "SC05-M003",
+        "SC05-M004",
+        "SC05-M005"
+      ]
+    },
+    {
+      "archive_before": [],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC05-F009",
+        "SC05-F010",
+        "SC05-F011",
+        "SC05-F012"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC05-F009\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"isolamento-server\",\n  \"value\": \"SRV-12 è stato isolato dalla rete di produzione.\",\n  \"target_entry_id\": null,\n  \"reason\": \"attività di contenimento nuova\"\n },\n {\n  \"fact_id\": \"SC05-F010\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"chiavi-api\",\n  \"value\": \"Le chiavi API del portale sono state revocate.\",\n  \"target_entry_id\": null,\n  \"reason\": \"attività di contenimento nuova\"\n },\n {\n  \"fact_id\": \"SC05-F011\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"verifica-bilanciatore\",\n  \"value\": \"Resta da verificare il registro del bilanciatore per stabilire quante sessioni anomale ci siano state.\",\n  \"target_entry_id\": null,\n  \"reason\": \"attività aperta nuova\"\n },\n {\n  \"fact_id\": \"SC05-F012\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"evidenza-file-tmp\",\n  \"value\": \"Il file export_fornitori.csv trovato in /tmp è trattato come evidenza dell'esportazione dei dati.\",\n  \"target_entry_id\": null,\n  \"reason\": \"evidenza nuova, ancora provvisoria\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC05-OP009",
+        "SC05-OP010",
+        "SC05-OP011",
+        "SC05-OP012"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n     ammessi nel campo `fact_id`;\n   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n   identificatore di voce di memoria come `fact_id`.\n3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n   l'informazione e' nuova, l'operazione e' un ADD.\n4. ADD e NOOP lasciano `target_entry_id` a null.\n5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC05-M001] (obiettivo-dati-esposti) L'obiettivo del caso ARD-19 è stabilire quali dati dei fornitori siano stati esposti.\n[SC05-M002] (obiettivo-ritorno-servizio) L'obiettivo del caso ARD-19 è riportare il portale in servizio senza interruzioni per i fornitori attivi.\n[SC05-M003] (caso-portale) È stato aperto il caso ARD-19 sul portale fornitori della società di mobilità.\n[SC05-M004] (vincolo-rapporto) Prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con altri reparti.\n[SC05-M005] (referente-cliente) Il referente del cliente per il caso è l'ufficio legale e non il reparto informatico.\n[SC05-M006] (server-esposto) Il server esposto è SRV-12, che ospita il modulo di autenticazione del portale.\n[SC05-M007] (orario-accesso) L'orario dell'accesso anomalo è il 4 marzo alle 02:40.\n[SC05-M008] (scadenza-cliente) Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati.\n\nArchivio dei fatti superati o ritirati:\n(archivio vuoto: nessun fatto superato o ritirato)\n\nFatti nuovi da valutare:\n[SC05-F009] SRV-12 è stato isolato dalla rete di produzione. (tipo: stato, negato: no, da: SC05-S3-U1)\n[SC05-F010] Le chiavi API del portale sono state revocate. (tipo: stato, negato: no, da: SC05-S3-U1)\n[SC05-F011] Resta da verificare il registro del bilanciatore per stabilire quante sessioni anomale ci siano state. (tipo: stato, negato: no, da: SC05-S3-U1)\n[SC05-F012] Il file export_fornitori.csv trovato in /tmp è trattato come evidenza dell'esportazione dei dati. (tipo: ipotesi, negato: no, da: SC05-S3-U2)",
+      "repair_rounds": [],
+      "scenario_id": "scenario_05",
+      "session_id": "SC05-S3",
+      "session_order": 3,
+      "state_before": [
+        "SC05-M001",
+        "SC05-M002",
+        "SC05-M003",
+        "SC05-M004",
+        "SC05-M005",
+        "SC05-M006",
+        "SC05-M007",
+        "SC05-M008"
+      ]
+    },
+    {
+      "archive_before": [],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC05-F013",
+        "SC05-F014",
+        "SC05-F015"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC05-F013\",\n  \"operation\": \"UPDATE\",\n  \"claim_key\": \"server-esposto\",\n  \"value\": \"Il server esposto è SRV-14, che ospita il modulo di esportazione delle anagrafiche.\",\n  \"target_entry_id\": \"SC05-M006\",\n  \"reason\": \"la ricostruzione precedente indicava SRV-12 ed è stata corretta\"\n },\n {\n  \"fact_id\": \"SC05-F014\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"errore-inventario\",\n  \"value\": \"SRV-12 era stato indicato per un errore di lettura dell'inventario.\",\n  \"target_entry_id\": null,\n  \"reason\": \"spiegazione nuova dell'errore\"\n },\n {\n  \"fact_id\": \"SC05-F015\",\n  \"operation\": \"NOOP\",\n  \"claim_key\": \"orario-accesso\",\n  \"value\": \"L'orario dell'accesso anomalo è il 4 marzo alle 02:40.\",\n  \"target_entry_id\": null,\n  \"reason\": \"conferma di un'informazione già agli atti\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC05-OP013",
+        "SC05-OP014",
+        "SC05-OP015"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n     ammessi nel campo `fact_id`;\n   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n   identificatore di voce di memoria come `fact_id`.\n3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n   l'informazione e' nuova, l'operazione e' un ADD.\n4. ADD e NOOP lasciano `target_entry_id` a null.\n5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC05-M001] (obiettivo-dati-esposti) L'obiettivo del caso ARD-19 è stabilire quali dati dei fornitori siano stati esposti.\n[SC05-M002] (obiettivo-ritorno-servizio) L'obiettivo del caso ARD-19 è riportare il portale in servizio senza interruzioni per i fornitori attivi.\n[SC05-M003] (caso-portale) È stato aperto il caso ARD-19 sul portale fornitori della società di mobilità.\n[SC05-M004] (vincolo-rapporto) Prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con altri reparti.\n[SC05-M005] (referente-cliente) Il referente del cliente per il caso è l'ufficio legale e non il reparto informatico.\n[SC05-M006] (server-esposto) Il server esposto è SRV-12, che ospita il modulo di autenticazione del portale.\n[SC05-M007] (orario-accesso) L'orario dell'accesso anomalo è il 4 marzo alle 02:40.\n[SC05-M008] (scadenza-cliente) Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati.\n[SC05-M009] (isolamento-server) SRV-12 è stato isolato dalla rete di produzione.\n[SC05-M010] (chiavi-api) Le chiavi API del portale sono state revocate.\n[SC05-M011] (verifica-bilanciatore) Resta da verificare il registro del bilanciatore per stabilire quante sessioni anomale ci siano state.\n[SC05-M012] (evidenza-file-tmp) Il file export_fornitori.csv trovato in /tmp è trattato come evidenza dell'esportazione dei dati.\n\nArchivio dei fatti superati o ritirati:\n(archivio vuoto: nessun fatto superato o ritirato)\n\nFatti nuovi da valutare:\n[SC05-F013] Il server esposto non è SRV-12 ma SRV-14, che ospita il modulo di esportazione delle anagrafiche. (tipo: osservazione, negato: no, da: SC05-S4-U1)\n[SC05-F014] SRV-12 era stato indicato per un errore di lettura dell'inventario. (tipo: osservazione, negato: no, da: SC05-S4-U1)\n[SC05-F015] L'orario dell'accesso del 4 marzo alle 02:40 resta confermato. (tipo: conferma, negato: no, da: SC05-S4-U1)",
+      "repair_rounds": [],
+      "scenario_id": "scenario_05",
+      "session_id": "SC05-S4",
+      "session_order": 4,
+      "state_before": [
+        "SC05-M001",
+        "SC05-M002",
+        "SC05-M003",
+        "SC05-M004",
+        "SC05-M005",
+        "SC05-M006",
+        "SC05-M007",
+        "SC05-M008",
+        "SC05-M009",
+        "SC05-M010",
+        "SC05-M011",
+        "SC05-M012"
+      ]
+    },
+    {
+      "archive_before": [
+        "SC05-M006"
+      ],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC05-F016",
+        "SC05-F017",
+        "SC05-F018"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC05-F016\",\n  \"operation\": \"DELETE\",\n  \"claim_key\": \"evidenza-file-tmp\",\n  \"value\": \"L'evidenza del file export_fornitori.csv è ritirata: non ha alcuna relazione con l'incidente.\",\n  \"target_entry_id\": \"SC05-M012\",\n  \"reason\": \"ritiro senza sostituzione\"\n },\n {\n  \"fact_id\": \"SC05-F017\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"residuo-migrazione\",\n  \"value\": \"Il file export_fornitori.csv è il residuo di una migrazione interna di gennaio.\",\n  \"target_entry_id\": null,\n  \"reason\": \"spiegazione nuova\"\n },\n {\n  \"fact_id\": \"SC05-F018\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"finestra-manutenzione\",\n  \"value\": \"La finestra di manutenzione mensile del portale resta il primo martedì del mese.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC05-OP016",
+        "SC05-OP017",
+        "SC05-OP018"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n     ammessi nel campo `fact_id`;\n   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n   identificatore di voce di memoria come `fact_id`.\n3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n   l'informazione e' nuova, l'operazione e' un ADD.\n4. ADD e NOOP lasciano `target_entry_id` a null.\n5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC05-M001] (obiettivo-dati-esposti) L'obiettivo del caso ARD-19 è stabilire quali dati dei fornitori siano stati esposti.\n[SC05-M002] (obiettivo-ritorno-servizio) L'obiettivo del caso ARD-19 è riportare il portale in servizio senza interruzioni per i fornitori attivi.\n[SC05-M003] (caso-portale) È stato aperto il caso ARD-19 sul portale fornitori della società di mobilità.\n[SC05-M004] (vincolo-rapporto) Prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con altri reparti.\n[SC05-M005] (referente-cliente) Il referente del cliente per il caso è l'ufficio legale e non il reparto informatico.\n[SC05-M007] (orario-accesso) L'orario dell'accesso anomalo è il 4 marzo alle 02:40.\n[SC05-M008] (scadenza-cliente) Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati.\n[SC05-M009] (isolamento-server) SRV-12 è stato isolato dalla rete di produzione.\n[SC05-M010] (chiavi-api) Le chiavi API del portale sono state revocate.\n[SC05-M011] (verifica-bilanciatore) Resta da verificare il registro del bilanciatore per stabilire quante sessioni anomale ci siano state.\n[SC05-M012] (evidenza-file-tmp) Il file export_fornitori.csv trovato in /tmp è trattato come evidenza dell'esportazione dei dati.\n[SC05-M013] (server-esposto) Il server esposto è SRV-14, che ospita il modulo di esportazione delle anagrafiche.\n[SC05-M014] (errore-inventario) SRV-12 era stato indicato per un errore di lettura dell'inventario.\n\nArchivio dei fatti superati o ritirati:\n[SC05-M006] (server-esposto) Il server esposto è SRV-12, che ospita il modulo di autenticazione del portale. — superato\n\nFatti nuovi da valutare:\n[SC05-F016] L'evidenza del file export_fornitori.csv è ritirata: non ha alcuna relazione con l'incidente. (tipo: ritiro, negato: no, da: SC05-S5-U1)\n[SC05-F017] Il file export_fornitori.csv è il residuo di una migrazione interna di gennaio. (tipo: osservazione, negato: no, da: SC05-S5-U1)\n[SC05-F018] La finestra di manutenzione mensile del portale resta il primo martedì del mese. (tipo: stato, negato: no, da: SC05-S5-U2)",
+      "repair_rounds": [],
+      "scenario_id": "scenario_05",
+      "session_id": "SC05-S5",
+      "session_order": 5,
+      "state_before": [
+        "SC05-M001",
+        "SC05-M002",
+        "SC05-M003",
+        "SC05-M004",
+        "SC05-M005",
+        "SC05-M007",
+        "SC05-M008",
+        "SC05-M009",
+        "SC05-M010",
+        "SC05-M011",
+        "SC05-M012",
+        "SC05-M013",
+        "SC05-M014"
+      ]
+    },
+    {
+      "archive_before": [
+        "SC05-M006",
+        "SC05-M012"
+      ],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC05-F019",
+        "SC05-F020"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC05-F019\",\n  \"operation\": \"NOOP\",\n  \"claim_key\": \"orario-accesso\",\n  \"value\": \"L'orario dell'accesso anomalo è il 4 marzo alle 02:40.\",\n  \"target_entry_id\": null,\n  \"reason\": \"conferma ripetuta, nessun cambiamento\"\n },\n {\n  \"fact_id\": \"SC05-F020\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"vettore-credenziali\",\n  \"value\": \"Il modo in cui le credenziali del portale sono state ottenute non è determinato.\",\n  \"target_entry_id\": null,\n  \"reason\": \"punto dichiarato non determinato\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC05-OP019",
+        "SC05-OP020"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n     ammessi nel campo `fact_id`;\n   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n   identificatore di voce di memoria come `fact_id`.\n3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n   l'informazione e' nuova, l'operazione e' un ADD.\n4. ADD e NOOP lasciano `target_entry_id` a null.\n5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC05-M001] (obiettivo-dati-esposti) L'obiettivo del caso ARD-19 è stabilire quali dati dei fornitori siano stati esposti.\n[SC05-M002] (obiettivo-ritorno-servizio) L'obiettivo del caso ARD-19 è riportare il portale in servizio senza interruzioni per i fornitori attivi.\n[SC05-M003] (caso-portale) È stato aperto il caso ARD-19 sul portale fornitori della società di mobilità.\n[SC05-M004] (vincolo-rapporto) Prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con altri reparti.\n[SC05-M005] (referente-cliente) Il referente del cliente per il caso è l'ufficio legale e non il reparto informatico.\n[SC05-M007] (orario-accesso) L'orario dell'accesso anomalo è il 4 marzo alle 02:40.\n[SC05-M008] (scadenza-cliente) Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati.\n[SC05-M009] (isolamento-server) SRV-12 è stato isolato dalla rete di produzione.\n[SC05-M010] (chiavi-api) Le chiavi API del portale sono state revocate.\n[SC05-M011] (verifica-bilanciatore) Resta da verificare il registro del bilanciatore per stabilire quante sessioni anomale ci siano state.\n[SC05-M013] (server-esposto) Il server esposto è SRV-14, che ospita il modulo di esportazione delle anagrafiche.\n[SC05-M014] (errore-inventario) SRV-12 era stato indicato per un errore di lettura dell'inventario.\n[SC05-M017] (residuo-migrazione) Il file export_fornitori.csv è il residuo di una migrazione interna di gennaio.\n[SC05-M018] (finestra-manutenzione) La finestra di manutenzione mensile del portale resta il primo martedì del mese.\n\nArchivio dei fatti superati o ritirati:\n[SC05-M006] (server-esposto) Il server esposto è SRV-12, che ospita il modulo di autenticazione del portale. — superato\n[SC05-M012] (evidenza-file-tmp) Il file export_fornitori.csv trovato in /tmp è trattato come evidenza dell'esportazione dei dati. — ritirato\n\nFatti nuovi da valutare:\n[SC05-F019] L'orario dell'accesso anomalo resta il 4 marzo alle 02:40, senza cambiamenti. (tipo: conferma, negato: no, da: SC05-S6-U1)\n[SC05-F020] Il modo in cui le credenziali del portale sono state ottenute non è determinato. (tipo: stato, negato: no, da: SC05-S6-U2)",
+      "repair_rounds": [],
+      "scenario_id": "scenario_05",
+      "session_id": "SC05-S6",
+      "session_order": 6,
+      "state_before": [
+        "SC05-M001",
+        "SC05-M002",
+        "SC05-M003",
+        "SC05-M004",
+        "SC05-M005",
+        "SC05-M007",
+        "SC05-M008",
+        "SC05-M009",
+        "SC05-M010",
+        "SC05-M011",
+        "SC05-M013",
+        "SC05-M014",
+        "SC05-M017",
+        "SC05-M018"
+      ]
+    },
+    {
+      "archive_before": [
+        "SC05-M006",
+        "SC05-M012"
+      ],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC05-F021",
+        "SC05-F022",
+        "SC05-F023"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC05-F021\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"anagrafiche-esportate\",\n  \"value\": \"Il modulo di esportazione su SRV-14 ha prodotto un file con 1.480 anagrafiche di fornitori.\",\n  \"target_entry_id\": null,\n  \"reason\": \"perimetro dei dati, informazione nuova\"\n },\n {\n  \"fact_id\": \"SC05-F022\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"campi-esposti\",\n  \"value\": \"Le anagrafiche esposte contengono ragione sociale, partita IVA e indirizzo di posta elettronica.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n },\n {\n  \"fact_id\": \"SC05-F023\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"coordinate-bancarie\",\n  \"value\": \"Non risultano coinvolte coordinate bancarie.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC05-OP021",
+        "SC05-OP022",
+        "SC05-OP023"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n     ammessi nel campo `fact_id`;\n   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n   identificatore di voce di memoria come `fact_id`.\n3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n   l'informazione e' nuova, l'operazione e' un ADD.\n4. ADD e NOOP lasciano `target_entry_id` a null.\n5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC05-M001] (obiettivo-dati-esposti) L'obiettivo del caso ARD-19 è stabilire quali dati dei fornitori siano stati esposti.\n[SC05-M002] (obiettivo-ritorno-servizio) L'obiettivo del caso ARD-19 è riportare il portale in servizio senza interruzioni per i fornitori attivi.\n[SC05-M003] (caso-portale) È stato aperto il caso ARD-19 sul portale fornitori della società di mobilità.\n[SC05-M004] (vincolo-rapporto) Prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con altri reparti.\n[SC05-M005] (referente-cliente) Il referente del cliente per il caso è l'ufficio legale e non il reparto informatico.\n[SC05-M007] (orario-accesso) L'orario dell'accesso anomalo è il 4 marzo alle 02:40.\n[SC05-M008] (scadenza-cliente) Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati.\n[SC05-M009] (isolamento-server) SRV-12 è stato isolato dalla rete di produzione.\n[SC05-M010] (chiavi-api) Le chiavi API del portale sono state revocate.\n[SC05-M011] (verifica-bilanciatore) Resta da verificare il registro del bilanciatore per stabilire quante sessioni anomale ci siano state.\n[SC05-M013] (server-esposto) Il server esposto è SRV-14, che ospita il modulo di esportazione delle anagrafiche.\n[SC05-M014] (errore-inventario) SRV-12 era stato indicato per un errore di lettura dell'inventario.\n[SC05-M017] (residuo-migrazione) Il file export_fornitori.csv è il residuo di una migrazione interna di gennaio.\n[SC05-M018] (finestra-manutenzione) La finestra di manutenzione mensile del portale resta il primo martedì del mese.\n[SC05-M020] (vettore-credenziali) Il modo in cui le credenziali del portale sono state ottenute non è determinato.\n\nArchivio dei fatti superati o ritirati:\n[SC05-M006] (server-esposto) Il server esposto è SRV-12, che ospita il modulo di autenticazione del portale. — superato\n[SC05-M012] (evidenza-file-tmp) Il file export_fornitori.csv trovato in /tmp è trattato come evidenza dell'esportazione dei dati. — ritirato\n\nFatti nuovi da valutare:\n[SC05-F021] Il modulo di esportazione su SRV-14 ha prodotto un file con 1.480 anagrafiche di fornitori. (tipo: osservazione, negato: no, da: SC05-S7-U1)\n[SC05-F022] Le anagrafiche esposte contengono ragione sociale, partita IVA e indirizzo di posta elettronica. (tipo: osservazione, negato: no, da: SC05-S7-U1)\n[SC05-F023] Non risultano coinvolte coordinate bancarie. (tipo: osservazione, negato: si, da: SC05-S7-U1)",
+      "repair_rounds": [],
+      "scenario_id": "scenario_05",
+      "session_id": "SC05-S7",
+      "session_order": 7,
+      "state_before": [
+        "SC05-M001",
+        "SC05-M002",
+        "SC05-M003",
+        "SC05-M004",
+        "SC05-M005",
+        "SC05-M007",
+        "SC05-M008",
+        "SC05-M009",
+        "SC05-M010",
+        "SC05-M011",
+        "SC05-M013",
+        "SC05-M014",
+        "SC05-M017",
+        "SC05-M018",
+        "SC05-M020"
+      ]
+    },
+    {
+      "archive_before": [
+        "SC05-M006",
+        "SC05-M012"
+      ],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC05-F024",
+        "SC05-F025",
+        "SC05-F026",
+        "SC05-F027"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC05-F024\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"verifica-backup\",\n  \"value\": \"La verifica di integrità dei backup è completata e il risultato è regolare.\",\n  \"target_entry_id\": null,\n  \"reason\": \"verifica nuova, già conclusa\"\n },\n {\n  \"fact_id\": \"SC05-F025\",\n  \"operation\": \"NOOP\",\n  \"claim_key\": \"verifica-bilanciatore\",\n  \"value\": \"Resta da verificare il registro del bilanciatore.\",\n  \"target_entry_id\": null,\n  \"reason\": \"ripete un'attività già aperta agli atti\"\n },\n {\n  \"fact_id\": \"SC05-F026\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"revisione-regole-esportazione\",\n  \"value\": \"Resta aperta la revisione delle regole di esportazione su SRV-14.\",\n  \"target_entry_id\": null,\n  \"reason\": \"attività aperta nuova\"\n },\n {\n  \"fact_id\": \"SC05-F027\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"password-amministrative\",\n  \"value\": \"Le password dei tre account amministrativi del portale sono state reimpostate.\",\n  \"target_entry_id\": null,\n  \"reason\": \"attività nuova\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC05-OP024",
+        "SC05-OP025",
+        "SC05-OP026",
+        "SC05-OP027"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n     ammessi nel campo `fact_id`;\n   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n   identificatore di voce di memoria come `fact_id`.\n3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n   l'informazione e' nuova, l'operazione e' un ADD.\n4. ADD e NOOP lasciano `target_entry_id` a null.\n5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC05-M001] (obiettivo-dati-esposti) L'obiettivo del caso ARD-19 è stabilire quali dati dei fornitori siano stati esposti.\n[SC05-M002] (obiettivo-ritorno-servizio) L'obiettivo del caso ARD-19 è riportare il portale in servizio senza interruzioni per i fornitori attivi.\n[SC05-M003] (caso-portale) È stato aperto il caso ARD-19 sul portale fornitori della società di mobilità.\n[SC05-M004] (vincolo-rapporto) Prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con altri reparti.\n[SC05-M005] (referente-cliente) Il referente del cliente per il caso è l'ufficio legale e non il reparto informatico.\n[SC05-M007] (orario-accesso) L'orario dell'accesso anomalo è il 4 marzo alle 02:40.\n[SC05-M008] (scadenza-cliente) Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati.\n[SC05-M009] (isolamento-server) SRV-12 è stato isolato dalla rete di produzione.\n[SC05-M010] (chiavi-api) Le chiavi API del portale sono state revocate.\n[SC05-M011] (verifica-bilanciatore) Resta da verificare il registro del bilanciatore per stabilire quante sessioni anomale ci siano state.\n[SC05-M013] (server-esposto) Il server esposto è SRV-14, che ospita il modulo di esportazione delle anagrafiche.\n[SC05-M014] (errore-inventario) SRV-12 era stato indicato per un errore di lettura dell'inventario.\n[SC05-M017] (residuo-migrazione) Il file export_fornitori.csv è il residuo di una migrazione interna di gennaio.\n[SC05-M018] (finestra-manutenzione) La finestra di manutenzione mensile del portale resta il primo martedì del mese.\n[SC05-M020] (vettore-credenziali) Il modo in cui le credenziali del portale sono state ottenute non è determinato.\n[SC05-M021] (anagrafiche-esportate) Il modulo di esportazione su SRV-14 ha prodotto un file con 1.480 anagrafiche di fornitori.\n[SC05-M022] (campi-esposti) Le anagrafiche esposte contengono ragione sociale, partita IVA e indirizzo di posta elettronica.\n[SC05-M023] (coordinate-bancarie) Non risultano coinvolte coordinate bancarie.\n\nArchivio dei fatti superati o ritirati:\n[SC05-M006] (server-esposto) Il server esposto è SRV-12, che ospita il modulo di autenticazione del portale. — superato\n[SC05-M012] (evidenza-file-tmp) Il file export_fornitori.csv trovato in /tmp è trattato come evidenza dell'esportazione dei dati. — ritirato\n\nFatti nuovi da valutare:\n[SC05-F024] La verifica di integrità dei backup è completata e il risultato è regolare. (tipo: stato, negato: no, da: SC05-S8-U1)\n[SC05-F025] Resta aperta la verifica del registro del bilanciatore. (tipo: stato, negato: no, da: SC05-S8-U1)\n[SC05-F026] Resta aperta la revisione delle regole di esportazione su SRV-14. (tipo: stato, negato: no, da: SC05-S8-U1)\n[SC05-F027] Le password dei tre account amministrativi del portale sono state reimpostate. (tipo: stato, negato: no, da: SC05-S8-U2)",
+      "repair_rounds": [],
+      "scenario_id": "scenario_05",
+      "session_id": "SC05-S8",
+      "session_order": 8,
+      "state_before": [
+        "SC05-M001",
+        "SC05-M002",
+        "SC05-M003",
+        "SC05-M004",
+        "SC05-M005",
+        "SC05-M007",
+        "SC05-M008",
+        "SC05-M009",
+        "SC05-M010",
+        "SC05-M011",
+        "SC05-M013",
+        "SC05-M014",
+        "SC05-M017",
+        "SC05-M018",
+        "SC05-M020",
+        "SC05-M021",
+        "SC05-M022",
+        "SC05-M023"
+      ]
+    },
+    {
+      "archive_before": [
+        "SC05-M006",
+        "SC05-M012"
+      ],
+      "effort": "medium",
+      "error": null,
+      "executed": true,
+      "input_fact_ids": [
+        "SC05-F028",
+        "SC05-F029",
+        "SC05-F030"
+      ],
+      "model_answer": "[\n {\n  \"fact_id\": \"SC05-F028\",\n  \"operation\": \"UPDATE\",\n  \"claim_key\": \"verifica-bilanciatore\",\n  \"value\": \"La verifica del registro del bilanciatore è completata e conferma una sola sessione anomala.\",\n  \"target_entry_id\": \"SC05-M011\",\n  \"reason\": \"l'attività era aperta e ora è conclusa\"\n },\n {\n  \"fact_id\": \"SC05-F029\",\n  \"operation\": \"UPDATE\",\n  \"claim_key\": \"revisione-regole-esportazione\",\n  \"value\": \"Resta aperta la revisione delle regole di esportazione su SRV-14, prevista per la settimana prossima.\",\n  \"target_entry_id\": \"SC05-M026\",\n  \"reason\": \"stessa attività, con la data prevista\"\n },\n {\n  \"fact_id\": \"SC05-F030\",\n  \"operation\": \"ADD\",\n  \"claim_key\": \"portale-in-servizio\",\n  \"value\": \"Il portale è tornato in servizio per i fornitori attivi lunedì mattina.\",\n  \"target_entry_id\": null,\n  \"reason\": \"informazione nuova\"\n }\n]",
+      "model_requested": "claude-sonnet-5",
+      "model_used": "fixture (nessuna chiamata al modello)",
+      "operations": [
+        "SC05-OP028",
+        "SC05-OP029",
+        "SC05-OP030"
+      ],
+      "parse_error": null,
+      "prompt": "Istruzioni:\nSei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n     ammessi nel campo `fact_id`;\n   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n   identificatore di voce di memoria come `fact_id`.\n3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n   l'informazione e' nuova, l'operazione e' un ADD.\n4. ADD e NOOP lasciano `target_entry_id` a null.\n5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n\n\nStato corrente della memoria:\n[SC05-M001] (obiettivo-dati-esposti) L'obiettivo del caso ARD-19 è stabilire quali dati dei fornitori siano stati esposti.\n[SC05-M002] (obiettivo-ritorno-servizio) L'obiettivo del caso ARD-19 è riportare il portale in servizio senza interruzioni per i fornitori attivi.\n[SC05-M003] (caso-portale) È stato aperto il caso ARD-19 sul portale fornitori della società di mobilità.\n[SC05-M004] (vincolo-rapporto) Prima della chiusura formale del caso il rapporto deve restare interno al gruppo di risposta e non può essere condiviso con altri reparti.\n[SC05-M005] (referente-cliente) Il referente del cliente per il caso è l'ufficio legale e non il reparto informatico.\n[SC05-M007] (orario-accesso) L'orario dell'accesso anomalo è il 4 marzo alle 02:40.\n[SC05-M008] (scadenza-cliente) Il cliente chiede di sapere entro dieci giorni lavorativi se i dati dei fornitori sono stati esportati.\n[SC05-M009] (isolamento-server) SRV-12 è stato isolato dalla rete di produzione.\n[SC05-M010] (chiavi-api) Le chiavi API del portale sono state revocate.\n[SC05-M011] (verifica-bilanciatore) Resta da verificare il registro del bilanciatore per stabilire quante sessioni anomale ci siano state.\n[SC05-M013] (server-esposto) Il server esposto è SRV-14, che ospita il modulo di esportazione delle anagrafiche.\n[SC05-M014] (errore-inventario) SRV-12 era stato indicato per un errore di lettura dell'inventario.\n[SC05-M017] (residuo-migrazione) Il file export_fornitori.csv è il residuo di una migrazione interna di gennaio.\n[SC05-M018] (finestra-manutenzione) La finestra di manutenzione mensile del portale resta il primo martedì del mese.\n[SC05-M020] (vettore-credenziali) Il modo in cui le credenziali del portale sono state ottenute non è determinato.\n[SC05-M021] (anagrafiche-esportate) Il modulo di esportazione su SRV-14 ha prodotto un file con 1.480 anagrafiche di fornitori.\n[SC05-M022] (campi-esposti) Le anagrafiche esposte contengono ragione sociale, partita IVA e indirizzo di posta elettronica.\n[SC05-M023] (coordinate-bancarie) Non risultano coinvolte coordinate bancarie.\n[SC05-M024] (verifica-backup) La verifica di integrità dei backup è completata e il risultato è regolare.\n[SC05-M026] (revisione-regole-esportazione) Resta aperta la revisione delle regole di esportazione su SRV-14.\n[SC05-M027] (password-amministrative) Le password dei tre account amministrativi del portale sono state reimpostate.\n\nArchivio dei fatti superati o ritirati:\n[SC05-M006] (server-esposto) Il server esposto è SRV-12, che ospita il modulo di autenticazione del portale. — superato\n[SC05-M012] (evidenza-file-tmp) Il file export_fornitori.csv trovato in /tmp è trattato come evidenza dell'esportazione dei dati. — ritirato\n\nFatti nuovi da valutare:\n[SC05-F028] La verifica del registro del bilanciatore è completata e conferma una sola sessione anomala. (tipo: stato, negato: no, da: SC05-S9-U1)\n[SC05-F029] Resta aperta soltanto la revisione delle regole di esportazione su SRV-14, prevista per la settimana prossima. (tipo: stato, negato: no, da: SC05-S9-U1)\n[SC05-F030] Il portale è tornato in servizio per i fornitori attivi lunedì mattina. (tipo: stato, negato: no, da: SC05-S9-U2)",
+      "repair_rounds": [],
+      "scenario_id": "scenario_05",
+      "session_id": "SC05-S9",
+      "session_order": 9,
+      "state_before": [
+        "SC05-M001",
+        "SC05-M002",
+        "SC05-M003",
+        "SC05-M004",
+        "SC05-M005",
+        "SC05-M007",
+        "SC05-M008",
+        "SC05-M009",
+        "SC05-M010",
+        "SC05-M011",
+        "SC05-M013",
+        "SC05-M014",
+        "SC05-M017",
+        "SC05-M018",
+        "SC05-M020",
+        "SC05-M021",
+        "SC05-M022",
+        "SC05-M023",
+        "SC05-M024",
+        "SC05-M026",
+        "SC05-M027"
+      ]
+    }
+  ],
+  "source_file": "data/rq2/scenarios/scenario_05.json",
+  "update_instructions": "Sei il componente che tiene aggiornata la memoria di un caso distribuito su piu' conversazioni.\nRicevi i fatti gia' estratti da una nuova conversazione e devi decidere come la memoria deve cambiare.\n\nPer OGNI fatto nuovo scegli una sola operazione:\n- ADD: l'informazione e' nuova e non riguarda nessun fatto gia' in memoria.\n- UPDATE: l'informazione sostituisce un fatto gia' in memoria riferito allo stesso oggetto e\n  allo stesso ambito (per esempio la stessa decisione, la stessa ipotesi, la stessa attivita').\n- DELETE: l'informazione ritira un fatto gia' in memoria senza sostituirlo.\n- NOOP: la memoria non deve cambiare, per esempio davanti a una conferma equivalente di\n  qualcosa che c'e' gia'.\n\nRegole:\n1. Usa `claim_key` per dire di quale oggetto parla il fatto: e' un'etichetta breve in minuscolo,\n   con i trattini al posto degli spazi. Riusa lo stesso claim_key di un fatto gia' in memoria\n   quando parli dello stesso oggetto e ambito.\n2. Nel messaggio ci sono due elenchi di identificatori diversi, che non vanno mai confusi:\n   - gli identificatori elencati sotto «Fatti nuovi da valutare» sono gli unici valori\n     ammessi nel campo `fact_id`;\n   - gli identificatori elencati sotto «Stato corrente della memoria» e «Archivio» sono le\n     voci di memoria, e sono gli unici valori ammessi nel campo `target_entry_id`.\n   Non usare mai un identificatore di fatto nuovo come `target_entry_id`, e non usare mai un\n   identificatore di voce di memoria come `fact_id`.\n3. UPDATE e DELETE devono indicare in `target_entry_id` una voce presa da «Stato corrente\n   della memoria»: deve essere ancora attiva e avere lo stesso `claim_key` dell'operazione.\n   Le voci elencate in «Archivio» non sono piu' modificabili. Un fatto nuovo che non ha\n   ancora una voce in memoria non puo' essere il bersaglio di un UPDATE o di un DELETE: se\n   l'informazione e' nuova, l'operazione e' un ADD.\n4. ADD e NOOP lasciano `target_entry_id` a null.\n5. Le operazioni vengono applicate una alla volta, nell'ordine in cui le elenchi, e una voce\n   appena superata non e' piu' un bersaglio valido. Se piu' fatti nuovi riguardano lo stesso\n   oggetto gia' in memoria, indica `target_entry_id` soltanto nella prima operazione che lo\n   supera; per i fatti successivi scegli l'operazione adatta rispetto al risultato di quella,\n   per esempio NOOP se e' una conferma equivalente o ADD se riguarda un oggetto distinto.\n6. Non inventare informazioni: `value` deve poter essere ricavato dal fatto nuovo.\n7. Conserva le negazioni: se il fatto dice che qualcosa non e' avvenuto o non e' stato\n   determinato, `value` deve dirlo.\n8. In `reason` scrivi in una frase perche' hai scelto quell'operazione.\n\nRispondi soltanto con un array JSON, un elemento per fatto nuovo, senza testo prima o dopo:\n{\"fact_id\": \"...\", \"operation\": \"ADD\", \"claim_key\": \"...\", \"value\": \"...\",\n \"target_entry_id\": null, \"reason\": \"...\"}\n"
+}

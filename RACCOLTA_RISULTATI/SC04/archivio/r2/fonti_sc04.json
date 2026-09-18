@@ -1,0 +1,31 @@
+{
+  "nota": "file letti in sola lettura; nessuno modificato da questa scheda",
+  "letti_in_sola_lettura": {
+    "results/rq2/generation_dev_sc04.jsonl": "f9e267edaef26eb4ce676ee75f00b8743af0cbcc1caf5d7839c89662d47e356f",
+    "results/rq2/generation_inputs_sc04.jsonl": "93bc64a8edcda89ecaec600263bf9c704c4d8cb79c94ae48a634c4dcdbef66b6",
+    "results/rq2/retrieval_sc04.jsonl": "1ef425a5ce10741d87f424fe756fe4388c36ee9e845b4eac82cf2d38ef9b1fa1",
+    "results/rq2/annotation_template_sc04.jsonl": "d50ff731fc9cd32d04921cc1733b589427e7c8ee987f55bf0d70526a65f6db3c",
+    "results/rq2/evaluation_dev_sc04.md": "f7bc6b8438f6de92512eebfe149b7d321596b971de61899f87eb9f530a5af685",
+    "results/rq2/facts/scenario_04_facts.jsonl": "a2509f06595aea04b4f75f17859016b2b0b912f1c6986a836761b4522264cff1",
+    "results/rq2/sc04_repair_v3/generation_dev_sc04_ug.jsonl": "f153c70f30df7c3f1583a4915f577cd28a26195ba4fc841ffde35bc2a1fbe934",
+    "results/rq2/sc04_repair_v3/generation_inputs_sc04_ug.jsonl": "8f21a4066f71ce9565b7202d32d990ab7bd2ad4773c89943874227c3cb1cfdf8",
+    "results/rq2/sc04_repair_v3/retrieval_sc04_ug.jsonl": "ca8226cf18a43a9973f8bcafc697137afcae714e963b2a6f0015138917eb9f69",
+    "results/rq2/sc04_repair_v3/scenario_04_state.json": "76b3ed6906068656fac0a00bc103263906d20c2b2ecf0546d9aca4995b2c1da6",
+    "results/rq2/sc04_repair_v3/scenario_04_operations.jsonl": "2bd781ae09552576f0faf7bae1b916c4806d5b83214f313faa0e88086a8c0b4f",
+    "results/rq2/sc04_repair_v3/scenario_04_graph.json": "35f8bc72623f86fef84387d521ef6184f0e718f5202b77438b150b0da96ec282",
+    "results/rq2/sc04_repair_v3/scenario_04_graph_log.json": "5fee142510f2f761988c0e293825629ca53c476ae44ed1c13b4e07298e3d5b72",
+    "results/rq2/sc04_repair_v3/README.md": "cce751998f0b2164f07de0fce2436513e2547411ae6b6935745ef10ca464639a",
+    "results/rq2/t_ext_v1/generation_dev_t_sc04.jsonl": "cda2e364da44c3b42f283588165f94a62b69737042ac4bc69fa13547711061bb",
+    "results/rq2/t_ext_v1/generation_inputs_t_sc04.jsonl": "98a93eb12f2630b80cd28c23791424e0ee2041146ceab5137955ac3cc67f03db",
+    "results/rq2/t_ext_v1/retrieval_t_sc04.jsonl": "185336b3ec53d620e9aaae546084e89e8256ac6c03b45f601dc65b6fa4e4a935",
+    "results/rq2/t_ext_v1/README.md": "cce95ac6803195b9a54bffec084cf5757c8f8fbcbc3b155e365187c516446c82",
+    "results/rq2/t_ext_v1/valutazione_assistita_t.md": "0d9e2e549dea0127a72f7b4ec814d6884382982d7d04af390e70ba2f6ab6e045",
+    "results/rq2/t_ext_v1/annotation_compilata_t_sc04.jsonl": "d8a88dba6599f2068a8fa772931e950cf72e2c8e20c6145c7a38d4492c5ed1c2",
+    "data/rq2/scenarios/scenario_04.json": "e2f29b2c9be019f614ee89dab1ebcfc1223be86e4eecc3931ca1e9d5224a7d85",
+    "data/rq2/annotations/scenario_04_rq2.json": "959d4d6446401616b5a904a907ae74991282b4eb3e43acf8c5666ee14f4cc919",
+    "data/rq2/config/experiment_rq2.json": "df4b066a0d1810e8f0bb7644694a249be194ec2d693578902e598b18c61b0eb3",
+    "data/rq2/config/run_t_ext_sc04_sc05.json": "d9b207e8329223682d7c15ab40abb308553ddc93121887a9880391111bc251e3",
+    "RACCOLTA_RISULTATI/CRITERI_VALUTAZIONE.md": "0962b117fdca758b5ecb961327714e09828a5c3adad7d7b02d78173c3e368755",
+    "RACCOLTA_RISULTATI/INVENTARIO.md": "6e7708fd098b1245d8c930244725a9de17a18283d8f0ddac1cdb6321f5d9d616"
+  }
+}

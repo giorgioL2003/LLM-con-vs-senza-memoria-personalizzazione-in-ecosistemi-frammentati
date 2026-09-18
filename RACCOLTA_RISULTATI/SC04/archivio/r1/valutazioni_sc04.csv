@@ -1,0 +1,29 @@
+question_id,question_category,mode,run_label,reachable,evidence_retrieved_content_verified,answer_class,answer_class_suspended,rq2_fact_coverage_in_context,rq2_fact_coverage_in_answer,relation_coverage_in_context,relation_coverage_in_answer,oracle_mandatory_coverage_in_answer,supported_by_original_conversation,faithful_to_received_context,counts_as_complete_and_supported,obsolete_used,unsupported_claim,wrong_abstention,error_origin,reading_scope,retrieval_performed,context_items,context_tokens
+SC04-Q1,goal,T,estensione-t-sviluppo-v1,True,True,completa,False,2/2,2/2,,,2/2,True,True,True,False,False,False,nessuno,,True,2,184
+SC04-Q1,goal,U,prova-riparazione-u-instructions-0.3,True,True,completa,False,2/2,2/2,,,2/2,True,True,True,False,False,False,nessuno,current,True,5,159
+SC04-Q1,goal,G,prova-riparazione-u-instructions-0.3,True,True,completa,False,2/2,2/2,,,2/2,True,True,True,False,False,False,nessuno,current,True,6,169
+SC04-Q1,goal,FULL_HISTORY,nessun retrieval,True,True,completa,False,2/2,2/2,,,2/2,True,True,True,False,False,False,nessuno,,False,7,529
+SC04-Q2,update_obsolete,T,estensione-t-sviluppo-v1,True,False,parziale,False,1/4,1/4,,2/3,2/4,True,True,False,False,False,False,retrieval,,True,2,165
+SC04-Q2,update_obsolete,U,prova-riparazione-u-instructions-0.3,True,False,parziale,False,2/4,2/4,,1/3,2/4,True,True,False,False,False,False,retrieval,history,True,5,178
+SC04-Q2,update_obsolete,G,prova-riparazione-u-instructions-0.3,True,False,parziale,False,1/4,1/4,0/3,0/3,2/4,True,True,False,False,False,False,retrieval,history,True,6,168
+SC04-Q2,update_obsolete,FULL_HISTORY,nessun retrieval,True,True,parziale,False,4/4,3/4,,1/3,3/4,True,True,False,False,False,False,risposta,,False,7,529
+SC04-Q3,cross_session_link,T,estensione-t-sviluppo-v1,True,False,parziale,False,1/6,1/6,,1/7,1/6,True,True,False,False,False,False,retrieval,,True,1,124
+SC04-Q3,cross_session_link,U,prova-riparazione-u-instructions-0.3,True,False,parziale,False,3/6,3/6,,4/7,3/6,True,True,False,False,False,False,retrieval,current,True,5,194
+SC04-Q3,cross_session_link,G,prova-riparazione-u-instructions-0.3,True,False,parziale,False,2/6,2/6,2/7,3/7,2/6,True,True,False,False,False,False,grafo,current,True,6,177
+SC04-Q3,cross_session_link,FULL_HISTORY,nessun retrieval,True,True,parziale,False,6/6,5/6,,5/7,5/6,True,True,False,False,False,False,risposta,,False,7,529
+SC04-Q4,completed_activity,T,estensione-t-sviluppo-v1,True,True,completa,False,3/3,3/3,,0/1,3/3,True,True,True,False,False,False,nessuno,,True,1,88
+SC04-Q4,completed_activity,U,prova-riparazione-u-instructions-0.3,True,False,parziale,False,1/3,1/3,,0/1,1/3,True,True,False,False,False,False,retrieval,current,True,6,190
+SC04-Q4,completed_activity,G,prova-riparazione-u-instructions-0.3,True,False,parziale,False,1/3,1/3,1/1,0/1,1/3,True,True,False,False,False,False,grafo,current,True,6,177
+SC04-Q4,completed_activity,FULL_HISTORY,nessun retrieval,True,True,completa,False,3/3,3/3,,1/1,3/3,True,True,True,False,False,False,nessuno,,False,7,529
+SC04-Q5,pending_activity,T,estensione-t-sviluppo-v1,True,True,completa,False,2/2,2/2,,,2/2,True,True,True,False,False,False,nessuno,,True,2,148
+SC04-Q5,pending_activity,U,prova-riparazione-u-instructions-0.3,True,False,parziale,False,1/2,1/2,,,1/2,True,True,False,False,False,False,retrieval,current,True,5,183
+SC04-Q5,pending_activity,G,prova-riparazione-u-instructions-0.3,True,False,parziale,False,1/2,1/2,,,1/2,True,True,False,False,False,False,retrieval,current,True,6,199
+SC04-Q5,pending_activity,FULL_HISTORY,nessun retrieval,True,True,completa,False,2/2,2/2,,,2/2,True,True,True,False,False,False,nessuno,,False,7,529
+SC04-Q6,declared_unknown,T,estensione-t-sviluppo-v1,True,True,completa,False,1/1,1/1,,,2/2,True,True,True,False,False,False,nessuno,,True,2,156
+SC04-Q6,declared_unknown,U,prova-riparazione-u-instructions-0.3,True,True,completa,False,1/1,1/1,,,2/2,True,True,True,False,False,False,nessuno,current,True,6,185
+SC04-Q6,declared_unknown,G,prova-riparazione-u-instructions-0.3,True,True,completa,False,1/1,1/1,,,2/2,True,True,True,False,False,False,nessuno,current,True,6,177
+SC04-Q6,declared_unknown,FULL_HISTORY,nessun retrieval,True,True,completa,False,1/1,1/1,,,2/2,True,True,True,False,False,False,nessuno,,False,7,529
+SC04-Q7,absent_information,T,estensione-t-sviluppo-v1,False,,astensione corretta,False,,,,,1/1,True,True,False,False,False,False,nessuno,,True,1,88
+SC04-Q7,absent_information,U,prova-riparazione-u-instructions-0.3,False,,astensione corretta,False,,,,,1/1,True,True,False,False,False,False,nessuno,current,True,6,189
+SC04-Q7,absent_information,G,prova-riparazione-u-instructions-0.3,False,,astensione corretta,False,,,,,1/1,True,True,False,False,False,False,nessuno,current,True,7,189
+SC04-Q7,absent_information,FULL_HISTORY,nessun retrieval,False,,astensione corretta,False,,,,,1/1,True,True,False,False,False,False,nessuno,,False,7,529

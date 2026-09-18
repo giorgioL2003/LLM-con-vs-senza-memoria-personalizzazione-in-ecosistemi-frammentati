@@ -1,0 +1,947 @@
+# SC04 — Corvara Servizi / smishing: valutazione delle 28 risposte RQ2
+
+**Revisione r3 — 18 settembre 2026.** Sostituisce r2 dello stesso giorno,
+conservata in [`archivio/r2/`](archivio/r2/); r1 è in
+[`archivio/r1/`](archivio/r1/). Struttura ripresa dalla scheda
+SC03 r2; **i giudizi sono ricavati dalle evidenze di SC04**, non trasferiti da
+altri scenari.
+
+**Stato dei giudizi:** **valutazioni assistite proposte dall'assistente, non
+approvate.** Nessuna approvazione dello studente, nessuna approvazione del
+relatore, protocollo non congelato. Vale anche per i giudizi rivisti in r2 e r3.
+
+**Natura dei risultati:** **risultati di sviluppo.** Una sola esecuzione per
+cella, sette domande per modalità, nessuna replica, oracle e annotazioni ancora
+in bozza (`status: BOZZA DA CONTROLLARE`). Non sono risultati dell'esperimento.
+
+**Stato del riepilogo numerico:** **provvisorio**, in attesa della revisione dei
+giudizi. Nessun giudizio è lasciato sospeso; la sola lettura discrezionale è
+dichiarata in §8.3 con l'effetto quantificato.
+
+Nessuna chiamata al modello, nessuna nuova generazione, nessuna riesecuzione del
+retrieval, della memoria o del grafo. Scenari, oracle, criteri comuni,
+configurazioni, codice, risposte e valutazioni precedenti non sono stati
+modificati: gli unici file scritti sono i cinque di questa cartella e le copie
+in `archivio/r1/` e `archivio/r2/`.
+
+---
+
+## 0. Note di revisione
+
+### r2 → r3
+
+| # | Che cosa è cambiato | Perché |
+|---|---|---|
+| 1 | **Q3/FULL_HISTORY: `faithful_to_received_context` da vero a falso.** | L'aggiunta «credenziali compromesse» non è sostenuta **nemmeno dal contesto ricevuto**, che per FULL_HISTORY è il corpus stesso: nessuno degli otto messaggi la dichiara. Non contraddire il contesto non basta per dire una risposta fedele ad esso. Classe, supporto e gli altri indicatori restano quelli di r2. **Nessuna metrica cambia.** |
+| 2 | **Q2/G: eliminato il conteggio ipotetico «da 2/4 a 3/4».** La nota descrive ora soltanto quali informazioni `SC04-M021` avrebbe portato nel contesto. | Il conteggio mescolava due denominatori: la copertura dei `required_facts` RQ2 nel contesto di Q2/G è **1/4**, mentre il 2/4 citato era la copertura dei `mandatory_facts` dell'oracle **nella risposta**. Togliere l'ipotesi è anche il modo più sicuro di non dedurre come avrebbe risposto il modello. |
+| 3 | **Tabella §6, riga G/Q2: corretto 2/4 → 1/4** nelle due colonne della copertura dei fatti RQ2. | Errore di trascrizione del solo rapporto: JSONL, CSV e riepilogo registravano già 1/4. |
+
+**Conseguenza sulle due definizioni.** Con la lettura adottata in r3,
+`faithful_to_received_context` è falso ogni volta che la risposta afferma
+qualcosa che il contesto ricevuto non contiene, anche senza contraddirlo.
+`supported_by_original_conversation` misura la stessa cosa rispetto al corpus.
+Le due coincidono per FULL_HISTORY, dove contesto e corpus sono lo stesso testo,
+e possono divergere nelle altre modalità: una risposta può ripetere fedelmente
+una voce di memoria che il corpus non sostiene, come in SC02-Q5/F. **Questa
+lettura è più severa di quella usata in SC03 r2 su Q5/U**, dove l'inciso «(in
+attesa di risultati)» è registrato con `fedele: true`: l'allineamento di quella
+riga è segnalato in §11 e non è stato fatto qui, perché riguarda un'altra scheda.
+
+**Invariati in r3:** tutte le classi, tutti gli altri indicatori, Complete Answer
+Rate, Retrieval Success, Answer Success, Correct Abstention Rate,
+UnsupportedClaimRate, la copertura delle relazioni e la selezione delle
+esecuzioni.
+
+### r1 → r2
+
+| # | Che cosa è cambiato | Perché |
+|---|---|---|
+| 1 | **Q2/G: riformulato l'effetto del mancato recupero di `SC04-M021`.** r1 diceva che la voce «avrebbe completato la risposta». In r2: se fosse entrata avrebbe aggiunto al contesto la valutazione superata sul contatto e il fatto che lo corregge; il motivo della classificazione sarebbe comunque rimasto fuori. Che cosa avrebbe risposto il modello **non è deducibile**. *(Il conteggio ipotetico «da 2/4 a 3/4» che r2 aggiungeva qui è stato rimosso in r3: mescolava due denominatori — vedi r2 → r3, punto 2.)* | L'affermazione di r1 confondeva «un elemento in più nel contesto» con «una risposta completa», e saltava dal contesto alla risposta senza evidenza. **Nessun giudizio cambia.** |
+| 2 | **`SC04-R03`: corretta l'affermazione che il contenuto fosse irrecuperabile.** L'arco non esiste, ma il contenuto è conservato in **due voci testuali attive**, `SC04-M015` e `SC04-M016`, che G usa insieme agli archi. Su Q2/G sono ai ranghi 24 e 10 e nessuna è selezionata. Ora la scheda distingue tre cose: assenza della relazione come arco, presenza del contenuto in memoria, mancata selezione nel contesto. | r1 scriveva «nessuna correzione del retrieval può recuperarla»: è falso. L'assenza dell'arco impedisce di attraversare la relazione in un percorso, non di portarne il contenuto nel contesto. **Nessun giudizio cambia.** |
+| 3 | **Q2/U: il motivo richiede due voci, non una.** r1 citava solo `SC04-M015` (rango 21); il motivo è diviso fra `SC04-M015` e `SC04-M016`, quest'ultima al **rango 7**. | Nota incompleta. **Giudizio invariato:** nessuna delle due entra nel contesto. |
+| 4 | **Q3/FULL_HISTORY: stessa semantica per il fatto composto e per la relazione.** r1 contava presente il fatto `regola-inoltro-creata` e assente la relazione `SC04-R08`, per la stessa identica mancanza. Ora entrambi sono contati **non presenti nella risposta**, che dice «viene creata RULE-01» senza «su ACC-207». Copertura oracle **da 5/6 a 4/6**; copertura RQ2 nella risposta **da 5/6 a 4/6**. | Incoerenza fra due annotazioni sullo stesso testo. La classe resta `parziale`: la risposta contiene comunque fatti corretti e non contraddice l'oracle. |
+| 5 | **Q3/FULL_HISTORY: «credenziali compromesse» è un'affermazione non supportata.** `unsupported_claim` da falso a **vero**, `supported_by_original_conversation` da vero a **falso**, `faithful_to_received_context` resta **vero**. UnsupportedClaimRate di FULL_HISTORY **da 0/7 a 1/7**. | Nessun messaggio del corpus dichiara la compromissione delle credenziali (§7). È un'aggiunta assente dalle fonti e non in contraddizione con esse: la regola comune la registra come supporto mancante, non come contraddizione. Classe e Complete Answer Rate invariati. |
+
+**Invariati:** la selezione delle esecuzioni e la verifica delle configurazioni
+(§1); i 27 giudizi diversi da Q3/FULL_HISTORY; tutte le classi; Complete Answer
+Rate, Retrieval Success, Answer Success, Correct Abstention Rate e la copertura
+delle relazioni nel contesto di G.
+
+---
+
+
+## 1. Esecuzioni di riferimento e verifica delle configurazioni
+
+Il confronto è formato da **28 risposte** che vengono da **tre esecuzioni
+distinte**. È una vista composita, e va dichiarata come tale ogni volta che i
+numeri vengono riportati.
+
+| Modalità | Righe | File delle risposte | Esecuzione | Ruolo |
+|---|---:|---|---|---|
+| **T** | 7 | `results/rq2/t_ext_v1/generation_dev_t_sc04.jsonl` | estensione della matrice, **8 settembre 2026** | confronto aggiuntivo disponibile |
+| **U** | 7 | `results/rq2/sc04_repair_v3/generation_dev_sc04_ug.jsonl` | correzione `u-instructions-0.3`, **5 settembre 2026** | versione corretta, di riferimento |
+| **G** | 7 | `results/rq2/sc04_repair_v3/generation_dev_sc04_ug.jsonl` | stessa esecuzione di U | versione corretta, di riferimento |
+| **FULL_HISTORY** | 7 | `results/rq2/generation_dev_sc04.jsonl` | esecuzione iniziale, **4 settembre 2026** | controllo diagnostico fuori budget |
+
+**FULL_HISTORY non è stata rigenerata nella correzione.** Il README di
+`sc04_repair_v3/` lo dichiara esplicitamente, e l'inventario lo segnala fra le
+cose da indicare in tabella. Non è un problema in sé — FULL_HISTORY non usa né
+la memoria né il grafo, quindi la correzione non la riguarda — ma resta una
+riga proveniente da un'altra esecuzione.
+
+### File che alimentano ciascuna modalità
+
+| Modalità | Prompt e contesto | Retrieval | Memoria / grafo |
+|---|---|---|---|
+| T | `t_ext_v1/generation_inputs_t_sc04.jsonl` | `t_ext_v1/retrieval_t_sc04.jsonl` | nessuna: unità = messaggio |
+| U | `sc04_repair_v3/generation_inputs_sc04_ug.jsonl` | `sc04_repair_v3/retrieval_sc04_ug.jsonl` | `sc04_repair_v3/scenario_04_state.json`, `…_operations.jsonl` |
+| G | `sc04_repair_v3/generation_inputs_sc04_ug.jsonl` | `sc04_repair_v3/retrieval_sc04_ug.jsonl` | `sc04_repair_v3/scenario_04_graph.json` (+ lo **stesso** stato di U) |
+| FULL_HISTORY | `results/rq2/generation_inputs_sc04.jsonl` | **nessuno** | nessuna: 7 messaggi utente per costruzione |
+
+### Compatibilità delle configurazioni — verificata
+
+| Controllo | Esito |
+|---|---|
+| Budget | **200 token** in tutte e tre le esecuzioni, letto dalle righe di retrieval |
+| `config_id` | `rq2-dev-0.1` nelle tre; `run_t_ext_sc04_sc05.json` dichiara di ereditare da quella base budget, conteggio dei token, regola di selezione e ranking |
+| Istruzioni del prompt | **identiche** in tutte e 28 le righe, verificate per confronto di stringa |
+| Modello ed effort | `claude-sonnet-5`, effort `medium`, in tutte e 28 |
+| Errori | `error: null` su tutte e 28 |
+| Fatti candidati | `results/rq2/facts/scenario_04_facts.jsonl`, **non riestratti** fra le esecuzioni. T non li usa: lavora sui messaggi |
+| Base di G | dichiarata in `state_source`: **lo stesso stato di U** prodotto nella correzione |
+| Identificativi | 28 coppie `(question_id, mode)` distinte, SC04-Q1…SC04-Q7 × {T, U, G, FULL_HISTORY} |
+
+**Che cosa questo rende confrontabile e che cosa no.** Budget, ranking, prompt,
+modello e fatti candidati sono gli stessi: le quattro modalità sono confrontabili
+sul piano delle condizioni dichiarate. Non sono però **repliche**: ogni cella ha
+una sola esecuzione, e T, U/G e FULL_HISTORY vengono da tre giorni diversi.
+
+### Le prime U e G restano fuori
+
+Le 7 risposte U e le 7 G presenti in `results/rq2/generation_dev_sc04.jsonl`
+**non entrano in nessuna aggregazione**. Sono consultate solo in §10, per la
+storia dello sviluppo, e sempre identificate come «prima versione». Non sono
+repliche delle versioni corrette: cambiano istruzioni (`u-instructions-0.2` →
+`0.3`), stato della memoria, grafo e quindi contesto ricevuto.
+
+---
+
+## 2. Fonti
+
+Tutte lette in sola lettura. I ventisei percorsi con le impronte SHA-256 sono in
+[`fonti_sc04.json`](fonti_sc04.json). Oltre ai file già elencati in §1:
+
+| Ruolo | File |
+|---|---|
+| I 41 fatti estratti (comuni a U e G) | `results/rq2/facts/scenario_04_facts.jsonl` |
+| Operazioni e registro del grafo | `sc04_repair_v3/scenario_04_operations.jsonl`, `…_graph_log.json` |
+| Note delle esecuzioni | `sc04_repair_v3/README.md`, `t_ext_v1/README.md` |
+| Valutazione precedente di T | `t_ext_v1/valutazione_assistita_t.md`, `…/annotation_compilata_t_sc04.jsonl` |
+| Valutazione precedente di U/G | `results/rq2/evaluation_dev_sc04.md` |
+| Scenario, oracle, relazioni attese | `data/rq2/scenarios/scenario_04.json`, `data/rq2/annotations/scenario_04_rq2.json` |
+| Configurazioni | `data/rq2/config/experiment_rq2.json`, `…/run_t_ext_sc04_sc05.json` |
+| Regola di classificazione | `RACCOLTA_RISULTATI/CRITERI_VALUTAZIONE.md` |
+| Criteri e metriche | `EXPERIMENT.md` §9–§11; `RQ2.md` §3–§7, §9.3, §12 |
+| Quadro della raccolta | `RACCOLTA_RISULTATI/INVENTARIO.md` |
+
+`results/rq2/annotation_template_sc04.jsonl` è stato letto e lasciato
+**intatto**. Le valutazioni precedenti (`valutazione_assistita_t.md`,
+`evaluation_dev_sc04.md`) sono state lette come contesto e **non riusate come
+giudizi**: le 28 righe di questa scheda sono valutate sulle evidenze.
+
+---
+
+## 3. Quale oracle è usato per quale misura
+
+Come in SC03, oracle della risposta e scomposizione RQ2 stanno nello stesso file.
+I conteggi non coincidono, e SC04 aggiunge un terzo oggetto: le **relazioni**.
+
+| Domanda | `mandatory_facts` (oracle della risposta) | `required_facts` (RQ2) | `required_relations` |
+|---|---:|---:|---:|
+| Q1 | 2 | 2 | 0 |
+| Q2 | 4 | 4 | **3** |
+| Q3 | 6 | 6 | **7** |
+| Q4 | 3 | 3 | **1** |
+| Q5 | 2 | 2 | 0 |
+| **Q6** | 2 | **1** | 0 |
+| **Q7** | 1 | **0** | 0 |
+
+**Regola adottata.**
+
+- **Copertura dei fatti** — sui `required_facts`, per singolo `fact_key`, con due
+  verifiche separate: presenza nel **contenuto del contesto ricevuto** e presenza
+  **nella risposta**. Alimenta l'indicatore di recupero (§9.2 di
+  `EXPERIMENT.md`) e quindi Retrieval Success e Answer Success. Dettaglio in
+  `rq2_fact_detail`.
+- **Copertura delle relazioni** — sui `required_relations`, **tenuta distinta**
+  dalla copertura dei fatti e **mai sommata** ad essa. La presenza nel contesto è
+  misurata **solo per G**, l'unica modalità con una rappresentazione relazionale
+  esplicita; la presenza nella risposta è misurata per tutte e quattro, perché
+  riguarda la risposta e non la rappresentazione. Dettaglio in `relation_detail`.
+  Le relazioni **non entrano** in Retrieval Success né in Answer Success: sono
+  riportate a parte in §8.2.
+- **Classe della risposta** — sull'**intera risposta** contro `expected_answer`,
+  `mandatory_facts`, `obsolete_information` e `accepted_equivalents`, secondo la
+  regola `completezza-supporto-1`.
+- **Q7** — nessun `required_fact`: la copertura RQ2 è **non definita**
+  (denominatore 0 → `null`). L'astensione è valutata sull'oracle della risposta e
+  sulla verifica diretta del corpus (§7).
+
+**Raggiungibilità.** Il perimetro è l'intero scenario in tutte e quattro le
+modalità: 7 messaggi utente per T e FULL_HISTORY, 41 fatti e 41 voci di memoria
+per U, 10 nodi e 16 archi per G. Coincide quindi con `fact_present_in_corpus`:
+vera per Q1–Q6, **falsa per Q7**.
+
+---
+
+## 4. Criteri applicati
+
+**Regola di classificazione:** `completezza-supporto-1`
+(`RACCOLTA_RISULTATI/CRITERI_VALUTAZIONE.md`), la stessa di SC02 r3 e SC03 r2.
+Contraddizione o uso di informazione superata → `errata`; tutti i fatti e nessuna
+contraddizione → `completa`, con `unsupported_claim` registrato a parte; parte
+dei fatti senza quegli errori → `parziale`; astensione corretta secondo il
+protocollo.
+
+**Nessuna interpretazione permissiva è stata introdotta per adattare i criteri
+ai risultati.** Dove l'oracle elenca un fatto obbligatorio, è stato richiesto; le
+clausole `accepted_equivalents` sono state applicate alla lettera. Due
+conseguenze concrete e scomode: su **Q2** nessuna delle quattro modalità è
+completa, perché l'oracle chiede quattro cose e nemmeno FULL_HISTORY le dà tutte;
+su **Q3** anche FULL_HISTORY è parziale, perché la catena richiesta è di sei
+passaggi e la risposta ne salta uno.
+
+**Quattro proprietà tenute distinte** in ogni riga:
+
+| Campo | Domanda a cui risponde |
+|---|---|
+| `rq2_fact_coverage_in_answer` | la risposta contiene i fatti richiesti? |
+| `supported_by_original_conversation` | tutto ciò che afferma è sostenuto dalle conversazioni originali? |
+| `faithful_to_received_context` | è fedele al contesto che ha ricevuto? |
+| `counts_as_complete_and_supported` | entra nel numeratore del Complete Answer Rate? |
+
+**Ordine diagnostico della prima causa osservabile** (`EXPERIMENT.md` §11,
+esteso da `RQ2.md` §7): conversazione → estrazione → **gestione** → **grafo** →
+recupero → contesto → risposta. SC04 è il primo scenario di questa raccolta in
+cui l'origine **`grafo`** risulta usata, perché è l'unico con una modalità G.
+
+**Una causa è attribuita solo quando è documentata negli artefatti.** Le
+spiegazioni non verificabili sono tenute separate e dichiarate tali (§9.3).
+
+---
+
+## 5. Come è stata verificata la presenza delle evidenze
+
+Ogni risposta è stata letta insieme al **blocco di contesto che ha davvero
+ricevuto**, riga per riga, e la presenza di un'evidenza è stata giudicata sul
+**contenuto**, non sugli identificatori di provenienza né sulla sola presenza di
+un identificatore di entità. Quattro reperti.
+
+**Un arco che dice la cosa giusta con lo stato sbagliato — G, Q4.** L'arco
+`SC04-E014 RULE-01 -rimossa-> ACC-207` esiste nel grafo e ha provenienza valida,
+ma il suo **stato è `superato`**. La politica di lettura ammette in una domanda
+a portata `current` soltanto gli elementi attivi: su Q4, che chiede quali azioni
+risultano completate, i candidati per G sono **14**, contro i 32 di U, e
+`SC04-E014` **non è fra loro**. Non è stato scartato dal ranking: non è mai
+entrato nella selezione. Lo stato dichiara che *l'arco* è superato, non che la
+regola è stata rimossa — il difetto era già annotato nel README della correzione
+come «difetto nuovo da registrare», e qui se ne vede l'effetto su una risposta.
+
+**Due voci attive con punteggio nullo — U, Q4.** `SC04-M033` («RULE-01 è stata
+rimossa») e `SC04-M034` («la password di ACC-207 è stata reimpostata alle
+08:05») sono **attive in memoria** e hanno punteggio **0,0000**, ranghi 31 e 32.
+Stessa domanda, stessa risposta incompleta di G, **causa diversa**: in U le
+informazioni sono candidate e perdono nel ranking, in G l'arco non è nemmeno
+candidato.
+
+**Nodi senza alias e nessun ancoraggio dal testo — G.** Tutti e 10 i nodi del
+grafo hanno `aliases: []`, e nessuna delle 7 domande trova nodi dal proprio
+testo. I semi vengono quindi solo dalle voci di U: su Q3 sono `ACC-207`,
+`RULE-01`, `UT-207`, e il percorso trovato ha due archi. Le relazioni
+`SC04-E003`, `SC04-E007`, `SC04-E009` e `SC04-E011` **esistono nel grafo** e
+restano fuori dal contesto.
+
+**Identificatore presente, fatto assente.** Su Q3 il contesto di U contiene
+`SC04-M032`, che nomina `LOGIN-07`; questo **non** soddisfa il fatto obbligatorio
+«su ACC-207 risulta l'accesso anomalo LOGIN-07», che richiede l'accesso anomalo e
+non il riferimento alla sessione. Allo stesso modo `SC04-M002` dice «l'operatore
+UT-207 ha segnalato un SMS» senza l'identificatore `SMS-01`: il fatto è contato
+come presente, con nota, perché soggetto e atto ci sono, ma la nota resta nel
+JSONL.
+
+---
+
+## 6. Tabella dei giudizi proposti
+
+Tabella completa: [`valutazioni_sc04.jsonl`](valutazioni_sc04.jsonl) (28 righe,
+con `rq2_fact_detail` e `relation_detail`) e
+[`valutazioni_sc04.csv`](valutazioni_sc04.csv) per la lettura rapida.
+
+Legenda: **F ctx / F risp** = `fact_key` RQ2 nel contenuto del contesto / nella
+risposta; **R ctx / R risp** = relazioni richieste nel contesto (solo G) / nella
+risposta; **Oracle** = `mandatory_facts` coperti; **Sup.** = supportata dalle
+conversazioni originali; **C&S** = conta come completa e supportata.
+
+### T — Turn-level RAG (confronto aggiuntivo)
+
+| Dom. | F ctx | F risp | R risp | Oracle | Classe | Sup. | C&S | Obs. | Non sup. | Prima causa |
+|---|:-:|:-:|:-:|:-:|---|:-:|:-:|:-:|:-:|---|
+| Q1 obiettivo | 2/2 | 2/2 | – | 2/2 | **completa** | sì | sì | no | no | – |
+| Q2 classificazione | **1/4** | 1/4 | **2/3** | **2/4** | **parziale** | sì | no | no | no | retrieval |
+| Q3 catena | **1/6** | 1/6 | **1/7** | **1/6** | **parziale** | sì | no | no | no | retrieval |
+| Q4 azioni completate | 3/3 | 3/3 | 0/1 | 3/3 | **completa** | sì | sì | no | no | – |
+| Q5 aperto + riepilogo | 2/2 | 2/2 | – | 2/2 | **completa** | sì | sì | no | no | – |
+| Q6 punto non determinato | 1/1 | 1/1 | – | 2/2 | **completa** | sì | sì | no | no | – |
+| Q7 informazione assente | n.d. | n.d. | – | 1/1 | **astensione corretta** | sì | n.a. | no | no | – |
+
+### U — Fact-based con aggiornamenti, versione corretta
+
+| Dom. | F ctx | F risp | R risp | Oracle | Classe | Sup. | C&S | Obs. | Non sup. | Prima causa |
+|---|:-:|:-:|:-:|:-:|---|:-:|:-:|:-:|:-:|---|
+| Q1 | 2/2 | 2/2 | – | 2/2 | **completa** | sì | sì | no | no | – |
+| Q2 | **2/4** | 2/4 | **1/3** | **2/4** | **parziale** | sì | no | no | no | retrieval |
+| Q3 | **3/6** | 3/6 | **4/7** | **3/6** | **parziale** | sì | no | no | no | retrieval |
+| Q4 | **1/3** | 1/3 | 0/1 | **1/3** | **parziale** | sì | no | no | no | retrieval |
+| Q5 | **1/2** | 1/2 | – | **1/2** | **parziale** | sì | no | no | no | retrieval |
+| Q6 | 1/1 | 1/1 | – | 2/2 | **completa** | sì | sì | no | no | – |
+| Q7 | n.d. | n.d. | – | 1/1 | **astensione corretta** | sì | n.a. | no | no | – |
+
+### G — Grafo, versione corretta
+
+| Dom. | F ctx | F risp | R ctx | R risp | Oracle | Classe | Sup. | C&S | Obs. | Non sup. | Prima causa |
+|---|:-:|:-:|:-:|:-:|:-:|---|:-:|:-:|:-:|:-:|---|
+| Q1 | 2/2 | 2/2 | – | – | 2/2 | **completa** | sì | sì | no | no | – |
+| Q2 | **1/4** | 1/4 | **0/3** | 0/3 | **2/4** | **parziale** | sì | no | no | no | retrieval |
+| Q3 | **2/6** | 2/6 | **2/7** | 3/7 | **2/6** | **parziale** | sì | no | no | no | **grafo** |
+| Q4 | **1/3** | 1/3 | **1/1** | 0/1 | **1/3** | **parziale** | sì | no | no | no | **grafo** |
+| Q5 | **1/2** | 1/2 | – | – | **1/2** | **parziale** | sì | no | no | no | retrieval |
+| Q6 | 1/1 | 1/1 | – | – | 2/2 | **completa** | sì | sì | no | no | – |
+| Q7 | n.d. | n.d. | – | – | 1/1 | **astensione corretta** | sì | n.a. | no | no | – |
+
+### FULL_HISTORY — controllo diagnostico, fuori confronto (§12)
+
+| Dom. | F ctx | F risp | R risp | Oracle | Classe | Sup. | C&S | Obs. | Non sup. | Prima causa |
+|---|:-:|:-:|:-:|:-:|---|:-:|:-:|:-:|:-:|---|
+| Q1 | 2/2 | 2/2 | – | 2/2 | **completa** | sì | sì | no | no | – |
+| Q2 | 4/4 | **3/4** | **1/3** | **3/4** | **parziale** | sì | no | no | no | risposta |
+| Q3 | 6/6 | **4/6** | **5/7** | **4/6** | **parziale** | **no** | no | no | **sì** | risposta |
+
+*Su Q3/FULL_HISTORY anche `faithful_to_received_context` è **falso** (§7): il contesto è il corpus, e non contiene l'aggiunta.*
+| Q4 | 3/3 | 3/3 | 1/1 | 3/3 | **completa** | sì | sì | no | no | – |
+| Q5 | 2/2 | 2/2 | – | 2/2 | **completa** | sì | sì | no | no | – |
+| Q6 | 1/1 | 1/1 | – | 2/2 | **completa** | sì | sì | no | no | – |
+| Q7 | n.d. | n.d. | – | 1/1 | **astensione corretta** | sì | n.a. | no | no | – |
+
+**Nessuna delle 28 risposte è `errata`** e nessuna usa informazione obsoleta o
+si astiene impropriamente. **Una sola introduce un'affermazione non supportata:**
+Q3/FULL_HISTORY, con «credenziali compromesse» (§7). Su SC04 il problema non è
+che il sistema dica cose false: è che ne dice poche.
+
+---
+
+## 7. Motivazioni per domanda
+
+Versione integrale nel campo `rationale` di ogni riga. Qui i casi che portano
+informazione.
+
+### Q1 e Q6 — nessuna differenza fra le modalità
+
+Su **Q1** tutte e quattro riportano entrambi gli obiettivi: i due `fact_key`
+sono nel contesto ovunque. Su **Q6** tutte e quattro dichiarano la chiusura
+senza esito e il punto non determinato, e nessuna attribuisce l'origine del
+numero a una fonte non menzionata, che è l'errore vietato dall'oracle. **Su
+queste due domande la rappresentazione non produce differenze osservabili.**
+
+### Q7 — come è stata verificata l'assenza
+
+L'oracle dichiara `fact_present_in_corpus: false` e l'annotazione RQ2 non elenca
+fatti obbligatori. **L'assenza è stata verificata leggendo il corpus**, non
+dedotta dall'astensione: nelle quattro sessioni non compaiono le radici
+«fornitor», «gestore», «provider». Il gateway aziendale è citato **una volta
+sola**, in `SC04-S4-U1`, come luogo in cui è stato bloccato il numero mittente.
+
+Tutte e quattro si astengono. Il caso è più informativo del solito perché il
+gateway **è nel contesto** di tutte e quattro — in G anche come arco esplicito
+`SC04-E016 NUMERO-MITTENTE -bloccato_su-> gateway aziendale` — e nessuna ne
+deduce un gestore. È il tipo di invenzione che l'oracle vieta, ed è evitata.
+
+### Q2 — nessuna modalità completa, e due coperture complementari
+
+L'oracle chiede quattro cose: la classificazione smishing, **il motivo** (la
+pagina raggiunta è una pagina falsa che riproduce il modulo di accesso
+aziendale), e le **due** valutazioni superate.
+
+| | smishing | motivo | spam superato | contatto superato | oracle |
+|---|:-:|:-:|:-:|:-:|:-:|
+| T | sì | **sì** | no | no | 2/4 |
+| U | sì | no | no | **sì** | 2/4 |
+| G | sì | no | **sì** | no | 2/4 |
+| FULL_HISTORY | sì | **no** | sì | sì | 3/4 |
+
+- **T — parziale, origine `retrieval`.** È **l'unica a consegnare il motivo**,
+  perché `SC04-S2-U1` lo contiene per esteso e T riceve il messaggio intero.
+  `SC04-S1-U1` è rango 3 ma i suoi 124 token non entrano nel budget residuo.
+  La risposta dichiara di non conoscere le valutazioni superate invece di
+  inventarle.
+- **U — parziale, origine `retrieval`.** Copre la valutazione superata sul
+  contatto (`SC04-M021`, che enuncia l'ipotesi iniziale **e** il suo
+  superamento). Il motivo è **diviso in due voci attive**: `SC04-M015` («la
+  pagina raggiunta da URL-01 riproduce il modulo di accesso di
+  accessi.corvara.example», rango 21, 0,0281) e `SC04-M016` («la pagina
+  raggiunta da URL-01 è confermata come pagina falsa», rango 7, 0,0967).
+  Nessuna delle due entra nel contesto. La voce sullo spam superato,
+  `SC04-M018`, ha punteggio **0,0000**.
+- **G — parziale, origine `retrieval`.** Copre l'altra metà: `SC04-E005`
+  «CASO-SC04 -valutato_inizialmente_come-> spam generico», arco con stato
+  `superato`, leggibile perché Q2 è l'unica domanda a portata `history`. Il
+  motivo è nelle stesse due voci testuali, `SC04-M016` (rango 10) e `SC04-M015`
+  (rango 24), che **G legge insieme agli archi** e che non sono selezionate.
+
+  `SC04-M021` è rango 7 con 0,1233 ed è l'elemento su cui la selezione si
+  arresta per budget: 48 token non entrano nei 32 rimasti. **La voce contiene
+  due informazioni** — l'ipotesi iniziale che non ci fosse stato contatto con il
+  collegamento, e il fatto che UT-207 lo ha invece aperto e ha inviato il modulo
+  — **e nessuna delle due arriva nel contesto di G.** Il motivo della
+  classificazione sta in altre voci, ugualmente fuori. Che cosa sarebbe cambiato
+  nella risposta non è deducibile dagli artefatti.
+
+  **Attenzione ai due denominatori.** La copertura dei `required_facts` RQ2 nel
+  contesto di Q2/G è **1/4**: l'unico presente è `valutazione-iniziale-spam`,
+  via `SC04-E005`. Il **2/4** della colonna «Oracle» è una misura diversa — i
+  `mandatory_facts` soddisfatti **dalla risposta** — e i due valori non vanno
+  confrontati né sommati.
+- **FULL_HISTORY — parziale (3/4), origine `risposta`.** Con **tutte** le
+  evidenze nel contesto, dichiara lo smishing ed entrambe le valutazioni
+  superate, ma **non riporta il motivo**. `SC04-S2-U1` lo dice per esteso.
+  L'omissione non è attribuibile al contesto.
+
+**U e G coprono metà complementari della stessa domanda**, e nessuna delle due è
+completa. È un'osservazione su una domanda, non una proprietà.
+
+Relazioni richieste su Q2: `R02` (SMS-01 contiene URL-01), `R03` (URL-01 imita
+la pagina di accesso), `R05` (invio del modulo). Nel contesto di G: **0/3**.
+Nelle risposte: T 2/3, FULL_HISTORY 1/3, U 1/3, G 0/3. **La modalità costruita
+per rappresentare relazioni ne esprime meno delle altre su questa domanda.**
+
+Su `SC04-R03` vanno tenute distinte tre cose, che r1 confondeva:
+
+| | esito |
+|---|---|
+| **Relazione esplicita nel grafo** | **assente.** Non esiste un nodo per la pagina di accesso aziendale, quindi nessun arco `URL-01 -imita-> PAGINA-ACCESSI`. La relazione non è attraversabile in un percorso. |
+| **Contenuto nelle voci testuali** | **presente.** `SC04-M015` e `SC04-M016` sono entrambe **attive** in memoria e dicono insieme che la pagina riproduce il modulo di accesso ed è falsa. G legge le voci testuali insieme agli archi. |
+| **Selezione nel contesto** | **non avvenuta.** Su Q2/G sono ai ranghi 10 e 24 e nessuna delle due entra. |
+
+Ne segue che **l'assenza dell'arco non rende il contenuto irrecuperabile dal
+sistema G**: lo rende non attraversabile come relazione. Che una diversa
+selezione lo avrebbe portato nel contesto è verificabile solo con una nuova
+esecuzione, che questa scheda non esegue.
+
+### Q3 — la catena: sei passaggi, nessuno li consegna tutti
+
+L'oracle chiede sei passaggi e sette relazioni, distribuiti su tre sessioni.
+
+- **T — parziale (1/6), origine `retrieval`.** Il contesto è il **solo**
+  `SC04-S1-U1`, 124 token: la selezione si arresta su `SC04-S4-U1` (rango 2, 88
+  token) che non entra nei 76 rimasti, e con esso restano fuori tutti i messaggi
+  delle sessioni 2 e 3, dove sta la catena. La risposta dichiara l'insufficienza.
+  Ripete che «la valutazione iniziale è di spam generico senza alcun contatto con
+  il link», ma la qualifica come **iniziale**, come fa il messaggio sorgente:
+  non è conteggiata come informazione obsoleta. **È una protezione che viene
+  dalla formulazione del messaggio, non dall'architettura.**
+- **U — parziale (3/6), origine `retrieval`. È la copertura più alta fra T, U e
+  G.** Consegna la segnalazione, l'uso dell'account e la creazione di `RULE-01`
+  dalla sessione di `LOGIN-07` — `SC04-M032` è la voce più ricca del confronto,
+  con sessione, orario, account e destinazione. Mancano il contenuto dell'SMS,
+  l'apertura del collegamento e l'accesso anomalo. La risposta chiude dichiarando
+  che il nesso fra SMS e sessione non è confermabile: prudente e sostenuta.
+- **G — parziale (2/6), origine `grafo`.** Relazioni nel contesto **2/7**:
+  `SC04-R06` da `SC04-E008` e `SC04-R08` da `SC04-E012`, i due archi del
+  percorso. Le altre cinque **esistono nel grafo** — `SC04-E003` (contiene),
+  `SC04-E007` (ha aperto), `SC04-E009` (riguarda account), `SC04-E011` (creata
+  dalla sessione) — e non entrano: i semi sono `ACC-207`, `RULE-01`, `UT-207`, il
+  percorso trovato ha due archi, e gli archi pertinenti fuori percorso entrano
+  solo se avanza budget. `SC04-E011`, che è la relazione `SC04-R09`, è rango 10.
+  La risposta produce una catena con le entità giuste **senza dichiarare che è
+  incompleta**: più pertinente della versione precedente, meno prudente di U.
+- **FULL_HISTORY — parziale (4/6), origine `risposta`, con un'affermazione non
+  supportata.** Con tutte e sei le evidenze nel contesto, ricostruisce la catena
+  in quattro passaggi ordinati e corretti, ma **il collegamento con ACC-207
+  resta non detto in due punti, ed è la stessa lacuna**: la risposta non
+  dichiara che ACC-207 è l'account di UT-207, e dice «viene creata RULE-01»
+  senza «su ACC-207».
+
+  **Le due annotazioni ricevono la stessa semantica.** Il fatto obbligatorio
+  `regola-inoltro-creata` è composto — «dalla stessa sessione di LOGIN-07, alle
+  07:20, è stata creata **su ACC-207** la regola di inoltro RULE-01» — e ne
+  manca una parte: non è contato presente. La relazione `SC04-R08`
+  («ACC-207 presenta RULE-01») non è contata espressa per la stessa mancanza.
+  In r1 il primo era contato presente e la seconda assente, sullo stesso testo:
+  l'incoerenza è corretta qui. La clausola degli equivalenti chiede che la
+  catena conservi **tutti** i passaggi, quindi la lettura severa è quella
+  coerente con l'oracle; l'alternativa è quantificata in §8.3.
+
+  **«Credenziali compromesse»: affermazione non supportata.** Il passaggio 2
+  della risposta è «Alle 07:03, UT-207 apre URL-01 e invia il modulo di accesso
+  (credenziali compromesse)». Il corpus non lo dice in nessun punto:
+  `SC04-S2-U1` dice che la pagina riproduce il modulo di accesso ed è falsa,
+  `SC04-S2-U2` che UT-207 ha aperto il collegamento e inviato il modulo,
+  `SC04-S3-U1` che alle 07:12 risulta un accesso anomalo su ACC-207 da un
+  indirizzo esterno. La compromissione delle credenziali è la **conclusione più
+  naturale** di questa sequenza, ma resta una conclusione del modello: nessun
+  messaggio la afferma, e l'oracle non la elenca fra i fatti attesi.
+
+  Secondo la regola comune si tratta di «una precisazione aggiunta, assente
+  dalle fonti ma non in contraddizione con esse»: si registra con
+  `unsupported_claim: true` e **non cambia la classe**, che dipende dai fatti
+  consegnati e dall'assenza di contraddizioni. `supported_by_original_conversation`
+  passa a falso, e **anche `faithful_to_received_context`**: per FULL_HISTORY il
+  contesto ricevuto **è** il corpus, e nessuno degli otto messaggi dichiara la
+  compromissione delle credenziali. Non contraddire il contesto non basta per
+  dire la risposta fedele ad esso. In r2 questo campo era rimasto a vero.
+
+### Q4 — azioni completate: stessa incompletezza, due cause diverse
+
+L'oracle chiede tre azioni, tutte in `SC04-S4-U1`.
+
+- **T — completa (3/3).** Il messaggio le contiene tutte e tre, e T lo riceve
+  intero.
+- **FULL_HISTORY — completa (3/3).**
+- **U — parziale (1/3), origine `retrieval`.** Solo il blocco del numero
+  (`SC04-M035`). `SC04-M033` e `SC04-M034` sono **attive in memoria** e hanno
+  punteggio **0,0000**, ranghi 31 e 32: escluse dalla regola sul punteggio nullo.
+- **G — parziale (1/3), origine `grafo`.** L'arco `SC04-E014 RULE-01 -rimossa->
+  ACC-207` ha stato **`superato`** e viene **escluso dai candidati** su una
+  domanda a portata `current`: i candidati di G su Q4 sono 14, quelli di U 32.
+  `SC04-E015` («password_reimpostata 08:05») è rango 7 ed è l'elemento su cui la
+  selezione si arresta per budget.
+
+**Questa è la differenza più netta fra U e G su SC04:** stessa classe, stessa
+copertura, ma in U l'informazione è candidata e perde nel ranking, in G non è
+mai candidata. La relazione `SC04-R08` è invece **nel contesto di G** (1/1) e la
+risposta non la usa, perché dichiara l'insufficienza.
+
+### Q5 — la stessa voce fuori budget in U e in G
+
+L'oracle chiede l'attività aperta e il contenuto del riepilogo.
+
+- **T e FULL_HISTORY — complete (2/2).** Entrambe le cose sono in
+  `SC04-S4-U1`.
+- **U e G — parziali (1/2), origine `retrieval`.** Entrambe hanno `SC04-M037`
+  (contenuto del riepilogo) e non `SC04-M036`, che enuncia la revisione dei
+  messaggi inoltrati come non completata: **attiva in memoria**, 35 token, rango
+  14 in U e 19 in G, fuori per budget in entrambe. Entrambe dichiarano che il
+  contesto non specifica l'attività aperta, invece di indicarne una sbagliata —
+  un miglioramento rispetto alla prima versione di U, che affermava che «resta da
+  completare il riepilogo».
+
+---
+
+## 8. Riepilogo numerico (provvisorio)
+
+Valori in [`riepilogo_sc04.json`](riepilogo_sc04.json). Ogni cella mostra
+**numeratore / denominatore**. I denominatori zero producono `null`, non zero.
+
+### 8.1 Classi e indicatori (N = 7 per modalità)
+
+| | T | U | G | FULL_HISTORY |
+|---|:-:|:-:|:-:|:-:|
+| completa | **4** | 2 | 2 | **4** |
+| parziale | 2 | **4** | **4** | 2 |
+| errata | 0 | 0 | 0 | 0 |
+| astensione corretta | 1 | 1 | 1 | 1 |
+| giudizi sospesi | 0 | 0 | 0 | 0 |
+| **Complete Answer Rate** (complete **e supportate**) | **4/7 = 57,1 %** | **2/7 = 28,6 %** | **2/7 = 28,6 %** | 4/7 = 57,1 % |
+| Informazione obsoleta | 0/7 | 0/7 | 0/7 | 0/7 |
+| Affermazioni non supportate | 0/7 | 0/7 | 0/7 | **1/7 = 14,3 %** |
+| Astensioni errate | 0/7 | 0/7 | 0/7 | 0/7 |
+
+**Come leggere il denominatore 7.** Le sette prove si dividono in tre categorie
+che non vanno confuse:
+
+| Categoria | T | U | G | FULL_HISTORY |
+|---|:-:|:-:|:-:|:-:|
+| Risposte **complete e supportate** (nel numeratore) | 4 | 2 | 2 | 4 |
+| Risposte **parziali o errate** | 2 | 4 | 4 | 2 |
+| **Astensioni corrette** — comportamento atteso | 1 | 1 | 1 | 1 |
+
+**L'astensione corretta di Q7 non è un fallimento.** È il comportamento che
+l'oracle prescrive (`expected_behavior: Astensione`) e resta fuori dal numeratore
+perché quella metrica conta le risposte complete, non i comportamenti corretti.
+Il Correct Abstention Rate la misura a parte. Un Complete Answer Rate di 2/7
+significa «2 risposte complete e supportate su 7 prove», **non** «5 fallimenti».
+
+Su SC04 **nessuna risposta è `completa` ma non supportata**: conteggio delle
+classi e numeratore coincidono in tutte e quattro le modalità. L'unica
+affermazione non supportata della raccolta, «credenziali compromesse» in
+Q3/FULL_HISTORY, sta su una risposta già `parziale`, quindi non sposta il
+Complete Answer Rate.
+
+### 8.2 Metriche di retrieval, relazioni e astensione
+
+**Reachability Rate** = domande raggiungibili / N. Uguale per costruzione: il
+perimetro è l'intero scenario in tutte e quattro. **Non distingue le modalità.**
+
+| | T | U | G | FULL_HISTORY |
+|---|:-:|:-:|:-:|:-:|
+| | 6/7 = 85,7 % | 6/7 = 85,7 % | 6/7 = 85,7 % | 6/7 = 85,7 % |
+
+**Retrieval Success condizionato alla raggiungibilità** = domande con tutti i
+`fact_key` RQ2 nel contenuto del contesto / domande raggiungibili.
+Denominatore 6 (Q1–Q6).
+
+| | T | U | G | FULL_HISTORY |
+|---|:-:|:-:|:-:|:-:|
+| | **4/6 = 66,7 %** | **2/6 = 33,3 %** | **2/6 = 33,3 %** | **non applicabile** |
+
+T riceve l'evidenza completa su Q1, Q4, Q5 e Q6; U e G solo su Q1 e Q6. Per
+FULL_HISTORY la metrica **non è applicabile**: non esegue selezione e il file di
+retrieval non contiene sue righe. Il dato di contenuto — `fact_key` presenti in
+6/6 domande raggiungibili — è riportato solo come descrizione.
+
+**Copertura delle relazioni richieste — solo G, tenuta distinta dai fatti.**
+Denominatore 11 = 3 (Q2) + 7 (Q3) + 1 (Q4); le altre domande non dichiarano
+relazioni.
+
+| | nel contesto di G |
+|---|:-:|
+| Q2 | 0/3 |
+| Q3 | 2/7 |
+| Q4 | 1/1 |
+| **Totale** | **3/11 = 27,3 %** |
+
+Questa misura **non entra** in Retrieval Success né in Answer Success. Relazioni
+espresse nelle risposte, per confronto: T 3/11, U 5/11, G 3/11, FULL_HISTORY
+7/11. **G esprime meno relazioni di U**, pur essendo l'unica costruita per
+rappresentarle.
+
+Il 3/11 di G misura le relazioni **presenti come contenuto nel contesto che ha
+ricevuto**, non ciò che il grafo contiene. Delle otto relazioni mancanti, sette
+esistono come archi e non sono state selezionate; una sola, `SC04-R03`, non è
+rappresentata come arco — ma il suo contenuto è in due voci testuali attive che
+G legge (§7).
+
+**Answer Success condizionato al recupero** = complete e supportate con evidenza
+completa nel contesto / prove con evidenza completa nel contesto.
+
+| | T | U | G | FULL_HISTORY |
+|---|:-:|:-:|:-:|:-:|
+| | 4/4 | 2/2 | 2/2 | **4/6 = 66,7 %** |
+
+**Su T, U e G il valore è 100 % con denominatori 4, 2 e 2.** Dice una cosa sola e
+la dice bene: **quando l'evidenza completa arriva nel contesto, tutte e tre
+rispondono in modo completo e supportato.** Nessuna delle tre sbaglia
+un'evidenza che ha ricevuto. Con denominatori di 2 il valore di U e G va però
+riportato come «2 domande su 2», non come percentuale.
+
+Per FULL_HISTORY il **4/6** è il dato più informativo della tabella: con
+l'evidenza completa in sei domande, **due risposte restano parziali** (Q2 e Q3).
+Quelle due omissioni non sono attribuibili al contesto.
+
+**Correct Abstention Rate** = astensioni corrette / domande non raggiungibili.
+Denominatore **1** (solo Q7) in tutte e quattro: **1/1**, da leggere come «1
+domanda su 1».
+
+### 8.3 Sensibilità alla lettura discrezionale
+
+Nessun giudizio è sospeso. Una sola lettura è discrezionale, ed è quella più
+severa fra le ammissibili. In r2 riguarda **due** annotazioni invece di una,
+perché la stessa semantica è ora applicata al fatto composto e alla relazione.
+
+| Lettura alternativa | Righe toccate | Effetto |
+|---|---|---|
+| **Q3/FULL_HISTORY meno severa**: la catena implica il collegamento con ACC-207 in entrambi i punti, anche senza dirlo → `operatore-usa-account` e `regola-inoltro-creata` contati presenti, e con essi `SC04-R08` | 1 | Copertura oracle 4/6 → **6/6** e classe `parziale` → **completa**. Ma `unsupported_claim` resta vero e `supported_by_original_conversation` resta falso, quindi la riga **non entra comunque** nel numeratore delle complete e supportate: **Complete Answer Rate 4/7 invariato, Answer Success 4/6 invariato**. Cambia solo il conteggio delle classi: complete 4 → 5, parziali 2 → 1. |
+
+Questa è una differenza rispetto a r1, dove la stessa alternativa portava il
+Complete Answer Rate di FULL_HISTORY a 5/7. Con l'affermazione non supportata
+registrata, la lettura meno severa cambierebbe la **classe** ma non il **tasso
+principale**.
+
+**T, U e G non sono toccate da nessuna lettura alternativa:** le loro
+incompletezze riguardano fatti **assenti dal contesto**, non omissioni
+discutibili.
+
+### 8.4 Metriche non calcolate
+
+| Metrica | Perché non è qui |
+|---|---|
+| Tasso di fatti persi o alterati nell'estrazione | Verificati i 19 `fact_key` più le voci decisive. Il README della correzione dichiara «nessun fatto perso» e il controllo sui fatti usati lo conferma; un tasso completo richiederebbe la verifica di tutti e 41 i fatti. |
+| Correttezza delle 41 operazioni di U | 41 proposte, 38 applicate, 3 rifiutate e tutte recuperate dalla passata di riparazione. Confrontarle con le `expected_operations` è una misura di U a sé, non richiesta qui. La questione aperta «eventi o stati» su `RULE-01` è documentata in §11. |
+| Qualità del grafo come misura aggregata | Registrati i difetti che incidono sulle risposte: 4 archi con provenienza non valida (oggetto letterale), alias vuoti su tutti e 10 i nodi, stato `superato` su `SC04-E014`, assenza del nodo per la pagina di accesso. Un punteggio complessivo del grafo non è definito nel protocollo. |
+| Token e latenza | Descrittivi per scelta di `EXPERIMENT.md` §10. |
+| Confronti fra scenari | Fuori dall'ambito di questa scheda. |
+
+### 8.5 Costo del contesto (descrittivo, non una metrica)
+
+| | Elementi (media) | Token del contenuto | Sovraccarico | Totale |
+|---|---:|---:|---:|---:|
+| T | 1,6 | 125,1 | 11,0 | 136,1 |
+| U | 5,4 | 101,1 | 81,4 | 182,6 |
+| G | 6,1 | 74,4 | **105,0** | 179,4 |
+| FULL_HISTORY | 7,0 | 480,0 | 49,0 | 529,0 |
+
+**G spende il 59 % del contesto che costruisce in struttura** (105,0 token su
+179,4) e porta **50,7 token di contenuto in meno di T**. U ne spende il 45 %.
+T usa in media 1,6 messaggi e resta 64 token sotto il budget, perché il messaggio
+successivo spesso non entra: è l'altra faccia del non frammentare.
+
+---
+
+## 9. Interpretazione del confronto T / U / G
+
+Vale per **SC04, una sola esecuzione per cella, sette domande, tre esecuzioni
+diverse messe a confronto**. Non è una conclusione sulle architetture di memoria.
+
+**T e FULL_HISTORY hanno lo stesso tasso: 4/7. U e G hanno lo stesso: 2/7.** La
+coincidenza fra T e FULL_HISTORY **non significa che T eguagli la storia
+completa**: le due modalità sono complete su insiemi di domande che coincidono
+(Q1, Q4, Q5, Q6) e parziali sulle stesse due (Q2, Q3), ma per ragioni opposte —
+T perché il contesto non contiene l'evidenza, FULL_HISTORY perché la contiene e
+la risposta non la usa. È un pareggio numerico fra due profili diversi.
+
+### 9.1 Le cause documentate, riga per riga
+
+| Prova | Classe | Prima causa | Che cosa mostra l'artefatto |
+|---|---|---|---|
+| Q1 ×4, Q6 ×4 | completa | – | evidenza nel contesto in tutte e quattro |
+| Q7 ×4 | astensione corretta | – | comportamento atteso, verificato contro il corpus |
+| **Q2/T**, **Q3/T** | parziale | **retrieval** | il messaggio successivo non entra nel budget: su Q3 il contesto è un solo messaggio di 124 token |
+| **Q2/U**, **Q2/G** | parziale | **retrieval** | il motivo sta in `SC04-M015` e `SC04-M016`, attive in memoria, ai ranghi 21 e 7 in U e 24 e 10 in G: nessuna selezionata. In U `SC04-M018` ha punteggio 0,0000; in G `SC04-M021` è rango 7 e la selezione si arresta lì per budget |
+| **Q3/U**, **Q4/U**, **Q5/U** | parziale | **retrieval** | voci **attive in memoria** con punteggio 0,0000 (`SC04-M033`, `SC04-M034`) o fuori per budget (`SC04-M036`, rango 14) |
+| **Q3/G** | parziale | **grafo** | alias vuoti su tutti e 10 i nodi, nessun ancoraggio dal testo della domanda: i semi vengono solo dalle voci di U e il percorso trovato ha due archi |
+| **Q4/G** | parziale | **grafo** | `SC04-E014` ha stato `superato` ed è escluso dai candidati su una domanda `current`: 14 candidati contro i 32 di U |
+| **Q5/G** | parziale | **retrieval** | `SC04-M036` rango 19, fuori per budget: stessa causa di U |
+| **Q2/FULL_HISTORY** | parziale | **risposta** | tutte le evidenze nel contesto; il motivo della classificazione resta non detto |
+| **Q3/FULL_HISTORY** | parziale, **con affermazione non supportata** | **risposta** | tutte le evidenze nel contesto; il collegamento con ACC-207 resta non detto in due punti, e la risposta aggiunge «credenziali compromesse», che il corpus non dichiara |
+
+**Origini per modalità:** T → `retrieval` ×2. U → `retrieval` ×4. G →
+`retrieval` ×2, **`grafo` ×2**. FULL_HISTORY → `risposta` ×2.
+
+**Tre cose che questa tabella dice.**
+
+1. **G ha due difetti che U non ha, e sono nel grafo, non nel recupero.** Su Q4
+   l'arco giusto esiste con lo stato sbagliato ed è filtrato prima del ranking;
+   su Q3 l'assenza di alias e di ancoraggio dal testo determina i semi e quindi
+   il percorso. Entrambi sono leggibili negli artefatti.
+2. **U non perde mai un'informazione in memoria: la perde nel recupero.** Tutte
+   e quattro le sue righe non conformi riguardano voci **attive** che non entrano
+   nel contesto, per punteggio nullo o per budget. Non ci sono NOOP che
+   cancellano fatti, come su SC03.
+3. **FULL_HISTORY fallisce in un modo che nessun'altra modalità mostra.** Le sue
+   due righe parziali hanno origine `risposta`: sono le uniche due omissioni di
+   SC04 non attribuibili al contesto, ed è anche l'unica modalità con
+   un'affermazione non supportata. Avere tutto il corpus davanti non protegge da
+   ciò che il modello **aggiunge**, oltre che da ciò che omette.
+
+### 9.2 Rappresentazione e recupero non sono indipendenti
+
+Su SC04 l'interazione è più diretta che su SC03, e in un caso è decisiva: lo
+stato `superato` su `SC04-E014` **non fa perdere una gara di ranking, esclude
+l'elemento dalla gara**. La rappresentazione decide che cosa è candidato, non
+solo come viene ordinato. Allo stesso modo, gli alias vuoti e il mancato
+ancoraggio dal testo della domanda decidono i semi, e i semi decidono i
+percorsi.
+
+Nell'altro verso, la rappresentazione relazionale **non ha prodotto il vantaggio
+per cui è stata costruita**: su Q3, la domanda di catena per cui SC04 è stato
+progettato, G esprime 3 relazioni su 7 e U ne esprime 5, pur non avendo archi.
+Le relazioni mancanti **esistono nel grafo**. È un'osservazione su una domanda e
+una esecuzione, non una proprietà di G.
+
+Un punto va tenuto fermo per non attribuire al grafo più di quanto gli spetti:
+**G non è solo il grafo.** Legge le voci testuali di U insieme agli archi, e su
+Q2 il contenuto della relazione mancante `SC04-R03` era disponibile proprio lì,
+in `SC04-M015` e `SC04-M016`. Quando una relazione non è rappresentata come
+arco, G perde la possibilità di attraversarla in un percorso, non
+necessariamente l'accesso al contenuto.
+
+**Quello che SC04 non permette di stabilire** è se un grafo con alias popolati e
+stati corretti recupererebbe meglio: servirebbero esecuzioni costruite per
+variare quei due elementi a parità di tutto il resto.
+
+### 9.3 Spiegazioni ipotizzate, tenute distinte
+
+Che con lo stato corretto `SC04-E014` sarebbe entrato nel contesto di Q4 — resta
+comunque da superare ranking e budget. Che con alias popolati i semi di Q3
+sarebbero stati diversi e il percorso più lungo. Che con un budget più largo U
+avrebbe consegnato `SC04-M036` su Q5. Che T avrebbe risposto a Q3 se
+`SC04-S4-U1` fosse entrato. Sono letture coerenti con gli artefatti, **nessuna è
+stata verificata**: richiederebbero nuove chiamate al modello, fuori
+dall'ambito di questa scheda.
+
+### 9.4 Che cosa questo non dimostra
+
+- **Non dimostra una superiorità generale di nessuna architettura.** Sette
+  domande, una esecuzione per cella, nessuna replica, oracle in bozza.
+- **Non è un confronto pulito.** Tre esecuzioni in tre giorni diversi.
+  FULL_HISTORY non è stata rigenerata con la memoria corretta.
+- **Il vantaggio di T su SC04 dipende dalla forma dei messaggi.** Su Q4 e Q5 la
+  risposta sta interamente dentro `SC04-S4-U1`, che T riceve intero; su Q3, dove
+  la risposta è distribuita su tre sessioni, T è la **peggiore** delle quattro
+  (1/6). Non frammentare conserva il contenuto quando è concentrato e lo perde
+  quando è distribuito.
+- Non dimostra le cause: le origini indicate sono **prime cause osservabili**.
+  In particolare, che un elemento in più nel contesto avrebbe prodotto una
+  risposta migliore **non è deducibile**: su Q2/G l'ingresso di `SC04-M021`
+  avrebbe portato il contesto a 3/4 fatti, e nulla negli artefatti dice come il
+  modello avrebbe risposto.
+- Non permette di sommare o mediare SC04 con SC02, SC03 o SC05.
+- Non dice nulla su F, che su SC04 non esiste.
+
+---
+
+## 10. Nota storica: le prime versioni di U e G (fuori dall'aggregazione)
+
+Le 7 risposte U e le 7 G in `results/rq2/generation_dev_sc04.jsonl` **non
+entrano in nessun numero di questa scheda**. Sono riportate qui perché
+documentano perché la correzione è stata fatta.
+
+Rilettura diretta, senza riusare le conclusioni del README:
+
+| | prima versione | versione corretta | Differenza osservata |
+|---|---|---|---|
+| Q2 / G | dichiarava di non avere informazioni sulle valutazioni superate | riporta «spam generico» da `SC04-E005` | **miglioramento**: l'arco con stato `superato` è leggibile su una domanda storica |
+| Q3 / U | conteneva un ponte inventato («da questa segnalazione risulta la sessione LOGIN-07») | il ponte sparisce; la risposta dichiara che il nesso non è confermabile | **miglioramento sul supporto**: un'affermazione non supportata in meno |
+| Q3 / G | dichiarava l'insufficienza, con una scorciatoia via `CASE-01` | produce una catena con le entità giuste, senza dichiararla incompleta | **misto**: più pertinente, meno prudente |
+| Q5 / U | affermava che «resta da completare il riepilogo», che è un requisito e non l'attività aperta | dice che il contesto non lo specifica | **miglioramento**: un'affermazione errata in meno |
+| Q1, Q4, Q6, Q7 | – | – | invariati nella sostanza in entrambe le modalità |
+
+Sul piano strutturale la correzione ha aggiunto l'arco `RULE-01 configurata_su
+ACC-207` (la relazione `SC04-R08`), che nel grafo precedente **mancava**, e ha
+introdotto il difetto nuovo sullo stato di `SC04-E014`. L'ancoraggio ai nodi è
+passato da 1 domanda su 7 a **0 su 7**, perché il nodo `RIEPILOGO-01` non esiste
+più.
+
+**Le due versioni non sono repliche** e non vanno mediate né sommate. Gli
+identificatori delle voci e degli archi non sono stabili fra le versioni: questo
+confronto è fatto sul testo.
+
+---
+
+## 11. Punti ancora da chiarire
+
+1. **Lo stato degli archi che descrivono eventi — `SC04-E014`.** L'arco
+   `RULE-01 -rimossa-> ACC-207` ha stato `superato`, che dichiara che *l'arco* è
+   superato, non che la regola è stata rimossa. Su una domanda a portata
+   `current` questo lo esclude dai candidati. È la questione aperta **«eventi o
+   stati»** già registrata nel README della correzione, e SC04 ne mostra per la
+   prima volta l'effetto su una risposta. Va deciso come rappresentare un evento
+   che annulla uno stato precedente, prima di consolidare G.
+2. **Alias vuoti e ancoraggio dal testo della domanda.** Tutti e 10 i nodi hanno
+   `aliases: []` e nessuna delle 7 domande trova nodi dal proprio testo: i semi
+   vengono solo dalle voci di U. Finché è così, **G dipende dal ranking di U per
+   il proprio punto di partenza**, e non è chiaro che cosa misuri come
+   architettura autonoma.
+3. **Archi con oggetto letterale.** 4 archi su 16 hanno provenienza non valida
+   perché l'oggetto è un valore e non un nodo dichiarato (`smishing`, `spam
+   generico`, `08:05`, `gateway aziendale`). Due di questi — `SC04-E005` e
+   `SC04-E015` — sono stati decisivi su Q2 e su Q4. Va deciso se siano archi
+   legittimi o nodi mancanti.
+4. **La relazione `SC04-R03` non è rappresentata come arco.** Non c'è un nodo
+   per la pagina di accesso aziendale, quindi «URL-01 imita PAGINA-ACCESSI» non
+   è attraversabile in un percorso. **Il contenuto non è però perduto:** sta
+   nelle voci testuali attive `SC04-M015` e `SC04-M016`, che G legge insieme
+   agli archi e che su Q2/G sono ai ranghi 10 e 24. Da decidere è se il grafo
+   debba rappresentare come arco ciò che l'annotazione dichiara relazione, o se
+   sia accettabile che parte delle relazioni richieste resti solo in forma
+   testuale. Nel secondo caso, la copertura delle relazioni nel contesto misura
+   una proprietà diversa da quella che sembra misurare.
+5. **Soglia sul punteggio nullo.** Su Q4/U ha escluso `SC04-M033` e `SC04-M034`,
+   entrambe attive e contenenti la risposta. È lo stesso punto già aperto su
+   SC02, SC03 e SC05.
+6. **Valore del budget.** Su Q2/G la selezione si è fermata su `SC04-M021`
+   (rango 7, 48 token) che avrebbe aggiunto al contesto una delle due
+   valutazioni superate — non il motivo della classificazione, e non
+   necessariamente una risposta completa; su Q3/T il secondo
+   messaggio non è entrato per 12 token. Con un sovraccarico del 59 % in G e del
+   45 % in U, la verifica del valore 200 già annunciata in `RQ2.md` §3 ha qui il
+   caso più forte della raccolta.
+7. **Criteri alternativi su Q2.** `evaluation_dev_sc04.md` §2.4 registra un
+   criterio B per questa domanda. Questa scheda ha applicato l'oracle come
+   scritto; il criterio B non è stato usato e la decisione resta aperta. Con
+   l'oracle attuale il giudizio non cambia per nessuna delle quattro modalità,
+   che sono tutte parziali.
+8. **Definizione di `faithful_to_received_context`, da allineare fra le
+   schede.** In r3 il campo è falso quando la risposta afferma qualcosa che il
+   contesto ricevuto non contiene, anche senza contraddirlo. SC03 r2 usa una
+   lettura più permissiva su Q5/U, dove l'inciso «(in attesa di risultati)» è
+   registrato con `fedele: true`. Le due schede vanno allineate su una sola
+   definizione prima di aggregarle; qui non è stato fatto, perché richiederebbe
+   di modificare SC03.
+9. **La vista è composita.** T dell'8 settembre, U e G del 5, FULL_HISTORY del
+   4 e non rigenerata. Va deciso se il protocollo finale rigeneri tutte le celle
+   nella stessa esecuzione o se la composizione resti dichiarata.
+
+Nessuna di queste ambiguità è stata risolta modificando i criteri o l'oracle per
+adattarli ai risultati.
+
+---
+
+## 12. FULL_HISTORY — sezione separata
+
+FULL_HISTORY è un **controllo diagnostico** e resta **fuori dal confronto a
+parità di budget**, come prescritto da `INVENTARIO.md` §2 e da `RQ2.md` §3.
+
+**Perché non è comparabile.**
+
+1. **Non ha budget.** 529 token contro i 136–183 delle altre tre: da tre a
+   quasi quattro volte.
+2. **Non ha retrieval.** Riceve per costruzione i sette messaggi utente;
+   `retrieval_sc04.jsonl` e gli altri file di retrieval non contengono sue righe.
+   Il suo Retrieval Success è **non applicabile**, non 100 %.
+3. **Non scala.** Su uno scenario di sette messaggi l'intera storia entra nel
+   contesto.
+4. **Viene da un'altra esecuzione** e non è stata rigenerata nella correzione.
+
+**Esito.** 4 complete e supportate su 7, 2 parziali, 0 errate, 1 astensione
+corretta, 0 usi di informazione obsoleta, **1 affermazione non supportata**.
+
+**A che cosa serve, qui.** FULL_HISTORY dispone delle informazioni necessarie
+per **sei** delle sette domande: **Q7 richiede astensione**, perché il fatto non
+è nel corpus. Su quelle sei stabilisce che le domande sono rispondibili, e quindi
+che le incompletezze di U e G su Q3, Q4 e Q5 dipendono dal contesto ricevuto e
+non da un difetto del benchmark.
+
+**Ma su SC04 fa anche di più: mostra due limiti che non sono del contesto.** Il
+suo Answer Success è **4/6**. Su Q2 omette il motivo della classificazione; su Q3
+lascia non detto il collegamento con ACC-207 in due punti **e aggiunge
+«credenziali compromesse»**, che nessun messaggio del corpus dichiara. Sono le
+uniche due righe non conformi di SC04 non attribuibili al recupero né alla
+rappresentazione, e l'unica affermazione non supportata delle 28.
+
+Va tenuto presente in due sensi. Quando si legge il 2/7 di U e di G: una parte
+dell'incompletezza osservata sopravvive anche alla storia completa. E quando si
+tratta FULL_HISTORY come riferimento: **avere tutto il corpus nel contesto non
+impedisce di aggiungere qualcosa che il corpus non dice.**
+
+Su **Q7** l'astensione è coerente con l'assenza del fatto ma **non la dimostra**:
+un modello può astenersi anche quando l'informazione c'è. L'assenza è stabilita
+dalla lettura del corpus (§7).
+
+**Che cosa non va fatto con questa riga.** Non va messa in classifica con T, U e
+G; non va usata come «limite superiore» senza dichiarare che non ha budget né
+retrieval — e su SC04 non lo è nemmeno, visto che T raggiunge lo stesso 4/7; il
+suo 4/7 non va confrontato con il 2/7 di U e G come se le condizioni fossero
+paragonabili.
+
+---
+
+## 13. File di questa scheda
+
+| File | Contenuto |
+|---|---|
+| [`valutazioni_sc04.jsonl`](valutazioni_sc04.jsonl) | Tabella strutturata, 28 righe: classe, indicatori, copertura dei fatti per `fact_key` e delle relazioni per `relation_id` con note su contesto e risposta, copertura dell'oracle, supporto, fedeltà, motivazione, prima causa, contesto ricevuto, portata di lettura, semi del grafo, origine dell'esecuzione, riferimenti di traccia |
+| [`valutazioni_sc04.csv`](valutazioni_sc04.csv) | Stessa tabella, vista compatta |
+| [`riepilogo_sc04.json`](riepilogo_sc04.json) | Riepilogo per modalità, con numeratore, denominatore, definizione ed esclusioni di ogni metrica, più la copertura delle relazioni di G |
+| [`fonti_sc04.json`](fonti_sc04.json) | Percorsi e impronte SHA-256 dei ventisei file letti |
+| `valutazione_sc04.md` | Questo rapporto |
+| [`archivio/r1/`](archivio/r1/), [`archivio/r2/`](archivio/r2/) | Le revisioni precedenti, conservate invariate: cinque file ciascuna |
+
+Nessun file esistente del progetto è stato modificato. In particolare
+`results/rq2/annotation_template_sc04.jsonl` resta intatto, e le valutazioni
+precedenti di T e di U/G non sono state riscritte.
+
+**Non prodotti, per scelta:** grafici; estensione ad altri scenari; conclusioni
+generali sulle architetture di memoria.
+
+**Prossimo passo:** far rivedere i 28 giudizi proposti e decidere i punti 1, 2,
+8 e 9 di §11. Finché non è fatto, il riepilogo numerico resta provvisorio.

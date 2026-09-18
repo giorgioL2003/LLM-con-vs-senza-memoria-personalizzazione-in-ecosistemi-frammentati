@@ -1,0 +1,31 @@
+{
+  "nota": "file letti in sola lettura; nessuno modificato da questa scheda",
+  "letti_in_sola_lettura": {
+    "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl": "586f568da79e4dba76f971407bc390d06111fd0a465dae2a31ab6de1332d4bfc",
+    "results/rq2/sc05_dev_v1/generation_inputs_sc05.jsonl": "491a3d06fc4b4d76a02949ad7d0a6a19c6f0b93a0e9934f6f2d6ddb4622c7337",
+    "results/rq2/sc05_dev_v1/retrieval_sc05_u_ger.jsonl": "40a3af35b9f601fc404b5e62fa7ff875e1a7204b6a012f4593bd88381c8cf5b3",
+    "results/rq2/sc05_dev_v1/annotation_template_sc05.jsonl": "aecd8f9fd54e0e533b0676142846a4fd76b9101dc30ff1f448cafb2357ff8257",
+    "results/rq2/sc05_dev_v1/annotation_compilata_sc05.jsonl": "59a8083cba05f1c88ccefc02545d44ecdba70ee06c4ecd020170f2b444e521c9",
+    "results/rq2/sc05_dev_v1/valutazione_approvata_sc05.md": "327f077117f55a005fd1c2bf72bec8d31e39961e8131cb8ecfc001240f2cc435",
+    "results/rq2/sc05_dev_v1/valutazione_assistita_sc05.md": "b77697904ffbae0f0d5cf92a28ba984257b9513ef035ed7e06ee730dff9f55a8",
+    "results/rq2/sc05_dev_v1/valutazione_assistita_sc05_rev2.md": "34b62d8209faab74d5e74093d73ad90567a8d8182aa5d4c62ffa7fcee5e1e82b",
+    "results/rq2/sc05_dev_v1/chiusura_prova_sc05.md": "e4176adeb4e88fd852f0e1c45992be5c5f4bed5afaec47bd7bc62801d6eeafdf",
+    "results/rq2/sc05_dev_v1/README.md": "af1ae3796c27e27c1abfc4825e4a146eec808ee778dc2d1e3b8d3290279661a1",
+    "results/rq2/sc05_dev_v1/facts/scenario_05_facts.jsonl": "224fabf59128bb0493d19e3466a34312a76a5b5f1d86db7aed5974d8357afa9d",
+    "results/rq2/sc05_dev_v1/memory/scenario_05_state.json": "6f32442bd9b4bb7e9ac1728f178b92d53c65aa641eb1895c4622215caa507019",
+    "results/rq2/sc05_dev_v1/memory/scenario_05_operations.jsonl": "a55fa11ffa22fa147ba78ce614b256e9db041efef2484a41e69d5969ef312939",
+    "results/rq2/t_ext_v1/generation_dev_t_sc05.jsonl": "a7c578aca174abbab100c13018d02d7f33735dcf887a3f0a13d63fdde39ad7b7",
+    "results/rq2/t_ext_v1/generation_inputs_t_sc05.jsonl": "f0da923dc854cd2111ed37cb59c2ec17c1b1372cf70b241c6fc3275b0e484685",
+    "results/rq2/t_ext_v1/retrieval_t_sc05.jsonl": "43a20f5837560ae7f2cc2817730d1326940bdd6f564b13de4e1e14cf0192862d",
+    "results/rq2/t_ext_v1/annotation_compilata_t_sc05.jsonl": "b36256264cc91900bf57ea2ce283c876d9ec01ca019809c371159211249004dd",
+    "results/rq2/t_ext_v1/valutazione_assistita_t.md": "0d9e2e549dea0127a72f7b4ec814d6884382982d7d04af390e70ba2f6ab6e045",
+    "results/rq2/t_ext_v1/README.md": "cce95ac6803195b9a54bffec084cf5757c8f8fbcbc3b155e365187c516446c82",
+    "data/rq2/scenarios/scenario_05.json": "be57e57c4c133dda015d6c955cef59058f514e896dde9a94e50e0b85e87bc0fa",
+    "data/rq2/annotations/scenario_05_rq2.json": "454be8c6c7a7bc17bce349a356aa872075bf8dc27ca600d2ff0ba7d51f67e3a8",
+    "data/rq2/config/run_sc05_ger_dev.json": "f2acda53b3f8abd68b8b264a3eefad065e7d1484d4920a41dfa84a7c0b22af5d",
+    "data/rq2/config/run_t_ext_sc04_sc05.json": "d9b207e8329223682d7c15ab40abb308553ddc93121887a9880391111bc251e3",
+    "data/rq2/config/experiment_rq2.json": "df4b066a0d1810e8f0bb7644694a249be194ec2d693578902e598b18c61b0eb3",
+    "RACCOLTA_RISULTATI/CRITERI_VALUTAZIONE.md": "0962b117fdca758b5ecb961327714e09828a5c3adad7d7b02d78173c3e368755",
+    "RACCOLTA_RISULTATI/INVENTARIO.md": "6e7708fd098b1245d8c930244725a9de17a18283d8f0ddac1cdb6321f5d9d616"
+  }
+}

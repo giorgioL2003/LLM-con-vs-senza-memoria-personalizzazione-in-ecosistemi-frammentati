@@ -1,0 +1,433 @@
+{
+  "scheda": "SC04 - Corvara Servizi / smishing - RQ2",
+  "revisione": "r2",
+  "data": "2026-09-18",
+  "revisione_precedente": "r1, conservata in RACCOLTA_RISULTATI/SC04/archivio/r1/",
+  "nota_revisione": [
+    "Q2/G: riformulato l'effetto del mancato recupero di SC04-M021. Se fosse entrata avrebbe portato la copertura del contesto da 2/4 a 3/4, non l'avrebbe completata: il motivo della classificazione sarebbe rimasto fuori. Che cosa avrebbe risposto il modello non e' deducibile. Nessun giudizio cambia.",
+    "SC04-R03: corretta l'affermazione che il contenuto fosse irrecuperabile. L'arco non esiste, ma il contenuto e' nelle voci testuali attive SC04-M015 e SC04-M016, che G usa insieme agli archi, ai ranghi 24 e 10 su Q2/G. Distinte assenza dell'arco, presenza in memoria e mancata selezione. Nessun giudizio cambia.",
+    "Q2/U: il motivo della classificazione richiede SC04-M015 e SC04-M016, non la sola SC04-M015; SC04-M016 e' al rango 7. Nota corretta, giudizio invariato.",
+    "Q3/FULL_HISTORY: applicata la stessa semantica al fatto composto `regola-inoltro-creata` e alla relazione SC04-R08. Entrambi contati non presenti nella risposta, che non dice «su ACC-207». Copertura oracle da 5/6 a 4/6, copertura RQ2 nella risposta da 5/6 a 4/6. La classe resta `parziale`.",
+    "Q3/FULL_HISTORY: l'aggiunta «credenziali compromesse» non e' dichiarata in nessun messaggio del corpus. Registrata come affermazione non supportata e non come contraddizione: unsupported_claim da false a true, supported_by_original_conversation da true a false, faithful_to_received_context resta true. UnsupportedClaimRate di FULL_HISTORY da 0/7 a 1/7. Classe e Complete Answer Rate invariati.",
+    "Selezione delle esecuzioni, composizione del confronto e gli altri 27 giudizi: invariati."
+  ],
+  "stato": "valutazioni assistite PROPOSTE, non approvate; risultati di sviluppo; riepilogo numerico PROVVISORIO",
+  "prova": "una sola esecuzione per cella, nessuna replica",
+  "modello": "claude-sonnet-5, effort medium, config rq2-dev-0.1, budget 200 token",
+  "composizione_del_confronto": {
+    "T": "7 risposte da results/rq2/t_ext_v1/generation_dev_t_sc04.jsonl (estensione della matrice, 8 settembre 2026)",
+    "U": "7 risposte da results/rq2/sc04_repair_v3/generation_dev_sc04_ug.jsonl (versione corretta, u-instructions-0.3)",
+    "G": "7 risposte da results/rq2/sc04_repair_v3/generation_dev_sc04_ug.jsonl (versione corretta, grafo ricostruito sullo stesso stato di U)",
+    "FULL_HISTORY": "7 risposte da results/rq2/generation_dev_sc04.jsonl (esecuzione iniziale, NON rigenerata nella correzione)",
+    "avvertenza": "vista composita su tre esecuzioni distinte: T dell'8 settembre, U e G del 5 settembre, FULL_HISTORY del 4 settembre. Non sono repliche.",
+    "escluse": "le prime 7 risposte U e le prime 7 G di results/rq2/generation_dev_sc04.jsonl restano fuori dall'aggregazione; compaiono solo nella storia dello sviluppo"
+  },
+  "compatibilita_delle_configurazioni": {
+    "budget_tokens": "200 in tutte e tre le esecuzioni",
+    "config_id": "rq2-dev-0.1 nelle tre esecuzioni; t_ext_v1 eredita esplicitamente budget, conteggio dei token, regola di selezione e ranking dalla stessa base",
+    "istruzioni_del_prompt": "identiche nelle 28 righe, verificate per confronto di stringa",
+    "modello_ed_effort": "claude-sonnet-5, effort medium, in tutte e 28",
+    "fatti_candidati": "results/rq2/facts/scenario_04_facts.jsonl, non riestratti fra le esecuzioni; T non usa i fatti ma i messaggi"
+  },
+  "riferimenti_oracle": {
+    "copertura_dei_fatti": "data/rq2/annotations/scenario_04_rq2.json, campo required_facts, per fact_key",
+    "copertura_delle_relazioni": "data/rq2/annotations/scenario_04_rq2.json, campi required_relations e graph_annotation.relations",
+    "classe_della_risposta": "stesso file, campi expected_answer, mandatory_facts, obsolete_information, accepted_equivalents",
+    "nota": "i required_facts sono 2/4/6/3/2/1/0 e i mandatory_facts 2/4/6/3/2/2/1: divergono su Q6 e Q7"
+  },
+  "regola_classificazione": "completezza-supporto-1 (RACCOLTA_RISULTATI/CRITERI_VALUTAZIONE.md, 18 settembre 2026)",
+  "confronto_a_parita_di_budget": [
+    "T",
+    "U",
+    "G"
+  ],
+  "controllo_diagnostico_fuori_confronto": [
+    "FULL_HISTORY"
+  ],
+  "giudizi_sospesi": [],
+  "riepilogo_per_modalita": {
+    "T": {
+      "N_c": 7,
+      "origine_esecuzione": "estensione-t-sviluppo-v1 (t_ext_v1, 8 settembre 2026)",
+      "classi": {
+        "completa": 4,
+        "parziale": 2,
+        "errata": 0,
+        "astensione corretta": 1,
+        "sospese": 0
+      },
+      "ripartizione_delle_7_prove": {
+        "complete_e_supportate": 4,
+        "parziali_o_errate": 2,
+        "astensioni_corrette": 1,
+        "nota": "l'astensione corretta e' il comportamento atteso su Q7; la sua esclusione dal numeratore del Complete Answer Rate non e' un fallimento"
+      },
+      "ReachabilityRate": {
+        "numeratore": 6,
+        "denominatore": 7,
+        "valore": 0.8571,
+        "percentuale": 85.7,
+        "nota": "perimetro = intero scenario in tutte e quattro le modalita'; dipende solo dall'oracle, non dall'architettura"
+      },
+      "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+        "numeratore": 4,
+        "denominatore": 6,
+        "valore": 0.6667,
+        "percentuale": 66.7,
+        "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza"
+      },
+      "CompleteAnswerRate": {
+        "numeratore": 4,
+        "denominatore": 7,
+        "valore": 0.5714,
+        "percentuale": 57.1,
+        "definizione": "risposte complete E supportate / N_c (EXPERIMENT.md §10.3, regola completezza-supporto-1)",
+        "esclusioni": [
+          {
+            "question_id": "SC04-Q2",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q3",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q7",
+            "classe": "astensione corretta",
+            "motivo": "astensione corretta: comportamento atteso, fuori dal numeratore per definizione"
+          }
+        ],
+        "giudizi_sospesi": 0
+      },
+      "AnswerSuccess_condizionato_al_recupero": {
+        "numeratore": 4,
+        "denominatore": 4,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "definizione": "complete e supportate con evidenza completa nel contesto / prove con evidenza completa nel contesto",
+        "sospese_nel_denominatore": 0
+      },
+      "CorrectAbstentionRate": {
+        "numeratore": 1,
+        "denominatore": 1,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "nota": "denominatore 1 (solo Q7): va letto come 1 domanda su 1, la percentuale non e' informativa"
+      },
+      "ObsoleteUseRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "UnsupportedClaimRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "WrongAbstentionRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      }
+    },
+    "U": {
+      "N_c": 7,
+      "origine_esecuzione": "prova-riparazione-u-instructions-0.3 (sc04_repair_v3, 5 settembre 2026)",
+      "classi": {
+        "completa": 2,
+        "parziale": 4,
+        "errata": 0,
+        "astensione corretta": 1,
+        "sospese": 0
+      },
+      "ripartizione_delle_7_prove": {
+        "complete_e_supportate": 2,
+        "parziali_o_errate": 4,
+        "astensioni_corrette": 1,
+        "nota": "l'astensione corretta e' il comportamento atteso su Q7; la sua esclusione dal numeratore del Complete Answer Rate non e' un fallimento"
+      },
+      "ReachabilityRate": {
+        "numeratore": 6,
+        "denominatore": 7,
+        "valore": 0.8571,
+        "percentuale": 85.7,
+        "nota": "perimetro = intero scenario in tutte e quattro le modalita'; dipende solo dall'oracle, non dall'architettura"
+      },
+      "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+        "numeratore": 2,
+        "denominatore": 6,
+        "valore": 0.3333,
+        "percentuale": 33.3,
+        "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza"
+      },
+      "CompleteAnswerRate": {
+        "numeratore": 2,
+        "denominatore": 7,
+        "valore": 0.2857,
+        "percentuale": 28.6,
+        "definizione": "risposte complete E supportate / N_c (EXPERIMENT.md §10.3, regola completezza-supporto-1)",
+        "esclusioni": [
+          {
+            "question_id": "SC04-Q2",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q3",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q4",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q5",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q7",
+            "classe": "astensione corretta",
+            "motivo": "astensione corretta: comportamento atteso, fuori dal numeratore per definizione"
+          }
+        ],
+        "giudizi_sospesi": 0
+      },
+      "AnswerSuccess_condizionato_al_recupero": {
+        "numeratore": 2,
+        "denominatore": 2,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "definizione": "complete e supportate con evidenza completa nel contesto / prove con evidenza completa nel contesto",
+        "sospese_nel_denominatore": 0
+      },
+      "CorrectAbstentionRate": {
+        "numeratore": 1,
+        "denominatore": 1,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "nota": "denominatore 1 (solo Q7): va letto come 1 domanda su 1, la percentuale non e' informativa"
+      },
+      "ObsoleteUseRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "UnsupportedClaimRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "WrongAbstentionRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      }
+    },
+    "G": {
+      "N_c": 7,
+      "origine_esecuzione": "prova-riparazione-u-instructions-0.3 (sc04_repair_v3, 5 settembre 2026)",
+      "classi": {
+        "completa": 2,
+        "parziale": 4,
+        "errata": 0,
+        "astensione corretta": 1,
+        "sospese": 0
+      },
+      "ripartizione_delle_7_prove": {
+        "complete_e_supportate": 2,
+        "parziali_o_errate": 4,
+        "astensioni_corrette": 1,
+        "nota": "l'astensione corretta e' il comportamento atteso su Q7; la sua esclusione dal numeratore del Complete Answer Rate non e' un fallimento"
+      },
+      "ReachabilityRate": {
+        "numeratore": 6,
+        "denominatore": 7,
+        "valore": 0.8571,
+        "percentuale": 85.7,
+        "nota": "perimetro = intero scenario in tutte e quattro le modalita'; dipende solo dall'oracle, non dall'architettura"
+      },
+      "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+        "numeratore": 2,
+        "denominatore": 6,
+        "valore": 0.3333,
+        "percentuale": 33.3,
+        "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza"
+      },
+      "CompleteAnswerRate": {
+        "numeratore": 2,
+        "denominatore": 7,
+        "valore": 0.2857,
+        "percentuale": 28.6,
+        "definizione": "risposte complete E supportate / N_c (EXPERIMENT.md §10.3, regola completezza-supporto-1)",
+        "esclusioni": [
+          {
+            "question_id": "SC04-Q2",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q3",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q4",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q5",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q7",
+            "classe": "astensione corretta",
+            "motivo": "astensione corretta: comportamento atteso, fuori dal numeratore per definizione"
+          }
+        ],
+        "giudizi_sospesi": 0
+      },
+      "AnswerSuccess_condizionato_al_recupero": {
+        "numeratore": 2,
+        "denominatore": 2,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "definizione": "complete e supportate con evidenza completa nel contesto / prove con evidenza completa nel contesto",
+        "sospese_nel_denominatore": 0
+      },
+      "CorrectAbstentionRate": {
+        "numeratore": 1,
+        "denominatore": 1,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "nota": "denominatore 1 (solo Q7): va letto come 1 domanda su 1, la percentuale non e' informativa"
+      },
+      "ObsoleteUseRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "UnsupportedClaimRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "WrongAbstentionRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "RelationCoverage_in_context": {
+        "numeratore": 3,
+        "denominatore": 11,
+        "valore": 0.2727,
+        "percentuale": 27.3,
+        "definizione": "relazioni richieste presenti nel CONTENUTO del contesto / relazioni richieste, su Q2, Q3 e Q4",
+        "nota": "misurata solo per G: e' l'unica modalita' con rappresentazione relazionale esplicita. Tenuta distinta dalla copertura dei fatti."
+      }
+    },
+    "FULL_HISTORY": {
+      "N_c": 7,
+      "origine_esecuzione": "esecuzione iniziale (generation_dev_sc04.jsonl, 4 settembre 2026), non rigenerata",
+      "classi": {
+        "completa": 4,
+        "parziale": 2,
+        "errata": 0,
+        "astensione corretta": 1,
+        "sospese": 0
+      },
+      "ripartizione_delle_7_prove": {
+        "complete_e_supportate": 4,
+        "parziali_o_errate": 2,
+        "astensioni_corrette": 1,
+        "nota": "l'astensione corretta e' il comportamento atteso su Q7; la sua esclusione dal numeratore del Complete Answer Rate non e' un fallimento"
+      },
+      "ReachabilityRate": {
+        "numeratore": 6,
+        "denominatore": 7,
+        "valore": 0.8571,
+        "percentuale": 85.7,
+        "nota": "perimetro = intero scenario in tutte e quattro le modalita'; dipende solo dall'oracle, non dall'architettura"
+      },
+      "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+        "numeratore": null,
+        "denominatore": null,
+        "valore": null,
+        "nota": "non applicabile: FULL_HISTORY non esegue selezione. Descrittivo: i fact_key RQ2 risultano presenti nel contenuto in 6/6 domande raggiungibili."
+      },
+      "CompleteAnswerRate": {
+        "numeratore": 4,
+        "denominatore": 7,
+        "valore": 0.5714,
+        "percentuale": 57.1,
+        "definizione": "risposte complete E supportate / N_c (EXPERIMENT.md §10.3, regola completezza-supporto-1)",
+        "esclusioni": [
+          {
+            "question_id": "SC04-Q2",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q3",
+            "classe": "parziale",
+            "motivo": "classe parziale"
+          },
+          {
+            "question_id": "SC04-Q7",
+            "classe": "astensione corretta",
+            "motivo": "astensione corretta: comportamento atteso, fuori dal numeratore per definizione"
+          }
+        ],
+        "giudizi_sospesi": 0
+      },
+      "AnswerSuccess_condizionato_al_recupero": {
+        "numeratore": 4,
+        "denominatore": 6,
+        "valore": 0.6667,
+        "percentuale": 66.7,
+        "definizione": "complete e supportate con evidenza completa nel contesto / prove con evidenza completa nel contesto",
+        "sospese_nel_denominatore": 0
+      },
+      "CorrectAbstentionRate": {
+        "numeratore": 1,
+        "denominatore": 1,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "nota": "denominatore 1 (solo Q7): va letto come 1 domanda su 1, la percentuale non e' informativa"
+      },
+      "ObsoleteUseRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "UnsupportedClaimRate": {
+        "numeratore": 1,
+        "denominatore": 7,
+        "valore": 0.1429,
+        "percentuale": 14.3
+      },
+      "WrongAbstentionRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      }
+    }
+  }
+}

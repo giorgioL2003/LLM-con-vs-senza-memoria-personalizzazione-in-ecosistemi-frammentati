@@ -1,0 +1,22 @@
+question_id,question_category,mode,run_label,reachable,evidence_retrieved_content_verified,answer_class,answer_class_suspended,rq2_fact_coverage_in_context,rq2_fact_coverage_in_answer,oracle_mandatory_coverage_in_answer,supported_by_original_conversation,faithful_to_received_context,counts_as_complete_and_supported,obsolete_used,unsupported_claim,wrong_abstention,error_origin,retrieval_performed,context_items,context_tokens
+SC03-Q1,goal,F,esecuzione,True,True,completa,False,2/2,2/2,2/2,True,True,True,False,False,False,nessuno,True,7,184
+SC03-Q1,goal,U,prova-riparazione-u-instructions-0.3,True,True,completa,False,2/2,2/2,2/2,True,True,True,False,False,False,nessuno,True,7,193
+SC03-Q1,goal,FULL_HISTORY,nessun retrieval,True,True,completa,False,2/2,2/2,2/2,True,True,True,False,False,False,nessuno,False,8,537
+SC03-Q2,update_obsolete,F,esecuzione,True,False,parziale,False,2/3,2/3,1/2,True,True,False,False,False,False,retrieval,True,8,190
+SC03-Q2,update_obsolete,U,prova-riparazione-u-instructions-0.3,True,False,parziale,False,2/3,2/3,1/2,True,True,False,False,False,False,retrieval,True,7,188
+SC03-Q2,update_obsolete,FULL_HISTORY,nessun retrieval,True,True,completa,False,3/3,3/3,2/2,True,True,True,False,False,False,nessuno,False,8,537
+SC03-Q3,retracted_information,F,esecuzione,True,False,parziale,False,3/4,2/4,2/3,True,True,False,False,False,False,risposta,True,7,195
+SC03-Q3,retracted_information,U,prova-riparazione-u-instructions-0.3,True,False,parziale,False,1/4,1/4,2/3,True,True,False,False,False,False,gestione,True,6,175
+SC03-Q3,retracted_information,FULL_HISTORY,nessun retrieval,True,True,parziale,False,4/4,2/4,2/3,True,True,False,False,False,False,risposta,False,8,537
+SC03-Q4,completed_activity,F,esecuzione,True,False,parziale,False,1/4,1/4,1/4,True,True,False,False,False,False,retrieval,True,8,191
+SC03-Q4,completed_activity,U,prova-riparazione-u-instructions-0.3,True,False,errata,False,0/4,0/4,0/4,True,True,False,False,False,False,retrieval,True,6,175
+SC03-Q4,completed_activity,FULL_HISTORY,nessun retrieval,True,True,completa,False,4/4,4/4,4/4,True,True,True,False,False,False,nessuno,False,8,537
+SC03-Q5,pending_activity,F,esecuzione,True,False,parziale,False,1/3,1/3,1/3,True,True,False,False,False,False,retrieval,True,8,184
+SC03-Q5,pending_activity,U,prova-riparazione-u-instructions-0.3,True,False,errata,False,1/3,1/3,1/3,False,True,False,True,True,False,gestione,True,7,194
+SC03-Q5,pending_activity,FULL_HISTORY,nessun retrieval,True,True,completa,False,3/3,3/3,3/3,True,True,True,False,False,False,nessuno,False,8,537
+SC03-Q6,cross_session_link,F,esecuzione,True,False,errata,False,0/4,0/4,0/4,True,True,False,False,False,False,retrieval,True,8,195
+SC03-Q6,cross_session_link,U,prova-riparazione-u-instructions-0.3,True,False,errata,False,0/4,0/4,0/4,True,True,False,False,False,False,retrieval,True,7,200
+SC03-Q6,cross_session_link,FULL_HISTORY,nessun retrieval,True,True,completa,False,4/4,4/4,4/4,True,True,True,False,False,False,nessuno,False,8,537
+SC03-Q7,absent_information,F,esecuzione,False,,astensione corretta,False,,,1/1,True,True,False,False,False,False,nessuno,True,7,188
+SC03-Q7,absent_information,U,prova-riparazione-u-instructions-0.3,False,,astensione corretta,False,,,1/1,True,True,False,False,False,False,nessuno,True,6,170
+SC03-Q7,absent_information,FULL_HISTORY,nessun retrieval,False,,astensione corretta,False,,,1/1,True,True,False,False,False,False,nessuno,False,8,537

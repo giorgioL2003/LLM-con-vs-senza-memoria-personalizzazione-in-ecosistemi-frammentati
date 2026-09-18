@@ -1,0 +1,239 @@
+{
+  "scheda": "SC02 - Lumen Market - RQ2",
+  "revisione": "r2",
+  "data_revisione": "2026-09-18",
+  "revisione_precedente": "r1 (stesso giorno), sostituita",
+  "stato": "valutazioni assistite PROPOSTE, non approvate; risultati di sviluppo; riepilogo numerico PROVVISORIO",
+  "prova": "una sola esecuzione per cella, nessuna replica",
+  "modello": "claude-sonnet-5, effort medium, config rq2-dev-0.1, budget 200 token",
+  "riferimenti_oracle": {
+    "copertura_rq2": "data/rq2/annotations/scenario_02_rq2.json (required_facts, per fact_key)",
+    "valutazione_della_risposta": "data/scenarios/scenario_02.json (expected_answer, mandatory_facts, obsolete_information)",
+    "nota": "i due oracle non coincidono nei conteggi (Q2, Q5, Q6, Q7): i due riferimenti sono riportati in colonne distinte e nessuno dei due e' stato riscritto"
+  },
+  "confronto_a_parita_di_budget": [
+    "T",
+    "F"
+  ],
+  "controllo_diagnostico_fuori_confronto": [
+    "FULL_HISTORY"
+  ],
+  "giudizi_sospesi": [
+    {
+      "question_id": "SC02-Q5",
+      "mode": "F",
+      "candidati": [
+        "completa",
+        "errata"
+      ],
+      "effetto_sulle_metriche": "nessuno sul Complete Answer Rate: esclusa dal numeratore in entrambe le letture"
+    }
+  ],
+  "riepilogo_per_modalita": {
+    "T": {
+      "N_c": 7,
+      "classi": {
+        "completa": 5,
+        "parziale": 1,
+        "errata": 0,
+        "astensione corretta": 1,
+        "sospese": 0
+      },
+      "ReachabilityRate": {
+        "numeratore": 6,
+        "denominatore": 7,
+        "valore": 0.8571,
+        "percentuale": 85.7,
+        "nota": "perimetro = intero scenario in tutte e tre le modalita'; dipende solo dall'oracle, non dall'architettura"
+      },
+      "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+        "numeratore": 5,
+        "denominatore": 6,
+        "valore": 0.8333,
+        "percentuale": 83.3,
+        "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza"
+      },
+      "CompleteAnswerRate": {
+        "numeratore": 5,
+        "denominatore": 7,
+        "valore": 0.7143,
+        "percentuale": 71.4,
+        "definizione": "EXPERIMENT.md §10.3: risposte complete E supportate / N_c",
+        "esclusioni": [],
+        "giudizi_sospesi": 0,
+        "nota": null
+      },
+      "AnswerSuccess_condizionato_al_recupero": {
+        "numeratore": 5,
+        "denominatore": 5,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "definizione": "risposte complete e supportate / domande con evidenza obbligatoria completa NEL CONTENUTO del contesto",
+        "sospese_nel_denominatore": 0
+      },
+      "CorrectAbstentionRate": {
+        "numeratore": 1,
+        "denominatore": 1,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "nota": "denominatore 1 (solo Q7): la percentuale non e' informativa, va letta come 1 domanda su 1"
+      },
+      "ObsoleteUseRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "UnsupportedClaimRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "WrongAbstentionRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      }
+    },
+    "F": {
+      "N_c": 7,
+      "classi": {
+        "completa": 2,
+        "parziale": 1,
+        "errata": 2,
+        "astensione corretta": 1,
+        "sospese": 1
+      },
+      "ReachabilityRate": {
+        "numeratore": 6,
+        "denominatore": 7,
+        "valore": 0.8571,
+        "percentuale": 85.7,
+        "nota": "perimetro = intero scenario in tutte e tre le modalita'; dipende solo dall'oracle, non dall'architettura"
+      },
+      "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+        "numeratore": 4,
+        "denominatore": 6,
+        "valore": 0.6667,
+        "percentuale": 66.7,
+        "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza"
+      },
+      "CompleteAnswerRate": {
+        "numeratore": 2,
+        "denominatore": 7,
+        "valore": 0.2857,
+        "percentuale": 28.6,
+        "definizione": "EXPERIMENT.md §10.3: risposte complete E supportate / N_c",
+        "esclusioni": [
+          {
+            "question_id": "SC02-Q5",
+            "motivo": "classe sospesa; non complete-and-supported in nessuna delle due letture"
+          }
+        ],
+        "giudizi_sospesi": 1,
+        "nota": "il numeratore non cambia comunque si chiuda la sospensione"
+      },
+      "AnswerSuccess_condizionato_al_recupero": {
+        "numeratore": 2,
+        "denominatore": 4,
+        "valore": 0.5,
+        "percentuale": 50.0,
+        "definizione": "risposte complete e supportate / domande con evidenza obbligatoria completa NEL CONTENUTO del contesto",
+        "sospese_nel_denominatore": 1
+      },
+      "CorrectAbstentionRate": {
+        "numeratore": 1,
+        "denominatore": 1,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "nota": "denominatore 1 (solo Q7): la percentuale non e' informativa, va letta come 1 domanda su 1"
+      },
+      "ObsoleteUseRate": {
+        "numeratore": 1,
+        "denominatore": 7,
+        "valore": 0.1429,
+        "percentuale": 14.3
+      },
+      "UnsupportedClaimRate": {
+        "numeratore": 2,
+        "denominatore": 7,
+        "valore": 0.2857,
+        "percentuale": 28.6
+      },
+      "WrongAbstentionRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      }
+    },
+    "FULL_HISTORY": {
+      "N_c": 7,
+      "classi": {
+        "completa": 6,
+        "parziale": 0,
+        "errata": 0,
+        "astensione corretta": 1,
+        "sospese": 0
+      },
+      "ReachabilityRate": {
+        "numeratore": 6,
+        "denominatore": 7,
+        "valore": 0.8571,
+        "percentuale": 85.7,
+        "nota": "perimetro = intero scenario in tutte e tre le modalita'; dipende solo dall'oracle, non dall'architettura"
+      },
+      "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+        "valore": null,
+        "numeratore": null,
+        "denominatore": null,
+        "nota": "non applicabile: FULL_HISTORY non esegue selezione (nessuna riga in retrieval_sc02.jsonl). Descrittivo: le evidenze obbligatorie RQ2 risultano presenti nel contenuto in 6/6 domande raggiungibili."
+      },
+      "CompleteAnswerRate": {
+        "numeratore": 6,
+        "denominatore": 7,
+        "valore": 0.8571,
+        "percentuale": 85.7,
+        "definizione": "EXPERIMENT.md §10.3: risposte complete E supportate / N_c",
+        "esclusioni": [],
+        "giudizi_sospesi": 0,
+        "nota": null
+      },
+      "AnswerSuccess_condizionato_al_recupero": {
+        "numeratore": 6,
+        "denominatore": 6,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "definizione": "risposte complete e supportate / domande con evidenza obbligatoria completa NEL CONTENUTO del contesto",
+        "sospese_nel_denominatore": 0
+      },
+      "CorrectAbstentionRate": {
+        "numeratore": 1,
+        "denominatore": 1,
+        "valore": 1.0,
+        "percentuale": 100.0,
+        "nota": "denominatore 1 (solo Q7): la percentuale non e' informativa, va letta come 1 domanda su 1"
+      },
+      "ObsoleteUseRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "UnsupportedClaimRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      },
+      "WrongAbstentionRate": {
+        "numeratore": 0,
+        "denominatore": 7,
+        "valore": 0.0,
+        "percentuale": 0.0
+      }
+    }
+  }
+}

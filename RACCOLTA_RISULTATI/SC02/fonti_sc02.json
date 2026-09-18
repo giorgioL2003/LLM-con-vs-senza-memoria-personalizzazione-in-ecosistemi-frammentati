@@ -1,0 +1,12 @@
+{
+  "letti_in_sola_lettura": {
+    "results/rq2/generation_dev_sc02.jsonl": "1777992d073c66bfa97bda3a33c91ba4f1ec219e36f1676b343b8ab0fbf8b323",
+    "results/rq2/generation_inputs_sc02.jsonl": "ff1a3a8f622b25bc8b7dc654ca053c9fd0cd742910c3179792287c52233eee37",
+    "results/rq2/retrieval_sc02.jsonl": "3710f8f4c4bfc571022625b7856c2adc3edb0108020c25794e190d028930aaef",
+    "results/rq2/annotation_template_sc02.jsonl": "6f87293c527548ff2be57c419fd10a1f57c8439485202ec6f3a27dea1ff49cfb",
+    "results/rq2/facts/scenario_02_facts.jsonl": "ab5f7738b702507f0fbb72f854b4dc7ffd7912febbaa944c874767b5cbe3baaa",
+    "results/rq2/facts/scenario_02_extraction_log.json": "0ac93b9f161d5b10dfa5d72bff88d1cd216744cced70a368f49522fbcc4f9259",
+    "data/scenarios/scenario_02.json": "97fea57ea1b2d340a2307e01d0462deb6d3da2e5a2ab6b62ccb4e76727c25def",
+    "data/rq2/annotations/scenario_02_rq2.json": "11ddcf1ba7445db0b0203ee856cbf162b531a047ccfa8fbd17c590a37104b6bf"
+  }
+}
