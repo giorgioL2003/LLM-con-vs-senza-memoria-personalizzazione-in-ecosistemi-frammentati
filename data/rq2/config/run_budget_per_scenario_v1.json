@@ -1,0 +1,242 @@
+{
+  "base": {
+    "config_id": "rq2-dev-0.2-budget-per-scenario",
+    "derivata_da": "rq2-dev-0.1 (data/rq2/config/experiment_rq2.json), non modificata",
+    "eredita": [
+      "conteggio dei token",
+      "ranking TF-IDF / coseno",
+      "parita' risolta dall'ordine dello scenario",
+      "soglia sul punteggio nullo",
+      "nessun troncamento",
+      "prompt comune e istruzioni",
+      "modello ed effort",
+      "perimetro della memoria",
+      "isolamento dei prompt",
+      "regole proprie di U, G e GER",
+      "matrice e matrice estesa"
+    ],
+    "file": "data/rq2/config/experiment_rq2_budget_per_scenario.json",
+    "unica_differenza": "context_budget.per_scenario: null per SC01-SC04, 200 per SC05."
+  },
+  "budget": {
+    "perche_SC05_tiene_il_tetto": "GER e' definita dalla ripartizione del budget fra memoria recente e archivio: senza tetto la ripartizione non esiste e l'architettura in esame sparirebbe. Il retrieval di SC05 resta quindi identico a quello gia' eseguito, ed e' stato usato come controllo.",
+    "scenario_02": "nessun tetto sperimentale",
+    "scenario_03": "nessun tetto sperimentale",
+    "scenario_04": "nessun tetto sperimentale",
+    "scenario_05": "200 token",
+    "significato_di_nessun_tetto": "Cade solo il passo 4 della regola di selezione, il riempimento. Il retrieval resta attivo: ranking, parita' e soglia di pertinenza sono quelli di sempre, e la selezione e' ancora un prefisso del ranking. Non e' FULL_HISTORY e non e' una sostituzione del retrieval."
+  },
+  "chiamate_al_modello": {
+    "costruzione_della_memoria": 0,
+    "motivo": "Questa fase prepara soltanto retrieval e input di generazione. Fatti, stato di U, grafo e stato di GER non sono stati riestratti ne' ricostruiti: sono riusati dalle prove attuali.",
+    "risposte": 0,
+    "totale": 0
+  },
+  "comandi": [
+    "python3 scripts/rq2/run_retrieval_rq2.py --config data/rq2/config/experiment_rq2_budget_per_scenario.json --scenario scenario_02 --modes T F --facts results/rq2/facts/scenario_02_facts.jsonl --out results/rq2/budget_per_scenario_v1/retrieval_sc02.jsonl --label budget-per-scenario-v1",
+    "python3 scripts/rq2/run_retrieval_rq2.py --config data/rq2/config/experiment_rq2_budget_per_scenario.json --scenario scenario_03 --modes F --facts results/rq2/facts/scenario_03_facts.jsonl --out <parziale> --label budget-per-scenario-v1",
+    "python3 scripts/rq2/run_retrieval_rq2.py --config data/rq2/config/experiment_rq2_budget_per_scenario.json --scenario scenario_03 --modes U --facts results/rq2/facts/scenario_03_facts.jsonl --state results/rq2/memory_repair_v3/scenario_03_state.json --out <parziale> --label budget-per-scenario-v1",
+    "python3 scripts/rq2/run_retrieval_rq2.py --config data/rq2/config/experiment_rq2_budget_per_scenario.json --scenario scenario_04 --modes U G --facts results/rq2/facts/scenario_04_facts.jsonl --state results/rq2/sc04_repair_v3/scenario_04_state.json --graph results/rq2/sc04_repair_v3/scenario_04_graph.json --out <parziale> --label budget-per-scenario-v1",
+    "python3 scripts/rq2/run_retrieval_rq2.py --config data/rq2/config/experiment_rq2_budget_per_scenario.json --scenario scenario_04 --modes T --out <parziale> --label budget-per-scenario-v1",
+    "python3 scripts/rq2/run_retrieval_rq2.py --config data/rq2/config/experiment_rq2_budget_per_scenario.json --scenario scenario_05 --modes U GER --facts results/rq2/sc05_dev_v1/facts/scenario_05_facts.jsonl --state results/rq2/sc05_dev_v1/memory/scenario_05_state.json --session-reached 9 --out <parziale> --label budget-per-scenario-v1",
+    "python3 scripts/rq2/run_retrieval_rq2.py --config data/rq2/config/experiment_rq2_budget_per_scenario.json --scenario scenario_05 --modes T --out <parziale> --label budget-per-scenario-v1",
+    "# i parziali di uno stesso scenario sono stati concatenati in retrieval_sc0N.jsonl",
+    "python3 scripts/rq2/build_generation_inputs_rq2.py --config data/rq2/config/experiment_rq2_budget_per_scenario.json --scenario scenario_0N --modes <modalita> --retrieval results/rq2/budget_per_scenario_v1/retrieval_sc0N.jsonl --out results/rq2/budget_per_scenario_v1/generation_inputs_sc0N.jsonl",
+    "python3 scripts/rq2/compare_budget_change.py --csv results/rq2/budget_per_scenario_v1/confronto_budget.csv --json results/rq2/budget_per_scenario_v1/confronto_budget.json"
+  ],
+  "created": "2026-09-19",
+  "esecuzione": {
+    "autorizzazione": "Chiamate autorizzate dallo studente il 19 settembre 2026 per questa sola prova: 49, tutte di risposta.",
+    "chiamate_effettive": {
+      "costruzione_della_memoria": 0,
+      "riesecuzioni": 0,
+      "risposte": 49,
+      "scenario_02": 14,
+      "scenario_03": 14,
+      "scenario_04": 21,
+      "scenario_05": 0,
+      "totale": 49
+    },
+    "data": "2026-09-19",
+    "errori": {
+      "esecuzione": 0,
+      "parsing": 0,
+      "risposte_vuote": 0
+    },
+    "esiti": {
+      "avvertenza": "SC02-Q3/F cambia da errata a completa con un contesto IDENTICO: e' variabilita' fra due generazioni, non un effetto del budget. Vale come misura della cautela da usare su tutti gli altri cambiamenti.",
+      "complete_e_supportate": {
+        "scenario_02_F": "2 -> 3",
+        "scenario_02_T": "5 -> 5",
+        "scenario_03_F": "1 -> 1",
+        "scenario_03_U": "1 -> 1",
+        "scenario_04_G": "2 -> 3",
+        "scenario_04_T": "4 -> 4",
+        "scenario_04_U": "2 -> 3"
+      },
+      "guadagno_complessivo": "+3 risposte complete e supportate su 49",
+      "risposte_peggiorate": 0,
+      "risposte_uscite_dalla_classe_errata": 5,
+      "risultato_principale": "i fatti richiesti che continuano a mancare nel contesto hanno tutti punteggio 0,0000: sono esclusi dalla SOGLIA di pertinenza, non dal budget, e togliere il tetto non li fa entrare"
+    },
+    "invarianti_verificate_dopo_l_esecuzione": {
+      "artefatti_storici_verificati_per_impronta": "69 intatti, 0 modificati",
+      "conteggi_e_sintesi_coerenti": "verificati da scripts/rq2/check_evaluation_consistency.py",
+      "nessun_artefatto_precedente_riscritto": true,
+      "verificate_da": [
+        "scripts/rq2/check_before_generation.py",
+        "scripts/rq2/check_evaluation_consistency.py",
+        "tests/test_rq2_budget_per_scenario.py"
+      ]
+    },
+    "modello_verificato_nei_log": "claude-sonnet-5 in tutte e 49 le risposte, effort medium, nessun modello di ripiego",
+    "riuso_senza_rigenerare": {
+      "celle": 7,
+      "provenienza": {
+        "scenario_02/FULL_HISTORY": "results/rq2/generation_dev_sc02.jsonl",
+        "scenario_03/FULL_HISTORY": "results/rq2/generation_dev_sc03.jsonl",
+        "scenario_04/FULL_HISTORY": "results/rq2/generation_dev_sc04.jsonl (prova SC04 iniziale, non rigenerata nella correzione)",
+        "scenario_05/FULL_HISTORY": "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl",
+        "scenario_05/GER": "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl",
+        "scenario_05/T": "results/rq2/t_ext_v1/generation_dev_t_sc05.jsonl",
+        "scenario_05/U": "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl"
+      },
+      "risposte": 28,
+      "stato_di_approvazione": "le risposte riusate mantengono lo stato che avevano e non sono state rivalutate qui",
+      "verifica": "prompt confrontati carattere per carattere prima della generazione: 28 su 28 identici"
+    },
+    "valutazione": {
+      "criterio": "completezza-supporto-1",
+      "file": "results/rq2/budget_per_scenario_v1/valutazioni_budget_per_scenario.jsonl",
+      "metodo": "ogni risposta riletta rispetto a domanda, oracle e contesto realmente fornito; nessun giudizio copiato dalle prove precedenti",
+      "stato": "giudizi PROPOSTI dall'assistente, in attesa della revisione dello studente"
+    }
+  },
+  "executed": true,
+  "frozen": false,
+  "invarianti_verificate": {
+    "FULL_HISTORY_invariato": "SC02, SC03 e SC04: 21 prompt di FULL_HISTORY su 21 identici a quelli gia' inviati. Il controllo diagnostico non dipende dal budget e non cambia.",
+    "SC05_riproduce_il_retrieval_gia_eseguito": "21 righe su 21 identiche per elementi e token; 28 prompt su 28 identici",
+    "configurazione_storica_non_modificata": "data/rq2/config/experiment_rq2.json ha ancora l'impronta df4b066a... registrata in RACCOLTA_RISULTATI",
+    "nessun_artefatto_precedente_riscritto": true,
+    "nessun_oracle_nei_prompt": "controlli di build_generation_inputs_rq2.py superati su tutti e quattro gli scenari",
+    "nessuna_risposta_generata": "model_answer null in tutte le righe",
+    "verificate_da": [
+      "scripts/rq2/validate_rq2.py --config ...",
+      "tests/test_rq2_budget_per_scenario.py",
+      "scripts/rq2/compare_budget_change.py"
+    ]
+  },
+  "limiti_dichiarati": [
+    "Senza tetto le architetture di uno stesso scenario non sono piu' confrontate a parita' di spazio: il confronto diventa 'a parita' di pertinenza' e la differenza di massa del contesto va riportata insieme ai risultati.",
+    "L'overhead strutturale di F, U e G smette di escludere elementi: era la variabile misurata dai confronti T/F, F/U e U/G di rq2-dev-0.1, e in questa prova non lo e' piu'.",
+    "T senza tetto arriva a contenere quasi tutta la cronologia di SC02 e SC04: il confronto con FULL_HISTORY resta definito ma perde gran parte del suo significato.",
+    "I risultati e i giudizi delle prove eseguite con rq2-dev-0.1 non si trasferiscono a questa configurazione, in nessuna direzione.",
+    "SC01 non ha prove reali: resta fuori anche da questa preparazione.",
+    "Nessuna replica: quando la generazione verra' autorizzata, restera' una sola esecuzione per cella.",
+    "Una sola generazione per condizione: le differenze osservate non sono spiegate, e almeno un cambiamento di giudizio avviene a contesto identico.",
+    "Senza tetto le architetture di uno stesso scenario ricevono quantita' di testo molto diverse (SC04: 529 token per T, 1092 per G): il confronto non e' piu' a parita' di spazio.",
+    "I giudizi sono proposti e attendono la revisione; le annotazioni di SC02, SC03 e SC04 restano in bozza."
+  ],
+  "modelli": {
+    "invariati_rispetto_alle_prove_attuali": true,
+    "nota": "Dichiarati per quando la generazione verra' autorizzata. In questa fase non e' stata fatta nessuna chiamata.",
+    "risposte": {
+      "effort": "medium",
+      "model": "claude-sonnet-5"
+    }
+  },
+  "obiettivo": "Misurare quanto delle esclusioni osservate in SC02, SC03 e SC04 dipendesse dallo spazio e quanto dalla pertinenza, togliendo il tetto sperimentale in quegli scenari e lasciandolo solo su SC05. Non e' una nuova versione dei risultati esistenti: e' una prova diversa, da valutare per conto suo.",
+  "prossimo_passo": "Revisione dei 49 giudizi proposti da parte dello studente, a partire dai quattro nodi aperti elencati in results/rq2/budget_per_scenario_v1/README_valutazione.md sezione 5.",
+  "riuso": {
+    "regola": "Conversazioni, domande, fatti, stati e grafi sono quelli delle prove attuali, presi dai file dichiarati in RACCOLTA_RISULTATI/INVENTARIO.md sezione 5: versioni corrette per SC03-U e SC04-U/G, estensione T per SC04 e SC05.",
+    "scenario_02": {
+      "annotazioni": "data/rq2/annotations/scenario_02_rq2.json",
+      "conversazione": "data/scenarios/scenario_02.json",
+      "fatti": "results/rq2/facts/scenario_02_facts.jsonl",
+      "modalita": [
+        "T",
+        "F",
+        "FULL_HISTORY"
+      ]
+    },
+    "scenario_03": {
+      "annotazioni": "data/rq2/annotations/scenario_03_rq2.json",
+      "conversazione": "data/rq2/scenarios/scenario_03.json",
+      "fatti": "results/rq2/facts/scenario_03_facts.jsonl",
+      "modalita": [
+        "F",
+        "U",
+        "FULL_HISTORY"
+      ],
+      "stato_di_U": "results/rq2/memory_repair_v3/scenario_03_state.json (versione corretta, u-instructions-0.3)"
+    },
+    "scenario_04": {
+      "annotazioni": "data/rq2/annotations/scenario_04_rq2.json",
+      "conversazione": "data/rq2/scenarios/scenario_04.json",
+      "fatti": "results/rq2/facts/scenario_04_facts.jsonl",
+      "grafo": "results/rq2/sc04_repair_v3/scenario_04_graph.json (versione corretta)",
+      "modalita": [
+        "T",
+        "U",
+        "G",
+        "FULL_HISTORY"
+      ],
+      "stato_di_U": "results/rq2/sc04_repair_v3/scenario_04_state.json (versione corretta)"
+    },
+    "scenario_05": {
+      "annotazioni": "data/rq2/annotations/scenario_05_rq2.json",
+      "conversazione": "data/rq2/scenarios/scenario_05.json",
+      "fatti": "results/rq2/sc05_dev_v1/facts/scenario_05_facts.jsonl",
+      "modalita": [
+        "T",
+        "U",
+        "GER",
+        "FULL_HISTORY"
+      ],
+      "sessione_raggiunta": 9,
+      "stato_di_U": "results/rq2/sc05_dev_v1/memory/scenario_05_state.json"
+    }
+  },
+  "run_id": "budget-per-scenario-v1",
+  "status": "PROVA DI SVILUPPO ESEGUITA — 49 risposte generate, valutazioni PROPOSTE e non approvate. Non e' il protocollo congelato.",
+  "titolo": "Budget specifico per scenario: nessun tetto su SC02-SC04, 200 token su SC05",
+  "uscite": {
+    "cartella": "results/rq2/budget_per_scenario_v1",
+    "confronto": [
+      "confronto_budget.csv",
+      "confronto_budget.json"
+    ],
+    "confronto_risposte": "results/rq2/budget_per_scenario_v1/confronto_risposte.json",
+    "etichetta": "budget-per-scenario-v1",
+    "prompt": [
+      "generation_inputs_sc02.jsonl",
+      "generation_inputs_sc03.jsonl",
+      "generation_inputs_sc04.jsonl",
+      "generation_inputs_sc05.jsonl"
+    ],
+    "regola": "cartella nuova: non tocca nessun file delle prove precedenti; se esistesse gia', si passa a v2",
+    "retrieval": [
+      "retrieval_sc02.jsonl",
+      "retrieval_sc03.jsonl",
+      "retrieval_sc04.jsonl",
+      "retrieval_sc05.jsonl"
+    ],
+    "risposte": "results/rq2/budget_per_scenario_v1/generation_dev_budget_per_scenario.jsonl (49 righe)",
+    "valutazioni": "results/rq2/budget_per_scenario_v1/valutazioni_budget_per_scenario.jsonl"
+  },
+  "versioni_del_codice": {
+    "build_evaluation_budget_variant_sha256": "807a9ee8d0d3eab2",
+    "build_generation_inputs_rq2_sha256": "63dff4d4f6de25dd",
+    "check_before_generation_sha256": "8cf6fa930d5f92c4",
+    "check_evaluation_consistency_sha256": "c1ec3d9ce1702fc9",
+    "compare_answers_budget_variant_sha256": "2053c938c5aeed9f",
+    "compare_budget_change_sha256": "a635712ef86ab2ad",
+    "configurazione_storica_sha256": "df4b066a0d1810e8",
+    "configurazione_variante_sha256": "52d35bc9e719eb78",
+    "nota": "impronte al 19 settembre 2026, a preparazione conclusa",
+    "rq2_common_sha256": "3656563ec3047978",
+    "run_retrieval_rq2_sha256": "963ee658f1422d21",
+    "validate_rq2_sha256": "64d61dc7a7cdcb50"
+  }
+}

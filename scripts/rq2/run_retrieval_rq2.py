@@ -212,6 +212,7 @@ def evaluate(scenario_id, question, mode, budget, sources, memory_context, label
         "memory_unit": memory_unit,
         "memory_items": memory_items,
         "budget_tokens": budget,
+        "budget_applies": rq2.budget_applies(budget),
         "context_tokens": selection["context_tokens"],
         "context_content_tokens": selection["content_tokens"],
         "context_overhead_tokens": selection["overhead_tokens"],
@@ -294,11 +295,13 @@ def prepare(scenario, mode, paths):
 
 
 def run(scenario_ids, config, paths_by_scenario=None, label="esecuzione", modes=None):
-    budget = rq2.budget_tokens(config)
     paths_by_scenario = paths_by_scenario or {}
     rows, skipped = [], []
 
     for scenario_id in scenario_ids:
+        # Il budget si risolve per scenario: la configurazione puo' dichiarare
+        # un tetto diverso, o nessun tetto, scenario per scenario.
+        budget = rq2.budget_tokens(config, scenario_id)
         scenario = rq2.load_scenario(scenario_id)
         questions = rq2.load_questions(scenario_id)
         runnable = modes if modes is not None else rq2.runnable_modes(scenario_id, config)
@@ -306,6 +309,15 @@ def run(scenario_ids, config, paths_by_scenario=None, label="esecuzione", modes=
 
         for mode in RETRIEVAL_MODES:
             if mode not in runnable:
+                continue
+            if mode == "GER" and budget is None:
+                # GER ripartisce il budget fra memoria recente e archivio: senza
+                # un tetto la ripartizione non esiste e la modalita' perderebbe
+                # la regola che la definisce. Meglio fermarsi che eseguirla
+                # svuotata di significato.
+                skipped.append((scenario_id, mode,
+                                "GER richiede un budget: la ripartizione fra recente e archivio "
+                                "non e' definita senza tetto"))
                 continue
             context, sources, problem = prepare(scenario, mode, paths)
             if problem:
@@ -354,12 +366,14 @@ def parse_args(argv=None):
     parser.add_argument("--out", default=str(DEFAULT_OUT))
     parser.add_argument("--label", default="esecuzione")
     parser.add_argument("--modes", nargs="*", default=None)
+    parser.add_argument("--config", default=str(rq2.RQ2_CONFIG_PATH),
+                        help="configurazione dell'esperimento (budget, ranking, regola di selezione)")
     return parser.parse_args(argv)
 
 
 def main(argv=None):
     args = parse_args(argv)
-    config = rq2.load_config()
+    config = rq2.load_config(args.config)
     scenario_ids = args.scenario or list(rq2.SCENARIO_IDS)
 
     paths_by_scenario = {}
@@ -374,8 +388,11 @@ def main(argv=None):
 
     rows, skipped = run(scenario_ids, config, paths_by_scenario, args.label, args.modes)
 
-    print("Retrieval RQ2 — budget %d token sul contesto formattato, metodo %s"
-          % (rq2.budget_tokens(config), config["retrieval"]["method"]))
+    budgets = ", ".join("%s: %s" % (scenario_id, rq2.budget_label(rq2.budget_tokens(config, scenario_id)))
+                        for scenario_id in scenario_ids)
+    print("Retrieval RQ2 — configurazione %s, metodo %s"
+          % (config.get("config_id", "?"), config["retrieval"]["method"]))
+    print("Budget sul contesto formattato — %s" % budgets)
     if args.label != "esecuzione":
         print("ATTENZIONE: etichetta '%s'. Non sono risultati sperimentali." % args.label)
     print("-" * 78)

@@ -1,0 +1,11 @@
+scenario_id,mode,questions,budget_before,budget_after,tokens_before,tokens_after,items_before,items_after,added_items_total,added_messages_total,removed_items_total,changed_contexts,excluded_by_threshold,covers_whole_history,evidence_before,evidence_after,evidence_applicable,history_items,history_tokens
+scenario_02,T,7,200,nessun tetto,159.6,296.3,2.0,3.7,12,12,0,6,0.3,6,5,6,6,4,319
+scenario_02,F,7,200,nessun tetto,186.0,401.3,6.4,13.9,52,4,0,5,9.1,0,5,6,6,4,319
+scenario_03,F,7,200,nessun tetto,189.6,701.0,7.6,27.0,136,23,0,7,14.0,0,6,6,6,8,537
+scenario_03,U,7,200,nessun tetto,185.0,592.7,6.6,20.3,96,17,0,7,11.3,0,6,6,6,8,537
+scenario_04,T,7,200,nessun tetto,136.1,494.6,1.6,6.4,34,34,0,7,0.6,5,4,6,6,7,529
+scenario_04,U,7,200,nessun tetto,182.6,690.3,5.4,21.0,109,20,0,7,11.6,0,5,6,6,7,529
+scenario_04,G,7,200,nessun tetto,179.4,812.3,6.1,25.7,137,20,0,7,0.0,0,5,6,6,7,529
+scenario_05,T,7,200,200,173.7,173.7,3.7,3.7,0,0,0,0,4.9,0,3,3,6,16,645
+scenario_05,U,7,200,200,177.9,177.9,5.6,5.6,0,0,0,0,12.4,0,3,3,6,16,645
+scenario_05,GER,7,200,200,183.3,183.3,5.6,5.6,0,0,0,0,12.4,0,3,3,6,16,645

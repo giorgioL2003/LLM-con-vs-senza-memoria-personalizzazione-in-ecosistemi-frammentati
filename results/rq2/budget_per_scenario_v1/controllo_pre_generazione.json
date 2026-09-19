@@ -1,0 +1,560 @@
+{
+  "errors": [],
+  "riuso": {
+    "scenario_02/FULL_HISTORY": {
+      "input_storici": "results/rq2/generation_inputs_sc02.jsonl",
+      "prompt_identici": 7,
+      "prompt_totali": 7,
+      "risposte_disponibili": 7,
+      "risposte_storiche": "results/rq2/generation_dev_sc02.jsonl",
+      "riuso_lecito": true
+    },
+    "scenario_03/FULL_HISTORY": {
+      "input_storici": "results/rq2/generation_inputs_sc03.jsonl",
+      "prompt_identici": 7,
+      "prompt_totali": 7,
+      "risposte_disponibili": 7,
+      "risposte_storiche": "results/rq2/generation_dev_sc03.jsonl",
+      "riuso_lecito": true
+    },
+    "scenario_04/FULL_HISTORY": {
+      "input_storici": "results/rq2/generation_inputs_sc04.jsonl",
+      "prompt_identici": 7,
+      "prompt_totali": 7,
+      "risposte_disponibili": 7,
+      "risposte_storiche": "results/rq2/generation_dev_sc04.jsonl",
+      "riuso_lecito": true
+    },
+    "scenario_05/FULL_HISTORY": {
+      "input_storici": "results/rq2/sc05_dev_v1/generation_inputs_sc05.jsonl",
+      "prompt_identici": 7,
+      "prompt_totali": 7,
+      "risposte_disponibili": 7,
+      "risposte_storiche": "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl",
+      "riuso_lecito": true
+    },
+    "scenario_05/GER": {
+      "input_storici": "results/rq2/sc05_dev_v1/generation_inputs_sc05.jsonl",
+      "prompt_identici": 7,
+      "prompt_totali": 7,
+      "risposte_disponibili": 7,
+      "risposte_storiche": "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl",
+      "riuso_lecito": true
+    },
+    "scenario_05/T": {
+      "input_storici": "results/rq2/t_ext_v1/generation_inputs_t_sc05.jsonl",
+      "prompt_identici": 7,
+      "prompt_totali": 7,
+      "risposte_disponibili": 7,
+      "risposte_storiche": "results/rq2/t_ext_v1/generation_dev_t_sc05.jsonl",
+      "riuso_lecito": true
+    },
+    "scenario_05/U": {
+      "input_storici": "results/rq2/sc05_dev_v1/generation_inputs_sc05.jsonl",
+      "prompt_identici": 7,
+      "prompt_totali": 7,
+      "risposte_disponibili": 7,
+      "risposte_storiche": "results/rq2/sc05_dev_v1/generation_dev_sc05.jsonl",
+      "riuso_lecito": true
+    }
+  },
+  "stato_generazione": {
+    "attesi": [
+      [
+        "scenario_02",
+        "SC02-Q1",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q1",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q2",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q2",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q3",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q3",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q4",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q4",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q5",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q5",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q6",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q6",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q7",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q7",
+        "T"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q1",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q1",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q2",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q2",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q3",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q3",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q4",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q4",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q5",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q5",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q6",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q6",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q7",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q7",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q1",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q1",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q1",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q2",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q2",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q2",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q3",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q3",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q3",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q4",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q4",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q4",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q5",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q5",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q5",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q6",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q6",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q6",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q7",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q7",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q7",
+        "U"
+      ]
+    ],
+    "completati": [],
+    "da_eseguire": [
+      [
+        "scenario_02",
+        "SC02-Q1",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q1",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q2",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q2",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q3",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q3",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q4",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q4",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q5",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q5",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q6",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q6",
+        "T"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q7",
+        "F"
+      ],
+      [
+        "scenario_02",
+        "SC02-Q7",
+        "T"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q1",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q1",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q2",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q2",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q3",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q3",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q4",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q4",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q5",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q5",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q6",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q6",
+        "U"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q7",
+        "F"
+      ],
+      [
+        "scenario_03",
+        "SC03-Q7",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q1",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q1",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q1",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q2",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q2",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q2",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q3",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q3",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q3",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q4",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q4",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q4",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q5",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q5",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q5",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q6",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q6",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q6",
+        "U"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q7",
+        "G"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q7",
+        "T"
+      ],
+      [
+        "scenario_04",
+        "SC04-Q7",
+        "U"
+      ]
+    ],
+    "estranei": [],
+    "in_errore": []
+  }
+}

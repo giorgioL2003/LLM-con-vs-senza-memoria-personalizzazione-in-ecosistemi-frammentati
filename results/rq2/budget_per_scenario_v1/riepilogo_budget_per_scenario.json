@@ -1,0 +1,481 @@
+{
+  "avvertenza": "Le differenze rispetto alle prove con rq2-dev-0.1 sono osservate, non spiegate: una sola generazione per condizione, e il modello varia anche a parita' di contesto.",
+  "configurazione": "rq2-dev-0.2-budget-per-scenario: nessun tetto su SC02-SC04, 200 token su SC05",
+  "criterio": "completezza-supporto-1",
+  "data": "2026-09-19",
+  "modello": "claude-sonnet-5, effort medium",
+  "prova": "una sola esecuzione per cella, nessuna replica",
+  "revisione": "r1",
+  "riepilogo_per_scenario": {
+    "scenario_02": {
+      "F": {
+        "AnswerSuccess_condizionato_al_recupero": {
+          "denominatore": 4,
+          "nota": "risposte complete e supportate / domande con i fatti richiesti presenti nel CONTENUTO del contesto",
+          "numeratore": 3,
+          "percentuale": 75.0,
+          "valore": 0.75
+        },
+        "CompleteAnswerRate": {
+          "denominatore": 7,
+          "nota": "risposte complete E supportate / N_c",
+          "numeratore": 3,
+          "percentuale": 42.9,
+          "valore": 0.4286
+        },
+        "CorrectAbstentionRate": {
+          "denominatore": 1,
+          "nota": "denominatore piccolo: leggere come conteggio, non come percentuale",
+          "numeratore": 1,
+          "percentuale": 100.0,
+          "valore": 1.0
+        },
+        "N_c": 7,
+        "ObsoleteUseRate": {
+          "denominatore": 7,
+          "numeratore": 1,
+          "percentuale": 14.3,
+          "valore": 0.1429
+        },
+        "ReachabilityRate": {
+          "denominatore": 7,
+          "nota": "perimetro = intero scenario in tutte le modalita'; dipende solo dall'oracle",
+          "numeratore": 6,
+          "percentuale": 85.7,
+          "valore": 0.8571
+        },
+        "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+          "denominatore": 6,
+          "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza",
+          "numeratore": 4,
+          "percentuale": 66.7,
+          "valore": 0.6667
+        },
+        "UnsupportedClaimRate": {
+          "denominatore": 7,
+          "numeratore": 1,
+          "percentuale": 14.3,
+          "valore": 0.1429
+        },
+        "WrongAbstentionRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "budget": "nessun tetto",
+        "classi": {
+          "astensione corretta": 1,
+          "completa": 4,
+          "errata": 1,
+          "parziale": 1,
+          "sospese": 0
+        },
+        "elementi_contesto_medi": 13.9,
+        "token_contesto_medi": 401.3
+      },
+      "T": {
+        "AnswerSuccess_condizionato_al_recupero": {
+          "denominatore": 6,
+          "nota": "risposte complete e supportate / domande con i fatti richiesti presenti nel CONTENUTO del contesto",
+          "numeratore": 5,
+          "percentuale": 83.3,
+          "valore": 0.8333
+        },
+        "CompleteAnswerRate": {
+          "denominatore": 7,
+          "nota": "risposte complete E supportate / N_c",
+          "numeratore": 5,
+          "percentuale": 71.4,
+          "valore": 0.7143
+        },
+        "CorrectAbstentionRate": {
+          "denominatore": 1,
+          "nota": "denominatore piccolo: leggere come conteggio, non come percentuale",
+          "numeratore": 1,
+          "percentuale": 100.0,
+          "valore": 1.0
+        },
+        "N_c": 7,
+        "ObsoleteUseRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "ReachabilityRate": {
+          "denominatore": 7,
+          "nota": "perimetro = intero scenario in tutte le modalita'; dipende solo dall'oracle",
+          "numeratore": 6,
+          "percentuale": 85.7,
+          "valore": 0.8571
+        },
+        "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+          "denominatore": 6,
+          "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza",
+          "numeratore": 6,
+          "percentuale": 100.0,
+          "valore": 1.0
+        },
+        "UnsupportedClaimRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "WrongAbstentionRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "budget": "nessun tetto",
+        "classi": {
+          "astensione corretta": 1,
+          "completa": 5,
+          "errata": 0,
+          "parziale": 1,
+          "sospese": 0
+        },
+        "elementi_contesto_medi": 3.7,
+        "token_contesto_medi": 296.3
+      }
+    },
+    "scenario_03": {
+      "F": {
+        "AnswerSuccess_condizionato_al_recupero": {
+          "denominatore": 2,
+          "nota": "risposte complete e supportate / domande con i fatti richiesti presenti nel CONTENUTO del contesto",
+          "numeratore": 1,
+          "percentuale": 50.0,
+          "valore": 0.5
+        },
+        "CompleteAnswerRate": {
+          "denominatore": 7,
+          "nota": "risposte complete E supportate / N_c",
+          "numeratore": 1,
+          "percentuale": 14.3,
+          "valore": 0.1429
+        },
+        "CorrectAbstentionRate": {
+          "denominatore": 1,
+          "nota": "denominatore piccolo: leggere come conteggio, non come percentuale",
+          "numeratore": 1,
+          "percentuale": 100.0,
+          "valore": 1.0
+        },
+        "N_c": 7,
+        "ObsoleteUseRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "ReachabilityRate": {
+          "denominatore": 7,
+          "nota": "perimetro = intero scenario in tutte le modalita'; dipende solo dall'oracle",
+          "numeratore": 6,
+          "percentuale": 85.7,
+          "valore": 0.8571
+        },
+        "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+          "denominatore": 6,
+          "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza",
+          "numeratore": 2,
+          "percentuale": 33.3,
+          "valore": 0.3333
+        },
+        "UnsupportedClaimRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "WrongAbstentionRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "budget": "nessun tetto",
+        "classi": {
+          "astensione corretta": 1,
+          "completa": 1,
+          "errata": 0,
+          "parziale": 5,
+          "sospese": 0
+        },
+        "elementi_contesto_medi": 27.0,
+        "token_contesto_medi": 701.0
+      },
+      "U": {
+        "AnswerSuccess_condizionato_al_recupero": {
+          "denominatore": 1,
+          "nota": "risposte complete e supportate / domande con i fatti richiesti presenti nel CONTENUTO del contesto",
+          "numeratore": 1,
+          "percentuale": 100.0,
+          "valore": 1.0
+        },
+        "CompleteAnswerRate": {
+          "denominatore": 7,
+          "nota": "risposte complete E supportate / N_c",
+          "numeratore": 1,
+          "percentuale": 14.3,
+          "valore": 0.1429
+        },
+        "CorrectAbstentionRate": {
+          "denominatore": 1,
+          "nota": "denominatore piccolo: leggere come conteggio, non come percentuale",
+          "numeratore": 1,
+          "percentuale": 100.0,
+          "valore": 1.0
+        },
+        "N_c": 7,
+        "ObsoleteUseRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "ReachabilityRate": {
+          "denominatore": 7,
+          "nota": "perimetro = intero scenario in tutte le modalita'; dipende solo dall'oracle",
+          "numeratore": 6,
+          "percentuale": 85.7,
+          "valore": 0.8571
+        },
+        "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+          "denominatore": 6,
+          "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza",
+          "numeratore": 1,
+          "percentuale": 16.7,
+          "valore": 0.1667
+        },
+        "UnsupportedClaimRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "WrongAbstentionRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "budget": "nessun tetto",
+        "classi": {
+          "astensione corretta": 1,
+          "completa": 1,
+          "errata": 0,
+          "parziale": 5,
+          "sospese": 0
+        },
+        "elementi_contesto_medi": 20.3,
+        "token_contesto_medi": 592.7
+      }
+    },
+    "scenario_04": {
+      "G": {
+        "AnswerSuccess_condizionato_al_recupero": {
+          "denominatore": 5,
+          "nota": "risposte complete e supportate / domande con i fatti richiesti presenti nel CONTENUTO del contesto",
+          "numeratore": 3,
+          "percentuale": 60.0,
+          "valore": 0.6
+        },
+        "CompleteAnswerRate": {
+          "denominatore": 7,
+          "nota": "risposte complete E supportate / N_c",
+          "numeratore": 3,
+          "percentuale": 42.9,
+          "valore": 0.4286
+        },
+        "CorrectAbstentionRate": {
+          "denominatore": 1,
+          "nota": "denominatore piccolo: leggere come conteggio, non come percentuale",
+          "numeratore": 1,
+          "percentuale": 100.0,
+          "valore": 1.0
+        },
+        "N_c": 7,
+        "ObsoleteUseRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "ReachabilityRate": {
+          "denominatore": 7,
+          "nota": "perimetro = intero scenario in tutte le modalita'; dipende solo dall'oracle",
+          "numeratore": 6,
+          "percentuale": 85.7,
+          "valore": 0.8571
+        },
+        "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+          "denominatore": 6,
+          "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza",
+          "numeratore": 5,
+          "percentuale": 83.3,
+          "valore": 0.8333
+        },
+        "UnsupportedClaimRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "WrongAbstentionRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "budget": "nessun tetto",
+        "classi": {
+          "astensione corretta": 1,
+          "completa": 3,
+          "errata": 0,
+          "parziale": 3,
+          "sospese": 0
+        },
+        "elementi_contesto_medi": 25.7,
+        "token_contesto_medi": 812.3
+      },
+      "T": {
+        "AnswerSuccess_condizionato_al_recupero": {
+          "denominatore": 6,
+          "nota": "risposte complete e supportate / domande con i fatti richiesti presenti nel CONTENUTO del contesto",
+          "numeratore": 4,
+          "percentuale": 66.7,
+          "valore": 0.6667
+        },
+        "CompleteAnswerRate": {
+          "denominatore": 7,
+          "nota": "risposte complete E supportate / N_c",
+          "numeratore": 4,
+          "percentuale": 57.1,
+          "valore": 0.5714
+        },
+        "CorrectAbstentionRate": {
+          "denominatore": 1,
+          "nota": "denominatore piccolo: leggere come conteggio, non come percentuale",
+          "numeratore": 1,
+          "percentuale": 100.0,
+          "valore": 1.0
+        },
+        "N_c": 7,
+        "ObsoleteUseRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "ReachabilityRate": {
+          "denominatore": 7,
+          "nota": "perimetro = intero scenario in tutte le modalita'; dipende solo dall'oracle",
+          "numeratore": 6,
+          "percentuale": 85.7,
+          "valore": 0.8571
+        },
+        "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+          "denominatore": 6,
+          "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza",
+          "numeratore": 6,
+          "percentuale": 100.0,
+          "valore": 1.0
+        },
+        "UnsupportedClaimRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "WrongAbstentionRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "budget": "nessun tetto",
+        "classi": {
+          "astensione corretta": 1,
+          "completa": 4,
+          "errata": 0,
+          "parziale": 2,
+          "sospese": 0
+        },
+        "elementi_contesto_medi": 6.4,
+        "token_contesto_medi": 494.6
+      },
+      "U": {
+        "AnswerSuccess_condizionato_al_recupero": {
+          "denominatore": 4,
+          "nota": "risposte complete e supportate / domande con i fatti richiesti presenti nel CONTENUTO del contesto",
+          "numeratore": 3,
+          "percentuale": 75.0,
+          "valore": 0.75
+        },
+        "CompleteAnswerRate": {
+          "denominatore": 7,
+          "nota": "risposte complete E supportate / N_c",
+          "numeratore": 3,
+          "percentuale": 42.9,
+          "valore": 0.4286
+        },
+        "CorrectAbstentionRate": {
+          "denominatore": 1,
+          "nota": "denominatore piccolo: leggere come conteggio, non come percentuale",
+          "numeratore": 1,
+          "percentuale": 100.0,
+          "valore": 1.0
+        },
+        "N_c": 7,
+        "ObsoleteUseRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "ReachabilityRate": {
+          "denominatore": 7,
+          "nota": "perimetro = intero scenario in tutte le modalita'; dipende solo dall'oracle",
+          "numeratore": 6,
+          "percentuale": 85.7,
+          "valore": 0.8571
+        },
+        "RetrievalSuccess_condizionato_alla_raggiungibilita": {
+          "denominatore": 6,
+          "nota": "verificato sul CONTENUTO delle righe di contesto contro i fact_key RQ2, non sulla provenienza",
+          "numeratore": 4,
+          "percentuale": 66.7,
+          "valore": 0.6667
+        },
+        "UnsupportedClaimRate": {
+          "denominatore": 7,
+          "numeratore": 1,
+          "percentuale": 14.3,
+          "valore": 0.1429
+        },
+        "WrongAbstentionRate": {
+          "denominatore": 7,
+          "numeratore": 0,
+          "percentuale": 0.0,
+          "valore": 0.0
+        },
+        "budget": "nessun tetto",
+        "classi": {
+          "astensione corretta": 1,
+          "completa": 3,
+          "errata": 0,
+          "parziale": 3,
+          "sospese": 0
+        },
+        "elementi_contesto_medi": 21.0,
+        "token_contesto_medi": 690.3
+      }
+    }
+  },
+  "scheda": "Variante budget per scenario — SC02, SC03, SC04",
+  "stato": "valutazioni assistite PROPOSTE, non approvate; prova di sviluppo; riepilogo numerico PROVVISORIO"
+}

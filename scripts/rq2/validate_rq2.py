@@ -32,6 +32,7 @@ Codice di uscita: 0 se non ci sono errori, 1 altrimenti. Solo libreria standard.
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import sys
@@ -477,6 +478,36 @@ def validate_config(config, errors):
     budget = config.get("context_budget", {})
     if not isinstance(budget.get("max_tokens"), int) or budget["max_tokens"] <= 0:
         errors.append("[E-BUDGET] configurazione: max_tokens deve essere un intero positivo")
+    # Blocco facoltativo: budget specifico per scenario. `null` dichiara
+    # l'assenza di tetto sperimentale; un numero deve restare un intero
+    # positivo, come il valore generale.
+    per_scenario = budget.get("per_scenario")
+    if per_scenario is not None:
+        if not isinstance(per_scenario, dict):
+            errors.append("[E-BUDGET] configurazione: per_scenario deve essere un oggetto scenario -> budget")
+        else:
+            known = set(rq2.EXTENSION_SCENARIO_IDS)
+            for scenario_id, value in sorted(per_scenario.items()):
+                if scenario_id not in known:
+                    errors.append("[E-BUDGET] configurazione: per_scenario cita uno scenario sconosciuto: %s"
+                                  % scenario_id)
+                if value is None:
+                    continue
+                if not isinstance(value, int) or value <= 0:
+                    errors.append("[E-BUDGET] configurazione: per_scenario[%s] deve essere null "
+                                  "oppure un intero positivo" % scenario_id)
+            if not budget.get("per_scenario_rationale"):
+                errors.append("[E-BUDGET] configurazione: un budget per scenario va motivato "
+                              "in per_scenario_rationale")
+            # GER ripartisce il budget fra memoria recente e archivio: senza
+            # tetto la sua regola non esiste piu'.
+            for scenario_id, value in sorted(per_scenario.items()):
+                if value is not None:
+                    continue
+                row = config.get("matrix_extension", {}).get("rows", {}).get(scenario_id, {})
+                if "GER" in row.get("budgeted", []):
+                    errors.append("[E-BUDGET] configurazione: %s dichiara GER a parita' di budget "
+                                  "ma non ha un tetto: la ripartizione di GER non e' definita" % scenario_id)
     if rq2.FULL_HISTORY in budget.get("applies_to", []):
         errors.append("[E-BUDGET] configurazione: FULL_HISTORY non deve essere soggetto al budget")
     if rq2.FULL_HISTORY not in budget.get("excluded", []):
@@ -659,7 +690,11 @@ def validate_all(scenario_ids=rq2.SCENARIO_IDS, config=None):
 
 
 def main(argv=None):
-    config = rq2.load_config()
+    parser = argparse.ArgumentParser(description="Validazione del dataset e della configurazione RQ2.")
+    parser.add_argument("--config", default=str(rq2.RQ2_CONFIG_PATH),
+                        help="configurazione da validare (per verificare anche le varianti)")
+    args = parser.parse_args(argv)
+    config = rq2.load_config(args.config)
     errors = validate_all(config=config)
 
     print("Validazione del dataset RQ2 (configurazione %s, stato: %s)"

@@ -1,0 +1,1258 @@
+{
+  "_nota": "Giudizi PROPOSTI dall'assistente, non approvati. Criterio completezza-supporto-1. Ogni risposta e' stata riletta rispetto alla domanda, all'oracle e al contesto realmente fornito; nessun giudizio e' stato copiato dalle prove precedenti. `in_context` dice se il fatto si legge nel TESTO delle righe fornite, non se il messaggio sorgente e' citato.",
+  "scenario_02|SC02-Q1|T": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "obiettivo-impedire-cambi": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S1-U1 intero",
+        "nota_answer": null
+      },
+      "obiettivo-recupero-mobile": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S1-U1 intero",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Entrambi gli obiettivi sono nel messaggio SC02-S1-U1 e nella risposta, con le stesse parole dell'oracle. Nessuna aggiunta."
+  },
+  "scenario_02|SC02-Q1|F": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "obiettivo-impedire-cambi": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F003",
+        "nota_answer": null
+      },
+      "obiettivo-recupero-mobile": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F004",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Entrambi gli obiettivi, con citazione dei fatti di origine. Nel contesto entrano altri 18 fatti non pertinenti alla domanda, nessuno dei quali viene usato impropriamente."
+  },
+  "scenario_02|SC02-Q2|T": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "3/3",
+    "rq2_fact_detail": {
+      "decisione-iniziale-captcha": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S1-U1",
+        "nota_answer": null
+      },
+      "captcha-superato": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S2-U1",
+        "nota_answer": "presentata come «decisione superata»"
+      },
+      "token-uso-singolo": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S2-U1",
+        "nota_answer": null
+      },
+      "token-scadenza-15-minuti": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S2-U1",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Decisione valida (uso singolo, scadenza 15 minuti) e decisione superata (CAPTCHA) entrambe corrette, nell'ordine chiesto dalla domanda. Il CAPTCHA non e' presentato come ancora scelto."
+  },
+  "scenario_02|SC02-Q2|F": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "3/3",
+    "rq2_fact_detail": {
+      "decisione-iniziale-captcha": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F005",
+        "nota_answer": null
+      },
+      "captcha-superato": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F011",
+        "nota_answer": null
+      },
+      "token-uso-singolo": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F012",
+        "nota_answer": null
+      },
+      "token-scadenza-15-minuti": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F013",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Tutti e quattro i fatti richiesti sono nel contesto e nella risposta, con i riferimenti espliciti. Nessuna contraddizione."
+  },
+  "scenario_02|SC02-Q3|T": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "test-mobile-completato": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S4-U1",
+        "nota_answer": null
+      },
+      "esito-test-mobile": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S4-U1",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Una sola verifica completata, con il suo esito, come nell'oracle. La chiosa «(esito positivo)» riassume l'esito descritto e non aggiunge nulla."
+  },
+  "scenario_02|SC02-Q3|F": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "test-mobile-completato": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F019",
+        "nota_answer": null
+      },
+      "esito-test-mobile": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F020",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Una sola verifica completata e il suo esito, correttamente attribuiti a SC02-F019 e SC02-F020. Il resoconto dell'attivita' non e' alterato: non compaiono «due verifiche»."
+  },
+  "scenario_02|SC02-Q4|T": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/1",
+    "rq2_fact_detail": {
+      "test-email-ritardata-aperto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S4-U1: «Rimane da completare soltanto il test dell'email consegnata in ritardo»",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Indica una sola attivita' aperta, quella giusta, e non include il test mobile. Il rimando alla riunione di martedi' e' nel messaggio SC02-S4-U1, quindi supportato."
+  },
+  "scenario_02|SC02-Q4|F": {
+    "answer_class": "errata",
+    "supported_by_original_conversation": false,
+    "faithful_to_received_context": true,
+    "obsolete_used": true,
+    "unsupported_claim": false,
+    "error_origin": "memoria",
+    "pilot_mandatory_coverage_in_answer": "1/1",
+    "rq2_fact_detail": {
+      "test-email-ritardata-aperto": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "il fatto richiesto dice che resta da completare SOLTANTO quel test. SC02-F021 dice solo che «non e' ancora stato completato», e SC02-F017 afferma che resta aperta anche la verifica mobile: l'esclusivita' non e' nel contesto",
+        "nota_answer": "la risposta elenca due attivita' aperte, quindi non consegna il fatto"
+      }
+    },
+    "rationale": "Aggiunge la verifica del collegamento mobile fra le attivita' ancora aperte, che l'oracle indica esplicitamente come informazione obsoleta da non usare. Il contesto contiene SC02-F017, fatto superato, e non contiene SC02-F019 che lo chiude: F non tiene lo stato temporale e il ranking non ha portato l'aggiornamento. L'esclusivita' richiesta dal fatto («soltanto») non e' sostenuta da nessuna riga del contesto, quindi la copertura e' 0/1. La risposta e' fedele al contesto ricevuto ma contraddice le conversazioni originali. Questo contesto e' identico a quello della prova con il tetto: qui il budget non escludeva nulla."
+  },
+  "scenario_02|SC02-Q5|T": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "3/3",
+    "rq2_fact_detail": {
+      "riunione-data-ora": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S4-U1",
+        "nota_answer": "«martedi' alle 11:30», senza data aggiunta"
+      },
+      "riunione-contenuto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S4-U1",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Giorno, ora e contenuto richiesto. La precisazione «dopo il limite di validita' del token» e' sostenuta da SC02-S3-U1, presente nel contesto. Nessuna data inventata."
+  },
+  "scenario_02|SC02-Q5|F": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": false,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": true,
+    "error_origin": "memoria",
+    "pilot_mandatory_coverage_in_answer": "3/3",
+    "rq2_fact_detail": {
+      "riunione-data-ora": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F022, che pero' aggiunge la data 2026-09-08",
+        "nota_answer": "riporta la data aggiunta"
+      },
+      "riunione-contenuto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F023",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Tutti i fatti richiesti sono presenti e non c'e' contraddizione, quindi la classe resta completa. La data «2026-09-08» non compare in nessun messaggio dello scenario: e' stata introdotta nell'estrazione (SC02-F022) e ripetuta fedelmente. Affermazione non supportata dalla conversazione originale, quindi esclusa dai successi completi e supportati."
+  },
+  "scenario_02|SC02-Q6|T": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/3",
+    "rq2_fact_detail": {
+      "token-scadenza-15-minuti": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S2-U1",
+        "nota_answer": "«limite temporale di scadenza di 15 minuti»"
+      },
+      "test-email-ritardata-aperto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-S4-U1",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Il limite di 15 minuti e il collegamento con il test pendente ci sono. Manca il comportamento che il test deve confermare: che il collegamento consegnato in ritardo non sia piu' utilizzabile. La risposta descrive la prova da fare, non l'esito atteso. Nessuna contraddizione, quindi parziale e non errata."
+  },
+  "scenario_02|SC02-Q6|F": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/3",
+    "rq2_fact_detail": {
+      "token-scadenza-15-minuti": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "SC02-F013 NON e' fra i 13 elementi forniti: il limite di 15 minuti non si legge in nessuna riga del contesto",
+        "nota_answer": "la risposta dice «il limite di validita' stabilito nella sessione precedente», senza il numero"
+      },
+      "test-email-ritardata-aperto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC02-F021",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Caso da leggere con attenzione: la copertura per PROVENIENZA e' completa, perche' SC02-S2-U1 compare fra i messaggi citati dal contesto tramite SC02-F007 e SC02-F010. Il FATTO richiesto, pero', non c'e': SC02-F013, l'unico che porta i 15 minuti, e' rimasto fuori. La risposta rinvia genericamente al limite «stabilito nella sessione precedente» e non lo quantifica. Nessuna contraddizione: parziale."
+  },
+  "scenario_02|SC02-Q7|T": {
+    "answer_class": "astensione corretta",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/1",
+    "rq2_fact_detail": {},
+    "rationale": "Astensione esplicita, nessun nome o ruolo inventato. Il contesto conteneva tutti e quattro i messaggi dello scenario e l'informazione resta assente: la risposta non la fabbrica."
+  },
+  "scenario_02|SC02-Q7|F": {
+    "answer_class": "astensione corretta",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/1",
+    "rq2_fact_detail": {},
+    "rationale": "Astensione esplicita, nessun nome o ruolo inventato, pur con 13 fatti nel contesto."
+  },
+  "scenario_03|SC03-Q1|F": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "obiettivo-classificazione": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-F005/F006",
+        "nota_answer": null
+      },
+      "obiettivo-ripristino": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-F007",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Entrambi gli obiettivi dichiarati, invertiti nell'ordine ma completi. Nel contesto entrano 27 elementi: nessuno viene usato impropriamente."
+  },
+  "scenario_03|SC03-Q1|U": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "obiettivo-classificazione": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M006",
+        "nota_answer": null
+      },
+      "obiettivo-ripristino": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M007",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Entrambi gli obiettivi. La risposta dichiara esplicitamente che sono due."
+  },
+  "scenario_03|SC03-Q2|F": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/2",
+    "rq2_fact_detail": {
+      "ipotesi-iniziale-ransomware": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-F005",
+        "nota_answer": null
+      },
+      "ipotesi-aggiornata-infostealer": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-F022/F026",
+        "nota_answer": null
+      },
+      "classificazione-confermata-kelpie": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "SC03-F024, l'unico fatto che porta il nome Kelpie, ha punteggio 0,0000 (rango 37) ed e' escluso dalla SOGLIA di pertinenza, non dal budget: senza tetto resta comunque fuori",
+        "nota_answer": "la risposta dice «confermata» senza dire da chi"
+      }
+    },
+    "rationale": "Infostealer come classificazione valida e ransomware come ipotesi superata ci sono. Manca la conferma del laboratorio: l'oracle ammette di omettere il nome della famiglia solo se si indica «infostealer confermato dal laboratorio», e qui l'attribuzione non c'e'. Nessuna contraddizione, quindi parziale. Il fatto con Kelpie non e' nel contesto e non poteva entrarci: e' escluso dalla soglia, non dallo spazio."
+  },
+  "scenario_03|SC03-Q2|U": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/2",
+    "rq2_fact_detail": {
+      "ipotesi-iniziale-ransomware": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M005",
+        "nota_answer": null
+      },
+      "ipotesi-aggiornata-infostealer": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M026",
+        "nota_answer": null
+      },
+      "classificazione-confermata-kelpie": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "nessuna voce con il nome Kelpie fra le 20 fornite",
+        "nota_answer": "«confermata» senza attribuzione al laboratorio"
+      }
+    },
+    "rationale": "Come in F: classificazione valida e ipotesi superata corrette, conferma del laboratorio assente. Lo stato temporale di U evita di presentare il ransomware come valido, ma non aggiunge il fatto mancante."
+  },
+  "scenario_03|SC03-Q3|F": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/3",
+    "rq2_fact_detail": {
+      "sintomo-file-riscatto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-F004",
+        "nota_answer": null
+      },
+      "evidenza-file-riscatto-ritirata": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-F014",
+        "nota_answer": null
+      },
+      "evidenza-file-riscatto-motivo": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-F015, SC03-F016",
+        "nota_answer": null
+      },
+      "evidenza-file-riscatto-senza-sostituzione": {
+        "in_context": true,
+        "in_answer": false,
+        "nota_context": "SC03-F017 E' nel contesto, fra i 39 elementi",
+        "nota_answer": "la risposta non dice che il ritiro non e' stato sostituito"
+      }
+    },
+    "rationale": "Esclusione dalle evidenze e motivo corretti. Manca il terzo fatto obbligatorio, che il ritiro non e' stato sostituito da altra evidenza: qui il fatto era nel contesto e non e' stato usato. Caso utile: piu' contesto non garantisce che l'informazione finisca nella risposta."
+  },
+  "scenario_03|SC03-Q3|U": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/3",
+    "rq2_fact_detail": {
+      "sintomo-file-riscatto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M004, stato superato",
+        "nota_answer": null
+      },
+      "evidenza-file-riscatto-ritirata": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M014",
+        "nota_answer": null
+      },
+      "evidenza-file-riscatto-motivo": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M015, SC03-M016",
+        "nota_answer": null
+      },
+      "evidenza-file-riscatto-senza-sostituzione": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "nessuna voce sulla mancata sostituzione fra le 31 fornite",
+        "nota_answer": "assente"
+      }
+    },
+    "rationale": "Stessa lacuna di F ma per un motivo diverso: qui il fatto non e' proprio nel contesto. La risposta e' corretta su esclusione e motivo, ed e' piu' articolata di quella di F, ma resta parziale."
+  },
+  "scenario_03|SC03-Q4|F": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/4",
+    "rq2_fact_detail": {
+      "contenimento-isolamento": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "SC03-F028 ha punteggio 0,0000 (rango 33): escluso dalla soglia, non dal budget",
+        "nota_answer": "assente"
+      },
+      "contenimento-blocco-dominio": {
+        "in_context": true,
+        "in_answer": false,
+        "nota_context": "il dominio cdn-updates.example.net compare nel contesto",
+        "nota_answer": "la risposta non lo elenca fra le azioni di contenimento"
+      },
+      "contenimento-credenziali": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-F030",
+        "nota_answer": null
+      },
+      "verifica-accessi-cloud-completata": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "SC03-F036 e SC03-F037 hanno punteggio 0,0000 (ranghi 39 e 40): esclusi dalla soglia",
+        "nota_answer": "assente"
+      }
+    },
+    "rationale": "Delle quattro azioni richieste ne riporta una sola in modo pieno (le credenziali) e per il resto ripiega su un generico «contenimento del caso completato». Al posto della verifica cloud presenta la chiusura dell'analisi di laboratorio, che e' un'altra cosa: non e' una contraddizione con l'oracle, ma non risponde alla domanda. Due dei quattro fatti non sono nel contesto e non potevano entrarci: sono esclusi dalla soglia di pertinenza a punteggio nullo. Parziale."
+  },
+  "scenario_03|SC03-Q4|U": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/4",
+    "rq2_fact_detail": {
+      "contenimento-isolamento": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "assente dalle 17 voci fornite",
+        "nota_answer": "assente"
+      },
+      "contenimento-blocco-dominio": {
+        "in_context": true,
+        "in_answer": false,
+        "nota_context": "presente nel contesto",
+        "nota_answer": "non elencato"
+      },
+      "contenimento-credenziali": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M031",
+        "nota_answer": null
+      },
+      "verifica-accessi-cloud-completata": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "assente dalle 17 voci fornite",
+        "nota_answer": "assente"
+      }
+    },
+    "rationale": "Stessa lacuna di F. In piu' la risposta aggiunge l'attivita' ancora aperta, che la domanda non chiedeva: e' corretta e supportata, quindi non incide sulla classe. Parziale."
+  },
+  "scenario_03|SC03-Q5|F": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/3",
+    "rq2_fact_detail": {
+      "verifica-reinstallazione-aperta": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "presente",
+        "nota_answer": null
+      },
+      "vettore-iniziale-non-determinato": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "SC03-F039 ha punteggio 0,0000 (rango 41, ultimo): escluso dalla soglia anche senza tetto",
+        "nota_answer": "assente"
+      },
+      "vincolo-rapporto-interno": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "presente",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Reinstallazione come unica attivita' aperta e vincolo di riservatezza del rapporto: corretti. Manca che il vettore iniziale non e' stato determinato, ed e' un fatto che il contesto non conteneva: ultimo in classifica con punteggio nullo. Parziale."
+  },
+  "scenario_03|SC03-Q5|U": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/3",
+    "rq2_fact_detail": {
+      "verifica-reinstallazione-aperta": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M039",
+        "nota_answer": null
+      },
+      "vettore-iniziale-non-determinato": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "assente dalle 14 voci fornite",
+        "nota_answer": "assente"
+      },
+      "vincolo-rapporto-interno": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M041",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Come in F: due fatti su tre, e il terzo non era nel contesto. Parziale."
+  },
+  "scenario_03|SC03-Q6|F": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/4",
+    "rq2_fact_detail": {
+      "evidenza-lettura-credenziali": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-F018",
+        "nota_answer": null
+      },
+      "evidenza-esfiltrazione": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-F019, SC03-F020",
+        "nota_answer": null
+      },
+      "evidenza-nessuna-cifratura": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "SC03-F021 ha punteggio 0,0000 (rango 33): escluso dalla soglia",
+        "nota_answer": "assente"
+      },
+      "classificazione-confermata-kelpie": {
+        "in_context": false,
+        "in_answer": true,
+        "nota_context": "SC03-F024 (Kelpie) escluso a punteggio nullo; presenti solo la chiusura dell'analisi e la conferma come infostealer",
+        "nota_answer": "conferma del laboratorio riportata, senza la famiglia"
+      }
+    },
+    "rationale": "Le due evidenze di furto ed esfiltrazione sono corrette e attribuite ai fatti giusti, e la conferma del laboratorio e' riportata. Mancano l'assenza di cifratura e il nome della famiglia, entrambi esclusi dalla soglia di pertinenza a punteggio nullo. Parziale."
+  },
+  "scenario_03|SC03-Q6|U": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/4",
+    "rq2_fact_detail": {
+      "evidenza-lettura-credenziali": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M018",
+        "nota_answer": null
+      },
+      "evidenza-esfiltrazione": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC03-M023",
+        "nota_answer": null
+      },
+      "evidenza-nessuna-cifratura": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "assente dalle 22 voci fornite",
+        "nota_answer": "assente"
+      },
+      "classificazione-confermata-kelpie": {
+        "in_context": false,
+        "in_answer": true,
+        "nota_context": "famiglia assente; presente la conferma come infostealer",
+        "nota_answer": "conferma del laboratorio riportata, senza la famiglia"
+      }
+    },
+    "rationale": "Stesse due evidenze di F e stessa conferma; stesse due lacune. Parziale."
+  },
+  "scenario_03|SC03-Q7|F": {
+    "answer_class": "astensione corretta",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/1",
+    "rq2_fact_detail": {},
+    "rationale": "Astensione esplicita. Nessun fornitore inventato e, soprattutto, nessuna attribuzione dell'analisi forense al laboratorio interno, che l'oracle indica come errore tipico. Il contesto conteneva 28 elementi, fra cui piu' voci sul laboratorio: la risposta non ci e' caduta."
+  },
+  "scenario_03|SC03-Q7|U": {
+    "answer_class": "astensione corretta",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/1",
+    "rq2_fact_detail": {},
+    "rationale": "Astensione esplicita, nessun fornitore inventato, nessuna confusione con il laboratorio interno."
+  },
+  "scenario_04|SC04-Q1|T": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "obiettivo-minaccia-reale": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S1-U1",
+        "nota_answer": null
+      },
+      "obiettivo-esposizione-account": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S1-U1",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Entrambi gli obiettivi, con le parole dell'oracle."
+  },
+  "scenario_04|SC04-Q1|U": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "obiettivo-minaccia-reale": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M008",
+        "nota_answer": null
+      },
+      "obiettivo-esposizione-account": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M009",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Entrambi gli obiettivi, dichiarati come due."
+  },
+  "scenario_04|SC04-Q1|G": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "obiettivo-minaccia-reale": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M008",
+        "nota_answer": null
+      },
+      "obiettivo-esposizione-account": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M009",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Entrambi gli obiettivi, con i riferimenti alle voci di memoria. I 19 elementi del contesto comprendono archi del grafo non pertinenti, non usati."
+  },
+  "scenario_04|SC04-Q2|T": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "3/4",
+    "rq2_fact_detail": {
+      "valutazione-iniziale-spam": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S1-U1",
+        "nota_answer": null
+      },
+      "valutazione-iniziale-nessun-contatto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S1-U1",
+        "nota_answer": null
+      },
+      "classificazione-smishing": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S2-U1 contiene anche il motivo",
+        "nota_answer": "la risposta dice «smishing» ma non riporta il motivo: la pagina falsa che riproduce il modulo di accesso"
+      },
+      "contatto-avvenuto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S2-U2",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Classificazione corretta e entrambe le valutazioni superate, con l'apertura delle 07:03 e l'invio del modulo. Manca il motivo della classificazione, che l'oracle chiede esplicitamente e che era nel contesto. Parziale."
+  },
+  "scenario_04|SC04-Q2|U": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": false,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": true,
+    "error_origin": "risposta",
+    "pilot_mandatory_coverage_in_answer": "2/4",
+    "rq2_fact_detail": {
+      "valutazione-iniziale-spam": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "SC04-M018 e SC04-M010 hanno punteggio 0,0000 (ranghi 26 e oltre): esclusi dalla SOGLIA di pertinenza, non dal budget",
+        "nota_answer": "assente"
+      },
+      "valutazione-iniziale-nessun-contatto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M011",
+        "nota_answer": null
+      },
+      "classificazione-smishing": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M017",
+        "nota_answer": "senza il motivo"
+      },
+      "contatto-avvenuto": {
+        "in_context": true,
+        "in_answer": false,
+        "nota_context": "presente nel contesto",
+        "nota_answer": "non riportato come smentita del mancato contatto"
+      }
+    },
+    "rationale": "La classificazione e' giusta e una delle due valutazioni superate c'e'. L'altra non era nel contesto: i due fatti sullo spam generico hanno punteggio nullo e restano fuori anche senza tetto. Al loro posto la risposta presenta come «valutazione superata» un fatto che riguarda la MEMORIA e non il caso: che l'accesso anomalo fosse registrato «senza ulteriori dettagli» prima di essere precisato con l'indirizzo IP. Non e' una valutazione del caso e non compare in nessuna conversazione: affermazione non supportata. Nessuna contraddizione con l'oracle, quindi parziale e non errata, ma esclusa dai successi supportati."
+  },
+  "scenario_04|SC04-Q2|G": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "3/4",
+    "rq2_fact_detail": {
+      "valutazione-iniziale-spam": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-E005, arco del grafo",
+        "nota_answer": null
+      },
+      "valutazione-iniziale-nessun-contatto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M011",
+        "nota_answer": null
+      },
+      "classificazione-smishing": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-E004",
+        "nota_answer": "senza il motivo"
+      },
+      "contatto-avvenuto": {
+        "in_context": true,
+        "in_answer": false,
+        "nota_context": "presente nel contesto",
+        "nota_answer": "non riportato"
+      }
+    },
+    "rationale": "G recupera entrambe le valutazioni superate, dove U ne trova una sola: qui l'espansione relazionale porta l'arco SC04-E005 sullo spam generico. Mancano il motivo della classificazione e la smentita esplicita con l'apertura delle 07:03. Parziale."
+  },
+  "scenario_04|SC04-Q3|T": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "5/6",
+    "rq2_fact_detail": {
+      "segnalazione-sms": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": "«UT-207 riceve SMS-01»: la ricezione al posto della segnalazione, ma la catena parte dallo stesso punto"
+      },
+      "sms-contiene-url": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": null
+      },
+      "contatto-avvenuto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": "07:03 e invio del modulo"
+      },
+      "operatore-usa-account": {
+        "in_context": true,
+        "in_answer": false,
+        "nota_context": "SC04-S3-U1 dice che UT-207 usa acquisti-207@corvara.example",
+        "nota_answer": "il passaggio non e' esplicito: ACC-207 compare senza essere collegato a UT-207"
+      },
+      "accesso-anomalo": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": "LOGIN-07, 07:12, 203.0.113.44"
+      },
+      "regola-inoltro-creata": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": "RULE-01, 07:20, stessa sessione"
+      }
+    },
+    "rationale": "Catena quasi completa e ordinata, con orari e identificatori giusti. Manca l'anello esplicito fra UT-207 e ACC-207: il lettore lo deduce, ma l'oracle lo elenca fra i passaggi obbligatori. Parziale."
+  },
+  "scenario_04|SC04-Q3|U": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "5/6",
+    "rq2_fact_detail": {
+      "segnalazione-sms": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": "«riceve» invece di «segnala»"
+      },
+      "sms-contiene-url": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": null
+      },
+      "contatto-avvenuto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": null
+      },
+      "operatore-usa-account": {
+        "in_context": true,
+        "in_answer": false,
+        "nota_context": "presente nel contesto",
+        "nota_answer": "ACC-207 e' identificato come acquisti-207@corvara.example ma non dichiarato come account di UT-207"
+      },
+      "accesso-anomalo": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": null
+      },
+      "regola-inoltro-creata": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": "con il filtro «fattura»"
+      }
+    },
+    "rationale": "Catena ricostruita in cinque passaggi numerati, con dettagli corretti in piu' (il contenuto dell'SMS, il filtro della regola). Stessa lacuna di T sull'anello operatore-account. Parziale."
+  },
+  "scenario_04|SC04-Q3|G": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "5/6",
+    "rq2_fact_detail": {
+      "segnalazione-sms": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": "«segnala», come nell'oracle"
+      },
+      "sms-contiene-url": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": null
+      },
+      "contatto-avvenuto": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": null
+      },
+      "operatore-usa-account": {
+        "in_context": true,
+        "in_answer": false,
+        "nota_context": "presente nel contesto",
+        "nota_answer": "non esplicitato"
+      },
+      "accesso-anomalo": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": null
+      },
+      "regola-inoltro-creata": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": null,
+        "nota_answer": "destinazione indicata come DEST-ARCHIVIO, nodo del grafo"
+      }
+    },
+    "rationale": "Catena compatta con le frecce, corretta in tutti i passaggi tranne l'anello operatore-account. Usa il nodo DEST-ARCHIVIO al posto dell'indirizzo: equivalente ammesso. Parziale."
+  },
+  "scenario_04|SC04-Q4|T": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "3/3",
+    "rq2_fact_detail": {
+      "regola-rimossa": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S4-U1",
+        "nota_answer": null
+      },
+      "password-reimpostata": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S4-U1",
+        "nota_answer": null
+      },
+      "numero-bloccato": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S4-U1",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Tutte e tre le azioni, divise fra account e numero mittente come chiede la domanda. Il messaggio originale le contiene tutte insieme: T lo recupera intero."
+  },
+  "scenario_04|SC04-Q4|U": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/3",
+    "rq2_fact_detail": {
+      "regola-rimossa": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "SC04-M033 «RULE-01 e' stata rimossa» ha punteggio 0,0000: nessun termine in comune con la domanda. Escluso dalla SOGLIA, non dal budget",
+        "nota_answer": "assente"
+      },
+      "password-reimpostata": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "SC04-M034 «La password di ACC-207 e' stata reimpostata alle 08:05» ha punteggio 0,0000",
+        "nota_answer": "assente"
+      },
+      "numero-bloccato": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M035, che condivide con la domanda le parole «numero mittente»",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Riporta correttamente il blocco del numero e dichiara esplicitamente di non avere informazioni sulle azioni sull'account. E' fedele al contesto ricevuto: le due voci che contengono la rimozione della regola e il reset della password sono attive nello stato di U, ma hanno punteggio nullo perche' non condividono nessuna parola con la domanda. Togliere il tetto non le fa entrare. Il contrasto con T sulla stessa domanda e' netto: il messaggio intero contiene tutte e tre le azioni, la memoria frammentata le separa e il ranking ne trova una sola. Parziale, non astensione: una delle tre azioni e' riportata."
+  },
+  "scenario_04|SC04-Q4|G": {
+    "answer_class": "parziale",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/3",
+    "rq2_fact_detail": {
+      "regola-rimossa": {
+        "in_context": false,
+        "in_answer": false,
+        "nota_context": "assente dalle 14 righe fornite",
+        "nota_answer": "assente"
+      },
+      "password-reimpostata": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "presente nel contesto",
+        "nota_answer": null
+      },
+      "numero-bloccato": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "presente nel contesto",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Due azioni su tre. L'espansione relazionale porta il reset della password, che in U non era entrato, ma non la rimozione di RULE-01. Parziale."
+  },
+  "scenario_04|SC04-Q5|T": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "revisione-messaggi-inoltrati": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S4-U1",
+        "nota_answer": null
+      },
+      "contenuto-riepilogo": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S4-U1",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Attivita' aperta e contenuto del riepilogo, entrambi corretti. L'elenco degli eventi sull'account (LOGIN-07, creazione e rimozione di RULE-01, reset della password) e' un'esemplificazione tratta dai messaggi presenti nel contesto, quindi supportata."
+  },
+  "scenario_04|SC04-Q5|U": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "revisione-messaggi-inoltrati": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M036",
+        "nota_answer": null
+      },
+      "contenuto-riepilogo": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M037",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Entrambi i fatti richiesti, senza aggiunte."
+  },
+  "scenario_04|SC04-Q5|G": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "revisione-messaggi-inoltrati": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M036",
+        "nota_answer": null
+      },
+      "contenuto-riepilogo": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M037",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Entrambi i fatti richiesti, con i riferimenti alle voci."
+  },
+  "scenario_04|SC04-Q6|T": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "origine-numero-non-determinata": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-S4-U2",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Riporta la chiusura senza esito e il punto non determinato, cioe' esattamente la risposta attesa. La formula iniziale «le informazioni non sono sufficienti» e' fuorviante, perche' la domanda e' raggiungibile e la risposta la fornisce subito dopo: e' lo stesso nodo gia' aperto nella raccolta, se una dichiarazione di insufficienza su una domanda a cui si sa rispondere debba pesare sulla classe. Qui non incide, perche' il contenuto atteso c'e' tutto. Da sottoporre a revisione."
+  },
+  "scenario_04|SC04-Q6|U": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "origine-numero-non-determinata": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M039",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Chiusura senza esito e punto non determinato, senza preamboli ambigui."
+  },
+  "scenario_04|SC04-Q6|G": {
+    "answer_class": "completa",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "2/2",
+    "rq2_fact_detail": {
+      "origine-numero-non-determinata": {
+        "in_context": true,
+        "in_answer": true,
+        "nota_context": "SC04-M039",
+        "nota_answer": null
+      }
+    },
+    "rationale": "Chiusura senza esito e punto non determinato. Piu' sintetica di quella di U ma completa."
+  },
+  "scenario_04|SC04-Q7|T": {
+    "answer_class": "astensione corretta",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/1",
+    "rq2_fact_detail": {},
+    "rationale": "Astensione esplicita, nessun fornitore inventato. Il contesto conteneva tutti e sette i messaggi dello scenario, fra cui RapidoPost: la risposta non lo attribuisce al gateway."
+  },
+  "scenario_04|SC04-Q7|U": {
+    "answer_class": "astensione corretta",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/1",
+    "rq2_fact_detail": {},
+    "rationale": "Astensione esplicita, nessun fornitore inventato, con 25 voci nel contesto."
+  },
+  "scenario_04|SC04-Q7|G": {
+    "answer_class": "astensione corretta",
+    "supported_by_original_conversation": true,
+    "faithful_to_received_context": true,
+    "obsolete_used": false,
+    "unsupported_claim": false,
+    "pilot_mandatory_coverage_in_answer": "1/1",
+    "rq2_fact_detail": {},
+    "rationale": "Astensione esplicita che nomina l'informazione mancante, senza inventare il fornitore, con 31 elementi nel contesto."
+  }
+}

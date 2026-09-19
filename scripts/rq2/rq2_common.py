@@ -129,9 +129,42 @@ def load_config(path=RQ2_CONFIG_PATH):
         return json.load(handle)
 
 
-def budget_tokens(config=None):
+# `None` significa "nessun tetto sperimentale": il retrieval resta quello di
+# sempre (ranking, soglia di pertinenza e regole proprie della modalita'), ma
+# non esclude piu' nulla per mancanza di spazio. Non e' FULL_HISTORY: gli
+# elementi senza alcun termine in comune con la domanda restano fuori.
+UNLIMITED_BUDGET = None
+
+
+def budget_tokens(config=None, scenario_id=None):
+    """Budget del contesto, eventualmente specifico per scenario.
+
+    Senza `scenario_id` (e con una configurazione priva del blocco
+    `per_scenario`) il comportamento e' quello di sempre: il valore unico
+    dichiarato in `context_budget.max_tokens`.
+
+    Con `scenario_id` si legge prima `context_budget.per_scenario`, dove un
+    valore `null` dichiara l'assenza di tetto sperimentale per quello scenario.
+    Gli scenari non elencati ricadono sul valore generale.
+    """
     config = config or load_config()
-    return int(config["context_budget"]["max_tokens"])
+    block = config["context_budget"]
+    if scenario_id is not None:
+        per_scenario = block.get("per_scenario") or {}
+        if scenario_id in per_scenario:
+            value = per_scenario[scenario_id]
+            return UNLIMITED_BUDGET if value is None else int(value)
+    default = block.get("max_tokens")
+    return UNLIMITED_BUDGET if default is None else int(default)
+
+
+def budget_label(budget):
+    """Come si scrive un budget nei riepiloghi e nelle intestazioni."""
+    return "nessun tetto" if budget is None else "%d token" % budget
+
+
+def budget_applies(budget):
+    return budget is not None
 
 
 def token_regex(config=None):
@@ -523,7 +556,7 @@ def rank_items(query_text, items):
 
 
 def select_within_budget(ranked, budget, min_score_exclusive=0.0):
-    """Regola di selezione dichiarata in experiment_rq2.json.
+    """Regola di selezione dichiarata nella configurazione.
 
     Prefisso del ranking: si aggiunge finche' si sta nel budget e ci si ferma
     al primo elemento che non entra. Nessun troncamento. Se il primo elemento
@@ -531,18 +564,26 @@ def select_within_budget(ranked, budget, min_score_exclusive=0.0):
 
     Il costo di un elemento e' `tokens`, cioe' i token della riga gia'
     formattata: contenuto piu' identificatore, provenienza, stato e relazioni.
+
+    Con `budget` uguale a `UNLIMITED_BUDGET` (`None`) cade soltanto il passo 4
+    della regola, quello del riempimento: non c'e' piu' un tetto che escluda
+    elementi. Tutto il resto resta identico — stesso ranking, stessa parita',
+    **stessa soglia di pertinenza** — quindi la selezione e' ancora un prefisso
+    del ranking e si ferma al primo elemento con punteggio nullo. Un contesto
+    senza tetto non e' FULL_HISTORY: gli elementi non pertinenti restano fuori.
     """
     selected = []
     total = 0
     stopped_by = None
     first_item_exceeds = False
+    unlimited = budget is None
 
     for entry in ranked:
         if entry["score"] <= min_score_exclusive:
             stopped_by = {"item_id": entry["item_id"], "reason": "punteggio nullo"}
             break
         tokens = entry["tokens"]
-        if total + tokens <= budget:
+        if unlimited or total + tokens <= budget:
             selected.append(entry)
             total += tokens
             continue

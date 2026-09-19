@@ -134,7 +134,11 @@ def build(scenario_ids, config, retrieval_rows, modes_override=None):
                         "context_tokens": row["context_tokens"],
                         "context_content_tokens": row["context_content_tokens"],
                         "context_overhead_tokens": row["context_overhead_tokens"],
-                        "budget_applies": True,
+                        # Con un tetto: True, come sempre. Senza tetto
+                        # sperimentale: False, ma il retrieval c'e' stato
+                        # eccome — lo dice `retrieval_used`, che resta True e
+                        # distingue queste righe da FULL_HISTORY.
+                        "budget_applies": row.get("budget_applies", row["budget_tokens"] is not None),
                         "budget_tokens": row["budget_tokens"],
                         "retrieval_used": True,
                         "retrieval_label": row["label"],
@@ -190,9 +194,14 @@ def check(rows, scenario_ids, config, retrieval_rows):
                     if counted != row["context_tokens"]:
                         errors.append("%s: il blocco di contesto misura %d token, ne erano stati contati %d"
                                       % (where, counted, row["context_tokens"]))
-                    if counted > budget and not source["budget_exceeded_by_first_item"]:
+                    if budget is not None and counted > budget and not source["budget_exceeded_by_first_item"]:
                         errors.append("%s: contesto di %d token oltre il budget di %d"
                                       % (where, counted, budget))
+                    if budget is None and row["budget_applies"]:
+                        errors.append("%s: senza tetto sperimentale budget_applies deve essere false" % where)
+                    if budget is None and not row["retrieval_used"]:
+                        errors.append("%s: senza tetto il retrieval resta attivo, retrieval_used deve essere true"
+                                      % where)
                     for item in source["selected"]:
                         if item["render"] not in row["prompt"]:
                             errors.append("%s: la riga di contesto %s non compare nel prompt"
@@ -202,7 +211,8 @@ def check(rows, scenario_ids, config, retrieval_rows):
                 if mode == rq2.FULL_HISTORY:
                     if row["context_item_ids"] != history_ids:
                         errors.append("%s: FULL_HISTORY deve contenere tutti i messaggi utente in ordine" % where)
-                    if row["context_tokens"] <= rq2.budget_tokens(config):
+                    scenario_budget = rq2.budget_tokens(config, scenario_id)
+                    if scenario_budget is not None and row["context_tokens"] <= scenario_budget:
                         errors.append("%s: FULL_HISTORY dovrebbe superare il budget delle altre modalita'" % where)
                     if row["budget_applies"]:
                         errors.append("%s: FULL_HISTORY non deve essere soggetto al budget" % where)
@@ -257,7 +267,10 @@ def print_summary(rows):
         items = sum(len(r["context_item_ids"]) for r in subset) / len(subset)
         content = sum(r["context_content_tokens"] for r in subset) / len(subset)
         overhead = sum(r["context_overhead_tokens"] for r in subset) / len(subset)
-        budget = "%d token" % subset[0]["budget_tokens"] if subset[0]["budget_applies"] else "fuori budget"
+        if not subset[0]["retrieval_used"]:
+            budget = "fuori budget (diagnostico)"
+        else:
+            budget = rq2.budget_label(subset[0]["budget_tokens"])
         print("%-13s %-13s %-7d %-11.1f %-8.1f %-9.1f %s"
               % (scenario_id, mode, len(subset), items, content, overhead, budget))
 
@@ -268,12 +281,14 @@ def parse_args(argv=None):
     parser.add_argument("--retrieval", default=str(DEFAULT_RETRIEVAL))
     parser.add_argument("--out", default=str(DEFAULT_OUT))
     parser.add_argument("--modes", nargs="*", default=None)
+    parser.add_argument("--config", default=str(rq2.RQ2_CONFIG_PATH),
+                        help="configurazione dell'esperimento, la stessa usata dal retrieval")
     return parser.parse_args(argv)
 
 
 def main(argv=None):
     args = parse_args(argv)
-    config = rq2.load_config()
+    config = rq2.load_config(args.config)
     scenario_ids = args.scenario or list(rq2.SCENARIO_IDS)
 
     retrieval_path = Path(args.retrieval)
