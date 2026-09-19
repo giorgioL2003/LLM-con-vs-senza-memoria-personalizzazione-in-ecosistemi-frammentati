@@ -1,0 +1,4 @@
+# Ambiente e cache locali per i grafici Matplotlib
+.venv-grafici/
+.matplotlib-cache/
+__pycache__/
