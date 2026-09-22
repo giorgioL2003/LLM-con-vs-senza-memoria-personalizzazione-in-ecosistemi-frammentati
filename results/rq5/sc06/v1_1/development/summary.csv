@@ -1,0 +1,101 @@
+split,model_tag,condition,family,metric,numerator,denominator,rate,denominator_rule
+development,gemma3:4b,sufficient,tutte,exact_match,90,108,0.8333333333333334,celle attese
+development,gemma3:4b,sufficient,tutte,format_error,0,108,0.0,celle attese
+development,gemma3:4b,sufficient,tutte,unsupported_value,17,108,0.1574074074074074,celle con output conforme
+development,gemma3:4b,sufficient,tutte,cross_case_intrusion,0,74,0.0,celle con output conforme e confusione rilevabile
+development,gemma3:4b,sufficient,tutte,label_precision,110,136,0.8088235294117647,"etichette, celle con output conforme"
+development,gemma3:4b,sufficient,tutte,label_recall,110,140,0.7857142857142857,"etichette, celle con output conforme"
+development,gemma3:4b,sufficient,asset,exact_match,10,25,0.4,celle attese
+development,gemma3:4b,sufficient,asset,format_error,0,25,0.0,celle attese
+development,gemma3:4b,sufficient,asset,unsupported_value,15,25,0.6,celle con output conforme
+development,gemma3:4b,sufficient,asset,cross_case_intrusion,0,21,0.0,celle con output conforme e confusione rilevabile
+development,gemma3:4b,sufficient,asset,label_precision,12,36,0.3333333333333333,"etichette, celle con output conforme"
+development,gemma3:4b,sufficient,asset,label_recall,12,36,0.3333333333333333,"etichette, celle con output conforme"
+development,gemma3:4b,sufficient,data,exact_match,29,30,0.9666666666666667,celle attese
+development,gemma3:4b,sufficient,data,format_error,0,30,0.0,celle attese
+development,gemma3:4b,sufficient,data,unsupported_value,1,30,0.03333333333333333,celle con output conforme
+development,gemma3:4b,sufficient,data,cross_case_intrusion,0,26,0.0,celle con output conforme e confusione rilevabile
+development,gemma3:4b,sufficient,data,label_precision,40,41,0.975609756097561,"etichette, celle con output conforme"
+development,gemma3:4b,sufficient,data,label_recall,40,43,0.9302325581395349,"etichette, celle con output conforme"
+development,gemma3:4b,sufficient,variety,exact_match,23,24,0.9583333333333334,celle attese
+development,gemma3:4b,sufficient,variety,format_error,0,24,0.0,celle attese
+development,gemma3:4b,sufficient,variety,unsupported_value,1,24,0.041666666666666664,celle con output conforme
+development,gemma3:4b,sufficient,variety,cross_case_intrusion,0,15,0.0,celle con output conforme e confusione rilevabile
+development,gemma3:4b,sufficient,variety,label_precision,27,28,0.9642857142857143,"etichette, celle con output conforme"
+development,gemma3:4b,sufficient,variety,label_recall,27,29,0.9310344827586207,"etichette, celle con output conforme"
+development,gemma3:4b,sufficient,vector,exact_match,28,29,0.9655172413793104,celle attese
+development,gemma3:4b,sufficient,vector,format_error,0,29,0.0,celle attese
+development,gemma3:4b,sufficient,vector,unsupported_value,0,29,0.0,celle con output conforme
+development,gemma3:4b,sufficient,vector,cross_case_intrusion,0,12,0.0,celle con output conforme e confusione rilevabile
+development,gemma3:4b,sufficient,vector,label_precision,31,31,1.0,"etichette, celle con output conforme"
+development,gemma3:4b,sufficient,vector,label_recall,31,32,0.96875,"etichette, celle con output conforme"
+development,gemma3:4b,insufficient,tutte,correct_abstention,93,108,0.8611111111111112,celle attese
+development,gemma3:4b,insufficient,tutte,format_error,0,108,0.0,celle attese
+development,gemma3:4b,insufficient,tutte,unsupported_value,15,108,0.1388888888888889,celle con output conforme
+development,gemma3:4b,insufficient,tutte,cross_case_intrusion,10,74,0.13513513513513514,celle con output conforme e confusione rilevabile
+development,gemma3:4b,insufficient,asset,correct_abstention,24,25,0.96,celle attese
+development,gemma3:4b,insufficient,asset,format_error,0,25,0.0,celle attese
+development,gemma3:4b,insufficient,asset,unsupported_value,1,25,0.04,celle con output conforme
+development,gemma3:4b,insufficient,asset,cross_case_intrusion,0,21,0.0,celle con output conforme e confusione rilevabile
+development,gemma3:4b,insufficient,data,correct_abstention,28,30,0.9333333333333333,celle attese
+development,gemma3:4b,insufficient,data,format_error,0,30,0.0,celle attese
+development,gemma3:4b,insufficient,data,unsupported_value,2,30,0.06666666666666667,celle con output conforme
+development,gemma3:4b,insufficient,data,cross_case_intrusion,2,26,0.07692307692307693,celle con output conforme e confusione rilevabile
+development,gemma3:4b,insufficient,variety,correct_abstention,17,24,0.7083333333333334,celle attese
+development,gemma3:4b,insufficient,variety,format_error,0,24,0.0,celle attese
+development,gemma3:4b,insufficient,variety,unsupported_value,7,24,0.2916666666666667,celle con output conforme
+development,gemma3:4b,insufficient,variety,cross_case_intrusion,7,15,0.4666666666666667,celle con output conforme e confusione rilevabile
+development,gemma3:4b,insufficient,vector,correct_abstention,24,29,0.8275862068965517,celle attese
+development,gemma3:4b,insufficient,vector,format_error,0,29,0.0,celle attese
+development,gemma3:4b,insufficient,vector,unsupported_value,5,29,0.1724137931034483,celle con output conforme
+development,gemma3:4b,insufficient,vector,cross_case_intrusion,1,12,0.08333333333333333,celle con output conforme e confusione rilevabile
+development,llama3.2:3b,sufficient,tutte,exact_match,89,108,0.8240740740740741,celle attese
+development,llama3.2:3b,sufficient,tutte,format_error,1,108,0.009259259259259259,celle attese
+development,llama3.2:3b,sufficient,tutte,unsupported_value,18,107,0.16822429906542055,celle con output conforme
+development,llama3.2:3b,sufficient,tutte,cross_case_intrusion,1,74,0.013513513513513514,celle con output conforme e confusione rilevabile
+development,llama3.2:3b,sufficient,tutte,label_precision,113,141,0.8014184397163121,"etichette, celle con output conforme"
+development,llama3.2:3b,sufficient,tutte,label_recall,113,135,0.837037037037037,"etichette, celle con output conforme"
+development,llama3.2:3b,sufficient,asset,exact_match,11,25,0.44,celle attese
+development,llama3.2:3b,sufficient,asset,format_error,1,25,0.04,celle attese
+development,llama3.2:3b,sufficient,asset,unsupported_value,13,24,0.5416666666666666,celle con output conforme
+development,llama3.2:3b,sufficient,asset,cross_case_intrusion,0,21,0.0,celle con output conforme e confusione rilevabile
+development,llama3.2:3b,sufficient,asset,label_precision,13,31,0.41935483870967744,"etichette, celle con output conforme"
+development,llama3.2:3b,sufficient,asset,label_recall,13,31,0.41935483870967744,"etichette, celle con output conforme"
+development,llama3.2:3b,sufficient,data,exact_match,30,30,1.0,celle attese
+development,llama3.2:3b,sufficient,data,format_error,0,30,0.0,celle attese
+development,llama3.2:3b,sufficient,data,unsupported_value,0,30,0.0,celle con output conforme
+development,llama3.2:3b,sufficient,data,cross_case_intrusion,0,26,0.0,celle con output conforme e confusione rilevabile
+development,llama3.2:3b,sufficient,data,label_precision,43,43,1.0,"etichette, celle con output conforme"
+development,llama3.2:3b,sufficient,data,label_recall,43,43,1.0,"etichette, celle con output conforme"
+development,llama3.2:3b,sufficient,variety,exact_match,23,24,0.9583333333333334,celle attese
+development,llama3.2:3b,sufficient,variety,format_error,0,24,0.0,celle attese
+development,llama3.2:3b,sufficient,variety,unsupported_value,1,24,0.041666666666666664,celle con output conforme
+development,llama3.2:3b,sufficient,variety,cross_case_intrusion,1,15,0.06666666666666667,celle con output conforme e confusione rilevabile
+development,llama3.2:3b,sufficient,variety,label_precision,29,31,0.9354838709677419,"etichette, celle con output conforme"
+development,llama3.2:3b,sufficient,variety,label_recall,29,29,1.0,"etichette, celle con output conforme"
+development,llama3.2:3b,sufficient,vector,exact_match,25,29,0.8620689655172413,celle attese
+development,llama3.2:3b,sufficient,vector,format_error,0,29,0.0,celle attese
+development,llama3.2:3b,sufficient,vector,unsupported_value,4,29,0.13793103448275862,celle con output conforme
+development,llama3.2:3b,sufficient,vector,cross_case_intrusion,0,12,0.0,celle con output conforme e confusione rilevabile
+development,llama3.2:3b,sufficient,vector,label_precision,28,36,0.7777777777777778,"etichette, celle con output conforme"
+development,llama3.2:3b,sufficient,vector,label_recall,28,32,0.875,"etichette, celle con output conforme"
+development,llama3.2:3b,insufficient,tutte,correct_abstention,87,108,0.8055555555555556,celle attese
+development,llama3.2:3b,insufficient,tutte,format_error,1,108,0.009259259259259259,celle attese
+development,llama3.2:3b,insufficient,tutte,unsupported_value,20,107,0.18691588785046728,celle con output conforme
+development,llama3.2:3b,insufficient,tutte,cross_case_intrusion,15,73,0.2054794520547945,celle con output conforme e confusione rilevabile
+development,llama3.2:3b,insufficient,asset,correct_abstention,18,25,0.72,celle attese
+development,llama3.2:3b,insufficient,asset,format_error,1,25,0.04,celle attese
+development,llama3.2:3b,insufficient,asset,unsupported_value,6,24,0.25,celle con output conforme
+development,llama3.2:3b,insufficient,asset,cross_case_intrusion,4,20,0.2,celle con output conforme e confusione rilevabile
+development,llama3.2:3b,insufficient,data,correct_abstention,23,30,0.7666666666666667,celle attese
+development,llama3.2:3b,insufficient,data,format_error,0,30,0.0,celle attese
+development,llama3.2:3b,insufficient,data,unsupported_value,7,30,0.23333333333333334,celle con output conforme
+development,llama3.2:3b,insufficient,data,cross_case_intrusion,7,26,0.2692307692307692,celle con output conforme e confusione rilevabile
+development,llama3.2:3b,insufficient,variety,correct_abstention,20,24,0.8333333333333334,celle attese
+development,llama3.2:3b,insufficient,variety,format_error,0,24,0.0,celle attese
+development,llama3.2:3b,insufficient,variety,unsupported_value,4,24,0.16666666666666666,celle con output conforme
+development,llama3.2:3b,insufficient,variety,cross_case_intrusion,4,15,0.26666666666666666,celle con output conforme e confusione rilevabile
+development,llama3.2:3b,insufficient,vector,correct_abstention,26,29,0.896551724137931,celle attese
+development,llama3.2:3b,insufficient,vector,format_error,0,29,0.0,celle attese
+development,llama3.2:3b,insufficient,vector,unsupported_value,3,29,0.10344827586206896,celle con output conforme
+development,llama3.2:3b,insufficient,vector,cross_case_intrusion,0,12,0.0,celle con output conforme e confusione rilevabile

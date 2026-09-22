@@ -1,0 +1,211 @@
+{
+  "cells": {
+    "rq5-sc06-v1.0": 432,
+    "rq5-sc06-v1.1": 432
+  },
+  "composite_expected_labels": {
+    "rq5-sc06-v1.0": 72,
+    "rq5-sc06-v1.1": 72
+  },
+  "rq5-sc06-v1.0": {
+    "gemma3:4b": {
+      "correct_abstention": [
+        87,
+        108
+      ],
+      "cross_case_insufficient": [
+        14,
+        74
+      ],
+      "cross_case_sufficient": [
+        0,
+        74
+      ],
+      "exact_match_sufficient": [
+        92,
+        108
+      ],
+      "exact_match_sufficient_asset": [
+        10,
+        25
+      ],
+      "format_error_insufficient": [
+        0,
+        108
+      ],
+      "format_error_sufficient": [
+        0,
+        108
+      ],
+      "label_fragmentation": {
+        "abbreviated": 1,
+        "cells": 15,
+        "split_or_prefix_dropped": 21
+      },
+      "timings": {
+        "median_seconds": 0.38078379149999997,
+        "median_tokens_per_second": 51.465543669870385,
+        "p95_seconds": 0.512882,
+        "responses": 216
+      },
+      "unsupported_insufficient": [
+        21,
+        108
+      ],
+      "unsupported_sufficient": [
+        15,
+        108
+      ]
+    },
+    "llama3.2:3b": {
+      "correct_abstention": [
+        88,
+        108
+      ],
+      "cross_case_insufficient": [
+        16,
+        74
+      ],
+      "cross_case_sufficient": [
+        2,
+        74
+      ],
+      "exact_match_sufficient": [
+        84,
+        108
+      ],
+      "exact_match_sufficient_asset": [
+        6,
+        25
+      ],
+      "format_error_insufficient": [
+        1,
+        108
+      ],
+      "format_error_sufficient": [
+        1,
+        108
+      ],
+      "label_fragmentation": {
+        "cells": 17,
+        "split_or_prefix_dropped": 27
+      },
+      "timings": {
+        "median_seconds": 0.2550088535,
+        "median_tokens_per_second": 58.92863738552431,
+        "p95_seconds": 0.515111042,
+        "responses": 216
+      },
+      "unsupported_insufficient": [
+        19,
+        107
+      ],
+      "unsupported_sufficient": [
+        23,
+        107
+      ]
+    }
+  },
+  "rq5-sc06-v1.1": {
+    "gemma3:4b": {
+      "correct_abstention": [
+        93,
+        108
+      ],
+      "cross_case_insufficient": [
+        10,
+        74
+      ],
+      "cross_case_sufficient": [
+        0,
+        74
+      ],
+      "exact_match_sufficient": [
+        90,
+        108
+      ],
+      "exact_match_sufficient_asset": [
+        10,
+        25
+      ],
+      "format_error_insufficient": [
+        0,
+        108
+      ],
+      "format_error_sufficient": [
+        0,
+        108
+      ],
+      "label_fragmentation": {
+        "abbreviated": 1,
+        "cells": 15,
+        "split_or_prefix_dropped": 24
+      },
+      "timings": {
+        "median_seconds": 0.4825050835,
+        "median_tokens_per_second": 51.10536653477797,
+        "p95_seconds": 0.613625958,
+        "responses": 216
+      },
+      "unsupported_insufficient": [
+        15,
+        108
+      ],
+      "unsupported_sufficient": [
+        17,
+        108
+      ]
+    },
+    "llama3.2:3b": {
+      "correct_abstention": [
+        87,
+        108
+      ],
+      "cross_case_insufficient": [
+        15,
+        73
+      ],
+      "cross_case_sufficient": [
+        1,
+        74
+      ],
+      "exact_match_sufficient": [
+        89,
+        108
+      ],
+      "exact_match_sufficient_asset": [
+        11,
+        25
+      ],
+      "format_error_insufficient": [
+        1,
+        108
+      ],
+      "format_error_sufficient": [
+        1,
+        108
+      ],
+      "label_fragmentation": {
+        "cells": 12,
+        "split_or_prefix_dropped": 18
+      },
+      "timings": {
+        "median_seconds": 0.24647918749999997,
+        "median_tokens_per_second": 59.96005307753092,
+        "p95_seconds": 0.481529166,
+        "responses": 216
+      },
+      "unsupported_insufficient": [
+        20,
+        107
+      ],
+      "unsupported_sufficient": [
+        18,
+        107
+      ]
+    }
+  },
+  "split": "development",
+  "version_a": "rq5-sc06-v1.0",
+  "version_b": "rq5-sc06-v1.1"
+}

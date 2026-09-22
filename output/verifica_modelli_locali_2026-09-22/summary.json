@@ -1,0 +1,45 @@
+{
+  "status": "runtime_compatibility_check_not_RQ5_evaluation",
+  "hardware": {
+    "model": "MacBook Air",
+    "chip": "Apple M5",
+    "unified_memory_gb": 24,
+    "gpu_cores": 10,
+    "macos": "27.0 (26A428)"
+  },
+  "ollama_version": "0.34.2",
+  "models": [
+    {
+      "tag": "gemma3:4b",
+      "digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "quantization": "Q4_K_M",
+      "reply": "OK\n",
+      "literal_OK_match": true,
+      "successful_local_generation": true,
+      "total_seconds_including_load": 2.457993625,
+      "load_seconds": 2.082766917,
+      "ollama_reported_size_bytes": 3715031366,
+      "ollama_reported_size_vram_bytes": 3715031366,
+      "context_length": 2048
+    },
+    {
+      "tag": "llama3.2:3b",
+      "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "quantization": "Q4_K_M",
+      "reply": "OK.",
+      "literal_OK_match": false,
+      "successful_local_generation": true,
+      "total_seconds_including_load": 1.253636958,
+      "load_seconds": 1.053289417,
+      "ollama_reported_size_bytes": 2311438990,
+      "ollama_reported_size_vram_bytes": 2311438990,
+      "context_length": 2048
+    }
+  ],
+  "limitations": [
+    "One tiny prompt per model; no SC06 data used.",
+    "Ollama allocation is not measured process RSS or peak system RAM.",
+    "Timings include loading and are not a performance comparison.",
+    "Model context was 2048 for this check, not a final experiment setting."
+  ]
+}

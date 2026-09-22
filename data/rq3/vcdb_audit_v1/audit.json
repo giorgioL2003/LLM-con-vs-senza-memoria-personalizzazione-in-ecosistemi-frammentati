@@ -1,0 +1,101 @@
+{
+  "status": "feasibility_audit_not_approved_experiment",
+  "source_commit": "230cf22b56a481dd1a994b21e4d94c59e2bccea9",
+  "source_buckets": {
+    "submitted": 7,
+    "validated": 10047
+  },
+  "validated_records": 10047,
+  "validated_distinct_incident_ids_case_insensitive": 10003,
+  "cumulative_selection_counts": {
+    "cyber_action": 4040,
+    "confirmed_eligible": 4008,
+    "unambiguous_id": 3952,
+    "source_url_present": 3900,
+    "three_technical_families": 2445
+  },
+  "candidate_records": 2445,
+  "distinct_answerable_field_profiles": 717,
+  "candidate_field_counts": {
+    "action.hacking.vector": 1983,
+    "asset.assets[].variety": 2185,
+    "attribute.confidentiality.data[].variety": 2176,
+    "action.hacking.variety": 1492,
+    "action.malware.variety": 1128,
+    "action.malware.vector": 1040,
+    "action.social.variety": 455,
+    "action.social.vector": 435
+  },
+  "candidate_year_counts": {
+    "2001": 1,
+    "2002": 1,
+    "2003": 3,
+    "2004": 2,
+    "2005": 2,
+    "2006": 2,
+    "2007": 7,
+    "2008": 10,
+    "2009": 17,
+    "2010": 20,
+    "2011": 34,
+    "2012": 297,
+    "2013": 283,
+    "2014": 162,
+    "2015": 142,
+    "2016": 214,
+    "2017": 141,
+    "2018": 83,
+    "2019": 76,
+    "2020": 93,
+    "2021": 36,
+    "2022": 2,
+    "2023": 749,
+    "2024": 4,
+    "2025": 60,
+    "2026": 4
+  },
+  "candidate_action_counts_overlapping": {
+    "hacking": 2113,
+    "malware": 1187,
+    "social": 462
+  },
+  "candidate_analysis_status_counts": {
+    "First pass": 672,
+    "Finalized": 1091,
+    "Ready for review": 10,
+    "None": 112,
+    "Reviewed": 560
+  },
+  "candidate_shared_summary_groups": 23,
+  "candidate_records_in_shared_summary_groups": 952,
+  "largest_shared_summary_groups": [
+    {
+      "normalized_summary": "moveit vulnerability exploited. data stolen.",
+      "records": 747
+    },
+    {
+      "normalized_summary": "incident associated with red october campaign. phishing email with malware attachment leading to infection, c2, credential compromise, and lateral movement through network. goal to steal classified info and secrets.",
+      "records": 88
+    },
+    {
+      "normalized_summary": "\"there is clearly a lot of data to go through, and this is just a preliminary report. databreaches also asked shinyhunters whether all of these victims had been contacted previously with ransom demands or if some might first be finding out today. he replied that all had been notified: all of them have been contacted long ago, they saw the email because i saw them download the samples multiple times. most of them chose to not disclose and ignore. it will now literally be leaked on the deadline if they do not engage before then.\"",
+      "records": 26
+    },
+    {
+      "normalized_summary": "denial of service attack",
+      "records": 23
+    },
+    {
+      "normalized_summary": "organized criminal group uses stolen customer credentials to access accounts and transfer money to actor-controlled cards that were then cashed out at us-based atms or fraudulent purchases.",
+      "records": 13
+    }
+  ],
+  "limits": [
+    "validated is the upstream structural validation label, not independent factual verification",
+    "references are present but their availability and factual support have not been verified",
+    "unique identifiers do not establish independent incidents; shared campaigns require grouping",
+    "three technical families is a proposed feasibility threshold, not an approved protocol",
+    "known labels are preserved verbatim; English taxonomy remains untranslated",
+    "candidate fields support answers according to the record, not exhaustive claims about the incident"
+  ]
+}

@@ -195,13 +195,12 @@ def verify(root=ROOT, variant_dir=VARIANT):
     else:
         print("RQ2 — budget per scenario (valutazioni nuove PROPOSTE)")
         groups = [
-            ("SC02-SC04 — senza tetto di token (nuove risposte)",
+            ("SC02-SC04 — senza tetto di token",
              lambda s, m: s != "SC05" and m != "FULL_HISTORY"),
-            ("SC05 — budget 200 token (risposte storiche riutilizzate)",
+            ("SC05 — budget 200 token",
              lambda s, m: s == "SC05" and m != "FULL_HISTORY"),
         ]
-    groups.append(("FULL_HISTORY — controllo diagnostico fuori budget" +
-                   (" (risposte storiche riutilizzate)" if variant_dir is not None else ""),
+    groups.append(("FULL_HISTORY — controllo diagnostico fuori budget per SC05",
                    lambda s, m: m == "FULL_HISTORY"))
     for title, include in groups:
         print("\n" + title)

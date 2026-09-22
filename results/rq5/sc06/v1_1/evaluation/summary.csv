@@ -1,0 +1,101 @@
+split,model_tag,condition,family,metric,numerator,denominator,rate,denominator_rule
+evaluation,gemma3:4b,sufficient,tutte,exact_match,1613,2016,0.8000992063492064,celle attese
+evaluation,gemma3:4b,sufficient,tutte,format_error,0,2016,0.0,celle attese
+evaluation,gemma3:4b,sufficient,tutte,unsupported_value,397,2016,0.19692460317460317,celle con output conforme
+evaluation,gemma3:4b,sufficient,tutte,cross_case_intrusion,1,1310,0.0007633587786259542,celle con output conforme e confusione rilevabile
+evaluation,gemma3:4b,sufficient,tutte,label_precision,2056,2634,0.7805618830675778,"etichette, celle con output conforme"
+evaluation,gemma3:4b,sufficient,tutte,label_recall,2056,2789,0.7371817855862316,"etichette, celle con output conforme"
+evaluation,gemma3:4b,sufficient,asset,exact_match,205,487,0.4209445585215606,celle attese
+evaluation,gemma3:4b,sufficient,asset,format_error,0,487,0.0,celle attese
+evaluation,gemma3:4b,sufficient,asset,unsupported_value,282,487,0.5790554414784395,celle con output conforme
+evaluation,gemma3:4b,sufficient,asset,cross_case_intrusion,1,449,0.0022271714922048997,celle con output conforme e confusione rilevabile
+evaluation,gemma3:4b,sufficient,asset,label_precision,314,776,0.40463917525773196,"etichette, celle con output conforme"
+evaluation,gemma3:4b,sufficient,asset,label_recall,314,788,0.39847715736040606,"etichette, celle con output conforme"
+evaluation,gemma3:4b,sufficient,data,exact_match,416,507,0.8205128205128205,celle attese
+evaluation,gemma3:4b,sufficient,data,format_error,0,507,0.0,celle attese
+evaluation,gemma3:4b,sufficient,data,unsupported_value,88,507,0.17357001972386588,celle con output conforme
+evaluation,gemma3:4b,sufficient,data,cross_case_intrusion,0,441,0.0,celle con output conforme e confusione rilevabile
+evaluation,gemma3:4b,sufficient,data,label_precision,564,652,0.8650306748466258,"etichette, celle con output conforme"
+evaluation,gemma3:4b,sufficient,data,label_recall,564,765,0.7372549019607844,"etichette, celle con output conforme"
+evaluation,gemma3:4b,sufficient,variety,exact_match,486,505,0.9623762376237623,celle attese
+evaluation,gemma3:4b,sufficient,variety,format_error,0,505,0.0,celle attese
+evaluation,gemma3:4b,sufficient,variety,unsupported_value,17,505,0.033663366336633666,celle con output conforme
+evaluation,gemma3:4b,sufficient,variety,cross_case_intrusion,0,249,0.0,celle con output conforme e confusione rilevabile
+evaluation,gemma3:4b,sufficient,variety,label_precision,646,664,0.9728915662650602,"etichette, celle con output conforme"
+evaluation,gemma3:4b,sufficient,variety,label_recall,646,684,0.9444444444444444,"etichette, celle con output conforme"
+evaluation,gemma3:4b,sufficient,vector,exact_match,506,517,0.9787234042553191,celle attese
+evaluation,gemma3:4b,sufficient,vector,format_error,0,517,0.0,celle attese
+evaluation,gemma3:4b,sufficient,vector,unsupported_value,10,517,0.019342359767891684,celle con output conforme
+evaluation,gemma3:4b,sufficient,vector,cross_case_intrusion,0,171,0.0,celle con output conforme e confusione rilevabile
+evaluation,gemma3:4b,sufficient,vector,label_precision,532,542,0.981549815498155,"etichette, celle con output conforme"
+evaluation,gemma3:4b,sufficient,vector,label_recall,532,552,0.9637681159420289,"etichette, celle con output conforme"
+evaluation,gemma3:4b,insufficient,tutte,correct_abstention,1721,2016,0.8536706349206349,celle attese
+evaluation,gemma3:4b,insufficient,tutte,format_error,0,2016,0.0,celle attese
+evaluation,gemma3:4b,insufficient,tutte,unsupported_value,295,2016,0.1463293650793651,celle con output conforme
+evaluation,gemma3:4b,insufficient,tutte,cross_case_intrusion,149,1310,0.11374045801526718,celle con output conforme e confusione rilevabile
+evaluation,gemma3:4b,insufficient,asset,correct_abstention,471,487,0.9671457905544147,celle attese
+evaluation,gemma3:4b,insufficient,asset,format_error,0,487,0.0,celle attese
+evaluation,gemma3:4b,insufficient,asset,unsupported_value,16,487,0.03285420944558522,celle con output conforme
+evaluation,gemma3:4b,insufficient,asset,cross_case_intrusion,5,449,0.011135857461024499,celle con output conforme e confusione rilevabile
+evaluation,gemma3:4b,insufficient,data,correct_abstention,481,507,0.9487179487179487,celle attese
+evaluation,gemma3:4b,insufficient,data,format_error,0,507,0.0,celle attese
+evaluation,gemma3:4b,insufficient,data,unsupported_value,26,507,0.05128205128205128,celle con output conforme
+evaluation,gemma3:4b,insufficient,data,cross_case_intrusion,13,441,0.02947845804988662,celle con output conforme e confusione rilevabile
+evaluation,gemma3:4b,insufficient,variety,correct_abstention,380,505,0.7524752475247525,celle attese
+evaluation,gemma3:4b,insufficient,variety,format_error,0,505,0.0,celle attese
+evaluation,gemma3:4b,insufficient,variety,unsupported_value,125,505,0.24752475247524752,celle con output conforme
+evaluation,gemma3:4b,insufficient,variety,cross_case_intrusion,81,249,0.3253012048192771,celle con output conforme e confusione rilevabile
+evaluation,gemma3:4b,insufficient,vector,correct_abstention,389,517,0.7524177949709865,celle attese
+evaluation,gemma3:4b,insufficient,vector,format_error,0,517,0.0,celle attese
+evaluation,gemma3:4b,insufficient,vector,unsupported_value,128,517,0.24758220502901354,celle con output conforme
+evaluation,gemma3:4b,insufficient,vector,cross_case_intrusion,50,171,0.29239766081871343,celle con output conforme e confusione rilevabile
+evaluation,llama3.2:3b,sufficient,tutte,exact_match,1604,2016,0.7956349206349206,celle attese
+evaluation,llama3.2:3b,sufficient,tutte,format_error,14,2016,0.006944444444444444,celle attese
+evaluation,llama3.2:3b,sufficient,tutte,unsupported_value,393,2002,0.1963036963036963,celle con output conforme
+evaluation,llama3.2:3b,sufficient,tutte,cross_case_intrusion,23,1297,0.017733230531996914,celle con output conforme e confusione rilevabile
+evaluation,llama3.2:3b,sufficient,tutte,label_precision,2139,2829,0.7560975609756098,"etichette, celle con output conforme"
+evaluation,llama3.2:3b,sufficient,tutte,label_recall,2139,2755,0.7764065335753176,"etichette, celle con output conforme"
+evaluation,llama3.2:3b,sufficient,asset,exact_match,146,487,0.2997946611909651,celle attese
+evaluation,llama3.2:3b,sufficient,asset,format_error,13,487,0.026694045174537988,celle attese
+evaluation,llama3.2:3b,sufficient,asset,unsupported_value,328,474,0.6919831223628692,celle con output conforme
+evaluation,llama3.2:3b,sufficient,asset,cross_case_intrusion,3,436,0.006880733944954129,celle con output conforme e confusione rilevabile
+evaluation,llama3.2:3b,sufficient,asset,label_precision,197,801,0.2459425717852684,"etichette, celle con output conforme"
+evaluation,llama3.2:3b,sufficient,asset,label_recall,197,755,0.2609271523178808,"etichette, celle con output conforme"
+evaluation,llama3.2:3b,sufficient,data,exact_match,492,507,0.9704142011834319,celle attese
+evaluation,llama3.2:3b,sufficient,data,format_error,0,507,0.0,celle attese
+evaluation,llama3.2:3b,sufficient,data,unsupported_value,13,507,0.02564102564102564,celle con output conforme
+evaluation,llama3.2:3b,sufficient,data,cross_case_intrusion,4,441,0.009070294784580499,celle con output conforme e confusione rilevabile
+evaluation,llama3.2:3b,sufficient,data,label_precision,745,761,0.9789750328515112,"etichette, celle con output conforme"
+evaluation,llama3.2:3b,sufficient,data,label_recall,745,765,0.9738562091503268,"etichette, celle con output conforme"
+evaluation,llama3.2:3b,sufficient,variety,exact_match,483,505,0.9564356435643564,celle attese
+evaluation,llama3.2:3b,sufficient,variety,format_error,0,505,0.0,celle attese
+evaluation,llama3.2:3b,sufficient,variety,unsupported_value,20,505,0.039603960396039604,celle con output conforme
+evaluation,llama3.2:3b,sufficient,variety,cross_case_intrusion,5,249,0.020080321285140562,celle con output conforme e confusione rilevabile
+evaluation,llama3.2:3b,sufficient,variety,label_precision,661,687,0.9621542940320232,"etichette, celle con output conforme"
+evaluation,llama3.2:3b,sufficient,variety,label_recall,661,684,0.966374269005848,"etichette, celle con output conforme"
+evaluation,llama3.2:3b,sufficient,vector,exact_match,483,517,0.9342359767891683,celle attese
+evaluation,llama3.2:3b,sufficient,vector,format_error,1,517,0.0019342359767891683,celle attese
+evaluation,llama3.2:3b,sufficient,vector,unsupported_value,32,516,0.06201550387596899,celle con output conforme
+evaluation,llama3.2:3b,sufficient,vector,cross_case_intrusion,11,171,0.06432748538011696,celle con output conforme e confusione rilevabile
+evaluation,llama3.2:3b,sufficient,vector,label_precision,536,580,0.9241379310344827,"etichette, celle con output conforme"
+evaluation,llama3.2:3b,sufficient,vector,label_recall,536,551,0.9727767695099818,"etichette, celle con output conforme"
+evaluation,llama3.2:3b,insufficient,tutte,correct_abstention,1527,2016,0.7574404761904762,celle attese
+evaluation,llama3.2:3b,insufficient,tutte,format_error,9,2016,0.004464285714285714,celle attese
+evaluation,llama3.2:3b,insufficient,tutte,unsupported_value,480,2007,0.23916292974588937,celle con output conforme
+evaluation,llama3.2:3b,insufficient,tutte,cross_case_intrusion,313,1301,0.24058416602613375,celle con output conforme e confusione rilevabile
+evaluation,llama3.2:3b,insufficient,asset,correct_abstention,304,487,0.6242299794661191,celle attese
+evaluation,llama3.2:3b,insufficient,asset,format_error,9,487,0.018480492813141684,celle attese
+evaluation,llama3.2:3b,insufficient,asset,unsupported_value,174,478,0.36401673640167365,celle con output conforme
+evaluation,llama3.2:3b,insufficient,asset,cross_case_intrusion,63,440,0.1431818181818182,celle con output conforme e confusione rilevabile
+evaluation,llama3.2:3b,insufficient,data,correct_abstention,359,507,0.7080867850098619,celle attese
+evaluation,llama3.2:3b,insufficient,data,format_error,0,507,0.0,celle attese
+evaluation,llama3.2:3b,insufficient,data,unsupported_value,148,507,0.29191321499013806,celle con output conforme
+evaluation,llama3.2:3b,insufficient,data,cross_case_intrusion,129,441,0.2925170068027211,celle con output conforme e confusione rilevabile
+evaluation,llama3.2:3b,insufficient,variety,correct_abstention,403,505,0.7980198019801981,celle attese
+evaluation,llama3.2:3b,insufficient,variety,format_error,0,505,0.0,celle attese
+evaluation,llama3.2:3b,insufficient,variety,unsupported_value,102,505,0.201980198019802,celle con output conforme
+evaluation,llama3.2:3b,insufficient,variety,cross_case_intrusion,85,249,0.3413654618473896,celle con output conforme e confusione rilevabile
+evaluation,llama3.2:3b,insufficient,vector,correct_abstention,461,517,0.8916827852998066,celle attese
+evaluation,llama3.2:3b,insufficient,vector,format_error,0,517,0.0,celle attese
+evaluation,llama3.2:3b,insufficient,vector,unsupported_value,56,517,0.10831721470019343,celle con output conforme
+evaluation,llama3.2:3b,insufficient,vector,cross_case_intrusion,36,171,0.21052631578947367,celle con output conforme e confusione rilevabile

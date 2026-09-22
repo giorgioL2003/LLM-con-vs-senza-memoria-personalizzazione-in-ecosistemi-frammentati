@@ -1,0 +1,251 @@
+{
+  "config_id": "rq5-sc06-v1.1",
+  "status": "frozen_for_implementation_not_executed",
+  "frozen_on": "2026-09-22",
+  "version": {
+    "derived_from": "rq5-sc06-v1.0",
+    "change": "prompt.system: aggiunta la regola sulle etichette composte. Nessun altro campo della configurazione cambia.",
+    "reason": "Nel development v1.0 i modelli hanno diviso, abbreviato o privato del prefisso etichette composte come quelle con un prefisso seguito da trattino.",
+    "unchanged": [
+      "source",
+      "split",
+      "conditions",
+      "context_builder",
+      "models",
+      "runtime",
+      "evaluation",
+      "performance",
+      "call_counts",
+      "execution_gates"
+    ],
+    "artifacts_kept_separate": {
+      "inputs": "data/rq3/sc06_rq5_v1_1",
+      "results": "results/rq5/sc06/v1_1"
+    }
+  },
+  "research_question": "A parita di contesto recuperato, come varia la capacita di produrre una risposta corretta e supportata al variare del modello generativo?",
+  "scope": {
+    "domain": "cybersecurity",
+    "dataset": "VERIS Community Database",
+    "scenario": "SC06",
+    "comparison_factor": "response_model",
+    "held_constant": [
+      "dataset split",
+      "question",
+      "context text within each condition",
+      "system instruction",
+      "output schema",
+      "generation options"
+    ],
+    "excluded_claims": [
+      "general ranking of the two model families",
+      "retrieval quality comparison",
+      "memory architecture comparison",
+      "handling of obsolete or updated facts",
+      "representativeness of real-world cyber incidents"
+    ]
+  },
+  "source": {
+    "vcdb_commit": "230cf22b56a481dd1a994b21e4d94c59e2bccea9",
+    "vcdb_license": "CC-BY-SA-4.0",
+    "episodes_path": "data/rq3/sc06_design_v1/episodes.jsonl",
+    "episodes_sha256": "47204bd054598b82b382dc01160ca4b181736d1f351c1213dbdf54471507a974",
+    "queries_path": "data/rq3/sc06_design_v1/queries.jsonl",
+    "queries_sha256": "7c9f615eadaace49e137e8a87d4677eb6e4dca80b317540bbbcf59a9652d7b9d",
+    "oracle_path": "data/rq3/sc06_design_v1/oracle_questions.jsonl",
+    "oracle_sha256": "8e854ff1a85a11f6831794bffc084f5e069295bb80a7f1721e4620236d51d0c1",
+    "case_mapping_path": "data/rq3/sc06_design_v1/case_mapping.jsonl",
+    "case_mapping_sha256": "74e4cd791063865972ff6cbec20314233b4131688ba8274f1b1c81d5fcf93b24"
+  },
+  "split": {
+    "rule": "episode number, fixed before model execution",
+    "development": {
+      "episodes": "SC06-E001..SC06-E012",
+      "episode_count": 12,
+      "case_count": 36,
+      "question_count_per_condition": 108,
+      "use": "prompt, parser, runtime and cost checks only; excluded from final results"
+    },
+    "evaluation": {
+      "episodes": "SC06-E013..SC06-E236",
+      "episode_count": 224,
+      "case_count": 672,
+      "question_count_per_condition": 2016,
+      "question_family_counts": {
+        "asset": 487,
+        "data": 507,
+        "variety": 505,
+        "vector": 517
+      },
+      "questions_with_detectable_cross_case_values": 1310
+    }
+  },
+  "conditions": {
+    "sufficient": {
+      "target_evidence": "include the exact field value block for the requested case",
+      "distractors": "include one deterministic block for each of the other two cases",
+      "expected_behavior": "return all and only the target values"
+    },
+    "insufficient": {
+      "target_evidence": "omit every block for the requested case",
+      "distractors": "use exactly the same two other-case blocks as in sufficient",
+      "expected_behavior": "return an empty values list"
+    }
+  },
+  "context_builder": {
+    "builder_seed": "RQ5-SC06-context-v1",
+    "block_format": "{case_alias}.\n- {field_label}: {semicolon_separated_values}",
+    "field_labels": {
+      "action.hacking.variety": "Tipologie di hacking",
+      "action.hacking.vector": "Vettori di hacking",
+      "action.malware.variety": "Tipologie di malware",
+      "action.malware.vector": "Vettori di malware",
+      "action.social.variety": "Tipologie di ingegneria sociale",
+      "action.social.vector": "Vettori di ingegneria sociale",
+      "asset.assets[].variety": "Tipi di risorse coinvolte",
+      "attribute.confidentiality.data[].variety": "Categorie di dati"
+    },
+    "distractor_rule": "For each other case, use the queried field when present; otherwise use the lexicographically first available field.",
+    "ordering_rule": "Sort all included blocks by SHA-256 of builder_seed + ':' + question_id + ':' + case_alias.",
+    "context_markers": {
+      "open": "CONTEXT",
+      "question": "QUESTION"
+    },
+    "forbidden_prompt_inputs": [
+      "expected_values",
+      "detectable_cross_case_intrusion_values",
+      "source_path",
+      "reference",
+      "incident_id"
+    ]
+  },
+  "prompt": {
+    "system": "Usa esclusivamente le informazioni presenti in CONTEXT. Le etichette Caso A, Caso B e Caso C identificano casi distinti. Non usare conoscenze pregresse. Restituisci tutti e soli i valori riportati esplicitamente per il caso e il campo richiesti, conservandone la grafia. Nel CONTEXT il punto e virgola separa etichette distinte. Ogni etichetta deve essere restituita come un singolo elemento dell'array. Prefissi, trattini e testo successivo appartengono alla stessa etichetta e devono essere conservati integralmente. Non dividere, abbreviare o rimuovere parti di un'etichetta. Se l'informazione richiesta non e presente, restituisci una lista vuota. Restituisci soltanto un oggetto JSON conforme allo schema richiesto.",
+    "user_template": "CONTEXT\n{context}\n\nQUESTION\n{question}",
+    "response_schema": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "values"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "models": [
+    {
+      "display_name": "Gemma 3 4B IT",
+      "developer": "Google",
+      "ollama_tag": "gemma3:4b",
+      "ollama_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "parameters": "4.3B",
+      "quantization": "Q4_K_M"
+    },
+    {
+      "display_name": "Llama 3.2 3B Instruct",
+      "developer": "Meta",
+      "ollama_tag": "llama3.2:3b",
+      "ollama_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "parameters": "3.2B",
+      "quantization": "Q4_K_M"
+    }
+  ],
+  "runtime": {
+    "engine": "Ollama",
+    "verified_version": "0.34.2",
+    "endpoint": "http://127.0.0.1:11434/api/chat",
+    "stream": false,
+    "keep_alive": "10m",
+    "format": "use prompt.response_schema as the Ollama format value",
+    "one_model_loaded_at_a_time": true,
+    "model_order": [
+      "gemma3:4b",
+      "llama3.2:3b"
+    ],
+    "request_order": "question_id ascending, sufficient then insufficient",
+    "warmup_requests_per_model": 3,
+    "warmup_in_results": false,
+    "options": {
+      "temperature": 0,
+      "seed": 42,
+      "num_ctx": 4096,
+      "num_predict": 128
+    },
+    "repetitions_per_model_condition_question": 1,
+    "note": "One deterministic generation per cell is not a replication. Internal templates and tokenization remain model-specific."
+  },
+  "evaluation": {
+    "normalization": {
+      "json_object_must_have_only_values_key": true,
+      "values_must_be_list_of_strings": true,
+      "strip_outer_whitespace": true,
+      "unicode_normalization": "NFC",
+      "case_sensitive": true,
+      "ignore_order": true,
+      "ignore_duplicate_values": true,
+      "translate_labels": false
+    },
+    "primary_metrics": {
+      "sufficient_exact_match_rate": "predicted normalized set equals expected set",
+      "insufficient_correct_abstention_rate": "predicted normalized set is empty"
+    },
+    "secondary_metrics": {
+      "label_precision": "sufficient condition only",
+      "label_recall": "sufficient condition only",
+      "unsupported_value_rate": "any value outside the expected set; any non-empty value in insufficient",
+      "cross_case_intrusion_rate": "wrong values matching another case in the episode; report only on detectable subset",
+      "format_error_rate": "raw output cannot be validated against the response schema"
+    },
+    "report_separately_by": [
+      "condition",
+      "model",
+      "question_family"
+    ],
+    "paired_comparison": {
+      "effect": "absolute percentage-point difference between models",
+      "confidence_interval": "95% cluster bootstrap resampling episodes",
+      "bootstrap_repetitions": 10000,
+      "bootstrap_seed": 20260922,
+      "p_values": false
+    },
+    "independence_rule": "The episode is the resampling unit; nine questions from one episode are not nine independent replications.",
+    "forbidden_aggregation": "Do not combine sufficient and insufficient into one score and do not average SC06 with SC01-SC05."
+  },
+  "performance": {
+    "status": "secondary_exploratory",
+    "log_ollama_fields": [
+      "total_duration",
+      "load_duration",
+      "prompt_eval_count",
+      "prompt_eval_cached_count",
+      "prompt_eval_duration",
+      "eval_count",
+      "eval_duration"
+    ],
+    "summaries": [
+      "median total duration excluding warmup",
+      "p95 total duration excluding warmup",
+      "generated tokens per second from eval_count/eval_duration"
+    ],
+    "memory_proxy": "Record size and size_vram from Ollama /api/ps once after loading each model.",
+    "limitation": "Ollama size_vram is an allocation reported by the runtime, not measured peak RAM; do not present it as peak memory consumption."
+  },
+  "call_counts": {
+    "development_maximum": 432,
+    "evaluation": 8064,
+    "formula_evaluation": "2016 questions x 2 conditions x 2 models"
+  },
+  "execution_gates": [
+    "Build requests and oracle as separate files.",
+    "Validate hashes, split counts, prompt leakage, block ordering and expected call counts offline.",
+    "Run development split only and inspect failures before freezing implementation version.",
+    "Do not change prompt, context builder, model tags, options or evaluator after starting evaluation; create a new config_id if a change is required.",
+    "Preserve every raw request, raw response, error and runtime metadata; support resume without duplicating completed cells."
+  ]
+}

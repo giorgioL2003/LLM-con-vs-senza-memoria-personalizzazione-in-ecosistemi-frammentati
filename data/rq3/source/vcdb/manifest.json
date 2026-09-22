@@ -1,0 +1,13 @@
+{
+  "repository": "https://github.com/vz-risk/VCDB",
+  "commit": "230cf22b56a481dd1a994b21e4d94c59e2bccea9",
+  "commit_date": "2026-08-04T00:05:58Z",
+  "download_url": "https://codeload.github.com/vz-risk/VCDB/tar.gz/230cf22b56a481dd1a994b21e4d94c59e2bccea9",
+  "archive_filename": "230cf22b56a481dd1a994b21e4d94c59e2bccea9.tar.gz",
+  "archive_bytes": 48988024,
+  "archive_sha256": "5482883837cf02bb3792eff3d6b25ec59d9d72f5c081efaed18d7efbfdadf4c7",
+  "license_as_declared_upstream": "CC-BY-SA-4.0",
+  "attribution": "VERIS Community Database (VCDB), vz-risk contributors",
+  "audit_script": "scripts/rq3/audit_vcdb.py",
+  "transformations": "Original archive retained; selected records copied unchanged inside candidates.jsonl; field projections and audit metadata added."
+}

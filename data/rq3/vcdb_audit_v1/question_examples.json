@@ -1,0 +1,105 @@
+[
+  {
+    "status": "illustrative_not_evaluation",
+    "incident_id": "0012CC25-9167-40D8-8FE3-3D0DFD8FB6BB",
+    "source_path": "data/json/validated/0012CC25-9167-40D8-8FE3-3D0DFD8FB6BB.json",
+    "evidence_field": "action.hacking.vector",
+    "question": "Quali vettori sono registrati sotto hacking nella scheda del caso 0012CC25-9167-40D8-8FE3-3D0DFD8FB6BB?",
+    "expected_record_values": [
+      "Web application"
+    ]
+  },
+  {
+    "status": "illustrative_not_evaluation",
+    "incident_id": "0012CC25-9167-40D8-8FE3-3D0DFD8FB6BB",
+    "source_path": "data/json/validated/0012CC25-9167-40D8-8FE3-3D0DFD8FB6BB.json",
+    "evidence_field": "asset.assets[].variety",
+    "question": "Quali tipi di risorse coinvolte sono registrati nella scheda del caso 0012CC25-9167-40D8-8FE3-3D0DFD8FB6BB?",
+    "expected_record_values": [
+      "S - Web application"
+    ]
+  },
+  {
+    "status": "illustrative_not_evaluation",
+    "incident_id": "0012CC25-9167-40D8-8FE3-3D0DFD8FB6BB",
+    "source_path": "data/json/validated/0012CC25-9167-40D8-8FE3-3D0DFD8FB6BB.json",
+    "evidence_field": "attribute.confidentiality.data[].variety",
+    "question": "Quali categorie di dati sono registrate nella scheda del caso 0012CC25-9167-40D8-8FE3-3D0DFD8FB6BB?",
+    "expected_record_values": [
+      "Personal"
+    ]
+  },
+  {
+    "status": "illustrative_not_evaluation",
+    "incident_id": "44293100-d2f9-11e8-9b3a-b50b161886e9",
+    "source_path": "data/json/validated/00fd327e-6929-4b23-9c52-763bdee14080.json",
+    "evidence_field": "action.malware.variety",
+    "question": "Quali tipologie sono registrate sotto malware nella scheda del caso 44293100-d2f9-11e8-9b3a-b50b161886e9?",
+    "expected_record_values": [
+      "Capture app data",
+      "RAM scraper"
+    ]
+  },
+  {
+    "status": "illustrative_not_evaluation",
+    "incident_id": "44293100-d2f9-11e8-9b3a-b50b161886e9",
+    "source_path": "data/json/validated/00fd327e-6929-4b23-9c52-763bdee14080.json",
+    "evidence_field": "asset.assets[].variety",
+    "question": "Quali tipi di risorse coinvolte sono registrati nella scheda del caso 44293100-d2f9-11e8-9b3a-b50b161886e9?",
+    "expected_record_values": [
+      "S - POS controller",
+      "U - POS terminal"
+    ]
+  },
+  {
+    "status": "illustrative_not_evaluation",
+    "incident_id": "44293100-d2f9-11e8-9b3a-b50b161886e9",
+    "source_path": "data/json/validated/00fd327e-6929-4b23-9c52-763bdee14080.json",
+    "evidence_field": "attribute.confidentiality.data[].variety",
+    "question": "Quali categorie di dati sono registrate nella scheda del caso 44293100-d2f9-11e8-9b3a-b50b161886e9?",
+    "expected_record_values": [
+      "Payment"
+    ]
+  },
+  {
+    "status": "illustrative_not_evaluation",
+    "incident_id": "7FBE1079-2038-4742-AD27-9F247E00D4D7",
+    "source_path": "data/json/validated/0068196B-AE14-4568-B7ED-6AB008B5906A.json",
+    "evidence_field": "action.social.variety",
+    "question": "Quali tipologie sono registrate sotto social nella scheda del caso 7FBE1079-2038-4742-AD27-9F247E00D4D7?",
+    "expected_record_values": [
+      "Pretexting"
+    ]
+  },
+  {
+    "status": "illustrative_not_evaluation",
+    "incident_id": "7FBE1079-2038-4742-AD27-9F247E00D4D7",
+    "source_path": "data/json/validated/0068196B-AE14-4568-B7ED-6AB008B5906A.json",
+    "evidence_field": "action.social.vector",
+    "question": "Quali vettori sono registrati sotto social nella scheda del caso 7FBE1079-2038-4742-AD27-9F247E00D4D7?",
+    "expected_record_values": [
+      "Phone"
+    ]
+  },
+  {
+    "status": "illustrative_not_evaluation",
+    "incident_id": "7FBE1079-2038-4742-AD27-9F247E00D4D7",
+    "source_path": "data/json/validated/0068196B-AE14-4568-B7ED-6AB008B5906A.json",
+    "evidence_field": "asset.assets[].variety",
+    "question": "Quali tipi di risorse coinvolte sono registrati nella scheda del caso 7FBE1079-2038-4742-AD27-9F247E00D4D7?",
+    "expected_record_values": [
+      "P - Manager",
+      "S - Mail"
+    ]
+  },
+  {
+    "status": "illustrative_not_evaluation",
+    "incident_id": "7FBE1079-2038-4742-AD27-9F247E00D4D7",
+    "source_path": "data/json/validated/0068196B-AE14-4568-B7ED-6AB008B5906A.json",
+    "evidence_field": "attribute.confidentiality.data[].variety",
+    "question": "Quali categorie di dati sono registrate nella scheda del caso 7FBE1079-2038-4742-AD27-9F247E00D4D7?",
+    "expected_record_values": [
+      "Internal"
+    ]
+  }
+]

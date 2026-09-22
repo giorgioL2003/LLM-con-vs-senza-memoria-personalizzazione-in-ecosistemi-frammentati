@@ -1,0 +1,1206 @@
+{
+  "config_id": "rq5-sc06-v1.1",
+  "counts": {
+    "expected": 8064,
+    "format_error": 23,
+    "missing": 0,
+    "ok": 8064
+  },
+  "forbidden_aggregation": "Do not combine sufficient and insufficient into one score and do not average SC06 with SC01-SC05.",
+  "generated_at": "2026-09-22T11:53:06Z",
+  "independence_rule": "The episode is the resampling unit; nine questions from one episode are not nine independent replications.",
+  "judge_model_used": false,
+  "metrics": [
+    {
+      "condition": "sufficient",
+      "denominator": 2016,
+      "denominator_rule": "celle attese",
+      "family": "tutte",
+      "metric": "exact_match",
+      "model_tag": "gemma3:4b",
+      "numerator": 1613,
+      "rate": 0.8000992063492064
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 2016,
+      "denominator_rule": "celle attese",
+      "family": "tutte",
+      "metric": "format_error",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 2016,
+      "denominator_rule": "celle con output conforme",
+      "family": "tutte",
+      "metric": "unsupported_value",
+      "model_tag": "gemma3:4b",
+      "numerator": 397,
+      "rate": 0.19692460317460317
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 1310,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "tutte",
+      "metric": "cross_case_intrusion",
+      "model_tag": "gemma3:4b",
+      "numerator": 1,
+      "rate": 0.0007633587786259542
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 2634,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "tutte",
+      "metric": "label_precision",
+      "model_tag": "gemma3:4b",
+      "numerator": 2056,
+      "rate": 0.7805618830675778
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 2789,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "tutte",
+      "metric": "label_recall",
+      "model_tag": "gemma3:4b",
+      "numerator": 2056,
+      "rate": 0.7371817855862316
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 487,
+      "denominator_rule": "celle attese",
+      "family": "asset",
+      "metric": "exact_match",
+      "model_tag": "gemma3:4b",
+      "numerator": 205,
+      "rate": 0.4209445585215606
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 487,
+      "denominator_rule": "celle attese",
+      "family": "asset",
+      "metric": "format_error",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 487,
+      "denominator_rule": "celle con output conforme",
+      "family": "asset",
+      "metric": "unsupported_value",
+      "model_tag": "gemma3:4b",
+      "numerator": 282,
+      "rate": 0.5790554414784395
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 449,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "asset",
+      "metric": "cross_case_intrusion",
+      "model_tag": "gemma3:4b",
+      "numerator": 1,
+      "rate": 0.0022271714922048997
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 776,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "asset",
+      "metric": "label_precision",
+      "model_tag": "gemma3:4b",
+      "numerator": 314,
+      "rate": 0.40463917525773196
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 788,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "asset",
+      "metric": "label_recall",
+      "model_tag": "gemma3:4b",
+      "numerator": 314,
+      "rate": 0.39847715736040606
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 507,
+      "denominator_rule": "celle attese",
+      "family": "data",
+      "metric": "exact_match",
+      "model_tag": "gemma3:4b",
+      "numerator": 416,
+      "rate": 0.8205128205128205
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 507,
+      "denominator_rule": "celle attese",
+      "family": "data",
+      "metric": "format_error",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 507,
+      "denominator_rule": "celle con output conforme",
+      "family": "data",
+      "metric": "unsupported_value",
+      "model_tag": "gemma3:4b",
+      "numerator": 88,
+      "rate": 0.17357001972386588
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 441,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "data",
+      "metric": "cross_case_intrusion",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 652,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "data",
+      "metric": "label_precision",
+      "model_tag": "gemma3:4b",
+      "numerator": 564,
+      "rate": 0.8650306748466258
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 765,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "data",
+      "metric": "label_recall",
+      "model_tag": "gemma3:4b",
+      "numerator": 564,
+      "rate": 0.7372549019607844
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 505,
+      "denominator_rule": "celle attese",
+      "family": "variety",
+      "metric": "exact_match",
+      "model_tag": "gemma3:4b",
+      "numerator": 486,
+      "rate": 0.9623762376237623
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 505,
+      "denominator_rule": "celle attese",
+      "family": "variety",
+      "metric": "format_error",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 505,
+      "denominator_rule": "celle con output conforme",
+      "family": "variety",
+      "metric": "unsupported_value",
+      "model_tag": "gemma3:4b",
+      "numerator": 17,
+      "rate": 0.033663366336633666
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 249,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "variety",
+      "metric": "cross_case_intrusion",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 664,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "variety",
+      "metric": "label_precision",
+      "model_tag": "gemma3:4b",
+      "numerator": 646,
+      "rate": 0.9728915662650602
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 684,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "variety",
+      "metric": "label_recall",
+      "model_tag": "gemma3:4b",
+      "numerator": 646,
+      "rate": 0.9444444444444444
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 517,
+      "denominator_rule": "celle attese",
+      "family": "vector",
+      "metric": "exact_match",
+      "model_tag": "gemma3:4b",
+      "numerator": 506,
+      "rate": 0.9787234042553191
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 517,
+      "denominator_rule": "celle attese",
+      "family": "vector",
+      "metric": "format_error",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 517,
+      "denominator_rule": "celle con output conforme",
+      "family": "vector",
+      "metric": "unsupported_value",
+      "model_tag": "gemma3:4b",
+      "numerator": 10,
+      "rate": 0.019342359767891684
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 171,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "vector",
+      "metric": "cross_case_intrusion",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 542,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "vector",
+      "metric": "label_precision",
+      "model_tag": "gemma3:4b",
+      "numerator": 532,
+      "rate": 0.981549815498155
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 552,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "vector",
+      "metric": "label_recall",
+      "model_tag": "gemma3:4b",
+      "numerator": 532,
+      "rate": 0.9637681159420289
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 2016,
+      "denominator_rule": "celle attese",
+      "family": "tutte",
+      "metric": "correct_abstention",
+      "model_tag": "gemma3:4b",
+      "numerator": 1721,
+      "rate": 0.8536706349206349
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 2016,
+      "denominator_rule": "celle attese",
+      "family": "tutte",
+      "metric": "format_error",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 2016,
+      "denominator_rule": "celle con output conforme",
+      "family": "tutte",
+      "metric": "unsupported_value",
+      "model_tag": "gemma3:4b",
+      "numerator": 295,
+      "rate": 0.1463293650793651
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 1310,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "tutte",
+      "metric": "cross_case_intrusion",
+      "model_tag": "gemma3:4b",
+      "numerator": 149,
+      "rate": 0.11374045801526718
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 487,
+      "denominator_rule": "celle attese",
+      "family": "asset",
+      "metric": "correct_abstention",
+      "model_tag": "gemma3:4b",
+      "numerator": 471,
+      "rate": 0.9671457905544147
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 487,
+      "denominator_rule": "celle attese",
+      "family": "asset",
+      "metric": "format_error",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 487,
+      "denominator_rule": "celle con output conforme",
+      "family": "asset",
+      "metric": "unsupported_value",
+      "model_tag": "gemma3:4b",
+      "numerator": 16,
+      "rate": 0.03285420944558522
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 449,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "asset",
+      "metric": "cross_case_intrusion",
+      "model_tag": "gemma3:4b",
+      "numerator": 5,
+      "rate": 0.011135857461024499
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 507,
+      "denominator_rule": "celle attese",
+      "family": "data",
+      "metric": "correct_abstention",
+      "model_tag": "gemma3:4b",
+      "numerator": 481,
+      "rate": 0.9487179487179487
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 507,
+      "denominator_rule": "celle attese",
+      "family": "data",
+      "metric": "format_error",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 507,
+      "denominator_rule": "celle con output conforme",
+      "family": "data",
+      "metric": "unsupported_value",
+      "model_tag": "gemma3:4b",
+      "numerator": 26,
+      "rate": 0.05128205128205128
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 441,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "data",
+      "metric": "cross_case_intrusion",
+      "model_tag": "gemma3:4b",
+      "numerator": 13,
+      "rate": 0.02947845804988662
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 505,
+      "denominator_rule": "celle attese",
+      "family": "variety",
+      "metric": "correct_abstention",
+      "model_tag": "gemma3:4b",
+      "numerator": 380,
+      "rate": 0.7524752475247525
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 505,
+      "denominator_rule": "celle attese",
+      "family": "variety",
+      "metric": "format_error",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 505,
+      "denominator_rule": "celle con output conforme",
+      "family": "variety",
+      "metric": "unsupported_value",
+      "model_tag": "gemma3:4b",
+      "numerator": 125,
+      "rate": 0.24752475247524752
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 249,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "variety",
+      "metric": "cross_case_intrusion",
+      "model_tag": "gemma3:4b",
+      "numerator": 81,
+      "rate": 0.3253012048192771
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 517,
+      "denominator_rule": "celle attese",
+      "family": "vector",
+      "metric": "correct_abstention",
+      "model_tag": "gemma3:4b",
+      "numerator": 389,
+      "rate": 0.7524177949709865
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 517,
+      "denominator_rule": "celle attese",
+      "family": "vector",
+      "metric": "format_error",
+      "model_tag": "gemma3:4b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 517,
+      "denominator_rule": "celle con output conforme",
+      "family": "vector",
+      "metric": "unsupported_value",
+      "model_tag": "gemma3:4b",
+      "numerator": 128,
+      "rate": 0.24758220502901354
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 171,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "vector",
+      "metric": "cross_case_intrusion",
+      "model_tag": "gemma3:4b",
+      "numerator": 50,
+      "rate": 0.29239766081871343
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 2016,
+      "denominator_rule": "celle attese",
+      "family": "tutte",
+      "metric": "exact_match",
+      "model_tag": "llama3.2:3b",
+      "numerator": 1604,
+      "rate": 0.7956349206349206
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 2016,
+      "denominator_rule": "celle attese",
+      "family": "tutte",
+      "metric": "format_error",
+      "model_tag": "llama3.2:3b",
+      "numerator": 14,
+      "rate": 0.006944444444444444
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 2002,
+      "denominator_rule": "celle con output conforme",
+      "family": "tutte",
+      "metric": "unsupported_value",
+      "model_tag": "llama3.2:3b",
+      "numerator": 393,
+      "rate": 0.1963036963036963
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 1297,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "tutte",
+      "metric": "cross_case_intrusion",
+      "model_tag": "llama3.2:3b",
+      "numerator": 23,
+      "rate": 0.017733230531996914
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 2829,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "tutte",
+      "metric": "label_precision",
+      "model_tag": "llama3.2:3b",
+      "numerator": 2139,
+      "rate": 0.7560975609756098
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 2755,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "tutte",
+      "metric": "label_recall",
+      "model_tag": "llama3.2:3b",
+      "numerator": 2139,
+      "rate": 0.7764065335753176
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 487,
+      "denominator_rule": "celle attese",
+      "family": "asset",
+      "metric": "exact_match",
+      "model_tag": "llama3.2:3b",
+      "numerator": 146,
+      "rate": 0.2997946611909651
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 487,
+      "denominator_rule": "celle attese",
+      "family": "asset",
+      "metric": "format_error",
+      "model_tag": "llama3.2:3b",
+      "numerator": 13,
+      "rate": 0.026694045174537988
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 474,
+      "denominator_rule": "celle con output conforme",
+      "family": "asset",
+      "metric": "unsupported_value",
+      "model_tag": "llama3.2:3b",
+      "numerator": 328,
+      "rate": 0.6919831223628692
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 436,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "asset",
+      "metric": "cross_case_intrusion",
+      "model_tag": "llama3.2:3b",
+      "numerator": 3,
+      "rate": 0.006880733944954129
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 801,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "asset",
+      "metric": "label_precision",
+      "model_tag": "llama3.2:3b",
+      "numerator": 197,
+      "rate": 0.2459425717852684
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 755,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "asset",
+      "metric": "label_recall",
+      "model_tag": "llama3.2:3b",
+      "numerator": 197,
+      "rate": 0.2609271523178808
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 507,
+      "denominator_rule": "celle attese",
+      "family": "data",
+      "metric": "exact_match",
+      "model_tag": "llama3.2:3b",
+      "numerator": 492,
+      "rate": 0.9704142011834319
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 507,
+      "denominator_rule": "celle attese",
+      "family": "data",
+      "metric": "format_error",
+      "model_tag": "llama3.2:3b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 507,
+      "denominator_rule": "celle con output conforme",
+      "family": "data",
+      "metric": "unsupported_value",
+      "model_tag": "llama3.2:3b",
+      "numerator": 13,
+      "rate": 0.02564102564102564
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 441,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "data",
+      "metric": "cross_case_intrusion",
+      "model_tag": "llama3.2:3b",
+      "numerator": 4,
+      "rate": 0.009070294784580499
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 761,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "data",
+      "metric": "label_precision",
+      "model_tag": "llama3.2:3b",
+      "numerator": 745,
+      "rate": 0.9789750328515112
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 765,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "data",
+      "metric": "label_recall",
+      "model_tag": "llama3.2:3b",
+      "numerator": 745,
+      "rate": 0.9738562091503268
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 505,
+      "denominator_rule": "celle attese",
+      "family": "variety",
+      "metric": "exact_match",
+      "model_tag": "llama3.2:3b",
+      "numerator": 483,
+      "rate": 0.9564356435643564
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 505,
+      "denominator_rule": "celle attese",
+      "family": "variety",
+      "metric": "format_error",
+      "model_tag": "llama3.2:3b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 505,
+      "denominator_rule": "celle con output conforme",
+      "family": "variety",
+      "metric": "unsupported_value",
+      "model_tag": "llama3.2:3b",
+      "numerator": 20,
+      "rate": 0.039603960396039604
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 249,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "variety",
+      "metric": "cross_case_intrusion",
+      "model_tag": "llama3.2:3b",
+      "numerator": 5,
+      "rate": 0.020080321285140562
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 687,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "variety",
+      "metric": "label_precision",
+      "model_tag": "llama3.2:3b",
+      "numerator": 661,
+      "rate": 0.9621542940320232
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 684,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "variety",
+      "metric": "label_recall",
+      "model_tag": "llama3.2:3b",
+      "numerator": 661,
+      "rate": 0.966374269005848
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 517,
+      "denominator_rule": "celle attese",
+      "family": "vector",
+      "metric": "exact_match",
+      "model_tag": "llama3.2:3b",
+      "numerator": 483,
+      "rate": 0.9342359767891683
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 517,
+      "denominator_rule": "celle attese",
+      "family": "vector",
+      "metric": "format_error",
+      "model_tag": "llama3.2:3b",
+      "numerator": 1,
+      "rate": 0.0019342359767891683
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 516,
+      "denominator_rule": "celle con output conforme",
+      "family": "vector",
+      "metric": "unsupported_value",
+      "model_tag": "llama3.2:3b",
+      "numerator": 32,
+      "rate": 0.06201550387596899
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 171,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "vector",
+      "metric": "cross_case_intrusion",
+      "model_tag": "llama3.2:3b",
+      "numerator": 11,
+      "rate": 0.06432748538011696
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 580,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "vector",
+      "metric": "label_precision",
+      "model_tag": "llama3.2:3b",
+      "numerator": 536,
+      "rate": 0.9241379310344827
+    },
+    {
+      "condition": "sufficient",
+      "denominator": 551,
+      "denominator_rule": "etichette, celle con output conforme",
+      "family": "vector",
+      "metric": "label_recall",
+      "model_tag": "llama3.2:3b",
+      "numerator": 536,
+      "rate": 0.9727767695099818
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 2016,
+      "denominator_rule": "celle attese",
+      "family": "tutte",
+      "metric": "correct_abstention",
+      "model_tag": "llama3.2:3b",
+      "numerator": 1527,
+      "rate": 0.7574404761904762
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 2016,
+      "denominator_rule": "celle attese",
+      "family": "tutte",
+      "metric": "format_error",
+      "model_tag": "llama3.2:3b",
+      "numerator": 9,
+      "rate": 0.004464285714285714
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 2007,
+      "denominator_rule": "celle con output conforme",
+      "family": "tutte",
+      "metric": "unsupported_value",
+      "model_tag": "llama3.2:3b",
+      "numerator": 480,
+      "rate": 0.23916292974588937
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 1301,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "tutte",
+      "metric": "cross_case_intrusion",
+      "model_tag": "llama3.2:3b",
+      "numerator": 313,
+      "rate": 0.24058416602613375
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 487,
+      "denominator_rule": "celle attese",
+      "family": "asset",
+      "metric": "correct_abstention",
+      "model_tag": "llama3.2:3b",
+      "numerator": 304,
+      "rate": 0.6242299794661191
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 487,
+      "denominator_rule": "celle attese",
+      "family": "asset",
+      "metric": "format_error",
+      "model_tag": "llama3.2:3b",
+      "numerator": 9,
+      "rate": 0.018480492813141684
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 478,
+      "denominator_rule": "celle con output conforme",
+      "family": "asset",
+      "metric": "unsupported_value",
+      "model_tag": "llama3.2:3b",
+      "numerator": 174,
+      "rate": 0.36401673640167365
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 440,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "asset",
+      "metric": "cross_case_intrusion",
+      "model_tag": "llama3.2:3b",
+      "numerator": 63,
+      "rate": 0.1431818181818182
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 507,
+      "denominator_rule": "celle attese",
+      "family": "data",
+      "metric": "correct_abstention",
+      "model_tag": "llama3.2:3b",
+      "numerator": 359,
+      "rate": 0.7080867850098619
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 507,
+      "denominator_rule": "celle attese",
+      "family": "data",
+      "metric": "format_error",
+      "model_tag": "llama3.2:3b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 507,
+      "denominator_rule": "celle con output conforme",
+      "family": "data",
+      "metric": "unsupported_value",
+      "model_tag": "llama3.2:3b",
+      "numerator": 148,
+      "rate": 0.29191321499013806
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 441,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "data",
+      "metric": "cross_case_intrusion",
+      "model_tag": "llama3.2:3b",
+      "numerator": 129,
+      "rate": 0.2925170068027211
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 505,
+      "denominator_rule": "celle attese",
+      "family": "variety",
+      "metric": "correct_abstention",
+      "model_tag": "llama3.2:3b",
+      "numerator": 403,
+      "rate": 0.7980198019801981
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 505,
+      "denominator_rule": "celle attese",
+      "family": "variety",
+      "metric": "format_error",
+      "model_tag": "llama3.2:3b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 505,
+      "denominator_rule": "celle con output conforme",
+      "family": "variety",
+      "metric": "unsupported_value",
+      "model_tag": "llama3.2:3b",
+      "numerator": 102,
+      "rate": 0.201980198019802
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 249,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "variety",
+      "metric": "cross_case_intrusion",
+      "model_tag": "llama3.2:3b",
+      "numerator": 85,
+      "rate": 0.3413654618473896
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 517,
+      "denominator_rule": "celle attese",
+      "family": "vector",
+      "metric": "correct_abstention",
+      "model_tag": "llama3.2:3b",
+      "numerator": 461,
+      "rate": 0.8916827852998066
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 517,
+      "denominator_rule": "celle attese",
+      "family": "vector",
+      "metric": "format_error",
+      "model_tag": "llama3.2:3b",
+      "numerator": 0,
+      "rate": 0.0
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 517,
+      "denominator_rule": "celle con output conforme",
+      "family": "vector",
+      "metric": "unsupported_value",
+      "model_tag": "llama3.2:3b",
+      "numerator": 56,
+      "rate": 0.10831721470019343
+    },
+    {
+      "condition": "insufficient",
+      "denominator": 171,
+      "denominator_rule": "celle con output conforme e confusione rilevabile",
+      "family": "vector",
+      "metric": "cross_case_intrusion",
+      "model_tag": "llama3.2:3b",
+      "numerator": 36,
+      "rate": 0.21052631578947367
+    }
+  ],
+  "models": [
+    {
+      "developer": "Google",
+      "display_name": "Gemma 3 4B IT",
+      "ollama_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "ollama_tag": "gemma3:4b",
+      "parameters": "4.3B",
+      "quantization": "Q4_K_M"
+    },
+    {
+      "developer": "Meta",
+      "display_name": "Llama 3.2 3B Instruct",
+      "ollama_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "ollama_tag": "llama3.2:3b",
+      "parameters": "3.2B",
+      "quantization": "Q4_K_M"
+    }
+  ],
+  "paired_bootstrap": [
+    {
+      "ci95_high_pp": 2.67857142857143,
+      "ci95_low_pp": -1.7857142857142905,
+      "condition": "sufficient",
+      "effect_pp": 0.44642857142858094,
+      "episodes_resampled": 224,
+      "family": "tutte",
+      "metric": "exact_match",
+      "model_a": "gemma3:4b",
+      "model_b": "llama3.2:3b",
+      "p_values": false,
+      "repetitions": 10000,
+      "seed": 20260922,
+      "unit": "episodio"
+    },
+    {
+      "ci95_high_pp": 19.175257731958762,
+      "ci95_low_pp": 4.925053533190576,
+      "condition": "sufficient",
+      "effect_pp": 12.11498973305955,
+      "episodes_resampled": 218,
+      "family": "asset",
+      "metric": "exact_match",
+      "model_a": "gemma3:4b",
+      "model_b": "llama3.2:3b",
+      "p_values": false,
+      "repetitions": 10000,
+      "seed": 20260922,
+      "unit": "episodio"
+    },
+    {
+      "ci95_high_pp": -11.65644171779141,
+      "ci95_low_pp": -18.5546875,
+      "condition": "sufficient",
+      "effect_pp": -14.990138067061142,
+      "episodes_resampled": 220,
+      "family": "data",
+      "metric": "exact_match",
+      "model_a": "gemma3:4b",
+      "model_b": "llama3.2:3b",
+      "p_values": false,
+      "repetitions": 10000,
+      "seed": 20260922,
+      "unit": "episodio"
+    },
+    {
+      "ci95_high_pp": 3.0303030303030276,
+      "ci95_low_pp": -1.9685039370078705,
+      "condition": "sufficient",
+      "effect_pp": 0.5940594059405946,
+      "episodes_resampled": 221,
+      "family": "variety",
+      "metric": "exact_match",
+      "model_a": "gemma3:4b",
+      "model_b": "llama3.2:3b",
+      "p_values": false,
+      "repetitions": 10000,
+      "seed": 20260922,
+      "unit": "episodio"
+    },
+    {
+      "ci95_high_pp": 6.883365200764824,
+      "ci95_low_pp": 2.135922330097084,
+      "condition": "sufficient",
+      "effect_pp": 4.448742746615086,
+      "episodes_resampled": 220,
+      "family": "vector",
+      "metric": "exact_match",
+      "model_a": "gemma3:4b",
+      "model_b": "llama3.2:3b",
+      "p_values": false,
+      "repetitions": 10000,
+      "seed": 20260922,
+      "unit": "episodio"
+    },
+    {
+      "ci95_high_pp": 12.003968253968257,
+      "ci95_low_pp": 7.192460317460325,
+      "condition": "insufficient",
+      "effect_pp": 9.623015873015872,
+      "episodes_resampled": 224,
+      "family": "tutte",
+      "metric": "correct_abstention",
+      "model_a": "gemma3:4b",
+      "model_b": "llama3.2:3b",
+      "p_values": false,
+      "repetitions": 10000,
+      "seed": 20260922,
+      "unit": "episodio"
+    },
+    {
+      "ci95_high_pp": 38.52459016393443,
+      "ci95_low_pp": 29.97946611909651,
+      "condition": "insufficient",
+      "effect_pp": 34.29158110882956,
+      "episodes_resampled": 218,
+      "family": "asset",
+      "metric": "correct_abstention",
+      "model_a": "gemma3:4b",
+      "model_b": "llama3.2:3b",
+      "p_values": false,
+      "repetitions": 10000,
+      "seed": 20260922,
+      "unit": "episodio"
+    },
+    {
+      "ci95_high_pp": 28.682170542635667,
+      "ci95_low_pp": 19.379844961240313,
+      "condition": "insufficient",
+      "effect_pp": 24.06311637080868,
+      "episodes_resampled": 220,
+      "family": "data",
+      "metric": "correct_abstention",
+      "model_a": "gemma3:4b",
+      "model_b": "llama3.2:3b",
+      "p_values": false,
+      "repetitions": 10000,
+      "seed": 20260922,
+      "unit": "episodio"
+    },
+    {
+      "ci95_high_pp": 0.0,
+      "ci95_low_pp": -9.055876685934495,
+      "condition": "insufficient",
+      "effect_pp": -4.5544554455445585,
+      "episodes_resampled": 221,
+      "family": "variety",
+      "metric": "correct_abstention",
+      "model_a": "gemma3:4b",
+      "model_b": "llama3.2:3b",
+      "p_values": false,
+      "repetitions": 10000,
+      "seed": 20260922,
+      "unit": "episodio"
+    },
+    {
+      "ci95_high_pp": -9.551656920077978,
+      "ci95_low_pp": -18.217054263565892,
+      "condition": "insufficient",
+      "effect_pp": -13.926499032882012,
+      "episodes_resampled": 220,
+      "family": "vector",
+      "metric": "correct_abstention",
+      "model_a": "gemma3:4b",
+      "model_b": "llama3.2:3b",
+      "p_values": false,
+      "repetitions": 10000,
+      "seed": 20260922,
+      "unit": "episodio"
+    }
+  ],
+  "performance": [
+    {
+      "median_tokens_per_second": 36.49690536960422,
+      "median_total_seconds": 0.8509677085,
+      "model_tag": "gemma3:4b",
+      "note": "risultato secondario ed esplorativo",
+      "p95_total_seconds": 1.102475459,
+      "responses_with_timing": 4032,
+      "warmup_excluded": true
+    },
+    {
+      "median_tokens_per_second": 43.95475590694781,
+      "median_total_seconds": 0.3970229165,
+      "model_tag": "llama3.2:3b",
+      "note": "risultato secondario ed esplorativo",
+      "p95_total_seconds": 0.745335667,
+      "responses_with_timing": 4032,
+      "warmup_excluded": true
+    }
+  ],
+  "split": "evaluation"
+}

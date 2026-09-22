@@ -1,0 +1,148 @@
+{
+  "config": {
+    "derived_from": "rq5-sc06-v1.0",
+    "path": "data/rq3/config/rq5_sc06_v1_1.json",
+    "sha256": "01662ccb0980ae24552b91942663cffe97b390ded23f74ccdd9d3946d4debc14"
+  },
+  "config_id": "rq5-sc06-v1.1",
+  "evaluation_rules": {
+    "forbidden_aggregation": "Do not combine sufficient and insufficient into one score and do not average SC06 with SC01-SC05.",
+    "independence_rule": "The episode is the resampling unit; nine questions from one episode are not nine independent replications.",
+    "judge_model_used": false,
+    "normalization": {
+      "case_sensitive": true,
+      "ignore_duplicate_values": true,
+      "ignore_order": true,
+      "json_object_must_have_only_values_key": true,
+      "strip_outer_whitespace": true,
+      "translate_labels": false,
+      "unicode_normalization": "NFC",
+      "values_must_be_list_of_strings": true
+    },
+    "paired_comparison": {
+      "bootstrap_repetitions": 10000,
+      "bootstrap_seed": 20260922,
+      "confidence_interval": "95% cluster bootstrap resampling episodes",
+      "effect": "absolute percentage-point difference between models",
+      "p_values": false
+    }
+  },
+  "expected_counts": {
+    "cells": 8064,
+    "insufficient_per_model": 2016,
+    "model_independent_requests": 4032,
+    "sufficient_per_model": 2016
+  },
+  "frozen_at_utc": "2026-09-22T10:23:40Z",
+  "inputs": {
+    "oracle": {
+      "path": "data/rq3/sc06_rq5_v1_1/evaluation_oracle.jsonl",
+      "rows": 4032,
+      "sha256": "0f74a01c548f8f9133c9e5af55579e58fd8df879552111501bb10a325d0216de"
+    },
+    "requests": {
+      "path": "data/rq3/sc06_rq5_v1_1/evaluation_requests.jsonl",
+      "rows": 4032,
+      "sha256": "b7ea35f70346dc921b8de686871131cf08318e4da53486896dc79f67885c55cc"
+    }
+  },
+  "models": [
+    {
+      "digest_match": true,
+      "display_name": "Gemma 3 4B IT",
+      "ollama_digest_config": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "ollama_digest_local": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "ollama_tag": "gemma3:4b",
+      "quantization": "Q4_K_M",
+      "size_bytes": 3338801804
+    },
+    {
+      "digest_match": true,
+      "display_name": "Llama 3.2 3B Instruct",
+      "ollama_digest_config": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "ollama_digest_local": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "ollama_tag": "llama3.2:3b",
+      "quantization": "Q4_K_M",
+      "size_bytes": 2019393189
+    }
+  ],
+  "note": "Congelamento prima delle generazioni. Nessun file di input viene modificato da questo manifest. Risposte non conformi e troncate vengono conservate come errori osservati.",
+  "runtime": {
+    "endpoint": "http://127.0.0.1:11434/api/chat",
+    "engine": "Ollama",
+    "keep_alive": "10m",
+    "model_order": [
+      "gemma3:4b",
+      "llama3.2:3b"
+    ],
+    "ollama_version_observed": "0.34.2",
+    "ollama_version_verified": "0.34.2",
+    "one_model_loaded_at_a_time": true,
+    "options": {
+      "num_ctx": 4096,
+      "num_predict": 128,
+      "seed": 42,
+      "temperature": 0
+    },
+    "prompt_system_sha256": "705410998501f678fe786405e0bf217006aac661efa3ffa213a609558435212f",
+    "request_order": "question_id ascending, sufficient then insufficient",
+    "response_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "values": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "values"
+      ],
+      "type": "object"
+    },
+    "stream": false,
+    "warmup_in_results": false,
+    "warmup_requests_per_model": 3
+  },
+  "scripts": {
+    "evaluate_rq5.py": {
+      "path": "scripts/rq3/evaluate_rq5.py",
+      "sha256": "d2b7b6e22ee4accf1f9756c519e1abdc0c49e342f860f955475ea5c5da0e635e"
+    },
+    "rq5_common.py": {
+      "path": "scripts/rq3/rq5_common.py",
+      "sha256": "649f1324c145d26fd66797dbe8ebb5b8934c118a8049f358d5edee77490805fd"
+    },
+    "run_rq5_ollama.py": {
+      "path": "scripts/rq3/run_rq5_ollama.py",
+      "sha256": "ccf447a6274657d2b0133ea7c1dbcfab302b5031f010cbaec55269dceb97eace"
+    },
+    "summarize_rq5.py": {
+      "path": "scripts/rq3/summarize_rq5.py",
+      "sha256": "f0af18756f35b8dd769a4cb683b7eacdd73b05a9d76a75643489161e980ea179"
+    }
+  },
+  "sources_vcdb": {
+    "case_mapping": {
+      "path": "data/rq3/sc06_design_v1/case_mapping.jsonl",
+      "sha256": "74e4cd791063865972ff6cbec20314233b4131688ba8274f1b1c81d5fcf93b24"
+    },
+    "episodes": {
+      "path": "data/rq3/sc06_design_v1/episodes.jsonl",
+      "sha256": "47204bd054598b82b382dc01160ca4b181736d1f351c1213dbdf54471507a974"
+    },
+    "oracle": {
+      "path": "data/rq3/sc06_design_v1/oracle_questions.jsonl",
+      "sha256": "8e854ff1a85a11f6831794bffc084f5e069295bb80a7f1721e4620236d51d0c1"
+    },
+    "queries": {
+      "path": "data/rq3/sc06_design_v1/queries.jsonl",
+      "sha256": "7c9f615eadaace49e137e8a87d4677eb6e4dca80b317540bbbcf59a9652d7b9d"
+    }
+  },
+  "split": "evaluation",
+  "status": "frozen_for_evaluation",
+  "vcdb_commit": "230cf22b56a481dd1a994b21e4d94c59e2bccea9",
+  "vcdb_license": "CC-BY-SA-4.0"
+}

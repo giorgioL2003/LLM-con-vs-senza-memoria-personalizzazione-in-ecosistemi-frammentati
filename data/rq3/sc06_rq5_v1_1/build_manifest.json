@@ -1,0 +1,66 @@
+{
+  "block_separator": "\n\n",
+  "block_separator_note": "Il separatore fra blocchi non e' fissato dalla configurazione: si usa una riga vuota, come nel rendering degli episodi.",
+  "builder_seed": "RQ5-SC06-context-v1",
+  "built_at": "2026-09-22T10:13:55Z",
+  "cell_id_definition": "split|ollama_tag|condition|question_id",
+  "config_call_counts": {
+    "development_maximum": 432,
+    "evaluation": 8064,
+    "formula_evaluation": "2016 questions x 2 conditions x 2 models"
+  },
+  "config_id": "rq5-sc06-v1.1",
+  "counts": {
+    "development": {
+      "cells_after_model_expansion": 432,
+      "model_independent_requests": 216,
+      "questions": 108
+    },
+    "evaluation": {
+      "cells_after_model_expansion": 8064,
+      "model_independent_requests": 4032,
+      "questions": 2016
+    }
+  },
+  "distractor_rule": "For each other case, use the queried field when present; otherwise use the lexicographically first available field.",
+  "files": {
+    "development_oracle": "development_oracle.jsonl",
+    "development_requests": "development_requests.jsonl",
+    "evaluation_oracle": "evaluation_oracle.jsonl",
+    "evaluation_requests": "evaluation_requests.jsonl"
+  },
+  "forbidden_prompt_inputs": [
+    "expected_values",
+    "detectable_cross_case_intrusion_values",
+    "source_path",
+    "reference",
+    "incident_id"
+  ],
+  "model_calls_made": 0,
+  "models": [
+    "gemma3:4b",
+    "llama3.2:3b"
+  ],
+  "ordering_rule": "Sort all included blocks by SHA-256 of builder_seed + ':' + question_id + ':' + case_alias.",
+  "prompt_sha256_definition": "sha256('SYSTEM\\n' + system + '\\n\\nUSER\\n' + user)",
+  "request_id_definition": "split|condition|question_id",
+  "sources_verified": {
+    "case_mapping": {
+      "path": "data/rq3/sc06_design_v1/case_mapping.jsonl",
+      "sha256": "74e4cd791063865972ff6cbec20314233b4131688ba8274f1b1c81d5fcf93b24"
+    },
+    "episodes": {
+      "path": "data/rq3/sc06_design_v1/episodes.jsonl",
+      "sha256": "47204bd054598b82b382dc01160ca4b181736d1f351c1213dbdf54471507a974"
+    },
+    "oracle": {
+      "path": "data/rq3/sc06_design_v1/oracle_questions.jsonl",
+      "sha256": "8e854ff1a85a11f6831794bffc084f5e069295bb80a7f1721e4620236d51d0c1"
+    },
+    "queries": {
+      "path": "data/rq3/sc06_design_v1/queries.jsonl",
+      "sha256": "7c9f615eadaace49e137e8a87d4677eb6e4dca80b317540bbbcf59a9652d7b9d"
+    }
+  },
+  "status": "inputs_built_no_model_calls"
+}

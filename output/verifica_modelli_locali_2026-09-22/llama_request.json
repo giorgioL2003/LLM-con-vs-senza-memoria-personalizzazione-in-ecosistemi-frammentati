@@ -1,0 +1,17 @@
+{
+  "model": "llama3.2:3b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Rispondi soltanto con la parola OK."
+    }
+  ],
+  "stream": false,
+  "keep_alive": "30s",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 2048,
+    "num_predict": 16
+  }
+}

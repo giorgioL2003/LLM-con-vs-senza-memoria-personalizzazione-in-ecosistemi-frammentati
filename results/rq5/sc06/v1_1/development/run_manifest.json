@@ -1,0 +1,120 @@
+{
+  "config_id": "rq5-sc06-v1.1",
+  "runs": [
+    {
+      "completed_ok": 216,
+      "config_id": "rq5-sc06-v1.1",
+      "errors": 0,
+      "finished_at": "2026-09-22T10:16:41.595018Z",
+      "keep_alive": "10m",
+      "limit": null,
+      "model_tag": "gemma3:4b",
+      "options": {
+        "num_ctx": 4096,
+        "num_predict": 128,
+        "seed": 42,
+        "temperature": 0
+      },
+      "planned_cells": 216,
+      "preflight": {
+        "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+        "model_size_bytes": 3338801804,
+        "ollama_version": "0.34.2",
+        "quantization": "Q4_K_M"
+      },
+      "process_snapshot": {
+        "context_length": 4096,
+        "model": "gemma3:4b",
+        "note": "Ollama size_vram is an allocation reported by the runtime, not measured peak RAM; do not present it as peak memory consumption.",
+        "size": 3725527612,
+        "size_vram": 3725527612
+      },
+      "request_order": "question_id ascending, sufficient then insufficient",
+      "requests_file": "data/rq3/sc06_rq5_v1_1/development_requests.jsonl",
+      "requests_sha256": "bf5ea69ee759cf73b4007e77324a1b3a361df52d1390377bb418bc725d5157f5",
+      "response_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "values": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "values"
+        ],
+        "type": "object"
+      },
+      "resume": false,
+      "skipped_completed_cells": 0,
+      "split": "development",
+      "started_at": "2026-09-22T10:14:53.929999Z",
+      "unload": {
+        "model": "gemma3:4b",
+        "unloaded": true
+      },
+      "warmup_in_results": false,
+      "warmup_requests": 3
+    },
+    {
+      "completed_ok": 216,
+      "config_id": "rq5-sc06-v1.1",
+      "errors": 0,
+      "finished_at": "2026-09-22T10:17:55.350662Z",
+      "keep_alive": "10m",
+      "limit": null,
+      "model_tag": "llama3.2:3b",
+      "options": {
+        "num_ctx": 4096,
+        "num_predict": 128,
+        "seed": 42,
+        "temperature": 0
+      },
+      "planned_cells": 216,
+      "preflight": {
+        "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+        "model_size_bytes": 2019393189,
+        "ollama_version": "0.34.2",
+        "quantization": "Q4_K_M"
+      },
+      "process_snapshot": {
+        "context_length": 4096,
+        "model": "llama3.2:3b",
+        "note": "Ollama size_vram is an allocation reported by the runtime, not measured peak RAM; do not present it as peak memory consumption.",
+        "size": 2548417166,
+        "size_vram": 2548417166
+      },
+      "request_order": "question_id ascending, sufficient then insufficient",
+      "requests_file": "data/rq3/sc06_rq5_v1_1/development_requests.jsonl",
+      "requests_sha256": "bf5ea69ee759cf73b4007e77324a1b3a361df52d1390377bb418bc725d5157f5",
+      "response_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "values": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "values"
+        ],
+        "type": "object"
+      },
+      "resume": false,
+      "skipped_completed_cells": 0,
+      "split": "development",
+      "started_at": "2026-09-22T10:16:49.745148Z",
+      "unload": {
+        "model": "llama3.2:3b",
+        "unloaded": true
+      },
+      "warmup_in_results": false,
+      "warmup_requests": 3
+    }
+  ],
+  "split": "development"
+}
