@@ -1,0 +1,161 @@
+{
+  "config_id": "rq4-sc05-v1",
+  "status": "frozen_after_evaluation_before_human_review",
+  "frozen_at_utc": "2026-09-23T10:47:08Z",
+  "scope": "RQ4 / SC05, Turn-level RAG, separated versus shared external memory after the S5/S6 generator handoff",
+  "counts": {
+    "smoke_cells": 2,
+    "evaluation_cells": 28,
+    "gemma_cells": 14,
+    "llama_cells": 14,
+    "successful_evaluation_cells": 28,
+    "failed_evaluation_cells": 0,
+    "reused_cells": 0,
+    "human_reviews_completed": 0
+  },
+  "models": [
+    {
+      "ollama_tag": "gemma3:4b",
+      "ollama_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "quantization": "Q4_K_M"
+    },
+    {
+      "ollama_tag": "llama3.2:3b",
+      "ollama_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "quantization": "Q4_K_M"
+    }
+  ],
+  "runtime": {
+    "engine": "Ollama",
+    "version": "0.34.2",
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 4096,
+    "num_predict": 128,
+    "warmup_requests_per_model": 3
+  },
+  "inputs": {
+    "config": {
+      "path": "data/rq4/config/rq4_sc05_v1.json",
+      "sha256": "6a67660db445e6ca7bd0ba8c2d013efe21132d7963ded48031358edd4aa4ef5d"
+    },
+    "source_manifest": {
+      "path": "data/rq4/sc05_handoff_v1/source_manifest.json",
+      "sha256": "9a21c0c32c72d50f304ebc4c0db604adca6d13d7424d86e915142fe3a4838d7e"
+    },
+    "build_manifest": {
+      "path": "data/rq4/sc05_handoff_v1/build_manifest.json",
+      "sha256": "2faadcd2c8cdd009f29273d5e6744aae29fa07cc23ee648813f850349c3aea46"
+    },
+    "messages": {
+      "path": "data/rq4/sc05_handoff_v1/messages.jsonl",
+      "rows": 16,
+      "sha256": "a02b27eec0045a610ce43088b087345c6ea4a791e5a3bc95aec238cb094b85dc"
+    },
+    "questions": {
+      "path": "data/rq4/sc05_handoff_v1/questions.jsonl",
+      "rows": 7,
+      "sha256": "0e6c5153b2f50bf4b1bd1c9e0df620a90ab53c121874e2b0408d271c2461c559"
+    },
+    "oracle": {
+      "path": "data/rq4/sc05_handoff_v1/oracle.jsonl",
+      "rows": 7,
+      "sha256": "087eb17d757c558c77f6badf8d48f69780eb37921b48bf3fc728efb54085eb00"
+    },
+    "retrieval": {
+      "path": "data/rq4/sc05_handoff_v1/retrieval.jsonl",
+      "rows": 14,
+      "sha256": "3cf96b877067bebac15e44abbc60e3600a512d1e1ca2e482937c673e5f94d1a9"
+    },
+    "retrieval_coverage": {
+      "path": "data/rq4/sc05_handoff_v1/retrieval_coverage.jsonl",
+      "rows": 14,
+      "sha256": "907cc07c096a26e5b5a4fee62bdef62dbdb195d6f995f0ac9723158629d17c0c"
+    },
+    "requests": {
+      "path": "data/rq4/sc05_handoff_v1/requests.jsonl",
+      "rows": 28,
+      "sha256": "dee2c3ca4eb49cd1a3f280b9d0378229aa0a1807fb6010d485a18151435e287f"
+    },
+    "generation_plan": {
+      "path": "data/rq4/sc05_handoff_v1/generation_plan.jsonl",
+      "rows": 28,
+      "sha256": "7716561a431693be0a62e98e739d46989a2dde6a6858073e0c9e62674f1b62d0"
+    }
+  },
+  "execution": {
+    "model_verification": {
+      "path": "results/rq4/sc05/v1/preflight/model_verification.json",
+      "sha256": "06addfb68affa08b39fcdd7c6896704ff80d66ccaa5df83026d151cce7d4ad45"
+    },
+    "evaluation_gate": {
+      "path": "results/rq4/sc05/v1/evaluation_gate.json",
+      "sha256": "688f2a3614245baf08b21d800174db7dfa3d5f5af44b84ceae0ed793e24d0b69"
+    },
+    "smoke_raw_responses": {
+      "path": "results/rq4/sc05/v1/smoke/raw_responses.jsonl",
+      "rows": 2,
+      "sha256": "5c8e2851d063c07b3e293f7ff82b058bb328d490fc16a143b209e62bdab10f6d"
+    },
+    "smoke_warmup_responses": {
+      "path": "results/rq4/sc05/v1/smoke/warmup_responses.jsonl",
+      "rows": 6,
+      "sha256": "fb6df52c495c7c57436323a79e8fe094fa4a6dc4c3f92ac6eacd0dd6703454ff"
+    },
+    "smoke_run_manifest": {
+      "path": "results/rq4/sc05/v1/smoke/run_manifest.json",
+      "sha256": "f6979af02867ff64729082e786d8c8373a62450a0bdced69719999e8af8a9cd8"
+    },
+    "evaluation_raw_responses": {
+      "path": "results/rq4/sc05/v1/evaluation/raw_responses.jsonl",
+      "rows": 28,
+      "sha256": "dfa4c3d5d5a1957c812fdf35e974414a2e9f3a93ce05bf86052fee90ea764376"
+    },
+    "evaluation_warmup_responses": {
+      "path": "results/rq4/sc05/v1/evaluation/warmup_responses.jsonl",
+      "rows": 6,
+      "sha256": "4cd0a617bfa9e55d57678981714bbdf0caeeeefdf18a8cbae955853257c45e4c"
+    },
+    "evaluation_run_manifest": {
+      "path": "results/rq4/sc05/v1/evaluation/run_manifest.json",
+      "sha256": "c5aed3e7d54bf7785bdc64d8dff5cc9dc3b119ef6848490238ffc0285523b64c"
+    }
+  },
+  "derived_before_human_review": {
+    "annotation_template": {
+      "path": "results/rq4/sc05/v1/evaluation/annotation_template.jsonl",
+      "rows": 28,
+      "sha256": "36b060f7d2d968524188f6ab0ee9c8aa2a4117f7d8888115e9aad36da496d62e"
+    },
+    "evaluations": {
+      "path": "results/rq4/sc05/v1/evaluation/evaluations.jsonl",
+      "rows": 28,
+      "sha256": "a27b13e02904c8a4b3db6153fd2be3ef42f4666f8eab2d13f5cc26884db2a1a5"
+    },
+    "summary_json": {
+      "path": "results/rq4/sc05/v1/evaluation/summary.json",
+      "sha256": "fd71fe470358139a6913cd9b5d81861724bc31a5ba88ae3e2aa5922854da6169"
+    },
+    "summary_csv": {
+      "path": "results/rq4/sc05/v1/evaluation/summary.csv",
+      "sha256": "5e252de182800063b08c2ebe70673288247081d4867dded7552191d6cdfaebec"
+    },
+    "summary_markdown": {
+      "path": "results/rq4/sc05/v1/evaluation/SINTESI.md",
+      "sha256": "8a0a5f43a54b851a349474a44505b02b94420618be7673c26f6f8fc8e4c46625"
+    }
+  },
+  "scripts": {
+    "rq4_common.py": "126d53b21989826e0f5464c5698a57a0c8ba1ee2f1bdc984d25e20a8fa6bcbeb",
+    "build_rq4_design.py": "bda232f5817388f279ffb7ba3a2150df097d91d293d547b46a1069666905b26e",
+    "run_rq4_retrieval.py": "02b839bf45852f663cf3c9faa4da5d5931df4423902d70c7c8958412dd872a58",
+    "build_rq4_requests.py": "a8c20a11a2cc9dabfdcda25dca2409a5761bb365683509e8c0338fb4841aaca9",
+    "run_rq4_ollama.py": "102ab965ffe4d53cdc9b4e5b2129f2a04aa10740fb40044f557495694e70a04b",
+    "evaluate_rq4.py": "7b36cedda72c82059c906192d8c707bee10229653701809b14078fd3a33eaefe",
+    "summarize_rq4.py": "96e6407381729fcfa8298446689423d55b9946cf77775be4c286dab506149a85",
+    "validate_rq4_inputs.py": "bdc603c39be15048a17e88c855c22c1628842bcb8d628d35352f96333969e97d",
+    "test_rq4_sc05.py": "309acde42a12387931cd08c400e0f41b04789a3a0dd378b06a1cb40dd1a401db"
+  },
+  "integrity_rule": "The frozen inputs, raw responses and execution manifests must not be overwritten. Human review must be recorded in a new reviewed annotation artifact; any post-review summaries should receive a separate freeze manifest.",
+  "note": "This manifest does not reproduce model generations and does not modify any existing result. It records the exact RQ4 artifacts available before human interpretation. All 28 qualitative judgments are still pending student review."
+}

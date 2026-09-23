@@ -1,0 +1,85 @@
+{
+  "by_condition": {
+    "separated": {
+      "by_question_type": {
+        "fix.fixed_version": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 0
+        },
+        "fix.package": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 0
+        },
+        "impact.package": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 0
+        },
+        "impact.vulnerable_range": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 0
+        },
+        "triage.package": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 0
+        },
+        "triage.severity": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 0
+        }
+      },
+      "evidence_reachable": 18,
+      "questions": 18,
+      "retrieval_success": 18,
+      "retrieved_from_other_activities": 0,
+      "retrieved_messages": 36
+    },
+    "shared_interleaved": {
+      "by_question_type": {
+        "fix.fixed_version": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 0
+        },
+        "fix.package": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 1
+        },
+        "impact.package": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 3
+        },
+        "impact.vulnerable_range": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 0
+        },
+        "triage.package": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 0
+        },
+        "triage.severity": {
+          "questions": 3,
+          "retrieval_success": 3,
+          "retrieved_from_other_activities": 0
+        }
+      },
+      "evidence_reachable": 18,
+      "questions": 18,
+      "retrieval_success": 18,
+      "retrieved_from_other_activities": 4,
+      "retrieved_messages": 36
+    }
+  },
+  "config_id": "rq3-sc07-v1",
+  "split": "development",
+  "top_k": 2
+}

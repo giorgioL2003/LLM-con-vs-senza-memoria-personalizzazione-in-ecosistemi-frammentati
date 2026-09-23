@@ -1,0 +1,121 @@
+{
+  "artifacts_sha256": {
+    "data/rq3/sc07_design_v1/candidates.jsonl": "eb219c6930b2253da6a2b4cab201a824be118c28d24325ec65ff9e9b984f0d68",
+    "data/rq3/sc07_design_v1/development_call_plan.jsonl": "f4d05cee3e1f2dce9b47c3ae1e82a5a1bb83172aaeeb74f783c093443f764df5",
+    "data/rq3/sc07_design_v1/development_oracle.jsonl": "67da0686223528e2360225c9f05793acd6fffce3cd63fd5b710a0389edcc5df1",
+    "data/rq3/sc07_design_v1/development_requests.jsonl": "1d5cf0e297afbb43a1cc68e511802986120888f64af5a4cad52ee66dadd8c325",
+    "data/rq3/sc07_design_v1/eligibility_audit.json": "f51c0f9810c6326517142d36a5c3285898fa7b991bf3785a6bd81d375684eaef",
+    "data/rq3/sc07_design_v1/episodes.jsonl": "6a82c25de7aec2df21f82a1b39b079efcf38d86780bbdb491bcfb2a84a88ed8d",
+    "data/rq3/sc07_design_v1/evaluation_call_plan.jsonl": "64f8f8ab2460abac61740dff90fb57a6511c7671590e625d58dfc0be5b37adeb",
+    "data/rq3/sc07_design_v1/evaluation_oracle.jsonl": "cae419895f0c335c63192c49eac183772cbab0bdda867a84300e14150d5aa24f",
+    "data/rq3/sc07_design_v1/evaluation_requests.jsonl": "ad51ef5a64551fe767ff3d30f98b3bfcee4cd41afbee168c9f14a86688364a82",
+    "data/rq3/sc07_design_v1/exclusions.jsonl": "1f8536b684eba687ebde3ad70c346dd78168f30e947f1b050a6bc0032416f646",
+    "data/rq3/sc07_design_v1/message_provenance.jsonl": "eb42b41bbf06cafcea9d40f40d9932d10743bc63f5077dfa990140846d717726",
+    "data/rq3/sc07_design_v1/questions.jsonl": "259e9d8ab63b01f3ac99374bbf2e6c506d7b26bed620d6800b3bcfe6620c383c",
+    "data/rq3/sc07_design_v1/selection.jsonl": "cff5e08f4d48c987d3d9a615be001c09cf91e9917ed71adc14301338f01aaf87",
+    "data/rq3/sc07_design_v1/source_manifest.json": "f5aa2c8779d83f9a6d5259eb5c7e742e61ddf1aec16ee7803fd4e14e255a1cc6"
+  },
+  "built_at": "2026-09-23T09:51:29Z",
+  "config_id": "rq3-sc07-v1",
+  "config_path": "data/rq3/config/rq3_sc07_v1.json",
+  "config_sha256": "480a49c3ee5ccbc0ba42be47e20eec3537adb0e1e66f2d34deb25d43bd6b0f7a",
+  "counts": {
+    "development": {
+      "cells": 36,
+      "episodes": 3,
+      "model_calls": 23,
+      "questions": 18,
+      "requests": 36,
+      "reused_cells": 13
+    },
+    "evaluation": {
+      "cells": 240,
+      "episodes": 20,
+      "model_calls": 139,
+      "questions": 120,
+      "requests": 240,
+      "reused_cells": 101
+    }
+  },
+  "model": {
+    "access_channel": "Claude Code CLI",
+    "cli_input_template": "{system}\n\n{user}",
+    "command": [
+      "claude",
+      "--print",
+      "--model",
+      "claude-sonnet-5",
+      "--effort",
+      "medium",
+      "--tools",
+      "",
+      "--strict-mcp-config",
+      "--setting-sources",
+      "",
+      "--no-session-persistence",
+      "--output-format",
+      "stream-json",
+      "--verbose"
+    ],
+    "fallback_model": null,
+    "model_id": "claude-sonnet-5",
+    "parameters": {
+      "cli_executable": "claude",
+      "effort": "medium",
+      "fallback_model": null,
+      "mcp": "none (--strict-mcp-config)",
+      "model": "claude-sonnet-5",
+      "output_format": "stream-json (--verbose)",
+      "prompt_transport": "stdin",
+      "session_persistence": false,
+      "setting_sources": "none (--setting-sources \"\")",
+      "timeout_seconds": 300,
+      "tools": "disabled (--tools \"\")",
+      "working_directory": "new empty temporary directory, checked empty before every call"
+    }
+  },
+  "model_calls_executed": 0,
+  "model_config_sha256": "aeb352ddeb6c1570ad97da9821e1626c5696bbd3a282d6956656e4ff2e56fbd4",
+  "retrieval_sha256": {
+    "results/rq3/sc07/v1/development/retrieval.jsonl": "ff360199222174f82e3d68de8d8812658938402552e70ec133712b4813b864cd",
+    "results/rq3/sc07/v1/evaluation/retrieval.jsonl": "1b1e97af0a0a5f912e365109990cb79647d0f64cb21939bbd64a86a1d81f3997"
+  },
+  "reuse_rule": "Cells whose prompt (system and user text) and model configuration are identical receive one real generation. The first cell in request order is generated; every other cell of the group receives the same response with generation_kind='reused_identical_prompt' and reused_from_cell_id. Reuse is decided from the requests only, never from the oracle, and is not a new model call.",
+  "scripts_sha256": {
+    "scripts/rq3/acquire_rq3_sc07_source.py": "f406aa3e7da7757e2dd03e99faacf4dc92131f6c647abfbf9b88642ed05428c2",
+    "scripts/rq3/build_rq3_sc07_episodes.py": "dbd6aa50ef5521b8f48ee25306fdbc4bcfa955c90e176b2e0e42c8c527efffbb",
+    "scripts/rq3/build_rq3_sc07_requests.py": "9157d446632b30452d1314ab2977c82c073b623853f7a44938104ca16bbc1b40",
+    "scripts/rq3/evaluate_rq3_sc07.py": "223cf8655c0e91ca066060ac0d6e6f4ef46ed90b39082635c6870198de01fdf7",
+    "scripts/rq3/rq3_sc07_common.py": "2222bef3c54821af82a9058dbcf1a026617081255a6cc7482790826a28796503",
+    "scripts/rq3/run_rq3_sc07_claude.py": "655e16c22ecaa0e1182e87369cedbd0cbdcc533439788a27dc3f088b2b580cf0",
+    "scripts/rq3/run_rq3_sc07_retrieval.py": "054000807bb2f1293b3c26d3cdb706eaa28c7b4d23a2f64243b801dd2d50053d",
+    "scripts/rq3/select_rq3_sc07_advisories.py": "3c15faf5067c196f96e7f7ec5c10ac81eef6e258aaa374ea616f3c7a80771bd8",
+    "scripts/rq3/summarize_rq3_sc07.py": "b73a68772c21067bd8c0516f6ce389bdea542ce7b4bf202183340c75a01c05e9",
+    "scripts/rq3/validate_rq3_sc07_inputs.py": "9416f5b80f677ca103fce61094dad7c6d9bf2853bdf80bf64c86b6ff12e80a32",
+    "scripts/run_generation.py": "85b919abb8551449d7e592787df15f3949410acda5323869cdb2f57cef57f7e6",
+    "scripts/run_retrieval_pilot.py": "0b7dfe4d684f9e58046065f765e633fa5f519d98e869405d1e96063cb627f3dd"
+  },
+  "separation": {
+    "conversations": "episodes.jsonl",
+    "oracle": [
+      "development_oracle.jsonl",
+      "evaluation_oracle.jsonl"
+    ],
+    "provenance": [
+      "message_provenance.jsonl",
+      "selection.jsonl",
+      "candidates.jsonl"
+    ],
+    "questions": "questions.jsonl",
+    "requests_without_oracle": [
+      "development_requests.jsonl",
+      "evaluation_requests.jsonl"
+    ],
+    "retrieval_traces": [
+      "results/rq3/sc07/v1/development/retrieval.jsonl",
+      "results/rq3/sc07/v1/evaluation/retrieval.jsonl"
+    ]
+  },
+  "snapshot_sha256": "9610aa3f348e872fdef001c3ac522f632a9378162a95ccb829fcd914870d0f2a",
+  "source_commit": "2f3ffd6fa3954848d6ff22c549fc7dd878a27e94"
+}

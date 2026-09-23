@@ -1,0 +1,98 @@
+{
+  "advisories_examined": 35833,
+  "config_id": "rq3-sc07-v1",
+  "cumulative": [
+    {
+      "remaining": 35833,
+      "step": "advisory JSON in advisories/github-reviewed"
+    },
+    {
+      "excluded": 0,
+      "remaining": 35833,
+      "step": "not_github_reviewed"
+    },
+    {
+      "excluded": 1087,
+      "remaining": 34746,
+      "step": "withdrawn"
+    },
+    {
+      "excluded": 474,
+      "remaining": 34272,
+      "step": "malware"
+    },
+    {
+      "excluded": 3818,
+      "remaining": 30454,
+      "step": "not_exactly_one_package"
+    },
+    {
+      "excluded": 7886,
+      "remaining": 22568,
+      "step": "ecosystem_not_in_scope"
+    },
+    {
+      "excluded": 0,
+      "remaining": 22568,
+      "step": "severity_missing_or_not_categorical"
+    },
+    {
+      "excluded": 7584,
+      "remaining": 14984,
+      "step": "range_not_interpretable"
+    },
+    {
+      "excluded": 0,
+      "remaining": 14984,
+      "step": "message_value_not_usable"
+    },
+    {
+      "excluded": 4,
+      "remaining": 14980,
+      "step": "expected_value_not_unique_in_target_messages"
+    }
+  ],
+  "eligible": 14980,
+  "eligible_by_ecosystem": {
+    "Go": 2867,
+    "Maven": 3287,
+    "PyPI": 4059,
+    "RubyGems": 589,
+    "npm": 4178
+  },
+  "eligible_unique_packages_by_ecosystem": {
+    "Go": 920,
+    "Maven": 1493,
+    "PyPI": 1080,
+    "RubyGems": 283,
+    "npm": 1723
+  },
+  "excluded": 20853,
+  "excluded_by_criterion": {
+    "ecosystem_not_in_scope": 7886,
+    "expected_value_not_unique_in_target_messages": 4,
+    "malware": 474,
+    "message_value_not_usable": 0,
+    "not_exactly_one_package": 3818,
+    "not_github_reviewed": 0,
+    "range_not_interpretable": 7584,
+    "severity_missing_or_not_categorical": 0,
+    "withdrawn": 1087
+  },
+  "note": "Esclusioni attribuite al primo criterio non soddisfatto, nell'ordine di criteria_order.",
+  "rank_key": "SHA-256 of seed + ':' + ecosystem + ':' + ghsa_id, ascending hexadecimal",
+  "seed": "20260923",
+  "selected_by_split_and_ecosystem": {
+    "development/Maven": 3,
+    "development/PyPI": 3,
+    "development/npm": 3,
+    "evaluation/Go": 12,
+    "evaluation/Maven": 12,
+    "evaluation/PyPI": 12,
+    "evaluation/RubyGems": 12,
+    "evaluation/npm": 12
+  },
+  "selected_total": 69,
+  "snapshot_sha256": "9610aa3f348e872fdef001c3ac522f632a9378162a95ccb829fcd914870d0f2a",
+  "source_commit": "2f3ffd6fa3954848d6ff22c549fc7dd878a27e94"
+}

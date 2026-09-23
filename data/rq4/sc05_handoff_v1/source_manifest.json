@@ -1,0 +1,189 @@
+{
+  "annotation": {
+    "abstention_rule": "Quando almeno un fatto obbligatorio non è accessibile nelle sorgenti ammesse, il comportamento corretto è dichiarare che le informazioni disponibili non sono sufficienti.",
+    "annotation_id": "sc05-rq2-ger-0.2",
+    "provenance_warning": "I campi *_by_provenance calcolati dagli script si basano sugli identificatori: condividere il message_id sorgente non dimostra che il fatto necessario sia nel contesto. I giudizi di contenuto vanno letti a mano.",
+    "status": "CRITERI APPROVATI DALLO STUDENTE per la prova di sviluppo sc05-ger-dev-1 (6 settembre 2026) — non è approvazione del relatore e non congela il protocollo finale"
+  },
+  "assistant_messages_indexed": 0,
+  "case_id": "ARD-19",
+  "config_id": "rq4-sc05-v1",
+  "evaluation_rules": {
+    "automatic_flags": {
+      "evidence_in_context": "per required fact, source messages inside the retrieved context",
+      "evidence_in_corpus": "per required fact, source messages inside the accessible corpus",
+      "obsolete_marker_mentioned": "answer contains a marker listed in obsolete_markers (signal for review, not a judgment)",
+      "status_vs_expected_given_context": "declared status equals expected_given_context",
+      "unsupported_identifier_candidates": "identifiers or numbers in the answer (salient_token_regex) that do not appear in the context"
+    },
+    "classes": {
+      "complete_supported": "all required facts that are accessible and asked are reported correctly",
+      "insufficiency_recognized": "correctly states that the context does not allow a complete answer and does not invent",
+      "partial": "at least one required fact is correct but another accessible one is missing",
+      "unsupported_claim": "introduces a fact not present in the context",
+      "wrong": "contradiction, obsolete fact presented as current, or failure despite sufficient evidence"
+    },
+    "expected_status_rule": "'answered' when every required fact of the question is available (in the accessible corpus for expected_given_corpus, in the retrieved context for expected_given_context); otherwise 'insufficient'. Q7 has no required facts and is always 'insufficient'.",
+    "fact_available_rule": "a required fact is available when all its source messages are present (by provenance); provenance does not prove the content is usable and is not a judgment",
+    "forbidden_aggregation": "Never average handoff-dependent questions, controls and absent information into one score; always show numerators and denominators.",
+    "human_review": {
+      "annotations_file": "results/rq4/sc05/v1/evaluation/annotations.jsonl",
+      "pending_label": "proposto/in attesa di revisione",
+      "required": true,
+      "rule": "Qualitative judgments stay null until the student fills and approves them; automatic flags never replace them."
+    },
+    "judge_model": null,
+    "obsolete_markers": {
+      "SC05-Q2": [
+        "SRV-12"
+      ],
+      "SC05-Q3": [
+        "bilanciatore"
+      ],
+      "SC05-Q4": [
+        "bilanciatore"
+      ]
+    },
+    "paired_comparison": "question by question, shared vs separated, within the same model",
+    "parser": "strict: the whole text must be one JSON object with exactly the keys 'status' and 'answer'; status in response_schema enum; answer a string. Anything else is a format error. No repair, no retry.",
+    "report_separately_by": [
+      "model",
+      "condition",
+      "question_group"
+    ],
+    "salient_token_regex": "[A-Z]{2,}-\\d+|\\d+(?:[.,:]\\d+)*|`[^`]+`"
+  },
+  "handoff": {
+    "after_session_order": 5,
+    "description": "Phase A (S1-S5) is the history before the change of generator; phase B (S6-S9 and final questions) is served by model B.",
+    "phase_a_sessions": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "phase_b_sessions": [
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "models": [
+    {
+      "developer": "Google",
+      "display_name": "Gemma 3 4B IT",
+      "ollama_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "ollama_tag": "gemma3:4b",
+      "parameters": "4.3B",
+      "quantization": "Q4_K_M"
+    },
+    {
+      "developer": "Meta",
+      "display_name": "Llama 3.2 3B Instruct",
+      "ollama_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "ollama_tag": "llama3.2:3b",
+      "parameters": "3.2B",
+      "quantization": "Q4_K_M"
+    }
+  ],
+  "read_only": true,
+  "runtime": {
+    "copied_from_models_reference": [
+      "models",
+      "runtime.engine",
+      "runtime.verified_version",
+      "runtime.endpoint",
+      "runtime.stream",
+      "runtime.keep_alive",
+      "runtime.one_model_loaded_at_a_time",
+      "runtime.model_order",
+      "runtime.warmup_requests_per_model",
+      "runtime.options"
+    ],
+    "endpoint": "http://127.0.0.1:11434/api/chat",
+    "engine": "Ollama",
+    "format": "use prompt.response_schema as the Ollama format value",
+    "keep_alive": "10m",
+    "model_order": [
+      "gemma3:4b",
+      "llama3.2:3b"
+    ],
+    "one_model_loaded_at_a_time": true,
+    "options": {
+      "num_ctx": 4096,
+      "num_predict": 128,
+      "seed": 42,
+      "temperature": 0
+    },
+    "repetitions_per_model_condition_question": 1,
+    "request_order": "question_id ascending, separated then shared",
+    "stream": false,
+    "verified_version": "0.34.2",
+    "warmup_in_results": false,
+    "warmup_prompt": "Rispondi soltanto con {\"status\": \"insufficient\", \"answer\": \"\"}.",
+    "warmup_requests_per_model": 3
+  },
+  "scenario_id": "scenario_05",
+  "session_ids": [
+    "SC05-S1",
+    "SC05-S2",
+    "SC05-S3",
+    "SC05-S4",
+    "SC05-S5",
+    "SC05-S6",
+    "SC05-S7",
+    "SC05-S8",
+    "SC05-S9"
+  ],
+  "sources": {
+    "annotations": {
+      "path": "data/rq2/annotations/scenario_05_rq2.json",
+      "sha256": "454be8c6c7a7bc17bce349a356aa872075bf8dc27ca600d2ff0ba7d51f67e3a8"
+    },
+    "models_reference": {
+      "path": "data/rq3/config/rq5_sc06_v1_1.json",
+      "sha256": "01662ccb0980ae24552b91942663cffe97b390ded23f74ccdd9d3946d4debc14"
+    },
+    "retriever.budget_module": {
+      "path": "scripts/rq2/rq2_common.py",
+      "sha256": "3656563ec30479787048d3fdba361b891dcefcba0410761648d0880d2e425ff1"
+    },
+    "retriever.ranking_module": {
+      "path": "scripts/run_retrieval_pilot.py",
+      "sha256": "0b7dfe4d684f9e58046065f765e633fa5f519d98e869405d1e96063cb627f3dd"
+    },
+    "retriever.token_counting_config": {
+      "path": "data/rq2/config/experiment_rq2.json",
+      "sha256": "df4b066a0d1810e8f0bb7644694a249be194ec2d693578902e598b18c61b0eb3"
+    },
+    "scenario": {
+      "path": "data/rq2/scenarios/scenario_05.json",
+      "sha256": "be57e57c4c133dda015d6c955cef59058f514e896dde9a94e50e0b85e87bc0fa"
+    }
+  },
+  "user_message_ids_by_phase": {
+    "A": [
+      "SC05-S1-U1",
+      "SC05-S1-U2",
+      "SC05-S2-U1",
+      "SC05-S2-U2",
+      "SC05-S3-U1",
+      "SC05-S3-U2",
+      "SC05-S4-U1",
+      "SC05-S5-U1",
+      "SC05-S5-U2"
+    ],
+    "B": [
+      "SC05-S6-U1",
+      "SC05-S6-U2",
+      "SC05-S7-U1",
+      "SC05-S8-U1",
+      "SC05-S8-U2",
+      "SC05-S9-U1",
+      "SC05-S9-U2"
+    ]
+  },
+  "user_messages": 16
+}

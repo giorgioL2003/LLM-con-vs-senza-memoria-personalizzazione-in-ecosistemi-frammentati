@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-09-23T10:35:33.392378Z",
+  "config_id": "rq4-sc05-v1",
+  "endpoints": [
+    "/api/version",
+    "/api/tags"
+  ],
+  "generations": 0,
+  "models": {
+    "gemma3:4b": {
+      "declared_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "declared_quantization": "Q4_K_M",
+      "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "model_size_bytes": 3338801804,
+      "ok": true,
+      "ollama_version": "0.34.2",
+      "quantization": "Q4_K_M"
+    },
+    "llama3.2:3b": {
+      "declared_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "declared_quantization": "Q4_K_M",
+      "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "model_size_bytes": 2019393189,
+      "ok": true,
+      "ollama_version": "0.34.2",
+      "quantization": "Q4_K_M"
+    }
+  },
+  "ok": true
+}

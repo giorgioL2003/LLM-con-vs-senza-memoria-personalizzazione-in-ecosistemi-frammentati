@@ -1,0 +1,88 @@
+{
+  "runs": [
+    {
+      "config_id": "rq4-sc05-v1",
+      "config_sha256": "6a67660db445e6ca7bd0ba8c2d013efe21132d7963ded48031358edd4aa4ef5d",
+      "counts": {
+        "model_call_errors": 0,
+        "model_calls_attempted": 14,
+        "model_calls_ok": 14,
+        "reused_cells_written": 0
+      },
+      "finished_at": "2026-09-23T10:35:57.660652Z",
+      "model_config_sha256": "e6525f3f1a3b3ec249a9064dd5a6e9eee91bdf092ceb831f1c929453170c1962",
+      "model_tag": "gemma3:4b",
+      "options": {
+        "limit": null,
+        "resume": false
+      },
+      "planned": {
+        "cells": 14,
+        "model_calls": 14
+      },
+      "preflight": {
+        "model_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+        "model_size_bytes": 3338801804,
+        "ollama_version": "0.34.2",
+        "quantization": "Q4_K_M"
+      },
+      "process_snapshot": {
+        "context_length": 4096,
+        "model": "gemma3:4b",
+        "note": "Ollama size_vram is an allocation reported by the runtime, not measured peak RAM.",
+        "size": 3725527612,
+        "size_vram": 3725527612
+      },
+      "run_id": "656e6d517c5842728f4933e097a324d6",
+      "stage": "evaluation",
+      "started_at": "2026-09-23T10:35:39.022359Z",
+      "stopped_early": false,
+      "unload": {
+        "model": "gemma3:4b",
+        "unloaded": true
+      }
+    },
+    {
+      "config_id": "rq4-sc05-v1",
+      "config_sha256": "6a67660db445e6ca7bd0ba8c2d013efe21132d7963ded48031358edd4aa4ef5d",
+      "counts": {
+        "model_call_errors": 0,
+        "model_calls_attempted": 14,
+        "model_calls_ok": 14,
+        "reused_cells_written": 0
+      },
+      "finished_at": "2026-09-23T10:36:20.347129Z",
+      "model_config_sha256": "a840d2b6bea5cd8bf140ca4ffbe055ecba9e4dddb458dd7b54f2fc92b670a050",
+      "model_tag": "llama3.2:3b",
+      "options": {
+        "limit": null,
+        "resume": false
+      },
+      "planned": {
+        "cells": 14,
+        "model_calls": 14
+      },
+      "preflight": {
+        "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+        "model_size_bytes": 2019393189,
+        "ollama_version": "0.34.2",
+        "quantization": "Q4_K_M"
+      },
+      "process_snapshot": {
+        "context_length": 4096,
+        "model": "llama3.2:3b",
+        "note": "Ollama size_vram is an allocation reported by the runtime, not measured peak RAM.",
+        "size": 2548417166,
+        "size_vram": 2548417166
+      },
+      "run_id": "faf8c8326e1247c29d832b6549724841",
+      "stage": "evaluation",
+      "started_at": "2026-09-23T10:36:02.529752Z",
+      "stopped_early": false,
+      "unload": {
+        "model": "llama3.2:3b",
+        "unloaded": true
+      }
+    }
+  ]
+}

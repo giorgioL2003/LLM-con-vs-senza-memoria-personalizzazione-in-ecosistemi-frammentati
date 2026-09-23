@@ -1,0 +1,269 @@
+{
+  "config_id": "rq4-sc05-v1",
+  "status": "phase1_offline_not_executed",
+  "frozen_on": "2026-09-23",
+  "protocol": "data/rq4/RQ4_SC05_PROTOCOLLO.md",
+  "handoff": "data/rq4/RQ4_SC05_CLAUDE_CODE_HANDOFF.md",
+  "research_question": "Quando il modello generativo viene sostituito, l'accesso alla memoria esterna accumulata prima del passaggio permette al nuovo modello di continuare il lavoro rispettando obiettivi, correzioni, vincoli e stato delle attivita?",
+  "scope": {
+    "scenario": "SC05",
+    "architecture": "Turn-level RAG over user messages only",
+    "comparison_factor": "memory accessible to model B (sessions 6-9 vs sessions 1-9)",
+    "replications": "one per model B, reported separately",
+    "boundary": "Controlled replacement of the generator above an explicit external memory; not a transfer of hidden internal state between models.",
+    "model_a": {
+      "display_name": "Claude Sonnet 5 Chat",
+      "role": "model of phase A (sessions 1-5); no new Claude generations are made and assistant messages are never indexed"
+    },
+    "excluded_claims": [
+      "any model can replace any other in any task",
+      "general ranking of Gemma and Llama",
+      "stochastic variability (one generation per cell)",
+      "representativeness of real enterprise conversations"
+    ]
+  },
+  "artifacts": {
+    "design_dir": "data/rq4/sc05_handoff_v1",
+    "results_dir": "results/rq4/sc05/v1"
+  },
+  "sources": {
+    "scenario": {
+      "path": "data/rq2/scenarios/scenario_05.json",
+      "sha256": "be57e57c4c133dda015d6c955cef59058f514e896dde9a94e50e0b85e87bc0fa"
+    },
+    "annotations": {
+      "path": "data/rq2/annotations/scenario_05_rq2.json",
+      "sha256": "454be8c6c7a7bc17bce349a356aa872075bf8dc27ca600d2ff0ba7d51f67e3a8"
+    },
+    "models_reference": {
+      "path": "data/rq3/config/rq5_sc06_v1_1.json",
+      "sha256": "01662ccb0980ae24552b91942663cffe97b390ded23f74ccdd9d3946d4debc14",
+      "use": "read-only source of tags, digests, quantization and runtime parameters for Gemma and Llama"
+    },
+    "retriever": {
+      "ranking_module": {
+        "path": "scripts/run_retrieval_pilot.py",
+        "sha256": "0b7dfe4d684f9e58046065f765e633fa5f519d98e869405d1e96063cb627f3dd"
+      },
+      "budget_module": {
+        "path": "scripts/rq2/rq2_common.py",
+        "sha256": "3656563ec30479787048d3fdba361b891dcefcba0410761648d0880d2e425ff1"
+      },
+      "token_counting_config": {
+        "path": "data/rq2/config/experiment_rq2.json",
+        "sha256": "df4b066a0d1810e8f0bb7644694a249be194ec2d693578902e598b18c61b0eb3"
+      }
+    }
+  },
+  "scenario": {
+    "scenario_id": "scenario_05",
+    "case_id": "ARD-19",
+    "session_ids": ["SC05-S1", "SC05-S2", "SC05-S3", "SC05-S4", "SC05-S5", "SC05-S6", "SC05-S7", "SC05-S8", "SC05-S9"],
+    "indexed_role": "user",
+    "handoff": {
+      "after_session_order": 5,
+      "phase_a_sessions": [1, 2, 3, 4, 5],
+      "phase_b_sessions": [6, 7, 8, 9],
+      "description": "Phase A (S1-S5) is the history before the change of generator; phase B (S6-S9 and final questions) is served by model B."
+    }
+  },
+  "conditions": {
+    "order": ["separated", "shared"],
+    "separated": {
+      "accessible_sessions": [6, 7, 8, 9],
+      "description": "retriever searches only user messages of sessions 6-9"
+    },
+    "shared": {
+      "accessible_sessions": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      "description": "retriever searches user messages of sessions 1-9, including phase A"
+    }
+  },
+  "question_groups": {
+    "handoff_dependent": {
+      "question_ids": ["SC05-Q1", "SC05-Q2", "SC05-Q4", "SC05-Q6"],
+      "rule": "at least one required fact comes from sessions 1-5",
+      "role": "central metric"
+    },
+    "post_handoff_control": {
+      "question_ids": ["SC05-Q3", "SC05-Q5"],
+      "rule": "all required facts come from sessions 6-9",
+      "role": "control"
+    },
+    "absent_information": {
+      "question_ids": ["SC05-Q7"],
+      "rule": "no required fact; abstention expected in both conditions",
+      "role": "control"
+    },
+    "central_question": "SC05-Q4"
+  },
+  "retrieval": {
+    "architecture": "Turn-level RAG",
+    "unit": "single user message, rendered as in RQ2 mode T: '[message_id] content'",
+    "ranking": "scripts/rq2/rq2_common.py:rank_items (TF-IDF cosine of scripts/run_retrieval_pilot.py), imported not copied",
+    "selection": "scripts/rq2/rq2_common.py:select_within_budget, imported not copied",
+    "items": "scripts/rq2/rq2_common.py:message_items",
+    "tokenization": "lowercase; tokens [a-z0-9_-]+ (pilot)",
+    "query": "question text",
+    "zero_score_excluded": true,
+    "min_score_exclusive": 0.0,
+    "tie_break": "session order, then message order",
+    "budget_tokens": 200,
+    "token_counting_regex": "[0-9A-Za-zÀ-ɏ_]+|[^\\s0-9A-Za-zÀ-ɏ_]",
+    "token_counting_scope": "tokens of the rendered context line (identifier + content), as in RQ2",
+    "truncation": "none; the first item is included even if it alone exceeds the budget (RQ2 rule)",
+    "reads_oracle": false,
+    "no_post_hoc_tuning": "Known lexical limits of TF-IDF on SC05 are not corrected."
+  },
+  "prompt": {
+    "origin": "instructions of scripts/build_generation_inputs.py (pilot/RQ2) plus the JSON output contract of the RQ4 protocol",
+    "system": "Rispondi utilizzando soltanto le informazioni presenti nel contesto.\nNon utilizzare conoscenze esterne e non inventare informazioni.\nSe il contesto non contiene tutte le informazioni necessarie, dichiara che le informazioni disponibili non sono sufficienti.\nFornisci una risposta breve e diretta.\nRestituisci soltanto un oggetto JSON con le chiavi \"status\" e \"answer\". Usa \"status\": \"answered\" quando il contesto consente di rispondere completamente. Usa \"status\": \"insufficient\" quando il contesto non consente di rispondere completamente e riporta in \"answer\" soltanto le eventuali informazioni supportate dal contesto, senza completare con supposizioni.",
+    "user_template": "Contesto:\n{context}\n\nDomanda:\n{question}",
+    "context_line_separator": "\n",
+    "empty_context": "Nessuna informazione precedente disponibile.",
+    "response_schema": {
+      "type": "object",
+      "properties": {
+        "status": {"type": "string", "enum": ["answered", "insufficient"]},
+        "answer": {"type": "string"}
+      },
+      "required": ["status", "answer"],
+      "additionalProperties": false
+    },
+    "forbidden_prompt_inputs": [
+      "expected_answer",
+      "mandatory_facts",
+      "required_facts",
+      "required_evidence_ids",
+      "obsolete_information",
+      "accepted_equivalents",
+      "expected_behavior",
+      "category",
+      "group",
+      "assistant messages"
+    ]
+  },
+  "models": [
+    {
+      "display_name": "Gemma 3 4B IT",
+      "developer": "Google",
+      "ollama_tag": "gemma3:4b",
+      "ollama_digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "parameters": "4.3B",
+      "quantization": "Q4_K_M"
+    },
+    {
+      "display_name": "Llama 3.2 3B Instruct",
+      "developer": "Meta",
+      "ollama_tag": "llama3.2:3b",
+      "ollama_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "parameters": "3.2B",
+      "quantization": "Q4_K_M"
+    }
+  ],
+  "runtime": {
+    "engine": "Ollama",
+    "verified_version": "0.34.2",
+    "endpoint": "http://127.0.0.1:11434/api/chat",
+    "stream": false,
+    "keep_alive": "10m",
+    "format": "use prompt.response_schema as the Ollama format value",
+    "one_model_loaded_at_a_time": true,
+    "model_order": ["gemma3:4b", "llama3.2:3b"],
+    "request_order": "question_id ascending, separated then shared",
+    "warmup_requests_per_model": 3,
+    "warmup_in_results": false,
+    "warmup_prompt": "Rispondi soltanto con {\"status\": \"insufficient\", \"answer\": \"\"}.",
+    "options": {
+      "temperature": 0,
+      "seed": 42,
+      "num_ctx": 4096,
+      "num_predict": 128
+    },
+    "repetitions_per_model_condition_question": 1,
+    "copied_from_models_reference": ["models", "runtime.engine", "runtime.verified_version", "runtime.endpoint", "runtime.stream", "runtime.keep_alive", "runtime.one_model_loaded_at_a_time", "runtime.model_order", "runtime.warmup_requests_per_model", "runtime.options"]
+  },
+  "performance": {
+    "log_ollama_fields": [
+      "total_duration",
+      "load_duration",
+      "prompt_eval_count",
+      "prompt_eval_cached_count",
+      "prompt_eval_duration",
+      "eval_count",
+      "eval_duration"
+    ],
+    "limitation": "Ollama size_vram is an allocation reported by the runtime, not measured peak RAM."
+  },
+  "reuse": {
+    "enabled": true,
+    "key": ["model_tag", "prompt_sha256", "model_config_sha256"],
+    "rule": "Within the same model B, cells with identical prompt and identical model configuration get one real call; the others are 'reused_identical_prompt' with reused_from_cell_id. Never across Gemma and Llama. Decided from requests only, before any call.",
+    "generation_kinds": ["model_call", "reused_identical_prompt"]
+  },
+  "counts": {
+    "user_messages": 16,
+    "sessions": 9,
+    "questions": 7,
+    "conditions": 2,
+    "models": 2,
+    "retrieval_rows": 14,
+    "cells": 28,
+    "model_calls": 28,
+    "reused_cells": 0,
+    "model_calls_per_model": {"gemma3:4b": 14, "llama3.2:3b": 14},
+    "note": "model_calls and reused_cells computed offline from the frozen retrieval on 2026-09-23: all 14 separated/shared context pairs differ, so no prompt is identical within a model."
+  },
+  "evaluation": {
+    "judge_model": null,
+    "parser": "strict: the whole text must be one JSON object with exactly the keys 'status' and 'answer'; status in response_schema enum; answer a string. Anything else is a format error. No repair, no retry.",
+    "expected_status_rule": "'answered' when every required fact of the question is available (in the accessible corpus for expected_given_corpus, in the retrieved context for expected_given_context); otherwise 'insufficient'. Q7 has no required facts and is always 'insufficient'.",
+    "fact_available_rule": "a required fact is available when all its source messages are present (by provenance); provenance does not prove the content is usable and is not a judgment",
+    "classes": {
+      "complete_supported": "all required facts that are accessible and asked are reported correctly",
+      "partial": "at least one required fact is correct but another accessible one is missing",
+      "wrong": "contradiction, obsolete fact presented as current, or failure despite sufficient evidence",
+      "insufficiency_recognized": "correctly states that the context does not allow a complete answer and does not invent",
+      "unsupported_claim": "introduces a fact not present in the context"
+    },
+    "human_review": {
+      "required": true,
+      "pending_label": "proposto/in attesa di revisione",
+      "annotations_file": "results/rq4/sc05/v1/evaluation/annotations.jsonl",
+      "rule": "Qualitative judgments stay null until the student fills and approves them; automatic flags never replace them."
+    },
+    "automatic_flags": {
+      "evidence_in_corpus": "per required fact, source messages inside the accessible corpus",
+      "evidence_in_context": "per required fact, source messages inside the retrieved context",
+      "status_vs_expected_given_context": "declared status equals expected_given_context",
+      "obsolete_marker_mentioned": "answer contains a marker listed in obsolete_markers (signal for review, not a judgment)",
+      "unsupported_identifier_candidates": "identifiers or numbers in the answer (salient_token_regex) that do not appear in the context"
+    },
+    "obsolete_markers": {
+      "SC05-Q2": ["SRV-12"],
+      "SC05-Q3": ["bilanciatore"],
+      "SC05-Q4": ["bilanciatore"]
+    },
+    "salient_token_regex": "[A-Z]{2,}-\\d+|\\d+(?:[.,:]\\d+)*|`[^`]+`",
+    "report_separately_by": ["model", "condition", "question_group"],
+    "forbidden_aggregation": "Never average handoff-dependent questions, controls and absent information into one score; always show numerators and denominators.",
+    "paired_comparison": "question by question, shared vs separated, within the same model"
+  },
+  "smoke": {
+    "purpose": "optional check of runtime, format and parser; one call per model on a fixture that is not SC05",
+    "requests_per_model": 1,
+    "fixture": {
+      "request_id": "smoke|FIX-Q1",
+      "context_lines": [
+        "[FIX-S1-U1] Il ticket di prova TST-3 riguarda la stampante del terzo piano ed è stato chiuso il 2 maggio."
+      ],
+      "question": "Quando è stato chiuso il ticket TST-3?"
+    },
+    "in_results": false
+  },
+  "execution_gates": {
+    "smoke_requires": ["--stage smoke", "--confirm-smoke", "offline validator passing", "model verification passing"],
+    "evaluation_requires": ["--stage evaluation", "--confirm-evaluation", "offline validator passing", "model verification passing", "results/rq4/sc05/v1/evaluation_gate.json approved and bound to current config and build manifest"],
+    "phase1_rule": "No real call and no raw_responses.jsonl in phase 1; smoke and evaluation must be authorized separately.",
+    "change_rule": "Any change to prompt, retrieval, budget, parser, models or metrics after a real call requires a new config_id."
+  }
+}

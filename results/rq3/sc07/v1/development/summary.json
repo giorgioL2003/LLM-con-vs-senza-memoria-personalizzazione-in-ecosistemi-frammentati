@@ -1,0 +1,560 @@
+{
+  "bootstrap": {
+    "p_values": false,
+    "repetitions": 10000,
+    "seed": 20260923,
+    "unit": "episode"
+  },
+  "by_condition": {
+    "separated": {
+      "cells": 18,
+      "context_contamination": {
+        "denominator": 36,
+        "denominator_rule": "messaggi recuperati",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "cross_activity_confusion": {
+        "denominator": 0,
+        "denominator_rule": "celle con valore non null errato",
+        "numerator": 0,
+        "rate": null
+      },
+      "cross_activity_confusion_all_cells": {
+        "denominator": 18,
+        "denominator_rule": "tutte le celle attese",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "error_attribution": {
+        "evidence_unreachable": 0,
+        "format": 0,
+        "generation": 0,
+        "missing_response": 0,
+        "retrieval": 0
+      },
+      "evidence_reachable": {
+        "denominator": 18,
+        "denominator_rule": "tutte le celle attese",
+        "numerator": 18,
+        "rate": 1.0
+      },
+      "exact_match": {
+        "denominator": 18,
+        "denominator_rule": "tutte le celle attese",
+        "numerator": 18,
+        "rate": 1.0
+      },
+      "format_error": {
+        "denominator": 18,
+        "denominator_rule": "celle con risposta",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "missing_response": {
+        "denominator": 18,
+        "denominator_rule": "tutte le celle attese",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "null_answer": {
+        "denominator": 18,
+        "denominator_rule": "celle con formato valido",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "null_despite_evidence": {
+        "denominator": 18,
+        "denominator_rule": "celle con formato valido ed evidenza recuperata",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "retrieval_success": {
+        "denominator": 18,
+        "denominator_rule": "tutte le celle attese",
+        "numerator": 18,
+        "rate": 1.0
+      },
+      "supported_answer": {
+        "denominator": 18,
+        "denominator_rule": "celle con valore non null",
+        "numerator": 18,
+        "rate": 1.0
+      }
+    },
+    "shared_interleaved": {
+      "cells": 18,
+      "context_contamination": {
+        "denominator": 36,
+        "denominator_rule": "messaggi recuperati",
+        "numerator": 4,
+        "rate": 0.1111111111111111
+      },
+      "cross_activity_confusion": {
+        "denominator": 0,
+        "denominator_rule": "celle con valore non null errato",
+        "numerator": 0,
+        "rate": null
+      },
+      "cross_activity_confusion_all_cells": {
+        "denominator": 18,
+        "denominator_rule": "tutte le celle attese",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "error_attribution": {
+        "evidence_unreachable": 0,
+        "format": 0,
+        "generation": 0,
+        "missing_response": 0,
+        "retrieval": 0
+      },
+      "evidence_reachable": {
+        "denominator": 18,
+        "denominator_rule": "tutte le celle attese",
+        "numerator": 18,
+        "rate": 1.0
+      },
+      "exact_match": {
+        "denominator": 18,
+        "denominator_rule": "tutte le celle attese",
+        "numerator": 18,
+        "rate": 1.0
+      },
+      "format_error": {
+        "denominator": 18,
+        "denominator_rule": "celle con risposta",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "missing_response": {
+        "denominator": 18,
+        "denominator_rule": "tutte le celle attese",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "null_answer": {
+        "denominator": 18,
+        "denominator_rule": "celle con formato valido",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "null_despite_evidence": {
+        "denominator": 18,
+        "denominator_rule": "celle con formato valido ed evidenza recuperata",
+        "numerator": 0,
+        "rate": 0.0
+      },
+      "retrieval_success": {
+        "denominator": 18,
+        "denominator_rule": "tutte le celle attese",
+        "numerator": 18,
+        "rate": 1.0
+      },
+      "supported_answer": {
+        "denominator": 18,
+        "denominator_rule": "celle con valore non null",
+        "numerator": 18,
+        "rate": 1.0
+      }
+    }
+  },
+  "by_ecosystem": {
+    "Maven": {
+      "separated": {
+        "context_contamination": {
+          "denominator": 12,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        }
+      },
+      "shared_interleaved": {
+        "context_contamination": {
+          "denominator": 12,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 1,
+          "rate": 0.08333333333333333
+        },
+        "exact_match": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        }
+      }
+    },
+    "PyPI": {
+      "separated": {
+        "context_contamination": {
+          "denominator": 12,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        }
+      },
+      "shared_interleaved": {
+        "context_contamination": {
+          "denominator": 12,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 1,
+          "rate": 0.08333333333333333
+        },
+        "exact_match": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        }
+      }
+    },
+    "npm": {
+      "separated": {
+        "context_contamination": {
+          "denominator": 12,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        }
+      },
+      "shared_interleaved": {
+        "context_contamination": {
+          "denominator": 12,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 2,
+          "rate": 0.16666666666666666
+        },
+        "exact_match": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 6,
+          "numerator": 6,
+          "rate": 1.0
+        }
+      }
+    }
+  },
+  "by_question_type": {
+    "fix.fixed_version": {
+      "separated": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      },
+      "shared_interleaved": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      }
+    },
+    "fix.package": {
+      "separated": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      },
+      "shared_interleaved": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 1,
+          "rate": 0.16666666666666666
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      }
+    },
+    "impact.package": {
+      "separated": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      },
+      "shared_interleaved": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 3,
+          "rate": 0.5
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      }
+    },
+    "impact.vulnerable_range": {
+      "separated": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      },
+      "shared_interleaved": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      }
+    },
+    "triage.package": {
+      "separated": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      },
+      "shared_interleaved": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      }
+    },
+    "triage.severity": {
+      "separated": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      },
+      "shared_interleaved": {
+        "context_contamination": {
+          "denominator": 6,
+          "denominator_rule": "messaggi recuperati",
+          "numerator": 0,
+          "rate": 0.0
+        },
+        "exact_match": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        },
+        "retrieval_success": {
+          "denominator": 3,
+          "numerator": 3,
+          "rate": 1.0
+        }
+      }
+    }
+  },
+  "cells_expected": 36,
+  "config_id": "rq3-sc07-v1",
+  "episodes": 3,
+  "generation": {
+    "cells_with_model_used_different_from_requested": 0,
+    "cells_with_response": 36,
+    "model_calls": 23,
+    "model_used_counts": {
+      "claude-sonnet-5": 36
+    },
+    "note": "Le celle riusate hanno la stessa risposta di una cella con prompt identico e non sono chiamate aggiuntive.",
+    "reused_identical_prompt": 13
+  },
+  "limits": [
+    "universal behaviour of all datasets, retrievers or models",
+    "real enterprise conversations",
+    "stochastic variability of the model",
+    "comparison with other memory architectures"
+  ],
+  "model": {
+    "access_channel": "Claude Code CLI",
+    "display_name": "Claude Sonnet 5 Chat",
+    "model_id": "claude-sonnet-5"
+  },
+  "paired_differences": {
+    "exact_match": {
+      "ci95_high_pp": 0.0,
+      "ci95_low_pp": 0.0,
+      "direction": "shared_interleaved - separated",
+      "effect_pp": 0.0,
+      "episodes": 3,
+      "metric": "exact_match",
+      "valid_resamples": 10000
+    },
+    "retrieval_success": {
+      "ci95_high_pp": 0.0,
+      "ci95_low_pp": 0.0,
+      "direction": "shared_interleaved - separated",
+      "effect_pp": 0.0,
+      "episodes": 3,
+      "metric": "retrieval_success",
+      "valid_resamples": 10000
+    }
+  },
+  "paired_exact_match": {
+    "both_correct": 18,
+    "neither": 0,
+    "only_separated": 0,
+    "only_shared_interleaved": 0,
+    "pairs": 18
+  },
+  "split": "development"
+}

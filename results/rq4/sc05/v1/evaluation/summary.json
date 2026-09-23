@@ -1,0 +1,1453 @@
+{
+  "by_model": {
+    "gemma3:4b": {
+      "separated": {
+        "absent_information": {
+          "cells": 1,
+          "declared_answered": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "declared_insufficient": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "evidence_facts_in_context": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          },
+          "format_error": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 1,
+            "reviewed": {
+              "denominator": 1,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "responses": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          }
+        },
+        "handoff_dependent": {
+          "cells": 4,
+          "declared_answered": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "declared_insufficient": {
+            "denominator": 4,
+            "numerator": 4,
+            "rate": 1.0
+          },
+          "evidence_facts_in_context": {
+            "denominator": 7,
+            "numerator": 1,
+            "rate": 0.14285714285714285
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 7,
+            "numerator": 1,
+            "rate": 0.14285714285714285
+          },
+          "format_error": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 4,
+            "reviewed": {
+              "denominator": 4,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 4,
+            "numerator": 1,
+            "rate": 0.25
+          },
+          "responses": {
+            "denominator": 4,
+            "numerator": 4,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 4,
+            "numerator": 4,
+            "rate": 1.0
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          }
+        },
+        "post_handoff_control": {
+          "cells": 2,
+          "declared_answered": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "declared_insufficient": {
+            "denominator": 2,
+            "numerator": 2,
+            "rate": 1.0
+          },
+          "evidence_facts_in_context": {
+            "denominator": 3,
+            "numerator": 1,
+            "rate": 0.3333333333333333
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 3,
+            "numerator": 3,
+            "rate": 1.0
+          },
+          "format_error": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 2,
+            "reviewed": {
+              "denominator": 2,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 2,
+            "numerator": 1,
+            "rate": 0.5
+          },
+          "responses": {
+            "denominator": 2,
+            "numerator": 2,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 2,
+            "numerator": 2,
+            "rate": 1.0
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          }
+        }
+      },
+      "shared": {
+        "absent_information": {
+          "cells": 1,
+          "declared_answered": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "declared_insufficient": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "evidence_facts_in_context": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          },
+          "format_error": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 1,
+            "reviewed": {
+              "denominator": 1,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "responses": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          }
+        },
+        "handoff_dependent": {
+          "cells": 4,
+          "declared_answered": {
+            "denominator": 4,
+            "numerator": 3,
+            "rate": 0.75
+          },
+          "declared_insufficient": {
+            "denominator": 4,
+            "numerator": 1,
+            "rate": 0.25
+          },
+          "evidence_facts_in_context": {
+            "denominator": 7,
+            "numerator": 6,
+            "rate": 0.8571428571428571
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 7,
+            "numerator": 7,
+            "rate": 1.0
+          },
+          "format_error": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 4,
+            "reviewed": {
+              "denominator": 4,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 4,
+            "numerator": 2,
+            "rate": 0.5
+          },
+          "responses": {
+            "denominator": 4,
+            "numerator": 4,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 4,
+            "numerator": 4,
+            "rate": 1.0
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          }
+        },
+        "post_handoff_control": {
+          "cells": 2,
+          "declared_answered": {
+            "denominator": 2,
+            "numerator": 1,
+            "rate": 0.5
+          },
+          "declared_insufficient": {
+            "denominator": 2,
+            "numerator": 1,
+            "rate": 0.5
+          },
+          "evidence_facts_in_context": {
+            "denominator": 3,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 3,
+            "numerator": 3,
+            "rate": 1.0
+          },
+          "format_error": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 2,
+            "reviewed": {
+              "denominator": 2,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 2,
+            "numerator": 1,
+            "rate": 0.5
+          },
+          "responses": {
+            "denominator": 2,
+            "numerator": 2,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 2,
+            "numerator": 1,
+            "rate": 0.5
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          }
+        }
+      }
+    },
+    "llama3.2:3b": {
+      "separated": {
+        "absent_information": {
+          "cells": 1,
+          "declared_answered": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "declared_insufficient": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "evidence_facts_in_context": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          },
+          "format_error": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 1,
+            "reviewed": {
+              "denominator": 1,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "responses": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          }
+        },
+        "handoff_dependent": {
+          "cells": 4,
+          "declared_answered": {
+            "denominator": 4,
+            "numerator": 2,
+            "rate": 0.5
+          },
+          "declared_insufficient": {
+            "denominator": 4,
+            "numerator": 2,
+            "rate": 0.5
+          },
+          "evidence_facts_in_context": {
+            "denominator": 7,
+            "numerator": 1,
+            "rate": 0.14285714285714285
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 7,
+            "numerator": 1,
+            "rate": 0.14285714285714285
+          },
+          "format_error": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 4,
+            "reviewed": {
+              "denominator": 4,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 4,
+            "numerator": 1,
+            "rate": 0.25
+          },
+          "responses": {
+            "denominator": 4,
+            "numerator": 4,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 4,
+            "numerator": 2,
+            "rate": 0.5
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 4,
+            "numerator": 1,
+            "rate": 0.25
+          }
+        },
+        "post_handoff_control": {
+          "cells": 2,
+          "declared_answered": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "declared_insufficient": {
+            "denominator": 2,
+            "numerator": 2,
+            "rate": 1.0
+          },
+          "evidence_facts_in_context": {
+            "denominator": 3,
+            "numerator": 1,
+            "rate": 0.3333333333333333
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 3,
+            "numerator": 3,
+            "rate": 1.0
+          },
+          "format_error": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 2,
+            "reviewed": {
+              "denominator": 2,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 2,
+            "numerator": 1,
+            "rate": 0.5
+          },
+          "responses": {
+            "denominator": 2,
+            "numerator": 2,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 2,
+            "numerator": 2,
+            "rate": 1.0
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 2,
+            "numerator": 2,
+            "rate": 1.0
+          }
+        }
+      },
+      "shared": {
+        "absent_information": {
+          "cells": 1,
+          "declared_answered": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "declared_insufficient": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "evidence_facts_in_context": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          },
+          "format_error": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 1,
+            "reviewed": {
+              "denominator": 1,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "responses": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 1,
+            "numerator": 1,
+            "rate": 1.0
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 1,
+            "numerator": 0,
+            "rate": 0.0
+          }
+        },
+        "handoff_dependent": {
+          "cells": 4,
+          "declared_answered": {
+            "denominator": 4,
+            "numerator": 3,
+            "rate": 0.75
+          },
+          "declared_insufficient": {
+            "denominator": 4,
+            "numerator": 1,
+            "rate": 0.25
+          },
+          "evidence_facts_in_context": {
+            "denominator": 7,
+            "numerator": 6,
+            "rate": 0.8571428571428571
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 7,
+            "numerator": 7,
+            "rate": 1.0
+          },
+          "format_error": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 4,
+            "reviewed": {
+              "denominator": 4,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 4,
+            "numerator": 2,
+            "rate": 0.5
+          },
+          "responses": {
+            "denominator": 4,
+            "numerator": 4,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 4,
+            "numerator": 4,
+            "rate": 1.0
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 4,
+            "numerator": 0,
+            "rate": 0.0
+          }
+        },
+        "post_handoff_control": {
+          "cells": 2,
+          "declared_answered": {
+            "denominator": 2,
+            "numerator": 1,
+            "rate": 0.5
+          },
+          "declared_insufficient": {
+            "denominator": 2,
+            "numerator": 1,
+            "rate": 0.5
+          },
+          "evidence_facts_in_context": {
+            "denominator": 3,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "evidence_facts_in_corpus": {
+            "denominator": 3,
+            "numerator": 3,
+            "rate": 1.0
+          },
+          "format_error": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "human_review": {
+            "classes": {
+              "complete_supported": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "insufficiency_recognized": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "partial": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "unsupported_claim": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              },
+              "wrong": {
+                "denominator": 0,
+                "numerator": 0,
+                "rate": null
+              }
+            },
+            "pending": 2,
+            "reviewed": {
+              "denominator": 2,
+              "numerator": 0,
+              "rate": 0.0
+            },
+            "unsupported_claim": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            },
+            "uses_obsolete_as_current": {
+              "denominator": 0,
+              "numerator": 0,
+              "rate": null
+            }
+          },
+          "missing_or_error": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          },
+          "obsolete_marker_flagged": {
+            "denominator": 2,
+            "numerator": 1,
+            "rate": 0.5
+          },
+          "responses": {
+            "denominator": 2,
+            "numerator": 2,
+            "rate": 1.0
+          },
+          "status_matches_expected_given_context": {
+            "denominator": 2,
+            "numerator": 1,
+            "rate": 0.5
+          },
+          "unsupported_identifier_flagged": {
+            "denominator": 2,
+            "numerator": 0,
+            "rate": 0.0
+          }
+        }
+      }
+    }
+  },
+  "cells": 28,
+  "config_id": "rq4-sc05-v1",
+  "paired": {
+    "gemma3:4b": {
+      "SC05-Q1": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        },
+        "shared": {
+          "declared_status": "answered",
+          "expected_status_given_context": "answered",
+          "facts_in_context": 2,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        }
+      },
+      "SC05-Q2": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        },
+        "shared": {
+          "declared_status": "answered",
+          "expected_status_given_context": "answered",
+          "facts_in_context": 2,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        }
+      },
+      "SC05-Q3": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 1,
+          "final_class": null,
+          "group": "post_handoff_control"
+        },
+        "shared": {
+          "declared_status": "answered",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 1,
+          "final_class": null,
+          "group": "post_handoff_control"
+        }
+      },
+      "SC05-Q4": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 1,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        },
+        "shared": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 1,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        }
+      },
+      "SC05-Q5": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 1,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "post_handoff_control"
+        },
+        "shared": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "post_handoff_control"
+        }
+      },
+      "SC05-Q6": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 1,
+          "final_class": null,
+          "group": "handoff_dependent"
+        },
+        "shared": {
+          "declared_status": "answered",
+          "expected_status_given_context": "answered",
+          "facts_in_context": 1,
+          "facts_total": 1,
+          "final_class": null,
+          "group": "handoff_dependent"
+        }
+      },
+      "SC05-Q7": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 0,
+          "final_class": null,
+          "group": "absent_information"
+        },
+        "shared": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 0,
+          "final_class": null,
+          "group": "absent_information"
+        }
+      }
+    },
+    "llama3.2:3b": {
+      "SC05-Q1": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        },
+        "shared": {
+          "declared_status": "answered",
+          "expected_status_given_context": "answered",
+          "facts_in_context": 2,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        }
+      },
+      "SC05-Q2": {
+        "separated": {
+          "declared_status": "answered",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        },
+        "shared": {
+          "declared_status": "answered",
+          "expected_status_given_context": "answered",
+          "facts_in_context": 2,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        }
+      },
+      "SC05-Q3": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 1,
+          "final_class": null,
+          "group": "post_handoff_control"
+        },
+        "shared": {
+          "declared_status": "answered",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 1,
+          "final_class": null,
+          "group": "post_handoff_control"
+        }
+      },
+      "SC05-Q4": {
+        "separated": {
+          "declared_status": "answered",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 1,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        },
+        "shared": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 1,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "handoff_dependent"
+        }
+      },
+      "SC05-Q5": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 1,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "post_handoff_control"
+        },
+        "shared": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 2,
+          "final_class": null,
+          "group": "post_handoff_control"
+        }
+      },
+      "SC05-Q6": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 1,
+          "final_class": null,
+          "group": "handoff_dependent"
+        },
+        "shared": {
+          "declared_status": "answered",
+          "expected_status_given_context": "answered",
+          "facts_in_context": 1,
+          "facts_total": 1,
+          "final_class": null,
+          "group": "handoff_dependent"
+        }
+      },
+      "SC05-Q7": {
+        "separated": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 0,
+          "final_class": null,
+          "group": "absent_information"
+        },
+        "shared": {
+          "declared_status": "insufficient",
+          "expected_status_given_context": "insufficient",
+          "facts_in_context": 0,
+          "facts_total": 0,
+          "final_class": null,
+          "group": "absent_information"
+        }
+      }
+    }
+  },
+  "rule": "Never average handoff-dependent questions, controls and absent information into one score; always show numerators and denominators."
+}

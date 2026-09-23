@@ -1,0 +1,32 @@
+{
+  "acquired_at": "2026-09-23T09:30:09Z",
+  "acquisition_method": "git fetch --depth 1 --filter=blob:none <commit>; sparse checkout of /advisories/github-reviewed/ and /LICENSE.md; deterministic tar.gz (sorted members, mtime 0, uid/gid 0, mode 0644, gzip mtime 0)",
+  "citation": "GitHub, GitHub Advisory Database, repository pubblico di advisory di sicurezza, s.d.",
+  "commit": "2f3ffd6fa3954848d6ff22c549fc7dd878a27e94",
+  "commit_date": "2026-09-23T06:36:35Z",
+  "commit_subject": "Advisory Database Sync",
+  "dataset": "GitHub Advisory Database",
+  "indirect_provenance": "Il repository e mantenuto da GitHub e dalla comunita, ma aggrega anche fonti esterne, fra cui NVD. Le informazioni sulle vulnerabilita sono reali; conversazioni, ordine dei messaggi e domande sono costruiti per l'esperimento.",
+  "license": {
+    "filename": "LICENSE.md",
+    "first_line": "Attribution 4.0 International",
+    "git_blob": "4ea99c213c5c0c005ae4e80df8e52169d06896ec",
+    "path": "data/rq3/source/github_advisory_database/LICENSE.md",
+    "sha256": "9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94",
+    "spdx": "CC-BY-4.0"
+  },
+  "repository_url": "https://github.com/github/advisory-database",
+  "script": "scripts/rq3/acquire_rq3_sc07_source.py",
+  "snapshot": {
+    "advisory_json_files": 35833,
+    "bytes": 28191965,
+    "file_listing_sha256": "d85f3599e74ab95a3677b7d67cbc990cee335da0798be8de2e5901c7b1ace9b4",
+    "path": "data/rq3/source/github_advisory_database/2f3ffd6fa3954848d6ff22c549fc7dd878a27e94.tar.gz",
+    "root_in_archive": "advisory-database-2f3ffd6fa3954848d6ff22c549fc7dd878a27e94",
+    "sha256": "9610aa3f348e872fdef001c3ac522f632a9378162a95ccb829fcd914870d0f2a",
+    "total_files": 35834
+  },
+  "subtree": "advisories/github-reviewed",
+  "subtree_git_tree": "78551fab0d90a441e1cc4bfb4955600e444417d2",
+  "transformations": "Nessuna modifica ai file upstream: lo snapshot contiene i JSON OSV originali del sottoalbero e la licenza. I record selezionati sono proiettati nei campi usati, con percorso e SHA-256 del file originale."
+}

@@ -1,0 +1,14 @@
+{
+  "approved_at": "2026-09-23T10:35:33Z",
+  "approved_by": "student",
+  "authorization": "Esecuzione reale autorizzata dallo studente in chat il 2026-09-23: 14 celle gemma3:4b, poi 14 celle llama3.2:3b, parametri congelati.",
+  "build_manifest_sha256": "2faadcd2c8cdd009f29273d5e6744aae29fa07cc23ee648813f850349c3aea46",
+  "config_id": "rq4-sc05-v1",
+  "config_sha256": "6a67660db445e6ca7bd0ba8c2d013efe21132d7963ded48031358edd4aa4ef5d",
+  "model_verification_sha256": "06addfb68affa08b39fcdd7c6896704ff80d66ccaa5df83026d151cce7d4ad45",
+  "smoke": {
+    "gemma3:4b": "ok",
+    "llama3.2:3b": "ok",
+    "smoke_raw_responses_sha256": "5c8e2851d063c07b3e293f7ff82b058bb328d490fc16a143b209e62bdab10f6d"
+  }
+}

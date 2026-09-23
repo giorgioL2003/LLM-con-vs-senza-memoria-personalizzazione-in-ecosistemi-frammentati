@@ -1,0 +1,98 @@
+{
+  "artifacts_sha256": {
+    "data/rq4/sc05_handoff_v1/generation_plan.jsonl": "7716561a431693be0a62e98e739d46989a2dde6a6858073e0c9e62674f1b62d0",
+    "data/rq4/sc05_handoff_v1/messages.jsonl": "a02b27eec0045a610ce43088b087345c6ea4a791e5a3bc95aec238cb094b85dc",
+    "data/rq4/sc05_handoff_v1/oracle.jsonl": "087eb17d757c558c77f6badf8d48f69780eb37921b48bf3fc728efb54085eb00",
+    "data/rq4/sc05_handoff_v1/questions.jsonl": "0e6c5153b2f50bf4b1bd1c9e0df620a90ab53c121874e2b0408d271c2461c559",
+    "data/rq4/sc05_handoff_v1/requests.jsonl": "dee2c3ca4eb49cd1a3f280b9d0378229aa0a1807fb6010d485a18151435e287f",
+    "data/rq4/sc05_handoff_v1/retrieval.jsonl": "3cf96b877067bebac15e44abbc60e3600a512d1e1ca2e482937c673e5f94d1a9",
+    "data/rq4/sc05_handoff_v1/retrieval_coverage.jsonl": "907cc07c096a26e5b5a4fee62bdef62dbdb195d6f995f0ac9723158629d17c0c",
+    "data/rq4/sc05_handoff_v1/smoke_requests.jsonl": "0cf51950f88fa54c1071cb99c2c54083084b9c80cf8468bcb0467864053c3eef",
+    "data/rq4/sc05_handoff_v1/source_manifest.json": "9a21c0c32c72d50f304ebc4c0db604adca6d13d7424d86e915142fe3a4838d7e"
+  },
+  "built_at": "2026-09-23T10:35:06Z",
+  "config_id": "rq4-sc05-v1",
+  "config_path": "data/rq4/config/rq4_sc05_v1.json",
+  "config_sha256": "6a67660db445e6ca7bd0ba8c2d013efe21132d7963ded48031358edd4aa4ef5d",
+  "counts": {
+    "cells": 28,
+    "distinct_prompts": 14,
+    "model_calls": 28,
+    "model_calls_per_model": {
+      "gemma3:4b": 14,
+      "llama3.2:3b": 14
+    },
+    "reused_cells": 0,
+    "smoke_requests": 2
+  },
+  "expected_counts": {
+    "cells": 28,
+    "conditions": 2,
+    "model_calls": 28,
+    "model_calls_per_model": {
+      "gemma3:4b": 14,
+      "llama3.2:3b": 14
+    },
+    "models": 2,
+    "note": "model_calls and reused_cells computed offline from the frozen retrieval on 2026-09-23: all 14 separated/shared context pairs differ, so no prompt is identical within a model.",
+    "questions": 7,
+    "retrieval_rows": 14,
+    "reused_cells": 0,
+    "sessions": 9,
+    "user_messages": 16
+  },
+  "model_calls_executed": 0,
+  "model_config_sha256": {
+    "gemma3:4b": "e6525f3f1a3b3ec249a9064dd5a6e9eee91bdf092ceb831f1c929453170c1962",
+    "llama3.2:3b": "a840d2b6bea5cd8bf140ca4ffbe055ecba9e4dddb458dd7b54f2fc92b670a050"
+  },
+  "scripts_sha256": {
+    "scripts/rq2/rq2_common.py": "3656563ec30479787048d3fdba361b891dcefcba0410761648d0880d2e425ff1",
+    "scripts/rq3/rq5_common.py": "649f1324c145d26fd66797dbe8ebb5b8934c118a8049f358d5edee77490805fd",
+    "scripts/rq3/run_rq5_ollama.py": "ccf447a6274657d2b0133ea7c1dbcfab302b5031f010cbaec55269dceb97eace",
+    "scripts/rq4/build_rq4_design.py": "bda232f5817388f279ffb7ba3a2150df097d91d293d547b46a1069666905b26e",
+    "scripts/rq4/build_rq4_requests.py": "a8c20a11a2cc9dabfdcda25dca2409a5761bb365683509e8c0338fb4841aaca9",
+    "scripts/rq4/evaluate_rq4.py": "7b36cedda72c82059c906192d8c707bee10229653701809b14078fd3a33eaefe",
+    "scripts/rq4/rq4_common.py": "126d53b21989826e0f5464c5698a57a0c8ba1ee2f1bdc984d25e20a8fa6bcbeb",
+    "scripts/rq4/run_rq4_ollama.py": "102ab965ffe4d53cdc9b4e5b2129f2a04aa10740fb40044f557495694e70a04b",
+    "scripts/rq4/run_rq4_retrieval.py": "02b839bf45852f663cf3c9faa4da5d5931df4423902d70c7c8958412dd872a58",
+    "scripts/rq4/summarize_rq4.py": "96e6407381729fcfa8298446689423d55b9946cf77775be4c286dab506149a85",
+    "scripts/rq4/validate_rq4_inputs.py": "bdc603c39be15048a17e88c855c22c1628842bcb8d628d35352f96333969e97d",
+    "scripts/run_retrieval_pilot.py": "0b7dfe4d684f9e58046065f765e633fa5f519d98e869405d1e96063cb627f3dd"
+  },
+  "separation": {
+    "conversations": "messages.jsonl",
+    "generation_plan": "generation_plan.jsonl",
+    "oracle": "oracle.jsonl",
+    "questions": "questions.jsonl",
+    "requests_without_oracle": "requests.jsonl",
+    "retrieval_coverage_from_oracle": "retrieval_coverage.jsonl",
+    "retrieval_without_oracle": "retrieval.jsonl"
+  },
+  "sources": {
+    "annotations": {
+      "path": "data/rq2/annotations/scenario_05_rq2.json",
+      "sha256": "454be8c6c7a7bc17bce349a356aa872075bf8dc27ca600d2ff0ba7d51f67e3a8"
+    },
+    "models_reference": {
+      "path": "data/rq3/config/rq5_sc06_v1_1.json",
+      "sha256": "01662ccb0980ae24552b91942663cffe97b390ded23f74ccdd9d3946d4debc14"
+    },
+    "retriever.budget_module": {
+      "path": "scripts/rq2/rq2_common.py",
+      "sha256": "3656563ec30479787048d3fdba361b891dcefcba0410761648d0880d2e425ff1"
+    },
+    "retriever.ranking_module": {
+      "path": "scripts/run_retrieval_pilot.py",
+      "sha256": "0b7dfe4d684f9e58046065f765e633fa5f519d98e869405d1e96063cb627f3dd"
+    },
+    "retriever.token_counting_config": {
+      "path": "data/rq2/config/experiment_rq2.json",
+      "sha256": "df4b066a0d1810e8f0bb7644694a249be194ec2d693578902e598b18c61b0eb3"
+    },
+    "scenario": {
+      "path": "data/rq2/scenarios/scenario_05.json",
+      "sha256": "be57e57c4c133dda015d6c955cef59058f514e896dde9a94e50e0b85e87bc0fa"
+    }
+  }
+}

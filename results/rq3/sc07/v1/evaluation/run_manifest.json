@@ -1,0 +1,58 @@
+{
+  "runs": [
+    {
+      "access_channel": "Claude Code CLI",
+      "cells_ok_after_run": 240,
+      "cli_command": [
+        "claude",
+        "--print",
+        "--model",
+        "claude-sonnet-5",
+        "--effort",
+        "medium",
+        "--tools",
+        "",
+        "--strict-mcp-config",
+        "--setting-sources",
+        "",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose"
+      ],
+      "cli_version": "2.1.251 (Claude Code)",
+      "config_id": "rq3-sc07-v1",
+      "config_sha256": "480a49c3ee5ccbc0ba42be47e20eec3537adb0e1e66f2d34deb25d43bd6b0f7a",
+      "counts": {
+        "model_call_errors": 0,
+        "model_calls_attempted": 139,
+        "model_calls_ok": 139,
+        "reused_cells_written": 101
+      },
+      "finished_at": "2026-09-23T11:03:33.750171Z",
+      "model_calls_ok_after_run": 139,
+      "model_config_sha256": "aeb352ddeb6c1570ad97da9821e1626c5696bbd3a282d6956656e4ff2e56fbd4",
+      "model_display_name": "Claude Sonnet 5 Chat",
+      "model_requested": "claude-sonnet-5",
+      "models_used": [
+        "claude-sonnet-5"
+      ],
+      "options": {
+        "limit": null,
+        "resume": false
+      },
+      "planned": {
+        "cells": 240,
+        "model_calls": 139
+      },
+      "python": "3.9.6",
+      "requests_sha256": "ad51ef5a64551fe767ff3d30f98b3bfcee4cd41afbee168c9f14a86688364a82",
+      "run_id": "3d4d337f15644043a1f10b79dc2e5a44",
+      "split": "evaluation",
+      "started_at": "2026-09-23T10:54:51.947414Z",
+      "stopped_early": false,
+      "working_directory": "/var/folders/bk/xz2ll8vd5_g_5kd4r942l8vh0000gn/T/rq3_sc07_generazione_2fhjn5c2",
+      "working_directory_files_after_run": []
+    }
+  ]
+}

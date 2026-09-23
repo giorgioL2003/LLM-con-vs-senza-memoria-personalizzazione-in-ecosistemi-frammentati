@@ -1,0 +1,7 @@
+{"group": "handoff_dependent", "question_id": "SC05-Q1", "text": "Qual è l'obiettivo dichiarato del caso ARD-19 sul portale fornitori?"}
+{"group": "handoff_dependent", "question_id": "SC05-Q2", "text": "Quale server era stato indicato inizialmente come esposto e quale risulta corretto dopo la revisione?"}
+{"group": "post_handoff_control", "question_id": "SC05-Q3", "text": "Quali verifiche restano aperte in questo momento sul caso ARD-19?"}
+{"group": "handoff_dependent", "question_id": "SC05-Q4", "text": "Quali verifiche restano da completare e il rapporto può già essere condiviso fuori dal gruppo di risposta?"}
+{"group": "post_handoff_control", "question_id": "SC05-Q5", "text": "Quali verifiche tecniche risultano completate sul caso ARD-19?"}
+{"group": "handoff_dependent", "question_id": "SC05-Q6", "text": "Entro quanto tempo il cliente chiede di sapere se i dati dei fornitori sono stati esportati?"}
+{"group": "absent_information", "question_id": "SC05-Q7", "text": "Quale fornitore esterno gestisce i backup del portale?"}

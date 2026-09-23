@@ -1,0 +1,304 @@
+{
+  "config_id": "rq3-sc07-v1",
+  "status": "implemented_offline_not_executed",
+  "frozen_on": "2026-09-23",
+  "protocol": "data/rq3/RQ3_SC07_PROTOCOLLO.md",
+  "handoff": "data/rq3/RQ3_SC07_CLAUDE_CODE_HANDOFF.md",
+  "research_question": "Quando nello stesso scenario vengono interlacciate conversazioni relative ad attivita diverse, quanto cambia la capacita del sistema di recuperare l'informazione dell'attivita richiesta e produrre una risposta corretta?",
+  "scope": {
+    "domain": "cybersecurity",
+    "dataset": "GitHub Advisory Database",
+    "scenario": "SC07",
+    "architecture": "Turn-level RAG",
+    "comparison_factor": "accessible retrieval corpus",
+    "held_constant": [
+      "model",
+      "question text",
+      "target messages",
+      "retrieval algorithm",
+      "top_k",
+      "system instruction",
+      "user template",
+      "context format",
+      "generation parameters"
+    ],
+    "excluded_claims": [
+      "universal behaviour of all datasets, retrievers or models",
+      "real enterprise conversations",
+      "stochastic variability of the model",
+      "comparison with other memory architectures"
+    ]
+  },
+  "artifacts": {
+    "design_dir": "data/rq3/sc07_design_v1",
+    "results_dir": "results/rq3/sc07/v1"
+  },
+  "source": {
+    "dataset": "GitHub Advisory Database",
+    "citation": "GitHub, GitHub Advisory Database, repository pubblico di advisory di sicurezza, s.d.",
+    "repository_url": "https://github.com/github/advisory-database",
+    "commit": "2f3ffd6fa3954848d6ff22c549fc7dd878a27e94",
+    "format": "OSV JSON",
+    "license_spdx": "CC-BY-4.0",
+    "license_file_in_repository": "LICENSE.md",
+    "subtree": "advisories/github-reviewed",
+    "source_dir": "data/rq3/source/github_advisory_database",
+    "snapshot_filename": "2f3ffd6fa3954848d6ff22c549fc7dd878a27e94.tar.gz",
+    "snapshot_sha256": "9610aa3f348e872fdef001c3ac522f632a9378162a95ccb829fcd914870d0f2a",
+    "manifest_path": "data/rq3/sc07_design_v1/source_manifest.json",
+    "indirect_provenance": "Il repository e mantenuto da GitHub e dalla comunita, ma aggrega anche fonti esterne, fra cui NVD. Le informazioni sulle vulnerabilita sono reali; conversazioni, ordine dei messaggi e domande sono costruiti per l'esperimento."
+  },
+  "eligibility": {
+    "criteria_order": [
+      "not_github_reviewed",
+      "withdrawn",
+      "malware",
+      "not_exactly_one_package",
+      "ecosystem_not_in_scope",
+      "severity_missing_or_not_categorical",
+      "range_not_interpretable",
+      "message_value_not_usable",
+      "expected_value_not_unique_in_target_messages"
+    ],
+    "ecosystems": ["npm", "PyPI", "Maven", "Go", "RubyGems"],
+    "severity_field": "database_specific.severity",
+    "severity_values": ["LOW", "MODERATE", "HIGH", "CRITICAL"],
+    "range_rule": "exactly one affected entry with exactly one range; range type in range_types; events exactly [introduced, fixed] in this order, each event with a single key; introduced != fixed",
+    "range_types": ["ECOSYSTEM", "SEMVER"],
+    "malware_rule": "malware if database_specific.cwe_ids contains CWE-506, or summary matches malware_summary_pattern (case-insensitive)",
+    "malware_cwe": "CWE-506",
+    "malware_summary_pattern": "(^malicious package\\b)|(\\bmalware\\b)",
+    "message_value_rule": "package name, severity, introduced and fixed are non-empty strings, already NFC-normalized, without outer whitespace and without control characters",
+    "unique_value_rule": "for every activity the advisory could be assigned to, each expected value appears textually in exactly one of the two rendered target messages",
+    "ignored_fields": [
+      "affected[].database_specific.last_known_affected_version_range",
+      "affected[].versions",
+      "severity[] (CVSS vectors)",
+      "summary and details (except for the malware rule)"
+    ]
+  },
+  "selection": {
+    "seed": "20260923",
+    "rank_key": "SHA-256 of seed + ':' + ecosystem + ':' + ghsa_id, ascending hexadecimal",
+    "draw_order": "development episodes first, then evaluation; within each split, ecosystems in eligibility.ecosystems order",
+    "episode_assembly": "for each episode, scan the ecosystem's unused candidates in rank order and take the first one whose package (compared case-insensitively) is not already in the episode; repeat until the episode has three advisories",
+    "activity_assignment": "first advisory drawn -> triage, second -> impact, third -> fix",
+    "stop_rule": "if a stratum has too few eligible candidates the preparation stops; criteria are never relaxed",
+    "development": {
+      "episode_count": 3,
+      "first_episode_number": 1,
+      "ecosystems": ["npm", "PyPI", "Maven"],
+      "advisory_count": 9,
+      "use": "data, conversations, questions, parser and timing checks only; excluded from final results"
+    },
+    "evaluation": {
+      "episode_count": 20,
+      "first_episode_number": 4,
+      "episodes_per_ecosystem": 4,
+      "advisory_count": 60
+    },
+    "episode_id_format": "SC07-E{number:03d}",
+    "no_replacement_after_model_outputs": true
+  },
+  "conversation": {
+    "activities": [
+      {"key": "triage", "label": "triage della vulnerabilita", "facts": ["package", "severity"]},
+      {"key": "impact", "label": "analisi dell'impatto", "facts": ["package", "vulnerable_range"]},
+      {"key": "fix", "label": "pianificazione della correzione", "facts": ["package", "fixed_version"]}
+    ],
+    "turns_per_activity": 2,
+    "interleaving_order": [
+      ["triage", 1],
+      ["impact", 1],
+      ["fix", 1],
+      ["triage", 2],
+      ["impact", 2],
+      ["fix", 2]
+    ],
+    "message_id_format": "{episode_id}-M{order}",
+    "roles": "user messages only; no assistant messages are generated or indexed",
+    "message_templates": {
+      "triage": {
+        "1": {
+          "fact": "package",
+          "text": "Sto facendo il triage della vulnerabilità: il pacchetto coinvolto è {package} dell'ecosistema {ecosystem}.",
+          "osv_fields": ["affected[0].package.name", "affected[0].package.ecosystem"]
+        },
+        "2": {
+          "fact": "severity",
+          "text": "Nel triage della vulnerabilità ho registrato la severità {severity}.",
+          "osv_fields": ["database_specific.severity"]
+        }
+      },
+      "impact": {
+        "1": {
+          "fact": "package",
+          "text": "Sto facendo l'analisi dell'impatto: il pacchetto coinvolto è {package} dell'ecosistema {ecosystem}.",
+          "osv_fields": ["affected[0].package.name", "affected[0].package.ecosystem"]
+        },
+        "2": {
+          "fact": "vulnerable_range",
+          "text": "Nell'analisi dell'impatto ho individuato l'intervallo di versioni vulnerabili {vulnerable_range}.",
+          "osv_fields": ["affected[0].ranges[0].events[0].introduced", "affected[0].ranges[0].events[1].fixed"]
+        }
+      },
+      "fix": {
+        "1": {
+          "fact": "package",
+          "text": "Sto facendo la pianificazione della correzione: il pacchetto coinvolto è {package} dell'ecosistema {ecosystem}.",
+          "osv_fields": ["affected[0].package.name", "affected[0].package.ecosystem"]
+        },
+        "2": {
+          "fact": "fixed_version",
+          "text": "Nella pianificazione della correzione ho individuato la prima versione corretta {fixed_version}.",
+          "osv_fields": ["affected[0].ranges[0].events[1].fixed"]
+        }
+      }
+    },
+    "range_rendering": {
+      "introduced_zero": "< {fixed}",
+      "otherwise": ">= {introduced}, < {fixed}",
+      "note": "Deterministic rendering of the OSV events introduced/fixed; no other field is used."
+    }
+  },
+  "questions": {
+    "per_episode": 6,
+    "question_id_format": "{episode_id}-Q{number}",
+    "items": [
+      {"number": 1, "question_type": "triage.package", "activity": "triage", "fact": "package", "evidence_turn": 1,
+       "text": "Nel triage della vulnerabilità, qual è il pacchetto coinvolto?"},
+      {"number": 2, "question_type": "triage.severity", "activity": "triage", "fact": "severity", "evidence_turn": 2,
+       "text": "Nel triage della vulnerabilità, quale severità è stata registrata?"},
+      {"number": 3, "question_type": "impact.package", "activity": "impact", "fact": "package", "evidence_turn": 1,
+       "text": "Nell'analisi dell'impatto, qual è il pacchetto coinvolto?"},
+      {"number": 4, "question_type": "impact.vulnerable_range", "activity": "impact", "fact": "vulnerable_range", "evidence_turn": 2,
+       "text": "Nell'analisi dell'impatto, quale intervallo di versioni vulnerabili è stato individuato?"},
+      {"number": 5, "question_type": "fix.package", "activity": "fix", "fact": "package", "evidence_turn": 1,
+       "text": "Nella pianificazione della correzione, qual è il pacchetto coinvolto?"},
+      {"number": 6, "question_type": "fix.fixed_version", "activity": "fix", "fact": "fixed_version", "evidence_turn": 2,
+       "text": "Nella pianificazione della correzione, quale prima versione corretta è stata individuata?"}
+    ]
+  },
+  "conditions": {
+    "order": ["separated", "shared_interleaved"],
+    "separated": {
+      "accessible_corpus": "the two user messages of the question's activity",
+      "corpus_size": 2
+    },
+    "shared_interleaved": {
+      "accessible_corpus": "all six interleaved user messages of the episode",
+      "corpus_size": 6
+    }
+  },
+  "retrieval": {
+    "architecture": "Turn-level RAG",
+    "implementation": "scripts/run_retrieval_pilot.py:retrieve (imported, not copied)",
+    "method": "TF-IDF with cosine similarity, smoothed idf ln((1+N)/(1+df))+1, L2-normalized vectors",
+    "tokenization": "lowercase; tokens [a-z0-9_-]+",
+    "indexed_role": "user",
+    "query": "question text",
+    "top_k": 2,
+    "tie_break": "message order in the episode",
+    "reads_oracle": false
+  },
+  "prompt": {
+    "system": "Usa esclusivamente le informazioni presenti in CONTEXT. Non usare conoscenze pregresse. Rispondi alla domanda in QUESTION riportando il valore esattamente come compare nel CONTEXT, conservandone la grafia. Se il CONTEXT non consente di rispondere, il valore deve essere null. Restituisci soltanto un oggetto JSON della forma {\"value\": \"risposta\"} oppure {\"value\": null}, senza altro testo.",
+    "user_template": "CONTEXT\n{context}\n\nQUESTION\n{question}",
+    "context_line_format": "[{rank}] {content}",
+    "context_line_separator": "\n",
+    "context_order": "retrieval rank order, as returned by the retriever",
+    "forbidden_prompt_inputs": [
+      "expected_value",
+      "evidence_message_id",
+      "ghsa_id",
+      "aliases",
+      "source_path",
+      "source_file_sha256",
+      "osv_fields",
+      "repository_url",
+      "activity labels of retrieved messages beyond their text"
+    ]
+  },
+  "model": {
+    "display_name": "Claude Sonnet 5 Chat",
+    "role": "only evaluated response model; Claude Code only implements the scripts",
+    "model_id": "claude-sonnet-5",
+    "access_channel": "Claude Code CLI",
+    "registration_confirmed": true,
+    "registration_note": "Registered by the experimenter on 2026-09-23: exact model claude-sonnet-5 through the Claude Code CLI in non-interactive mode, the same mechanism as scripts/run_generation.py. No Anthropic SDK and no API key are used.",
+    "fallback_model": null,
+    "record_model_used": "model declared by each assistant message of the stream-json output, as in run_generation.parse_stream"
+  },
+  "generation": {
+    "mechanism": "scripts/run_generation.py: build_command and parse_stream are imported, not copied",
+    "repetitions_per_cell": 1,
+    "request_order": "question_id ascending; separated then shared_interleaved",
+    "parameters_confirmed": true,
+    "parameters": {
+      "cli_executable": "claude",
+      "model": "claude-sonnet-5",
+      "effort": "medium",
+      "fallback_model": null,
+      "tools": "disabled (--tools \"\")",
+      "mcp": "none (--strict-mcp-config)",
+      "setting_sources": "none (--setting-sources \"\")",
+      "session_persistence": false,
+      "output_format": "stream-json (--verbose)",
+      "prompt_transport": "stdin",
+      "working_directory": "new empty temporary directory, checked empty before every call",
+      "timeout_seconds": 300
+    },
+    "cli_input_template": "{system}\n\n{user}",
+    "reuse_identical_prompts": {
+      "enabled": true,
+      "key": ["prompt_sha256", "model_config_sha256"],
+      "rule": "Cells whose prompt (system and user text) and model configuration are identical receive one real generation. The first cell in request order is generated; every other cell of the group receives the same response with generation_kind='reused_identical_prompt' and reused_from_cell_id. Reuse is decided from the requests only, never from the oracle, and is not a new model call.",
+      "generation_kinds": ["model_call", "reused_identical_prompt"]
+    },
+    "no_answer_level_retry": true,
+    "note": "Transport errors (non-zero exit, timeout, error result) are kept and retried only with --resume. A wrong or non-conforming answer is a concluded cell. Sampling parameters are not settable through the CLI."
+  },
+  "output": {
+    "schema": {"value": "string|null"},
+    "parser": "strict: the whole text must be a JSON object whose only key is 'value' and whose value is a string or null; anything else is a format error"
+  },
+  "evaluation": {
+    "normalization": {
+      "unicode_normalization": "NFC",
+      "strip_outer_whitespace": true,
+      "case_sensitive": true
+    },
+    "primary_metric": "exact_match per condition; denominator = all expected cells, missing or failed cells count as not exact",
+    "secondary_metrics": {
+      "retrieval_success": "evidence message among the two retrieved",
+      "evidence_reachable": "evidence message inside the accessible corpus (kept distinct from retrieval_success)",
+      "context_contamination": "share of retrieved messages belonging to activities other than the requested one",
+      "supported_answer": "non-null predicted value (normalized) appears textually in the retrieved context",
+      "cross_activity_confusion": "wrong non-null value equal (normalized) to a fact of another activity of the same episode",
+      "format_error": "raw output not valid under output.parser",
+      "null_despite_evidence": "value null although the evidence message was retrieved"
+    },
+    "error_attribution_order": ["missing_response", "evidence_unreachable", "retrieval", "format", "generation"],
+    "paired_comparison": {
+      "effect": "percentage-point difference shared_interleaved minus separated, paired by question",
+      "confidence_interval": "95% percentile bootstrap resampling whole episodes",
+      "bootstrap_repetitions": 10000,
+      "bootstrap_seed": 20260923,
+      "p_values": false
+    },
+    "independence_rule": "The episode is the resampling unit; the six questions of one episode are not independent observations."
+  },
+  "counts": {
+    "development": {"episodes": 3, "advisories": 9, "questions": 18, "requests": 36, "cells": 36, "model_calls": 23, "reused_cells": 13},
+    "evaluation": {"episodes": 20, "advisories": 60, "questions": 120, "requests": 240, "cells": 240, "model_calls": 139, "reused_cells": 101, "paired_comparisons": 120}
+  },
+  "execution_gates": [
+    "Source snapshot SHA-256 must match the manifest before any selection.",
+    "All offline checks (validator and tests) must pass before any real call.",
+    "Model identifier (claude-sonnet-5), access channel (Claude Code CLI) and generation parameters are registered in this file; the runner refuses to start if they are missing or unconfirmed.",
+    "Identical prompts with identical model configuration are generated once and reused; development = 36 cells / 23 real calls, evaluation = 240 cells / 139 real calls.",
+    "Development (36 calls) is run alone; after it, execution stops for review.",
+    "Evaluation (240 calls) requires the development run to be complete and an explicit evaluation gate file referencing the reviewed development run.",
+    "Any change to templates, selection, retriever, prompt, parser or metrics requires a new config_id; after evaluation starts no rule can change."
+  ]
+}

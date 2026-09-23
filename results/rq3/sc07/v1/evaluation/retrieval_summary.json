@@ -1,0 +1,85 @@
+{
+  "by_condition": {
+    "separated": {
+      "by_question_type": {
+        "fix.fixed_version": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 0
+        },
+        "fix.package": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 0
+        },
+        "impact.package": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 0
+        },
+        "impact.vulnerable_range": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 0
+        },
+        "triage.package": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 0
+        },
+        "triage.severity": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 0
+        }
+      },
+      "evidence_reachable": 120,
+      "questions": 120,
+      "retrieval_success": 120,
+      "retrieved_from_other_activities": 0,
+      "retrieved_messages": 240
+    },
+    "shared_interleaved": {
+      "by_question_type": {
+        "fix.fixed_version": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 0
+        },
+        "fix.package": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 4
+        },
+        "impact.package": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 13
+        },
+        "impact.vulnerable_range": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 0
+        },
+        "triage.package": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 0
+        },
+        "triage.severity": {
+          "questions": 20,
+          "retrieval_success": 20,
+          "retrieved_from_other_activities": 0
+        }
+      },
+      "evidence_reachable": 120,
+      "questions": 120,
+      "retrieval_success": 120,
+      "retrieved_from_other_activities": 17,
+      "retrieved_messages": 240
+    }
+  },
+  "config_id": "rq3-sc07-v1",
+  "split": "evaluation",
+  "top_k": 2
+}

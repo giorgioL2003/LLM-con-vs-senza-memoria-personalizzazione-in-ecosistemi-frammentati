@@ -1,0 +1,108 @@
+{
+  "artifacts_sha256": {
+    "build_manifest": {
+      "path": "data/rq3/sc07_design_v1/build_manifest.json",
+      "sha256": "7cfa36035dbb52cc19e0bf4b8d33166667e64a3cc8ecb3c9f5c09339e716d99d"
+    },
+    "call_plan": {
+      "path": "data/rq3/sc07_design_v1/evaluation_call_plan.jsonl",
+      "sha256": "64f8f8ab2460abac61740dff90fb57a6511c7671590e625d58dfc0be5b37adeb"
+    },
+    "configuration": {
+      "path": "data/rq3/config/rq3_sc07_v1.json",
+      "sha256": "480a49c3ee5ccbc0ba42be47e20eec3537adb0e1e66f2d34deb25d43bd6b0f7a"
+    },
+    "evaluation_gate": {
+      "path": "results/rq3/sc07/v1/evaluation_gate.json",
+      "sha256": "69c6712d476012f1864b856b51d5084634b04dd43b0bd7b6de0cce0063f553e6"
+    },
+    "evaluation_oracle": {
+      "path": "data/rq3/sc07_design_v1/evaluation_oracle.jsonl",
+      "sha256": "cae419895f0c335c63192c49eac183772cbab0bdda867a84300e14150d5aa24f"
+    },
+    "evaluation_requests": {
+      "path": "data/rq3/sc07_design_v1/evaluation_requests.jsonl",
+      "sha256": "ad51ef5a64551fe767ff3d30f98b3bfcee4cd41afbee168c9f14a86688364a82"
+    },
+    "evaluations": {
+      "path": "results/rq3/sc07/v1/evaluation/evaluations.jsonl",
+      "sha256": "eb05d94c00f5c534e130337ea8a79a9d88281444f5c816e3da7a8d4186c8f811"
+    },
+    "raw_responses": {
+      "path": "results/rq3/sc07/v1/evaluation/raw_responses.jsonl",
+      "sha256": "c7a6142a288e841b8b7913b29c16eec08158b42af32cda1193a1f217969cd97f"
+    },
+    "retrieval": {
+      "path": "results/rq3/sc07/v1/evaluation/retrieval.jsonl",
+      "sha256": "1b1e97af0a0a5f912e365109990cb79647d0f64cb21939bbd64a86a1d81f3997"
+    },
+    "retrieval_summary": {
+      "path": "results/rq3/sc07/v1/evaluation/retrieval_summary.json",
+      "sha256": "bd6e7084df2cca12baad1312187c5de7cad8a38cb7fb97106f31c059e8301346"
+    },
+    "run_manifest": {
+      "path": "results/rq3/sc07/v1/evaluation/run_manifest.json",
+      "sha256": "7f2cc99550c25a9db3a8319b8c5ecb1921c1ec4092daacd5f7fc637a1a40d76d"
+    },
+    "sintesi_md": {
+      "path": "results/rq3/sc07/v1/evaluation/SINTESI.md",
+      "sha256": "125b2983b7be3dbbb46046756c62eae7312f1a41c7c41c15bd3d0920e52602cd"
+    },
+    "summary_csv": {
+      "path": "results/rq3/sc07/v1/evaluation/summary.csv",
+      "sha256": "76113a6e7392b9e29e736451f4608285f2bf64f562e11b6efbf001a38ca8b04b"
+    },
+    "summary_json": {
+      "path": "results/rq3/sc07/v1/evaluation/summary.json",
+      "sha256": "110ce05b48cd4def5f031b2a4995996097fe4ac8b4f83261167f016626666fad"
+    }
+  },
+  "config_id": "rq3-sc07-v1",
+  "counts": {
+    "cells_expected": 240,
+    "cells_obtained": 240,
+    "model_calls_expected": 139,
+    "model_calls_failed": 0,
+    "model_calls_succeeded": 139,
+    "reused_cells_expected": 101,
+    "reused_cells_obtained": 101,
+    "runs": 1
+  },
+  "frozen_at": "2026-09-23T11:04:48Z",
+  "model": {
+    "access_channel": "Claude Code CLI",
+    "cli_versions": [
+      "2.1.251 (Claude Code)"
+    ],
+    "display_name": "Claude Sonnet 5 Chat",
+    "effort": "medium",
+    "fallback_model": null,
+    "requested": "claude-sonnet-5",
+    "used": [
+      "claude-sonnet-5"
+    ]
+  },
+  "note": "Hash registrati dopo evaluate, summarize e validate. Nessun modello giudice.",
+  "scripts_sha256": {
+    "scripts/rq3/acquire_rq3_sc07_source.py": "f406aa3e7da7757e2dd03e99faacf4dc92131f6c647abfbf9b88642ed05428c2",
+    "scripts/rq3/build_rq3_sc07_episodes.py": "dbd6aa50ef5521b8f48ee25306fdbc4bcfa955c90e176b2e0e42c8c527efffbb",
+    "scripts/rq3/build_rq3_sc07_requests.py": "9157d446632b30452d1314ab2977c82c073b623853f7a44938104ca16bbc1b40",
+    "scripts/rq3/evaluate_rq3_sc07.py": "223cf8655c0e91ca066060ac0d6e6f4ef46ed90b39082635c6870198de01fdf7",
+    "scripts/rq3/freeze_rq3_sc07.py": "49916deaca2ae2a5a0ae8e4c207de9a30558ca138e216bd5adeb481c178d0a74",
+    "scripts/rq3/rq3_sc07_common.py": "2222bef3c54821af82a9058dbcf1a026617081255a6cc7482790826a28796503",
+    "scripts/rq3/run_rq3_sc07_claude.py": "655e16c22ecaa0e1182e87369cedbd0cbdcc533439788a27dc3f088b2b580cf0",
+    "scripts/rq3/run_rq3_sc07_retrieval.py": "054000807bb2f1293b3c26d3cdb706eaa28c7b4d23a2f64243b801dd2d50053d",
+    "scripts/rq3/select_rq3_sc07_advisories.py": "3c15faf5067c196f96e7f7ec5c10ac81eef6e258aaa374ea616f3c7a80771bd8",
+    "scripts/rq3/summarize_rq3_sc07.py": "b73a68772c21067bd8c0516f6ce389bdea542ce7b4bf202183340c75a01c05e9",
+    "scripts/rq3/validate_rq3_sc07_inputs.py": "9416f5b80f677ca103fce61094dad7c6d9bf2853bdf80bf64c86b6ff12e80a32",
+    "scripts/run_generation.py": "85b919abb8551449d7e592787df15f3949410acda5323869cdb2f57cef57f7e6",
+    "scripts/run_retrieval_pilot.py": "0b7dfe4d684f9e58046065f765e633fa5f519d98e869405d1e96063cb627f3dd",
+    "tests/test_rq3_sc07.py": "c11eefd5097fa7a3666912103f3d4120faf6413c47f97e599deb36f1c0e7ae8c"
+  },
+  "split": "evaluation",
+  "status": "frozen_after_evaluation",
+  "validator": {
+    "checks": 70,
+    "passed": 70
+  }
+}
